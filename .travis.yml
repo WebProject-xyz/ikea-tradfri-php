@@ -4,7 +4,7 @@ cache:
   directories:
   - "$HOME/.composer/cache"
   - "$HOME/.local"
-  - "$HOME/.local"
+  - "$TRAVIS_BUILD_DIR/vendor"
 env:
   global:
   - CC_TEST_REPORTER_ID=ff208c24a9f196d9bfc66a49f6bf8592a07e82c6eed47ea481e299c4c648e393
