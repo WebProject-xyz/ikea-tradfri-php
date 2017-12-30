@@ -1,0 +1,52 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.local
+
+env:
+  RUN_WITH_COVERAGE=false
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+      env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+    - php: nightly
+    - php: hhvm
+
+  allow_failures:
+    - php: hhvm
+    - php: nightly
+
+before_install:
+  - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+  - travis_retry composer self-update
+  - git config --global user.name travis-ci
+  - git config --global user.email travis@webproject.xyz
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then chmod +x ./cc-test-reporter; fi
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then ./cc-test-reporter before-build; fi
+
+install:
+  - travis_retry composer update --no-interaction --prefer-source
+  - phpunit --version
+
+script:
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check; fi
+  - if [[ $RUN_WITH_COVERAGE != 'true' ]]; then composer run-tests; fi
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then echo zend_extension=xdebug.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini || return 0; fi
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then composer build-coverage; fi
+  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash) -Z ; fi
+
+after_script:
+  - if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then ./cc-test-reporter after-build -t=clover tests/_output/coverage.xml --exit-code $TRAVIS_TEST_RESULT ; fi
+
+notifications:
+  email: false

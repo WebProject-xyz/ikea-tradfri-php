@@ -1,0 +1,4 @@
+*
+!example-*.php
+!.gitignore
+!.gitkeep

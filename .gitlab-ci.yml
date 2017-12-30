@@ -1,0 +1,69 @@
+# This file is a template, and might need editing before it works on your project.
+# Select image from https://hub.docker.com/_/php/
+image: epcallan/php7-testing-phpunit:7.1-phpunit6
+
+cache:
+  paths:
+  - vendor/
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  cache:
+    key: "build-vendor"
+    untracked: true
+    paths:
+      - vendor/
+    policy: push
+  script:
+    - composer install --no-progress --optimize-autoloader
+
+test:codeStyle:
+  stage: test
+  script:
+    - vendor/bin/php-cs-fixer fix --dry-run --diff -vvv
+  cache:
+    key: "build-vendor"
+    untracked: true
+    paths:
+      - vendor/
+    policy: pull
+  dependencies:
+    - build
+
+test:testing:
+  stage: test
+  before_script:
+  - php -v
+  script:
+    - vendor/bin/codecept run --colors --steps
+  dependencies:
+    - build
+  cache:
+    key: "build-vendor"
+    untracked: true
+    paths:
+      - vendor/
+    policy: pull
+
+test:coverage:
+  stage: test
+  artifacts:
+    paths:
+      - coverage/
+  cache:
+    key: "build-vendor"
+    untracked: true
+    paths:
+      - vendor/
+    policy: pull
+  before_script:
+  - php -v
+  script:
+    - docker-php-ext-enable xdebug >> /dev/null
+    - vendor/bin/codecept run --coverage-html --coverage-xml=../../coverage/coverage.xml --coverage --coverage-text=coverage/coverage.txt --xml=coverage/report.xml --steps  --no-colors  --no-ansi
+  dependencies:
+    - build

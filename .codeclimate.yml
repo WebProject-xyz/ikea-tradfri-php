@@ -1,0 +1,26 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+    config:
+      file_extensions:
+        - php
+      rulesets: "cleancode,codesize,naming,design,unusedcode"
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php"
+      standard: "ZEND"
+ratings:
+  paths:
+  - src/**
+  - "**.php"
+exclude_paths:
+  - "vendor/**/*"
+  - "**Test.php"
