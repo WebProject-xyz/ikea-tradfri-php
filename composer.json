@@ -18,7 +18,7 @@
     "doctrine/collections": "^1"
   },
   "require-dev": {
-    "codeception/codeception": "^2.3",
+    "codeception/codeception": "^2",
     "mockery/mockery": "^1",
     "symfony/phpunit-bridge": "^3.3",
     "friendsofphp/php-cs-fixer": "^2",
