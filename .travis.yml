@@ -1,52 +1,51 @@
 language: php
-
 sudo: false
-
 cache:
   directories:
-    - $HOME/.composer/cache
-    - $HOME/.local
-
+  - "$HOME/.composer/cache"
+  - "$HOME/.local"
 env:
-  RUN_WITH_COVERAGE=false
-
+  global:
+  - CC_TEST_REPORTER_ID=ff208c24a9f196d9bfc66a49f6bf8592a07e82c6eed47ea481e299c4c648e393
+  - RUN_WITH_COVERAGE=false
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-      env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
-    - php: 7.0
-    - php: 7.1
-    - php: 7.2
-    - php: nightly
-    - php: hhvm
-
+  - php: 7.0
+    env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
+  - php: 7.0
+  - php: 7.1
+  - php: 7.2
+  - php: nightly
+  - php: hhvm
   allow_failures:
-    - php: hhvm
-    - php: nightly
-
+  - php: hhvm
+  - php: nightly
 before_install:
-  - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-  - travis_retry composer self-update
-  - git config --global user.name travis-ci
-  - git config --global user.email travis@webproject.xyz
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then chmod +x ./cc-test-reporter; fi
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then ./cc-test-reporter before-build; fi
-
+- rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+- travis_retry composer self-update
+- git config --global user.name travis-ci
+- git config --global user.email travis@webproject.xyz
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then chmod +x ./cc-test-reporter; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then ./cc-test-reporter before-build; fi
 install:
-  - travis_retry composer update --no-interaction --prefer-source
-  - phpunit --version
-
+- travis_retry composer update --no-interaction --prefer-source
+- phpunit --version
 script:
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check; fi
-  - if [[ $RUN_WITH_COVERAGE != 'true' ]]; then composer run-tests; fi
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then echo zend_extension=xdebug.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini || return 0; fi
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then composer build-coverage; fi
-  - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash) -Z ; fi
-
+- if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check; fi
+- if [[ $RUN_WITH_COVERAGE != 'true' ]]; then composer run-tests; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then echo zend_extension=xdebug.so >> ~/.phpenv/versions/$(phpenv
+  version-name)/etc/conf.d/xdebug.ini || return 0; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then composer build-coverage; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash)
+  -Z ; fi
 after_script:
-  - if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then ./cc-test-reporter after-build -t=clover tests/_output/coverage.xml --exit-code $TRAVIS_TEST_RESULT ; fi
-
+- if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+  ./cc-test-reporter after-build -t=clover tests/_output/coverage.xml --exit-code
+  $TRAVIS_TEST_RESULT ; fi
 notifications:
   email: false
+  slack:
+    secure: JqH3MeraT5uwvV+Qh+wzjIbo0y7A7ltisIgnJjdT94EVjI94p52HHMB3ABh5/aJ/KMXtcFNov9x5G60+6UztOqHLNYiToOy3PACtz99yEOt5aniAtut9Ne9xaII06KMErCt04cYMl0tTBYiXvzc16GThZ8tEnx+2Hmr5Craj2qn90sWSFMMi2zpyJWAo9UU9cRgYuVy/KGP3Qji3GUe7yXpDMZD4BT5DFr0nr5P/CiJZnnIzseB6LP8A/t9FF2wYnVTyjB9uR+q+A40s7dZ2SSxN/PCi853acJDcozg5uxXaA4RMFVBILzGrWncLl72rxayq8fg4376rEFCFcQBv3lSZN2RwZVbiZIukZ6n3ZDoe+nXJ/9irBH/8drJuDUssIlVVzu8oZ0OzCmpmvpCovy7XToUiTlkEQYc4nvTMgVa9GlmjhevEDLSsS+1qouFmlb8oXsh2rBhRVXUMXTN6VxD3uDFXYvswhcmGNYA5xkH0f1VrgYBqAYjUgKQ1H05Y5zguMSdbcPQsMJd4ZsI8Z/vEZcPoonfCD+nAH0HTVxxD4JVN/4H3lfaF+rNelBMZN/s5JX8DF3+5FQqFqVRyCZ6S+7CMY2M7YZbNx+rnxmm3J+th93p4AWHE1TRJbsiZhStDm9IpUDDoxvng8ebT2bEyLRITVmZ1Hld//AN3/OI=
