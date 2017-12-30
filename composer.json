@@ -43,7 +43,7 @@
     ],
     "build-coverage": [
       "echo 'Build coverage'",
-      "./vendor/bin/codecept run --coverage-xml --coverage --xml --colors --steps "
+      "./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
     ]
   }
 }

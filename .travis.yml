@@ -4,6 +4,7 @@ cache:
   directories:
   - "$HOME/.composer/cache"
   - "$HOME/.local"
+  - "$HOME/.local"
 env:
   global:
   - CC_TEST_REPORTER_ID=ff208c24a9f196d9bfc66a49f6bf8592a07e82c6eed47ea481e299c4c648e393
@@ -43,7 +44,7 @@ script:
   -Z ; fi
 after_script:
 - if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-  ./cc-test-reporter after-build -t=clover /home/travis/build/WebProject-xyz/ikea-tradfri-php/tests/_output/coverage.xml --exit-code
+  ./cc-test-reporter after-build -t=clover build/logs/clover.xml --exit-code
   $TRAVIS_TEST_RESULT ; fi
 notifications:
   email: false
