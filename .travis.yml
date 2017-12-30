@@ -43,7 +43,7 @@ script:
   -Z ; fi
 after_script:
 - if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-  ./cc-test-reporter after-build -t=clover tests/_output/coverage.xml --exit-code
+  ./cc-test-reporter after-build -t=clover /home/travis/build/WebProject-xyz/ikea-tradfri-php/tests/_output/report.xml --exit-code
   $TRAVIS_TEST_RESULT ; fi
 notifications:
   email: false
