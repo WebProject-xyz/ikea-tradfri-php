@@ -1,12 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
 /**
- * Class CommandAbstract
- *
- * @package IKEA\Tradfri\Command
+ * Class CommandAbstract.
  */
 abstract class CommandAbstract
 {
