@@ -42,7 +42,14 @@ plugins:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "Zend,PSR1,PSR2"
+      standard: "Zend,PSR2,PSR1"
+    checks:
+      PSR2 Methods MethodDeclaration Underscore:
+        enabled: false
+      PSR2 Classes PropertyDeclaration Underscore:
+        enabled: false
+      PSR1 Files SideEffects FoundWithSymbols:
+        enabled: false
   SonarPHP:
     enabled: true
   duplication:

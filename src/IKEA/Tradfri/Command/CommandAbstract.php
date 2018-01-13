@@ -21,18 +21,11 @@ abstract class CommandAbstract
     protected $_client;
 
     /**
-     * Execute command.
-     *
-     * @return $this
-     */
-    abstract public function execute(): self;
-
-    /**
      * Get Client.
      *
-     * @return mixed
+     * @return Client
      */
-    public function getClient()
+    public function getClient(): Client
     {
         return $this->_client;
     }
@@ -40,14 +33,21 @@ abstract class CommandAbstract
     /**
      * Set Client.
      *
-     * @param mixed $client
+     * @param Client $client
      *
      * @return CommandAbstract
      */
-    public function setClient(mixed $client)
+    public function setClient(Client $client): self
     {
         $this->_client = $client;
 
         return $this;
     }
+
+    /**
+     * Execute command.
+     *
+     * @return $this
+     */
+    abstract public function execute(): self;
 }
