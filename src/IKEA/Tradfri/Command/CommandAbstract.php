@@ -28,7 +28,7 @@ abstract class CommandAbstract
     abstract public function execute(): self;
 
     /**
-     * Get Client
+     * Get Client.
      *
      * @return mixed
      */
@@ -38,7 +38,7 @@ abstract class CommandAbstract
     }
 
     /**
-     * Set Client
+     * Set Client.
      *
      * @param mixed $client
      *
