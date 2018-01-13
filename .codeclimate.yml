@@ -40,6 +40,9 @@ plugins:
       rulesets: "design,unusedcode,codesize"
   phpcodesniffer:
     enabled: true
+    config:
+      file_extensions: "php"
+      standard: "Zend,PSR1,PSR2"
   SonarPHP:
     enabled: true
   duplication:

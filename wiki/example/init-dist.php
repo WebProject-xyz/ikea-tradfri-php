@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use IKEA\Tradfri\Adapter\Coap as Adapter;
+use IKEA\Tradfri\Command\Coaps;
+
 if (!is_file(__DIR__.'/../../vendor/autoload.php')) {
     die('composer up!');
 }
@@ -15,8 +18,7 @@ defined('COAP_API_KEY') ? null : die('FOLLOW FIRST RUN HELP IN README');
 defined('COAP_GATEWAY_IP') ? null : die('FOLLOW FIRST RUN HELP IN README');
 defined('COAP_GATEWAY_SECRET') ? null : die('FOLLOW FIRST RUN HELP IN README');
 
-use IKEA\Tradfri\Adapter\Coap as Adapter;
-use IKEA\Tradfri\Command\Coaps;
+
 
 $deviceMapper = new IKEA\Tradfri\Mapper\DeviceData();
 $groupMapper = new IKEA\Tradfri\Mapper\GroupData();
