@@ -44,6 +44,6 @@ try {
 } catch (\Exception $e) {
     echo PHP_EOL.'---------- Error';
     echo PHP_EOL. $e->getMessage().PHP_EOL.PHP_EOL;
-    print_r($e->getTraceAsString());
+    echo $e->getTraceAsString();
     die();
 }

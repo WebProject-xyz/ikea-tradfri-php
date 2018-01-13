@@ -34,6 +34,10 @@ checks:
 plugins:
   phpmd:
     enabled: true
+    config:
+      file_extensions:
+        - php
+      rulesets: "design,unusedcode,codesize"
   phpcodesniffer:
     enabled: true
   SonarPHP:
