@@ -259,10 +259,13 @@ abstract class Device implements JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
+     *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
+     *
      * @since 5.4.0
      */
     public function jsonSerialize(): array
@@ -271,7 +274,7 @@ abstract class Device implements JsonSerializable
 
         foreach (get_class_methods(static::class) as $method) {
             if ($method !== 'getService' && strpos($method, 'get') === 0) {
-                $key = strtolower((string)substr($method, 3));
+                $key = strtolower((string) substr($method, 3));
                 $data[$key]
                     = $this->$method();
             }

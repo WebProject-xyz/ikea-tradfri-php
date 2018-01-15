@@ -39,6 +39,7 @@ class Light extends Device
      * Switch group on.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
      * @return $this
      */
     public function switchOn(): self
