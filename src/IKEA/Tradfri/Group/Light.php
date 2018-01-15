@@ -38,11 +38,12 @@ class Light extends Device
     /**
      * Switch group on.
      *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      * @return $this
      */
-    public function on(): self
+    public function switchOn(): self
     {
-        if ($this->service->on($this)) {
+        if ($this->service->switchOn($this)) {
             $this->setState(true);
         }
 

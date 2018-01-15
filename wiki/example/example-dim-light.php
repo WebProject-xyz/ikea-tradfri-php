@@ -23,7 +23,7 @@ try {
         echo ' '.PHP_EOL;
         echo '---------- Check State'.PHP_EOL;
         if (!$light->isOn()) {
-            if ($light->on()) {
+            if ($light->switchOn()) {
                 echo 'switched on'. PHP_EOL;
             }
         }

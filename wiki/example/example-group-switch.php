@@ -39,7 +39,7 @@ try {
                 echo 'switched off'. PHP_EOL;
             }
         } else {
-            if ($group->on()) {
+            if ($group->switchOn()) {
                 echo 'switched on'. PHP_EOL;
             }
         }

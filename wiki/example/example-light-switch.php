@@ -30,11 +30,11 @@ try {
         echo ' '.PHP_EOL;
         echo '---------- Change State'.PHP_EOL;
         if ($light->isOn()) {
-            if ($light->off()) {
+            if ($light->switchOff()) {
                 echo 'switched off'. PHP_EOL;
             }
         } else {
-            if ($light->on()) {
+            if ($light->switchOn()) {
                 echo 'switched on'. PHP_EOL;
             }
         }

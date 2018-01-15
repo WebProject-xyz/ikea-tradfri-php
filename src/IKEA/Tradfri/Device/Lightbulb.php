@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Exception\RuntimeException;
+
 /**
  * Class Lamp.
  */
@@ -56,15 +58,14 @@ class Lightbulb extends Device
      *
      * @return bool
      */
-    public function off(): bool
+    public function switchOff(): bool
     {
         if ($this->getService()->off($this) === true) {
             $this->setState(false);
 
             return true;
         }
-
-        return false;
+        throw new RuntimeException('switch OFF failed');
     }
 
     /**
@@ -74,15 +75,14 @@ class Lightbulb extends Device
      *
      * @return bool
      */
-    public function on(): bool
+    public function switchOn(): bool
     {
         if ($this->getService()->switchOn($this) === true) {
             $this->setState(true);
-
             return true;
         }
 
-        return false;
+        throw new RuntimeException('switch ON failed');
     }
 
     /**

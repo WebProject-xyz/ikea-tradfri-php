@@ -35,7 +35,7 @@ try {
         echo '---------- Switch Group'.PHP_EOL;
         echo 'group is: ' . ($group->isOn() ? 'on' : 'off') . PHP_EOL;
         echo 'brightness is: ' . $group->getBrightness() . PHP_EOL;
-        $group->isOn() ? null : $group->on();
+        $group->isOn() ? null : $group->switchOn();
         if ($group->isOn()) {
             if ($group->dim(15)) {
                 echo 'dim to 15'. PHP_EOL;
