@@ -79,7 +79,14 @@ class Runner
         $errors = stream_get_contents($pipes[2]);
 
         if (!empty($errors) && empty($buffer)) {
-            throw new RuntimeException($errors);
+            $parts = explode("\n", $errors);
+            if (\count($parts) === 3) {
+                $errorMessage = $parts[1];
+            } else {
+                $errorMessage = $errors;
+            }
+
+            throw new RuntimeException($errorMessage);
         }
 
         // Kill the process in case the timeout expired and it's still running.
