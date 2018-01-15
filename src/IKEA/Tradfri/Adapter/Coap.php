@@ -38,8 +38,11 @@ class Coap extends AdapterAbstract
      * @param MapperInterface $deviceDataMapper
      * @param MapperInterface $groupDataMapper
      */
-    public function __construct(Coaps $commands, MapperInterface $deviceDataMapper, MapperInterface $groupDataMapper)
-    {
+    public function __construct(
+        Coaps $commands,
+        MapperInterface $deviceDataMapper,
+        MapperInterface $groupDataMapper
+    ) {
         $this->commands = $commands;
 
         $this->checkOnline($commands->getIp());
@@ -75,7 +78,7 @@ class Coap extends AdapterAbstract
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return array|\stdClass
+     * @return array|\stdClass|string
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
@@ -86,7 +89,9 @@ class Coap extends AdapterAbstract
                 $command .= '/'.$deviceId;
             }
 
-            $dataRaw = $this->commands->parseResult(Runner::execWithTimeout($command, 1));
+            $dataRaw = $this->commands->parseResult(
+                Runner::execWithTimeout($command, 1)
+            );
 
             if ($dataRaw !== false) {
                 $decoded = \json_decode($dataRaw);
@@ -172,8 +177,13 @@ class Coap extends AdapterAbstract
     {
         $groupData = [];
         foreach ($this->getGroupIds() as $groupId) {
-            // sometimes the request are to fast, the hub will decline the request (flood security)
-            $groupData[$groupId] = $this->_getData(CoapCommandKeys::KEY_GET_GROUPS, $groupId);
+            // sometimes the request are to fast,
+            // the hub will decline the request (flood security)
+            $groupData[$groupId]
+                = $this->_getData(
+                    CoapCommandKeys::KEY_GET_GROUPS,
+                    $groupId
+                );
             //\sleep(1);
         }
 
@@ -196,7 +206,8 @@ class Coap extends AdapterAbstract
         }
         $deviceData = [];
         foreach ($deviceIds as $deviceId) {
-            // sometimes the request are to fast, the hub will decline the request (flood security)
+            // sometimes the request are to fast,
+            // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
             //\sleep(1);
         }
@@ -231,13 +242,13 @@ class Coap extends AdapterAbstract
     /**
      * Check online state.
      *
-     * @param $ip
+     * @param string $ipAddress
      *
      * @return bool
      */
-    public function checkOnline($ip): bool
+    public function checkOnline(string $ipAddress): bool
     {
-        $state = Online::isOnline($ip);
+        $state = Online::isOnline($ipAddress);
         $this->setOnline($state);
 
         return $state;
@@ -256,11 +267,23 @@ class Coap extends AdapterAbstract
     public function changeLightState(int $deviceId, bool $toState): bool
     {
         // get command to switch light
-        $onCommand = $this->commands->getLightSwitchCommand($deviceId, $toState);
+        $onCommand = $this
+            ->commands
+            ->getLightSwitchCommand($deviceId, $toState);
+
         // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
+        $data = Runner::execWithTimeout(
+            $onCommand,
+            2,
+            true,
+            true
+        );
         // verify result
-        if (\is_array($data) && count($data) === 4) {
+        if (\is_array($data) && empty($data[0])) {
+            /**
+             * @example data response is now empty since hub update
+             * so we only check if there is no error message inside
+             */
             return true;
         }
 
@@ -286,7 +309,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && count($data) === 4) {
+        if (\is_array($data) && \count($data) === 4) {
             return true;
         }
 
@@ -312,7 +335,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && count($data) === 4) {
+        if (\is_array($data) && \count($data) === 4) {
             return true;
         }
 
@@ -338,7 +361,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && count($data) === 4) {
+        if (\is_array($data) && \count($data) === 4) {
             return true;
         }
 

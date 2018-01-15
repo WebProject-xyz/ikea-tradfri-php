@@ -168,7 +168,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
 
         /** @var ServiceInterface $service */
         $service = \Mockery::mock(Api::class);
-        $service->shouldReceive('on')->andReturn(false);
+        $service->shouldReceive('switchOn')->andReturn(false);
 
         $lamp->setService($service);
         $this->assertFalse($lamp->isOn());

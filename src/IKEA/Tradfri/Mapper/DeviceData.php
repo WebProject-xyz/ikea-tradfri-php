@@ -33,7 +33,7 @@ class DeviceData extends Mapper
      */
     public function map(ServiceInterface $service, array $devices): AbstractCollection
     {
-        if (count($devices) > 0) {
+        if (\count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
                 if (false === $this->_isValidData($device)) {

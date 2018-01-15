@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use IKEA\Tradfri\Device\Lightbulb;
+
 require __DIR__.'/init.php';
 
 try {
@@ -10,8 +12,13 @@ try {
 
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
-        $light = $lights->first();
-        echo '---------- IKEA Tradfri PHP API Example: '.basename(__FILE__).PHP_EOL;
+        /** @var Lightbulb $light */
+        $light = $lights->find(
+            function ($light) {
+                /** @var Lightbulb $light */
+                return $light->getName() === 'Wohnzimmer - Schreibtisch';
+            }
+        );
         echo '---------- Light Information'.PHP_EOL;
         echo ' '.PHP_EOL;
         echo '- ID: ' . $light->getId(). PHP_EOL;

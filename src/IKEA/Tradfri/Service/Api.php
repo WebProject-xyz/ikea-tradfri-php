@@ -76,10 +76,12 @@ class Api implements ServiceInterface
     public function allLightsOff(Lightbulbs $lightbulbsCollection): bool
     {
         $service = $this;
-        $lightbulbsCollection->forAll(function ($key, $lightbulb) use ($service) {
-            /* @var Lightbulb $lightbulb */
-            $service->off($lightbulb);
-        });
+        $lightbulbsCollection->forAll(
+            function ($key, $lightbulb) use ($service) {
+                /* @var Lightbulb $lightbulb */
+                $service->off($lightbulb);
+            }
+        );
 
         return true;
     }
@@ -93,7 +95,7 @@ class Api implements ServiceInterface
      *
      * @return bool
      */
-    public function on($device): bool
+    public function switchOn($device): bool
     {
         if ($device instanceof Light) {
             return $this->client->groupOn($device);
@@ -104,6 +106,21 @@ class Api implements ServiceInterface
         }
 
         throw new RuntimeException('invalid device type: '.$device->getType());
+    }
+
+    /**
+     * Switch device on.
+     *
+     * @param Device|Light $device
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @deprecated
+     * @see        Api::switchOn
+     * @return bool
+     */
+    public function on($device): bool
+    {
+        return $this->switchOn($device);
     }
 
     /**

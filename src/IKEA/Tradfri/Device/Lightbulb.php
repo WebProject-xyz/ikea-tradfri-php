@@ -26,7 +26,7 @@ class Lightbulb extends Device
      */
     public function getBrightness(): float
     {
-        return (float) $this->brightness;
+        return (float)$this->brightness;
     }
 
     /**
@@ -76,7 +76,7 @@ class Lightbulb extends Device
      */
     public function on(): bool
     {
-        if ($this->getService()->on($this) === true) {
+        if ($this->getService()->switchOn($this) === true) {
             $this->setState(true);
 
             return true;

@@ -12,19 +12,25 @@ use IKEA\Tradfri\Exception\RuntimeException;
 class Runner
 {
     /**
-     * Execute a command and return it's output. Either wait until the command exits or the timeout has expired.
+     * Execute a command and return it's output. Either wait
+     * until the command exits or the timeout has expired.
      * Found at @link https://stackoverflow.com/a/20992213/3578430.
      *
      * @param string $cmd     Command to execute.
      * @param int    $timeout Timeout in seconds.
      * @param bool   $asArray
+     * @param bool   $skipEmptyBufferError
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return array|string
      */
-    public static function execWithTimeout(string $cmd, int $timeout, $asArray = true)
-    {
+    public static function execWithTimeout(
+        string $cmd,
+        int $timeout,
+        $asArray = true,
+        bool $skipEmptyBufferError = false
+    ) {
         // File descriptors passed to the process.
         $descriptors = [
             0 => ['pipe', 'r'],  // stdin
@@ -35,8 +41,8 @@ class Runner
         // Start the process.
         $process = proc_open('exec '.$cmd, $descriptors, $pipes);
 
-        if (!is_resource($process)) {
-            throw new \RuntimeException('Could not execute process');
+        if (!\is_resource($process)) {
+            throw new RuntimeException('Could not execute process');
         }
 
         // Set the stdout stream to none-blocking.
@@ -59,15 +65,18 @@ class Runner
 
             // Get the status of the process.
             // Do this before we read from the stream,
-            // this way we can't lose the last bit of output if the process dies between these     functions.
+            // this way we can't lose the last bit
+            // of output if the process dies between these functions.
             $status = proc_get_status($process);
 
             // Read the contents from the buffer.
-            // This function will always return immediately as the stream is none-blocking.
+            // This function will always return immediately
+            // as the stream is none-blocking.
             $buffer .= stream_get_contents($pipes[1]);
 
             if (!$status['running']) {
-                // Break from this loop if the process exited before the timeout.
+                // Break from this loop if the process exited
+                // before the timeout.
                 break;
             }
 
@@ -83,10 +92,15 @@ class Runner
             if (\count($parts) === 3) {
                 $errorMessage = $parts[1];
             } else {
-                $errorMessage = $errors;
+                if (\count($parts) === 2 && !empty($parts[1])) {
+                    $errorMessage = $parts[1];
+                } else {
+                    $errorMessage = 'Unknown error';
+                }
             }
-
-            throw new RuntimeException($errorMessage);
+            if ($skipEmptyBufferError === false) {
+                throw new RuntimeException($errorMessage);
+            }
         }
 
         // Kill the process in case the timeout expired and it's still running.

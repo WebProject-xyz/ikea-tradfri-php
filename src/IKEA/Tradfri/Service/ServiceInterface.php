@@ -48,7 +48,7 @@ interface ServiceInterface
      *
      * @return bool
      */
-    public function on($device): bool;
+    public function switchOn($device): bool;
 
     /**
      * Switch state of.
