@@ -7,11 +7,12 @@ namespace IKEA\Tradfri\Device;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
+use JsonSerializable;
 
 /**
  * Class Device.
  */
-abstract class Device
+abstract class Device implements JsonSerializable
 {
     const TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
     const TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
@@ -255,5 +256,27 @@ abstract class Device
             default:
                 throw new TypeException('unknown type');
         }
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize(): array
+    {
+        $data = [];
+
+        foreach (get_class_methods(static::class) as $method) {
+            if ($method !== 'getService' && strpos($method, 'get') === 0) {
+                $key = strtolower((string)substr($method, 3));
+                $data[$key]
+                    = $this->$method();
+            }
+        }
+
+        return $data;
     }
 }
