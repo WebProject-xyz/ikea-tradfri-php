@@ -16,8 +16,8 @@ class Runner
      * until the command exits or the timeout has expired.
      * Found at @link https://stackoverflow.com/a/20992213/3578430.
      *
-     * @param string $cmd     Command to execute.
-     * @param int    $timeout Timeout in seconds.
+     * @param string $cmd                  Command to execute.
+     * @param int    $timeout              Timeout in seconds.
      * @param bool   $asArray
      * @param bool   $skipEmptyBufferError
      *

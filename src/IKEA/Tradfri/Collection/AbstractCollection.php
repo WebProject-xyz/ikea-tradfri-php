@@ -67,9 +67,10 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     {
         $data = [];
         foreach ($this->toArray() as $device) {
-            /** @var Device $device */
+            /* @var Device $device */
             $data[$device->getId()] = $device->jsonSerialize();
         }
+
         return $data;
     }
 }

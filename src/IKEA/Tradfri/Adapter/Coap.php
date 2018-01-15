@@ -280,7 +280,7 @@ class Coap extends AdapterAbstract
         );
         // verify result
         if (\is_array($data) && empty($data[0])) {
-            /**
+            /*
              * @example data response is now empty since hub update
              * so we only check if there is no error message inside
              */

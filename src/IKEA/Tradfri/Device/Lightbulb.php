@@ -28,7 +28,7 @@ class Lightbulb extends Device
      */
     public function getBrightness(): float
     {
-        return (float)$this->brightness;
+        return (float) $this->brightness;
     }
 
     /**
@@ -65,6 +65,7 @@ class Lightbulb extends Device
 
             return true;
         }
+
         throw new RuntimeException('switch OFF failed');
     }
 
@@ -79,6 +80,7 @@ class Lightbulb extends Device
     {
         if ($this->getService()->switchOn($this) === true) {
             $this->setState(true);
+
             return true;
         }
 

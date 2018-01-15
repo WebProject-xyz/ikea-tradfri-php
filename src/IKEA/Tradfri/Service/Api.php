@@ -114,8 +114,10 @@ class Api implements ServiceInterface
      * @param Device|Light $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
      * @deprecated
      * @see        Api::switchOn
+     *
      * @return bool
      */
     public function on($device): bool
