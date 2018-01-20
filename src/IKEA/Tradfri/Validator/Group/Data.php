@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Validator\Group;
@@ -19,7 +20,7 @@ class Data implements ValidatorInterface
     protected static $_mustHaves = [
         CoapCommandKeys::KEY_ID,
         CoapCommandKeys::KEY_NAME,
-        CoapCommandKeys::KEY_GROUPS_DATA
+        CoapCommandKeys::KEY_GROUPS_DATA,
     ];
 
     /**
@@ -27,16 +28,16 @@ class Data implements ValidatorInterface
      *
      * @param $data
      *
-     * @return bool
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
      */
     public function isValid($data): bool
     {
         try {
             $this->_validateDeviceMustHaves($data);
 
-            $isValid   = true;
+            $isValid = true;
 
             $groupData = $data->{CoapCommandKeys::KEY_GROUPS_DATA};
             if (!\property_exists(
@@ -65,13 +66,13 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * Validate must have properties
+     * Validate must have properties.
      *
      * @param \stdClass $device
      *
-     * @return bool
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
      */
     protected function _validateDeviceMustHaves($device): bool
     {
