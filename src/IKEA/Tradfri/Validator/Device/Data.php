@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Validator\Device;
@@ -9,7 +10,7 @@ use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Validator\ValidatorInterface;
 
 /**
- * Class Data
+ * Class Data.
  */
 class Data implements ValidatorInterface
 {
@@ -18,9 +19,9 @@ class Data implements ValidatorInterface
      *
      * @param $device
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     public function isValid($device): bool
     {
@@ -53,9 +54,9 @@ class Data implements ValidatorInterface
     /**
      * @param $device
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     protected function _hasIdField(\stdClass $device): bool
     {
@@ -71,9 +72,9 @@ class Data implements ValidatorInterface
     /**
      * @param $device
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     protected function _hasDataField(\stdClass $device): bool
     {
@@ -89,9 +90,9 @@ class Data implements ValidatorInterface
     /**
      * @param $data
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     protected function _hasDataType(\stdClass $data): bool
     {
@@ -105,9 +106,9 @@ class Data implements ValidatorInterface
     /**
      * @param $data
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     protected function _hasDataManufacturer(\stdClass $data): bool
     {
@@ -123,9 +124,9 @@ class Data implements ValidatorInterface
     /**
      * @param $data
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     protected function _hasDataVersion(\stdClass $data): bool
     {

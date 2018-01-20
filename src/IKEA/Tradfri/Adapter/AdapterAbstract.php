@@ -37,7 +37,7 @@ abstract class AdapterAbstract implements AdapterInterface
         MapperInterface $groupDataMapper
     ) {
         $this->_deviceDataMapper = $deviceDataMapper;
-        $this->_groupDataMapper  = $groupDataMapper;
+        $this->_groupDataMapper = $groupDataMapper;
     }
 
     /**
@@ -63,7 +63,7 @@ abstract class AdapterAbstract implements AdapterInterface
     ): Groups;
 
     /**
-     * Get DeviceDataMapper
+     * Get DeviceDataMapper.
      *
      * @return DeviceData|MapperInterface
      */
@@ -73,7 +73,7 @@ abstract class AdapterAbstract implements AdapterInterface
     }
 
     /**
-     * Get GroupDataMapper
+     * Get GroupDataMapper.
      *
      * @return GroupData|MapperInterface
      */
