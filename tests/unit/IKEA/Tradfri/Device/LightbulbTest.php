@@ -250,7 +250,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $this->expectExceptionMessage('switch OFF failed');
 
         // Arrange
-        $lamp    = $this->_getModel();
+        $lamp = $this->_getModel();
         $service = \Mockery::mock(Api::class);
         $service->shouldReceive('off')->andReturn(false);
 

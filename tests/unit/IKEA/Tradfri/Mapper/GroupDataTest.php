@@ -23,7 +23,7 @@ class GroupDataTest extends UnitTest
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $devices     = [];
+        $devices = [];
 
         $mapper = new GroupData();
         // Act

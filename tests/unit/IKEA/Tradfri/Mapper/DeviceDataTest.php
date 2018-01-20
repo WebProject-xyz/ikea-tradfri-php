@@ -32,7 +32,7 @@ class DeviceDataTest extends UnitTest
         $this->expectException(RuntimeException::class);
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices     = [];
+        $devices = [];
 
         $mapper = new DeviceData();
         // Act
