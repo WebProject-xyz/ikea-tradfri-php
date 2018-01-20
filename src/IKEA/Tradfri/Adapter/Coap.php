@@ -7,7 +7,6 @@ namespace IKEA\Tradfri\Adapter;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coaps;
-use IKEA\Tradfri\Device\Group;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Helper\CoapCommandKeys;
@@ -21,15 +20,16 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 class Coap extends AdapterAbstract
 {
+    const COULD_NOT_SWITCH_STATE = 'Could not switch state';
     /**
      * @var Coaps
      */
-    private $commands;
+    protected $_commands;
 
     /**
      * @var bool
      */
-    private $isOnline = false;
+    protected $_isOnline = false;
 
     /**
      * Coap constructor.
@@ -43,11 +43,40 @@ class Coap extends AdapterAbstract
         MapperInterface $deviceDataMapper,
         MapperInterface $groupDataMapper
     ) {
-        $this->commands = $commands;
+        $this->_commands = $commands;
 
         $this->checkOnline($commands->getIp());
 
         parent::__construct($deviceDataMapper, $groupDataMapper);
+    }
+
+    /**
+     * Check online state.
+     *
+     * @param string $ipAddress
+     *
+     * @return bool
+     */
+    public function checkOnline(string $ipAddress): bool
+    {
+        $state = Online::isOnline($ipAddress);
+        $this->setOnline($state);
+
+        return $state;
+    }
+
+    /**
+     * Set IsOnline.
+     *
+     * @param bool $isOnline
+     *
+     * @return Coap
+     */
+    public function setOnline(bool $isOnline): self
+    {
+        $this->_isOnline = $isOnline;
+
+        return $this;
     }
 
     /**
@@ -62,9 +91,13 @@ class Coap extends AdapterAbstract
     public function getType(int $deviceId): string
     {
         $data = $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
-
-        if (isset($data->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_TYPE})) {
-            return $data->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_TYPE};
+        if (\is_object($data)
+            && \property_exists($data, CoapCommandKeys::KEY_DATA)
+            && \property_exists($data, CoapCommandKeys::KEY_TYPE)
+        ) {
+            return $data
+                ->{CoapCommandKeys::KEY_DATA}
+                ->{CoapCommandKeys::KEY_TYPE};
         }
 
         throw new RuntimeException('invalid coap response');
@@ -83,20 +116,20 @@ class Coap extends AdapterAbstract
     protected function _getData(string $requestType, int $deviceId = null)
     {
         if ($this->isOnline()) {
-            $command = $this->commands->getCoapsCommandGet($requestType);
+            $command = $this->_commands->getCoapsCommandGet($requestType);
 
             if ($deviceId !== null) {
                 $command .= '/'.$deviceId;
             }
 
-            $dataRaw = $this->commands->parseResult(
+            $dataRaw = $this->_commands->parseResult(
                 Runner::execWithTimeout($command, 1)
             );
 
             if ($dataRaw !== false) {
                 $decoded = \json_decode($dataRaw);
                 if (null === $decoded) {
-                    return $dataRaw;
+                    $decoded = $dataRaw;
                 }
 
                 return $decoded;
@@ -109,17 +142,13 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get Device data.
+     * Get isOnline.
      *
-     * @param int $deviceId
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return \stdClass
+     * @return bool
      */
-    public function getDeviceData(int $deviceId): \stdClass
+    public function isOnline(): bool
     {
-        return $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
+        return $this->_isOnline;
     }
 
     /**
@@ -143,51 +172,134 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get an array with lamp ids from soap client.
+     * Change State of given device.
+     *
+     * @param int  $deviceId
+     * @param bool $toState
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return array
+     * @return bool
      */
-    public function getDeviceIds(): array
+    public function changeLightState(int $deviceId, bool $toState): bool
     {
-        return $this->_getData(CoapCommandKeys::KEY_GET_DATA);
-    }
+        // get command to switch light
+        $onCommand = $this->_commands
+            ->getLightSwitchCommand($deviceId, $toState);
 
-    /**
-     * Get Group data from hub.
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
-     */
-    public function getGroupIds(): array
-    {
-        return $this->_getData(CoapCommandKeys::KEY_GET_GROUPS);
-    }
-
-    /**
-     * Get Groups from hub.
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
-     */
-    public function getGroupsData():array
-    {
-        $groupData = [];
-        foreach ($this->getGroupIds() as $groupId) {
-            // sometimes the request are to fast,
-            // the hub will decline the request (flood security)
-            $groupData[$groupId]
-                = $this->_getData(
-                    CoapCommandKeys::KEY_GET_GROUPS,
-                    $groupId
-                );
-            //\sleep(1);
+        // run command
+        $data = Runner::execWithTimeout(
+            $onCommand,
+            2,
+            true,
+            true
+        );
+        // verify result
+        if (\is_array($data) && empty($data[0])) {
+            /*
+             * @example data response is now empty since hub update
+             * so we only check if there is no error message inside
+             */
+            return true;
         }
 
-        return $groupData;
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+    }
+
+    /**
+     * Change state of group.
+     *
+     * @param int  $groupId
+     * @param bool $toState
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function changeGroupState(int $groupId, bool $toState): bool
+    {
+        // get command to switch light
+        $onCommand = $this->_commands
+            ->getGroupSwitchCommand($groupId, $toState);
+
+        // run command
+        $data = Runner::execWithTimeout($onCommand, 2);
+
+        // verify result
+        if (\is_array($data) && \count($data) === 4) {
+            return true;
+        }
+
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+    }
+
+    /**
+     * Set Light Brightness.
+     *
+     * @param int $lightId
+     * @param int $level
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function setLightBrightness(int $lightId, int $level): bool
+    {
+        // get command to dim light
+        $onCommand = $this->_commands
+            ->getLightDimmerCommand($lightId, $level);
+
+        // run command
+        $data = Runner::execWithTimeout($onCommand, 2);
+
+        // verify result
+        if (\is_array($data) && \count($data) === 4) {
+            return true;
+        }
+
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+    }
+
+    /**
+     * Set Group Brightness.
+     *
+     * @param int $groupId
+     * @param int $level
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function setGroupBrightness(int $groupId, int $level): bool
+    {
+        // get command to switch light
+        $onCommand = $this->_commands->getGroupDimmerCommand($groupId, $level);
+
+        // run command
+        $data = Runner::execWithTimeout($onCommand, 2);
+
+        // verify result
+        if (\is_array($data) && \count($data) === 4) {
+            return true;
+        }
+
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+    }
+
+    /**
+     * Get a collection of devices.
+     *
+     * @param ServiceInterface $service
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return Devices
+     */
+    public function getDeviceCollection(ServiceInterface $service): Devices
+    {
+        return $this
+            ->getDeviceDataMapper()
+            ->map($service, $this->getDevicesData());
     }
 
     /**
@@ -209,177 +321,35 @@ class Coap extends AdapterAbstract
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
-            //\sleep(1);
         }
 
         return $deviceData;
     }
 
     /**
-     * Get isOnline.
-     *
-     * @return bool
-     */
-    public function isOnline(): bool
-    {
-        return $this->isOnline;
-    }
-
-    /**
-     * Set IsOnline.
-     *
-     * @param bool $isOnline
-     *
-     * @return Coap
-     */
-    public function setOnline(bool $isOnline): self
-    {
-        $this->isOnline = $isOnline;
-
-        return $this;
-    }
-
-    /**
-     * Check online state.
-     *
-     * @param string $ipAddress
-     *
-     * @return bool
-     */
-    public function checkOnline(string $ipAddress): bool
-    {
-        $state = Online::isOnline($ipAddress);
-        $this->setOnline($state);
-
-        return $state;
-    }
-
-    /**
-     * Change State of given device.
-     *
-     * @param int  $deviceId
-     * @param bool $toState
+     * Get an array with lamp ids from soap client.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return bool
+     * @return array
      */
-    public function changeLightState(int $deviceId, bool $toState): bool
+    public function getDeviceIds(): array
     {
-        // get command to switch light
-        $onCommand = $this
-            ->commands
-            ->getLightSwitchCommand($deviceId, $toState);
-
-        // run command
-        $data = Runner::execWithTimeout(
-            $onCommand,
-            2,
-            true,
-            true
-        );
-        // verify result
-        if (\is_array($data) && empty($data[0])) {
-            /*
-             * @example data response is now empty since hub update
-             * so we only check if there is no error message inside
-             */
-            return true;
-        }
-
-        throw new RuntimeException('Could not switch state');
+        return $this->_getData(CoapCommandKeys::KEY_GET_DATA);
     }
 
     /**
-     * Change state of group.
+     * Get Device data.
      *
-     * @param int  $groupId
-     * @param bool $toState
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
-     */
-    public function changeGroupState(int $groupId, bool $toState): bool
-    {
-        // get command to switch light
-        $onCommand = $this->commands->getGroupSwitchCommand($groupId, $toState);
-
-        // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
-
-        // verify result
-        if (\is_array($data) && \count($data) === 4) {
-            return true;
-        }
-
-        throw new RuntimeException('Could not switch state');
-    }
-
-    /**
-     * Set Light Brightness.
-     *
-     * @param int $lightId
-     * @param int $level
+     * @param int $deviceId
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return bool
+     * @return \stdClass
      */
-    public function setLightBrightness(int $lightId, int $level): bool
+    public function getDeviceData(int $deviceId): \stdClass
     {
-        // get command to dim light
-        $onCommand = $this->commands->getLightDimmerCommand($lightId, $level);
-
-        // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
-
-        // verify result
-        if (\is_array($data) && \count($data) === 4) {
-            return true;
-        }
-
-        throw new RuntimeException('Could not switch state');
-    }
-
-    /**
-     * Set Group Brightness.
-     *
-     * @param int $groupId
-     * @param int $level
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
-     */
-    public function setGroupBrightness(int $groupId, int $level): bool
-    {
-        // get command to switch light
-        $onCommand = $this->commands->getGroupDimmerCommand($groupId, $level);
-
-        // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
-
-        // verify result
-        if (\is_array($data) && \count($data) === 4) {
-            return true;
-        }
-
-        throw new RuntimeException('Could not switch state');
-    }
-
-    /**
-     * Get a collection of devices.
-     *
-     * @param ServiceInterface $service
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return Devices
-     */
-    public function getDeviceCollection(ServiceInterface $service): Devices
-    {
-        return $this->deviceDataMapper->map($service, $this->getDevicesData());
+        return $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
     }
 
     /**
@@ -393,16 +363,57 @@ class Coap extends AdapterAbstract
      */
     public function getGroupCollection(ServiceInterface $service): Groups
     {
-        $groups = $this->groupDataMapper->map($service, $this->getGroupsData());
+        $groups = $this
+            ->getGroupDataMapper()
+            ->map($service, $this->getGroupsData());
 
         if ($groups->isEmpty() === false) {
             foreach ($groups->toArray() as $group) {
                 /** @var Light $group */
-                $groupDevices = $this->deviceDataMapper->map($service, $this->getDevicesData($group->getDeviceIds()));
+                $groupDevices = $this
+                    ->_deviceDataMapper
+                    ->map(
+                        $service,
+                        $this->getDevicesData($group->getDeviceIds())
+                    );
                 $group->setDevices($groupDevices);
             }
         }
 
         return $groups;
+    }
+
+    /**
+     * Get Groups from hub.
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return array
+     */
+    public function getGroupsData(): array
+    {
+        $groupData = [];
+        foreach ($this->getGroupIds() as $groupId) {
+            // sometimes the request are to fast,
+            // the hub will decline the request (flood security)
+            $groupData[$groupId] = $this->_getData(
+                CoapCommandKeys::KEY_GET_GROUPS,
+                $groupId
+            );
+        }
+
+        return $groupData;
+    }
+
+    /**
+     * Get Group data from hub.
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return array
+     */
+    public function getGroupIds(): array
+    {
+        return $this->_getData(CoapCommandKeys::KEY_GET_GROUPS);
     }
 }

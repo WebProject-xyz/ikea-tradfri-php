@@ -29,7 +29,7 @@ class Groups extends AbstractCollection
      *
      * @return $this
      */
-    public function addGroup(Device $group)
+    public function addGroup(Device $group): self
     {
         $this->set($group->getId(), $group);
 

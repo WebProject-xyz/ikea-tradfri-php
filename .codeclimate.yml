@@ -37,24 +37,31 @@ plugins:
     config:
       file_extensions:
         - php
-      rulesets: "design,unusedcode,codesize"
+      rulesets: "unusedcode,codesize,naming,build/configs/ruleset.xml"
   phpcodesniffer:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "Zend,PSR2,PSR1"
+      standard: "Zend"
     checks:
+      Squiz ControlStructures ControlSignature NewlineAfterOpenBrace:
+        enabled: false
       PSR2 Methods MethodDeclaration Underscore:
         enabled: false
       PSR2 Classes PropertyDeclaration Underscore:
         enabled: false
       PSR1 Files SideEffects FoundWithSymbols:
         enabled: false
-  SonarPHP:
+  sonar-php:
     enabled: true
+    config:
+      tests_patterns:
+        - test/unit/**
   duplication:
     enabled: true
 
 exclude_patterns:
-- "**/tests/**Test.php"
-- "**/vendor/"
+- .git/**/*
+- vendor/**/*
+- tests/**/*
+- wiki/**/*

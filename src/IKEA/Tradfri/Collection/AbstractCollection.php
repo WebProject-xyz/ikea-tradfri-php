@@ -12,7 +12,8 @@ use JsonSerializable;
 /**
  * Class Devices.
  */
-abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
+abstract class AbstractCollection extends ArrayCollection
+    implements JsonSerializable
 {
     /**
      * Add item to collection.
@@ -36,7 +37,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return mixed
+     * @return Device|null|void
      */
     public function find($closure)
     {
@@ -50,7 +51,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
             }
         }
 
-        return null;
+        return;
     }
 
     /**

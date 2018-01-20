@@ -17,8 +17,6 @@ use IKEA\Tradfri\Service\Api;
 
 /**
  * Class ApiTest
- *
- * @package IKEA\Tests\Tradfri\Service
  */
 class ApiTest extends UnitTest
 {
@@ -249,7 +247,7 @@ class ApiTest extends UnitTest
         $client = \Mockery::mock(Client::class);
         $client->shouldReceive('groupOff')->andReturn(true);
         $service = new Api($client);
-        $group = new Group(1, $service);
+        $group   = new Group(1, $service);
 
         $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))->setState(true));
 
@@ -270,7 +268,7 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->switchOn($dimmer);
@@ -285,7 +283,7 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->off($dimmer);
@@ -300,7 +298,7 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->switchOn($remote);
@@ -315,7 +313,7 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->off($remote);
@@ -329,7 +327,7 @@ class ApiTest extends UnitTest
         $client->shouldReceive('dimGroup')->andReturn(true);
 
         $service = new Api($client);
-        $group = new Group(1, $service);
+        $group   = new Group(1, $service);
         // Act
         $result = $service->dim($group, 20);
         // Assert
@@ -360,7 +358,7 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->dim($dimmer, 20);
@@ -375,7 +373,7 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->dim($remote, 20);

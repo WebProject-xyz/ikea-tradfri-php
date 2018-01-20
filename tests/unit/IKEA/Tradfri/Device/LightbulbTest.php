@@ -12,8 +12,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class LightbulbTest
- *
- * @package IKEA\Tests\Tradfri\Device
  */
 class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
 {
@@ -73,7 +71,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
     {
         // Arrange
         $lamp = $this->_getModel();
-        $lamp->setBrightness((int)round(30 * 2.54));
+        $lamp->setBrightness((int) \round(30 * 2.54));
         // Act
         $result = $lamp->getBrightness();
 
@@ -252,7 +250,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $this->expectExceptionMessage('switch OFF failed');
 
         // Arrange
-        $lamp = $this->_getModel();
+        $lamp    = $this->_getModel();
         $service = \Mockery::mock(Api::class);
         $service->shouldReceive('off')->andReturn(false);
 

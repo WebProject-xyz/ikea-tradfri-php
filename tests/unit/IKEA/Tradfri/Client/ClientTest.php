@@ -65,7 +65,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
+        $light  = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
         // Act
         $result = $client->lightOn($light);
         // Assert
@@ -79,7 +79,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
+        $light  = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
         // Act
         $result = $client->lightOff($light);
         // Assert
@@ -93,7 +93,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group = new Light(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, \Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->groupOn($group);
         // Assert
@@ -107,7 +107,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group = new Light(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, \Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->groupOff($group);
         // Assert
@@ -121,7 +121,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('setLightBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
+        $light  = new Lightbulb(1, Lightbulb::TYPE_BLUB_E27_W);
         // Act
         $result = $client->dimLight($light, 50);
         // Assert
@@ -135,7 +135,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('setGroupBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $group = new Light(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, \Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->dimGroup($group, 50);
         // Assert

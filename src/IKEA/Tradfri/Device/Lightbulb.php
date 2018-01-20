@@ -14,12 +14,12 @@ class Lightbulb extends Device
     /**
      * @var int
      */
-    protected $brightness;
+    protected $_brightness;
 
     /**
      * @var bool
      */
-    protected $state = false;
+    protected $_state = false;
 
     /**
      * Get Brightness.
@@ -28,7 +28,7 @@ class Lightbulb extends Device
      */
     public function getBrightness(): float
     {
-        return (float) $this->brightness;
+        return (float) $this->_brightness;
     }
 
     /**
@@ -43,9 +43,9 @@ class Lightbulb extends Device
     public function setBrightness(int $brightness): self
     {
         if ($brightness < 0) {
-            $this->brightness = 0;
+            $this->_brightness = 0;
         } else {
-            $this->brightness = round($brightness / 2.54);
+            $this->_brightness = \round($brightness / 2.54);
         }
 
         return $this;
@@ -106,7 +106,7 @@ class Lightbulb extends Device
      */
     public function setState(bool $state): self
     {
-        $this->state = $state;
+        $this->_state = $state;
 
         return $this;
     }
@@ -118,7 +118,7 @@ class Lightbulb extends Device
      */
     public function isOn(): bool
     {
-        return $this->state;
+        return $this->_state;
     }
 
     /**

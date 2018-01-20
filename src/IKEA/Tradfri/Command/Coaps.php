@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
-use IKEA\Tradfri\Command\Executer\Coap\Get;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Helper\Runner;
@@ -16,29 +15,29 @@ use IKEA\Tradfri\Helper\Runner;
  */
 class Coaps
 {
-    const COAP_COMMAND_GET = 'coap-client -m get -u "%s" -k "%s"';
-    const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
+    const COAP_COMMAND_GET  = 'coap-client -m get -u "%s" -k "%s"';
+    const COAP_COMMAND_PUT  = 'coap-client -m put -u "%s" -k "%s"';
     const COAP_COMMAND_POST = 'coap-client -m post -u "%s" -k "%s"';
 
     /**
      * @var string
      */
-    private $_username;
+    protected $_username;
 
     /**
      * @var string
      */
-    private $_apiKey;
+    protected $_apiKey;
 
     /**
      * @var string
      */
-    private $_ip;
+    protected $_ip;
 
     /**
      * @var string
      */
-    private $_secret;
+    protected $_secret;
 
     /**
      * Coaps constructor.
@@ -53,8 +52,8 @@ class Coaps
     public function __construct(
         string $ipAddress,
         string $secret,
-        $username = null)
-    {
+        $username = null
+    ) {
         $this->setIp($ipAddress);
         $this->_secret = $secret;
         if (!\defined('COAP_API_KEY')) {
@@ -101,13 +100,13 @@ class Coaps
     public function getPreSharedKeyCommand(): string
     {
         $command = \sprintf(
-                self::COAP_COMMAND_POST,
-                'Client_identity',
-                $this->_secret
-            )
-            .' -e \'{"9090":"'.$this->getUsername().'"}\''
-            .' "coaps://'.$this->getIp().':5684/'
-            .CoapCommandKeys::KEY_GET_SHARED_KEY.'"';
+            self::COAP_COMMAND_POST,
+            'Client_identity',
+            $this->_secret
+        )
+        .' -e \'{"9090":"'.$this->getUsername().'"}\''
+        .' "coaps://'.$this->getIp().':5684/'
+        .CoapCommandKeys::KEY_GET_SHARED_KEY.'"';
 
         return $command;
     }
@@ -137,6 +136,36 @@ class Coaps
     }
 
     /**
+     * Get Ip.
+     *
+     * @return string
+     */
+    public function getIp(): string
+    {
+        return $this->_ip;
+    }
+
+    /**
+     * Set and filter ip.
+     *
+     * @param $ipAddress
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return $this
+     */
+    public function setIp(string $ipAddress): self
+    {
+        if (\filter_var($ipAddress, FILTER_VALIDATE_IP)) {
+            $this->_ip = $ipAddress;
+
+            return $this;
+        }
+
+        throw new \InvalidArgumentException('Invalid ip');
+    }
+
+    /**
      * Parse result.
      *
      * @param array $result
@@ -146,7 +175,7 @@ class Coaps
     public function parseResult(array $result)
     {
         if (\count($result) === 2 && !empty($result[0])) {
-            return $result[0];
+            return (string) $result[0];
         }
 
         return false;
@@ -162,8 +191,10 @@ class Coaps
     public function getCoapsCommandGet($requestType): string
     {
         return \sprintf(
-                self::COAP_COMMAND_GET, $this->getUsername(), $this->getApiKey()
-            ).' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
+            self::COAP_COMMAND_GET,
+            $this->getUsername(),
+            $this->getApiKey()
+        ).' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
     }
 
     /**
@@ -201,41 +232,12 @@ class Coaps
     public function getCoapsCommandPost($requestType, string $inject): string
     {
         return \sprintf(
-                self::COAP_COMMAND_POST,
-                $this->getUsername(),
-                $this->getApiKey()
-            ).$inject
-            .' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
-    }
-
-    /**
-     * Get Ip.
-     *
-     * @return string
-     */
-    public function getIp(): string
-    {
-        return $this->_ip;
-    }
-
-    /**
-     * Set and filter ip.
-     *
-     * @param $ipAddress
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return $this
-     */
-    public function setIp(string $ipAddress): self
-    {
-        if (filter_var($ipAddress, FILTER_VALIDATE_IP)) {
-            $this->_ip = $ipAddress;
-
-            return $this;
-        }
-
-        throw new \InvalidArgumentException('Invalid ip');
+            self::COAP_COMMAND_POST,
+            $this->getUsername(),
+            $this->getApiKey()
+        )
+        .$inject.' "coaps://'.$this->getIp().':5684/'
+        .$requestType.'"';
     }
 
     /**
@@ -269,9 +271,13 @@ class Coaps
     public function getCoapsCommandPut($requestType, string $inject): string
     {
         return \sprintf(
-                self::COAP_COMMAND_PUT, $this->getUsername(), $this->getApiKey()
-            ).$inject.' "coaps://'.$this->getIp().':5684/'.$requestType
-            .'"';
+            self::COAP_COMMAND_PUT,
+            $this->getUsername(),
+            $this->getApiKey()
+        )
+        .$inject
+        .' "coaps://'.$this->getIp().':5684/'.$requestType
+        .'"';
     }
 
     /**
@@ -303,7 +309,7 @@ class Coaps
     {
         return $this->getCoapsCommandPut(
             CoapCommandKeys::KEY_GET_GROUPS.'/'.$groupId,
-            ' -e \'{ "'.CoapCommandKeys::KEY_DIMMER.'": '.(int) round(
+            ' -e \'{ "'.CoapCommandKeys::KEY_DIMMER.'": '.(int) \round(
                 $value * 2.55
             ).' }\' '
         );
@@ -322,7 +328,7 @@ class Coaps
         return $this->getCoapsCommandPut(
             CoapCommandKeys::KEY_GET_DATA.'/'.$groupId,
             ' -e \'{ "'.CoapCommandKeys::KEY_DEVICE_DATA.'": [{ "'
-            .CoapCommandKeys::KEY_DIMMER.'": '.(int) round($value * 2.55)
+            .CoapCommandKeys::KEY_DIMMER.'": '.(int) \round($value * 2.55)
             .' }] }\' '
         );
     }
@@ -345,12 +351,15 @@ class Coaps
         switch ($color) {
             case 'warm':
                 $payload = \sprintf($payload, '33135', '27211');
+
                 break;
             case 'normal':
                 $payload = \sprintf($payload, '30140', '26909');
+
                 break;
             case 'cold':
                 $payload = \sprintf($payload, '24930', '24684');
+
                 break;
             default:
                 throw new RuntimeException('unknown color');

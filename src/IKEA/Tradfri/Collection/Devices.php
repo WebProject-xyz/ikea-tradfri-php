@@ -21,14 +21,14 @@ class Devices extends AbstractCollection
      */
     public function getLightbulbs(): Lightbulbs
     {
-        $lamps = new Lightbulbs();
+        $lightbulbs = new Lightbulbs();
         foreach ($this->getDevices() as $device) {
             if ($device->isLightbulb()) {
-                $lamps->addDevice($device);
+                $lightbulbs->addDevice($device);
             }
         }
 
-        return $lamps;
+        return $lightbulbs;
     }
 
     /**

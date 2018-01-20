@@ -20,7 +20,7 @@ class Client
     /**
      * @var AdapterInterface
      */
-    protected $adapter;
+    protected $_adapter;
 
     /**
      * Client constructor.
@@ -31,7 +31,7 @@ class Client
      */
     public function __construct(AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
+        $this->_adapter = $adapter;
     }
 
     /**
@@ -53,7 +53,7 @@ class Client
      */
     private function getAdapter(): AdapterInterface
     {
-        return $this->adapter;
+        return $this->_adapter;
     }
 
     /**

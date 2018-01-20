@@ -19,17 +19,25 @@ abstract class AdapterAbstract implements AdapterInterface
     /**
      * @var MapperInterface|DeviceData
      */
-    protected $deviceDataMapper;
+    protected $_deviceDataMapper;
 
     /**
      * @var MapperInterface|GroupData
      */
-    protected $groupDataMapper;
+    protected $_groupDataMapper;
 
-    public function __construct(MapperInterface $deviceDataMapper, MapperInterface $groupDataMapper)
-    {
-        $this->deviceDataMapper = $deviceDataMapper;
-        $this->groupDataMapper = $groupDataMapper;
+    /**
+     * AdapterAbstract constructor.
+     *
+     * @param MapperInterface $deviceDataMapper
+     * @param MapperInterface $groupDataMapper
+     */
+    public function __construct(
+        MapperInterface $deviceDataMapper,
+        MapperInterface $groupDataMapper
+    ) {
+        $this->_deviceDataMapper = $deviceDataMapper;
+        $this->_groupDataMapper  = $groupDataMapper;
     }
 
     /**
@@ -39,7 +47,9 @@ abstract class AdapterAbstract implements AdapterInterface
      *
      * @return Devices
      */
-    abstract public function getDeviceCollection(ServiceInterface $service): Devices;
+    abstract public function getDeviceCollection(
+        ServiceInterface $service
+    ): Devices;
 
     /**
      * Get a collection of Groups.
@@ -48,5 +58,27 @@ abstract class AdapterAbstract implements AdapterInterface
      *
      * @return Groups
      */
-    abstract public function getGroupCollection(ServiceInterface $service): Groups;
+    abstract public function getGroupCollection(
+        ServiceInterface $service
+    ): Groups;
+
+    /**
+     * Get DeviceDataMapper
+     *
+     * @return DeviceData|MapperInterface
+     */
+    public function getDeviceDataMapper()
+    {
+        return $this->_deviceDataMapper;
+    }
+
+    /**
+     * Get GroupDataMapper
+     *
+     * @return GroupData|MapperInterface
+     */
+    public function getGroupDataMapper()
+    {
+        return $this->_groupDataMapper;
+    }
 }

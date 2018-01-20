@@ -11,8 +11,6 @@ use IKEA\Tradfri\Helper\CoapCommandKeys;
 
 /**
  * Class Unit
- *
- * @package IKEA\Tests\Helper
  */
 class Unit extends \Codeception\Module
 {
@@ -103,7 +101,7 @@ class Unit extends \Codeception\Module
     public function getGroupDataCoapsResponse(): array
     {
         $groups = [
-            1000 => json_decode(\json_encode([
+            1000 => \json_decode(\json_encode([
                 CoapCommandKeys::KEY_NAME        => 'Group 1',
                 CoapCommandKeys::KEY_TIME        => 1498340208,
                 CoapCommandKeys::KEY_ID          => 1000,
@@ -122,7 +120,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            2000 => json_decode(\json_encode([
+            2000 => \json_decode(\json_encode([
                 CoapCommandKeys::KEY_NAME        => 'Group 2',
                 CoapCommandKeys::KEY_TIME        => 1498339585,
                 CoapCommandKeys::KEY_ID          => 2000,
@@ -142,7 +140,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            3000 => json_decode(\json_encode([
+            3000 => \json_decode(\json_encode([
                 CoapCommandKeys::KEY_NAME        => 'Group 3',
                 CoapCommandKeys::KEY_TIME        => 1498340478,
                 CoapCommandKeys::KEY_ID          => 3000,

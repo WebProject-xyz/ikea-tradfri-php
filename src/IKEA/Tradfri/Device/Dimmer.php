@@ -12,12 +12,12 @@ class Dimmer extends Device
     /**
      * Dimmer constructor.
      *
-     * @param int $id
+     * @param int $deviceId
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct($id)
+    public function __construct($deviceId)
     {
-        parent::__construct($id, self::TYPE_DIMMER);
+        parent::__construct($deviceId, self::TYPE_DIMMER);
     }
 }

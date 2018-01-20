@@ -20,7 +20,7 @@ interface AdapterInterface
      *
      * @return \stdClass
      */
-    public function getDeviceData(int $deviceId);
+    public function getDeviceData(int $deviceId): \stdClass;
 
     /**
      * Get device ids as array.

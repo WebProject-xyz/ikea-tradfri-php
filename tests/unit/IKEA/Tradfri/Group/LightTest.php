@@ -11,8 +11,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class LightTest
- *
- * @package IKEA\Tests\Tradfri\Group
  */
 class LightTest extends UnitTest
 {
@@ -51,7 +49,7 @@ class LightTest extends UnitTest
         // Act
         $group->setDevices(new Devices());
 
-        $result = $group->getDevices();
+        $result       = $group->getDevices();
         $resultLights = $group->getLights();
         // Assert
         $this->assertInstanceOf(Devices::class, $result);

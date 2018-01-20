@@ -17,7 +17,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 /**
  * Class DeviceDataTest
  *
- * @package IKEA\Tests\Tradfri\Mapper
  * @method createMock($originalClassName)
  */
 class DeviceDataTest extends UnitTest
@@ -33,7 +32,7 @@ class DeviceDataTest extends UnitTest
         $this->expectException(RuntimeException::class);
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new DeviceData();
         // Act

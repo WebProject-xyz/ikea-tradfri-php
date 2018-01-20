@@ -22,5 +22,8 @@ interface MapperInterface
      *
      * @return Devices|AbstractCollection
      */
-    public function map(ServiceInterface $service, array $dataItems): AbstractCollection;
+    public function map(
+        ServiceInterface $service,
+        array $dataItems
+    ): AbstractCollection;
 }

@@ -12,12 +12,12 @@ class MotionSensor extends Device
     /**
      * MotionSensor constructor.
      *
-     * @param int $id
+     * @param int $deviceId
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct($id)
+    public function __construct($deviceId)
     {
-        parent::__construct($id, self::TYPE_MOTION_SENSOR);
+        parent::__construct($deviceId, self::TYPE_MOTION_SENSOR);
     }
 }

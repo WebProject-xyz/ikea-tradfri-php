@@ -26,13 +26,19 @@ class Lightbulbs extends Devices
      *
      * @return $this
      */
-    public function sortByState()
+    public function sortByState(): self
     {
         $items = $this->toArray();
 
-        usort($items, function (Lightbulb $a, Lightbulb $b) {
-            return strcmp($a->getState(), $b->getState());
-        });
+        \usort(
+            $items,
+            function (Lightbulb $lightbulbOne, Lightbulb $lightbulbTwo) {
+                return \strcmp(
+                    $lightbulbOne->getState(),
+                    $lightbulbTwo->getState()
+                );
+            }
+        );
 
         return $this->createFrom($items);
     }
@@ -42,7 +48,7 @@ class Lightbulbs extends Devices
      *
      * @return static
      */
-    public function getActive()
+    public function getActive(): self
     {
         $newItems = [];
         foreach ($this->toArray() as $key => $light) {

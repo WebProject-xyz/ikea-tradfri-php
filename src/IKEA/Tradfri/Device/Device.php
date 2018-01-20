@@ -14,64 +14,65 @@ use JsonSerializable;
  */
 abstract class Device implements JsonSerializable
 {
-    const TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
+    const TYPE_MOTION_SENSOR  = 'TRADFRI motion sensor';
     const TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
-    const TYPE_DIMMER = 'TRADFRI dimmer'; //todo check this (not added to valid types)
-    const TYPE_BLUB_E27_WS = 'TRADFRI bulb E27 WS opal 980lm';
-    const TYPE_BLUB_E27_W = 'TRADFRI bulb E27 W opal 1000lm';
-    const TYPE_BLUB_GU10 = 'TRADFRI bulb GU10 WS 400lm';
+    const TYPE_DIMMER         = 'TRADFRI dimmer';
+    const TYPE_BLUB_E27_WS    = 'TRADFRI bulb E27 WS opal 980lm';
+    const TYPE_BLUB_E27_W     = 'TRADFRI bulb E27 W opal 1000lm';
+    const TYPE_BLUB_GU10      = 'TRADFRI bulb GU10 WS 400lm';
 
     /**
      * @var array
      */
-    protected static $lightblubTypes = [
-        self::TYPE_BLUB_GU10,
-        self::TYPE_BLUB_E27_W,
-        self::TYPE_BLUB_E27_WS,
-    ];
+    protected static $_lightblubTypes
+        = [
+            self::TYPE_BLUB_GU10,
+            self::TYPE_BLUB_E27_W,
+            self::TYPE_BLUB_E27_WS,
+        ];
 
     /**
      * @var int
      */
-    private $id;
+    protected $_id;
 
     /**
      * @var string
      */
-    private $name;
+    protected $_name;
 
     /**
      * @var string
      */
-    private $manufacturer;
+    protected $_manufacturer;
 
     /**
      * @var string
      */
-    private $type;
+    protected $_type;
 
     /**
      * @var string
      */
-    private $version;
+    protected $_version;
 
     /**
      * @var Api|ServiceInterface
      */
-    private $service;
+    protected $_service;
 
     /**
      * Lightbulb constructor.
      *
-     * @param int    $id
+     * @param int    $deviceId
      * @param string $type
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct(int $id, string $type)
+    public function __construct(int $deviceId, string $type)
     {
         $this->setType($type);
-        $this->id = $id;
+        $this->_id = $deviceId;
     }
 
     /**
@@ -81,7 +82,7 @@ abstract class Device implements JsonSerializable
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
@@ -93,7 +94,7 @@ abstract class Device implements JsonSerializable
      */
     public function setName($name): self
     {
-        $this->name = $name;
+        $this->_name = $name;
 
         return $this;
     }
@@ -105,7 +106,7 @@ abstract class Device implements JsonSerializable
      */
     public function getManufacturer(): string
     {
-        return $this->manufacturer;
+        return $this->_manufacturer;
     }
 
     /**
@@ -117,7 +118,7 @@ abstract class Device implements JsonSerializable
      */
     public function setManufacturer($manufacturer): self
     {
-        $this->manufacturer = $manufacturer;
+        $this->_manufacturer = $manufacturer;
 
         return $this;
     }
@@ -129,19 +130,19 @@ abstract class Device implements JsonSerializable
      */
     public function getId(): int
     {
-        return $this->id;
+        return $this->_id;
     }
 
     /**
      * Set Id.
      *
-     * @param int $id
+     * @param int $deviceId
      *
      * @return Device
      */
-    public function setId(int $id): self
+    public function setId(int $deviceId): self
     {
-        $this->id = $id;
+        $this->_id = $deviceId;
 
         return $this;
     }
@@ -153,7 +154,7 @@ abstract class Device implements JsonSerializable
      */
     public function getVersion(): string
     {
-        return $this->version;
+        return $this->_version;
     }
 
     /**
@@ -165,7 +166,7 @@ abstract class Device implements JsonSerializable
      */
     public function setVersion(string $version): self
     {
-        $this->version = $version;
+        $this->_version = $version;
 
         return $this;
     }
@@ -177,7 +178,7 @@ abstract class Device implements JsonSerializable
      */
     public function isLightbulb(): bool
     {
-        return \in_array($this->getType(), self::$lightblubTypes, true);
+        return \in_array($this->getType(), self::$_lightblubTypes, true);
     }
 
     /**
@@ -187,7 +188,7 @@ abstract class Device implements JsonSerializable
      */
     public function getType(): string
     {
-        return $this->type;
+        return $this->_type;
     }
 
     /**
@@ -202,7 +203,7 @@ abstract class Device implements JsonSerializable
     public function setType($type): self
     {
         if ($this->isValidType($type)) {
-            $this->type = $type;
+            $this->_type = $type;
         }
 
         return $this;
@@ -215,7 +216,7 @@ abstract class Device implements JsonSerializable
      */
     public function getService(): ServiceInterface
     {
-        return $this->service;
+        return $this->_service;
     }
 
     /**
@@ -227,7 +228,7 @@ abstract class Device implements JsonSerializable
      */
     public function setService(ServiceInterface $service): self
     {
-        $this->service = $service;
+        $this->_service = $service;
 
         return $this;
     }
@@ -251,17 +252,18 @@ abstract class Device implements JsonSerializable
             case self::TYPE_REMOTE_CONTROL:
             case self::TYPE_DIMMER:
                 // todo add more types
-                return true;
                 break;
             default:
                 throw new TypeException('unknown type');
         }
+
+        return true;
     }
 
     /**
      * Specify data which should be serialized to JSON.
      *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
      *
      * @return mixed data which can be serialized by <b>json_encode</b>,
      *               which is a value of any type other than a resource.
@@ -272,9 +274,9 @@ abstract class Device implements JsonSerializable
     {
         $data = [];
 
-        foreach (get_class_methods(static::class) as $method) {
-            if ($method !== 'getService' && strpos($method, 'get') === 0) {
-                $key = strtolower((string) substr($method, 3));
+        foreach (\get_class_methods(static::class) as $method) {
+            if ($method !== 'getService' && \strpos($method, 'get') === 0) {
+                $key = \strtolower((string) \substr($method, 3));
                 $data[$key]
                     = $this->$method();
             }

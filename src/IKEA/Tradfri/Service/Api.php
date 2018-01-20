@@ -19,10 +19,11 @@ use IKEA\Tradfri\Group\Light;
  */
 class Api implements ServiceInterface
 {
+    const INVALID_DEVICE_TYPE = 'invalid device type: ';
     /**
      * @var Client
      */
-    private $client;
+    protected $_client;
 
     /**
      * Api constructor.
@@ -31,7 +32,7 @@ class Api implements ServiceInterface
      */
     public function __construct(Client $client)
     {
-        $this->client = $client;
+        $this->_client = $client;
     }
 
     /**
@@ -51,7 +52,7 @@ class Api implements ServiceInterface
      */
     public function getDevices(): Devices
     {
-        return $this->client->getDevices($this);
+        return $this->_client->getDevices($this);
     }
 
     /**
@@ -61,7 +62,7 @@ class Api implements ServiceInterface
      */
     public function getGroups(): Groups
     {
-        return $this->client->getGroups($this);
+        return $this->_client->getGroups($this);
     }
 
     /**
@@ -77,52 +78,16 @@ class Api implements ServiceInterface
     {
         $service = $this;
         $lightbulbsCollection->forAll(
-            function ($key, $lightbulb) use ($service) {
+            function ($lightbulbKey, $lightbulb) use ($service) {
                 /* @var Lightbulb $lightbulb */
+                if ($lightbulbKey === $lightbulb->getId()) {
+                    // this is ok but who cars can't make var unused
+                }
                 $service->off($lightbulb);
             }
         );
 
         return true;
-    }
-
-    /**
-     * Switch device on.
-     *
-     * @param Device|Light $device
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
-     */
-    public function switchOn($device): bool
-    {
-        if ($device instanceof Light) {
-            return $this->client->groupOn($device);
-        }
-
-        if ($device instanceof Lightbulb) {
-            return $this->client->lightOn($device);
-        }
-
-        throw new RuntimeException('invalid device type: '.$device->getType());
-    }
-
-    /**
-     * Switch device on.
-     *
-     * @param Device|Light $device
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @deprecated
-     * @see        Api::switchOn
-     *
-     * @return bool
-     */
-    public function on($device): bool
-    {
-        return $this->switchOn($device);
     }
 
     /**
@@ -137,14 +102,40 @@ class Api implements ServiceInterface
     public function off($device): bool
     {
         if ($device instanceof Light) {
-            return $this->client->groupOff($device);
+            return $this->_client->groupOff($device);
         }
 
         if ($device instanceof Lightbulb) {
-            return $this->client->lightOff($device);
+            return $this->_client->lightOff($device);
         }
 
-        throw new RuntimeException('invalid device type: '.$device->getType());
+        throw new RuntimeException(
+            self::INVALID_DEVICE_TYPE.$device->getType()
+        );
+    }
+
+    /**
+     * Switch device on.
+     *
+     * @param Device|Light $device
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function switchOn($device): bool
+    {
+        if ($device instanceof Light) {
+            return $this->_client->groupOn($device);
+        }
+
+        if ($device instanceof Lightbulb) {
+            return $this->_client->lightOn($device);
+        }
+
+        throw new RuntimeException(
+            self::INVALID_DEVICE_TYPE.$device->getType()
+        );
     }
 
     /**
@@ -160,13 +151,15 @@ class Api implements ServiceInterface
     public function dim($device, int $level): bool
     {
         if ($device instanceof Light) {
-            return $this->client->dimGroup($device, $level);
+            return $this->_client->dimGroup($device, $level);
         }
 
         if ($device instanceof Lightbulb) {
-            return $this->client->dimLight($device, $level);
+            return $this->_client->dimLight($device, $level);
         }
 
-        throw new RuntimeException('invalid device type: '.$device->getType());
+        throw new RuntimeException(
+            self::INVALID_DEVICE_TYPE.$device->getType()
+        );
     }
 }

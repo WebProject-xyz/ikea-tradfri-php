@@ -10,8 +10,8 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class DeviceTest
+ *
  * @method createMock($originalClassName)
- * @package IKEA\Tests\Tradfri\Device
  */
 abstract class DeviceTester extends UnitTest
 {

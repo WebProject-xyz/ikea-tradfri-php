@@ -11,8 +11,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class DeviceDataTest
- *
- * @package IKEA\Tests\Tradfri\Mapper
  */
 class GroupDataTest extends UnitTest
 {
@@ -25,7 +23,7 @@ class GroupDataTest extends UnitTest
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new GroupData();
         // Act
