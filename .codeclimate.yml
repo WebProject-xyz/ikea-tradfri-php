@@ -44,7 +44,7 @@ plugins:
       file_extensions: "php"
       standard: "Zend"
     checks:
-      Squiz ControlStructures ControlSignature NewlineAfterOpenBrace:
+      Generic Functions OpeningFunctionBraceBsdAllman BraceOnSameLine:
         enabled: false
       PSR2 Methods MethodDeclaration Underscore:
         enabled: false

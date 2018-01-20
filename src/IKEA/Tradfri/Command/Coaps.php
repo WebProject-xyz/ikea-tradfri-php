@@ -105,8 +105,7 @@ class Coaps
             $this->_secret
         )
         .' -e \'{"9090":"'.$this->getUsername().'"}\''
-        .' "coaps://'.$this->getIp().':5684/'
-        .CoapCommandKeys::KEY_GET_SHARED_KEY.'"';
+        .$this->_getRequestTypeCoapsUrl(CoapCommandKeys::KEY_GET_SHARED_KEY);
 
         return $command;
     }
@@ -194,7 +193,7 @@ class Coaps
             self::COAP_COMMAND_GET,
             $this->getUsername(),
             $this->getApiKey()
-        ).' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
+        ).$this->_getRequestTypeCoapsUrl($requestType);
     }
 
     /**
@@ -236,8 +235,7 @@ class Coaps
             $this->getUsername(),
             $this->getApiKey()
         )
-        .$inject.' "coaps://'.$this->getIp().':5684/'
-        .$requestType.'"';
+        .$inject.$this->_getRequestTypeCoapsUrl($requestType);
     }
 
     /**
@@ -276,8 +274,7 @@ class Coaps
             $this->getApiKey()
         )
         .$inject
-        .' "coaps://'.$this->getIp().':5684/'.$requestType
-        .'"';
+        .$this->_getRequestTypeCoapsUrl($requestType);
     }
 
     /**
@@ -369,5 +366,17 @@ class Coaps
             CoapCommandKeys::KEY_GET_DATA.'/'.$groupId,
             $payload
         );
+    }
+
+    /**
+     * Get Coap uri
+     *
+     * @param $requestType
+     *
+     * @return string
+     */
+    protected function _getRequestTypeCoapsUrl($requestType): string
+    {
+        return ' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
     }
 }
