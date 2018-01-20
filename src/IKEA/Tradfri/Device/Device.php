@@ -14,12 +14,12 @@ use JsonSerializable;
  */
 abstract class Device implements JsonSerializable
 {
-    const TYPE_MOTION_SENSOR  = 'TRADFRI motion sensor';
+    const TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
     const TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
-    const TYPE_DIMMER         = 'TRADFRI dimmer';
-    const TYPE_BLUB_E27_WS    = 'TRADFRI bulb E27 WS opal 980lm';
-    const TYPE_BLUB_E27_W     = 'TRADFRI bulb E27 W opal 1000lm';
-    const TYPE_BLUB_GU10      = 'TRADFRI bulb GU10 WS 400lm';
+    const TYPE_DIMMER = 'TRADFRI dimmer';
+    const TYPE_BLUB_E27_WS = 'TRADFRI bulb E27 WS opal 980lm';
+    const TYPE_BLUB_E27_W = 'TRADFRI bulb E27 W opal 1000lm';
+    const TYPE_BLUB_GU10 = 'TRADFRI bulb GU10 WS 400lm';
 
     /**
      * @var array
