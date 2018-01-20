@@ -369,7 +369,7 @@ class Coaps
     }
 
     /**
-     * Get Coap uri
+     * Get Coap uri.
      *
      * @param $requestType
      *
