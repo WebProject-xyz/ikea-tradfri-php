@@ -15,8 +15,8 @@ use IKEA\Tradfri\Helper\Runner;
  */
 class Coaps
 {
-    const COAP_COMMAND_GET = 'coap-client -m get -u "%s" -k "%s"';
-    const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
+    const COAP_COMMAND_GET  = 'coap-client -m get -u "%s" -k "%s"';
+    const COAP_COMMAND_PUT  = 'coap-client -m put -u "%s" -k "%s"';
     const COAP_COMMAND_POST = 'coap-client -m post -u "%s" -k "%s"';
 
     /**

@@ -59,7 +59,7 @@ class Runner
             $start = \microtime(true);
 
             // Wait until we have output or the timer expired.
-            $read = [$pipes[1]];
+            $read  = [$pipes[1]];
             $other = [];
             \stream_select($read, $other, $other, 0, (int) $timeout);
 
