@@ -94,6 +94,8 @@ class Runner
             } else {
                 if (\count($parts) === 2 && !empty($parts[1])) {
                     $errorMessage = $parts[1];
+                } elseif (empty($parts[1])) {
+                    $errorMessage = $parts[0];
                 } else {
                     $errorMessage = 'Unknown error';
                 }

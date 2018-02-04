@@ -21,7 +21,7 @@ class Online
     public static function isOnline(string $ipAddress): bool
     {
         $online = true;
-        $regex = '/(\ \d+% packet loss), (time \d+ms)/';
+        $regex = '/(\ \d+% packet loss)/';
 
         try {
             $data = Runner::execWithTimeout('ping -c1 '.$ipAddress, 1, false);
@@ -53,10 +53,6 @@ class Online
     {
         if (\strpos($matches[0][1], ' 0% packet loss') === false) {
             throw new RuntimeException('packet loss detected');
-        }
-
-        if (\strpos($matches[0][2], 'time 0ms') === false) {
-            throw new RuntimeException('ping to high');
         }
 
         return true;
