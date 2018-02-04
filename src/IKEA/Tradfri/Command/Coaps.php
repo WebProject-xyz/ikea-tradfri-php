@@ -58,7 +58,7 @@ class Coaps
     ) {
         $this->setIp($ipAddress);
         $this->_secret = $secret;
-        if (!empty($apiKey)) {
+        if (empty($apiKey)) {
             throw new RuntimeException('$apiKey can not be empty');
         }
 
