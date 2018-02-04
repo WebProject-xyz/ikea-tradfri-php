@@ -44,6 +44,7 @@ class Coaps
      *
      * @param string $ipAddress
      * @param string $secret
+     * @param string $apiKey
      * @param string $username
      *
      * @throws \InvalidArgumentException
@@ -52,15 +53,16 @@ class Coaps
     public function __construct(
         string $ipAddress,
         string $secret,
+        string $apiKey,
         $username = null
     ) {
         $this->setIp($ipAddress);
         $this->_secret = $secret;
-        if (!\defined('COAP_API_KEY')) {
-            throw new RuntimeException('COAP_API_KEY not set');
+        if (!empty($apiKey)) {
+            throw new RuntimeException('$apiKey can not be empty');
         }
 
-        $this->setApiKey(COAP_API_KEY);
+        $this->setApiKey($apiKey);
 
         if (null !== $username) {
             $this->setUsername($username);

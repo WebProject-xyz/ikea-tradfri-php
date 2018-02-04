@@ -8,7 +8,7 @@ if (!is_file(__DIR__.'/../../vendor/autoload.php')) {
     die('composer up!');
 }
 
-require '../../vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
 define('COAP_GATEWAY_IP', 'yourHubIp');
 define('COAP_GATEWAY_SECRET', 'secretFromBacksideOfHub');
@@ -22,7 +22,7 @@ defined('COAP_GATEWAY_SECRET') ? null : die('FOLLOW FIRST RUN HELP IN README');
 
 $deviceMapper = new IKEA\Tradfri\Mapper\DeviceData();
 $groupMapper = new IKEA\Tradfri\Mapper\GroupData();
-$commands = new Coaps(COAP_GATEWAY_IP, COAP_GATEWAY_SECRET);
+$commands = new Coaps(COAP_GATEWAY_IP, COAP_GATEWAY_SECRET, COAP_API_KEY);
 $adapter = new Adapter($commands, $deviceMapper, $groupMapper);
 $client = new \IKEA\Tradfri\Client\Client($adapter);
 $api = new \IKEA\Tradfri\Service\Api($client);
