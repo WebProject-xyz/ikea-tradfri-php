@@ -28,6 +28,8 @@ class Devices extends AbstractCollection
             }
         }
 
+        $lightbulbs = $lightbulbs->sortByName();
+
         return $lightbulbs;
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Lightbulb;
 
 /**
@@ -59,5 +60,32 @@ class Lightbulbs extends Devices
         }
 
         return $this->createFrom($newItems);
+    }
+
+    /**
+     * Sort items by name
+     *
+     * @return static
+     */
+    public function sortByName()
+    {
+        return $this->createFrom($this->namesAsKeys());
+    }
+
+    /**
+     * Get an array with names as keys
+     *
+     * @return array
+     */
+    protected function namesAsKeys(): array
+    {
+        $elements = [];
+        $this->forAll(function ($key, Device $device) use (&$elements) {
+            $elements[$device->getName()] = $device;
+
+            return true;
+        });
+        \ksort($elements, \SORT_NATURAL);
+        return $elements;
     }
 }
