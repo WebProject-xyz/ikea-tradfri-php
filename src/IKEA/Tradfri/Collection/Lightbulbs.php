@@ -63,7 +63,7 @@ class Lightbulbs extends Devices
     }
 
     /**
-     * Sort items by name
+     * Sort items by name.
      *
      * @return static
      */
@@ -73,7 +73,7 @@ class Lightbulbs extends Devices
     }
 
     /**
-     * Get an array with names as keys
+     * Get an array with names as keys.
      *
      * @return array
      */
@@ -86,6 +86,7 @@ class Lightbulbs extends Devices
             return true;
         });
         \ksort($elements, \SORT_NATURAL);
+
         return $elements;
     }
 }
