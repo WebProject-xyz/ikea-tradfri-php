@@ -321,6 +321,10 @@ class Coap extends AdapterAbstract
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
+            // @TODO: add command queue
+            if ((int) COAP_GATEWAY_FLOOD_PROTECTION > 0) {
+                \sleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
+            }
         }
 
         return $deviceData;
