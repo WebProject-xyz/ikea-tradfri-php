@@ -21,7 +21,7 @@ class Online
     public static function isOnline(string $ipAddress): bool
     {
         $online = true;
-        $regex = '/(\ \d+% packet loss)/';
+        $regex = '(\ [\d\.]+% packet loss)';
 
         try {
             $data = Runner::execWithTimeout('ping -c1 '.$ipAddress, 1, false);
