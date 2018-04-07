@@ -33,3 +33,11 @@ see `wiki/example` folder
 - Executor for commands
 - Json data response
 - PSR7 ?
+
+## Docker Coap-Client [WIP]
+work in progress
+`docker build . -t webproject/coap-client:latest`
+
+# Run command [WIP]
+ work in progress
+`docker run --rm --name coap-client2 webproject/coap-client` 

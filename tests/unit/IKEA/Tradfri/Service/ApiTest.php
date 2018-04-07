@@ -211,7 +211,10 @@ class ApiTest extends UnitTest
 
         $group = new Group(1, $service);
         $group->setState(true);
-        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))->setState(true));
+        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))
+            ->setState(true)
+            ->setName('test')
+        );
 
         $this->assertTrue($group->isOn());
 
@@ -230,7 +233,9 @@ class ApiTest extends UnitTest
         $service = new Api($client);
 
         $group = new Group(1, $service);
-        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))->setState(false));
+        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))
+            ->setState(false)
+            ->setName('test'));
 
         $this->assertFalse($group->isOn());
 
@@ -249,7 +254,10 @@ class ApiTest extends UnitTest
         $service = new Api($client);
         $group = new Group(1, $service);
 
-        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))->setState(true));
+        $group->getDevices()->addDevice((new Lightbulb(2, Lightbulb::TYPE_BLUB_E27_W))
+            ->setState(true)
+            ->setName('test')
+        );
 
         $this->assertTrue($group->isOn());
 
