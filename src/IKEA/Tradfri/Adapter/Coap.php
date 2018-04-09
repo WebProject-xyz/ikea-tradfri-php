@@ -323,7 +323,7 @@ class Coap extends AdapterAbstract
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
             // @TODO: add command queue
             if ((int) COAP_GATEWAY_FLOOD_PROTECTION > 0) {
-                \sleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
+                \usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
             }
         }
 

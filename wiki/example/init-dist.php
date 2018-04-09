@@ -18,8 +18,8 @@ defined('COAP_API_KEY') ? null : die('FOLLOW FIRST RUN HELP IN README');
 defined('COAP_GATEWAY_IP') ? null : die('FOLLOW FIRST RUN HELP IN README');
 defined('COAP_GATEWAY_SECRET') ? null : die('FOLLOW FIRST RUN HELP IN README');
 
-// default: no flood protection
-defined('COAP_GATEWAY_FLOOD_PROTECTION') ? null : define('COAP_GATEWAY_FLOOD_PROTECTION', 0);
+// default: no flood protection (time in microseconds)
+defined('COAP_GATEWAY_FLOOD_PROTECTION') ? null : define('COAP_GATEWAY_FLOOD_PROTECTION', 100);
 
 
 $deviceMapper = new IKEA\Tradfri\Mapper\DeviceData();
