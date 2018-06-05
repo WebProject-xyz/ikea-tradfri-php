@@ -9,6 +9,7 @@ php api to control Ikea smart lights (tradfri)
 ### Status 
 
 #### Stable:
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b317b3e9521740e59e7dff003a0cbd69)](https://app.codacy.com/app/Fahl-Design/ikea-tradfri-php?utm_source=github.com&utm_medium=referral&utm_content=WebProject-xyz/ikea-tradfri-php&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/WebProject-xyz/ikea-tradfri-php.svg?branch=master)](https://travis-ci.org/WebProject-xyz/ikea-tradfri-php)
 [![Code Climate](https://img.shields.io/codeclimate/github/WebProject-xyz/ikea-tradfri-php.svg?style=flat-square)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/)
 [![Code Climate](https://img.shields.io/codeclimate/issues//github/WebProject-xyz/ikea-tradfri-php.svg?style=flat-square)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/)
