@@ -22,7 +22,8 @@
     "mockery/mockery": "1.*",
     "symfony/phpunit-bridge": "3.*",
     "friendsofphp/php-cs-fixer": "2.*",
-    "codeclimate/php-test-reporter": "0.*"
+    "codeclimate/php-test-reporter": "0.*",
+    "codacy/coverage": "1.*"
   },
   "autoload": {
     "psr-4": {
