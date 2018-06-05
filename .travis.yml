@@ -40,10 +40,10 @@ script:
 - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then echo zend_extension=xdebug.so >> ~/.phpenv/versions/$(phpenv
   version-name)/etc/conf.d/xdebug.ini || return 0; fi
 - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then composer build-coverage; fi
-- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash)
-  -Z ; fi
-after_script:
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then bash <(curl -s https://codecov.io/bash) -Z ; fi
 - if [[ $RUN_WITH_COVERAGE == 'true' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
+- if [[ $RUN_WITH_COVERAGE == 'true' ]]; then php vendor/bin/codacycoverage phpunit build/logs/report.xml ; fi
+after_script:
 - if [[ $RUN_WITH_COVERAGE == 'true' && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
   ./cc-test-reporter after-build -t=clover build/logs/clover.xml --exit-code
   $TRAVIS_TEST_RESULT ; fi
