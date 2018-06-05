@@ -15,6 +15,7 @@ php api to control Ikea smart lights (tradfri)
 [![Code Climate](https://img.shields.io/codeclimate/issues//github/WebProject-xyz/ikea-tradfri-php.svg?style=flat-square)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/maintainability)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/test_coverage)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/test_coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4706838bc3c245669b351c0920b96b7a)](https://www.codacy.com/app/Fahl-Design/ikea-tradfri-php?utm_source=github.com&utm_medium=referral&utm_content=WebProject-xyz/ikea-tradfri-php&utm_campaign=Badge_Coverage)
 [![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/master/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
 [![StyleCI](https://styleci.io/repos/115823629/shield?branch=master)](https://styleci.io/repos/115823629)
 
