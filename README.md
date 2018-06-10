@@ -28,18 +28,10 @@ php api to control Ikea smart lights (tradfri)
 
 see `wiki/example` folder
 
-
-##### ToDo
-
-- Single command classes
-- Executor for commands
-- Json data response
-- PSR7 ?
-
 ## Docker Coap-Client [WIP]
 work in progress
 `docker build . -t webproject/coap-client:latest`
 
-# Run command [WIP]
+### Run command in Docker [WIP]
  work in progress
 `docker run --rm --name coap-client2 webproject/coap-client` 

@@ -175,11 +175,19 @@ class Coaps
      */
     public function parseResult(array $result)
     {
-        if (\count($result) === 2 && !empty($result[0])) {
-            return (string) $result[0];
+        // @todo: debug logging
+        $parsed = false;
+        if (\count($result) > 0) {
+            foreach ($result as $part) {
+                if (!empty($part)
+                    && \strpos($part, 'decrypt') === false
+                    && \strpos($part, 'v:1') === false) {
+                    $parsed = (string) $part;
+                }
+            }
         }
 
-        return false;
+        return $parsed;
     }
 
     /**

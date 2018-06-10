@@ -52,7 +52,9 @@ class Coap extends AdapterAbstract
 
     /**
      * Check online state.
+     *
      * @deprecated no more ping from gateway
+     *
      * @param string $ipAddress
      *
      * @return bool
