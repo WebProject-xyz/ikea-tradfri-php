@@ -52,15 +52,16 @@ class Coap extends AdapterAbstract
 
     /**
      * Check online state.
-     *
+     * @deprecated no more ping from gateway
      * @param string $ipAddress
      *
      * @return bool
      */
     public function checkOnline(string $ipAddress): bool
     {
-        $state = Online::isOnline($ipAddress);
-        $this->setOnline($state);
+        // disabled
+        $state = true;
+        $this->setOnline(true);
 
         return $state;
     }
