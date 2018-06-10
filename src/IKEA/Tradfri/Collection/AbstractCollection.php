@@ -36,13 +36,13 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Device|null|void
+     * @return null|Device|void
      */
     public function find($closure)
     {
         foreach ($this->toArray() as $item) {
             if (\is_callable($closure)) {
-                if ($closure($item) === true) {
+                if (true === $closure($item)) {
                     return $item;
                 }
             } else {
@@ -65,7 +65,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     {
         $data = [];
         foreach ($this->toArray() as $device) {
-            /* @var Device $device */
+            // @var Device $device
             $data[$device->getId()] = $device->jsonSerialize();
         }
 

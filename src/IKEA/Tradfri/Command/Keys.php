@@ -34,6 +34,7 @@ class Keys
     const ATTR_CURRENT_TIME_ISO8601 = '9060';
 
     const ATTR_DEVICE_INFO = '3';
+    const ATTR_DEVICE_INFO_TYPE = '1';
 
     const ATTR_GATEWAY_TIME_SOURCE = '9071';
     const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';

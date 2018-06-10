@@ -79,7 +79,7 @@ class Api implements ServiceInterface
         $service = $this;
         $lightbulbsCollection->forAll(
             function ($lightbulbKey, $lightbulb) use ($service) {
-                /* @var Lightbulb $lightbulb */
+                // @var Lightbulb $lightbulb
                 if ($lightbulbKey === $lightbulb->getId()) {
                     // this is ok but who cars can't make var unused
                 }

@@ -60,7 +60,7 @@ class Lightbulb extends Device
      */
     public function switchOff(): bool
     {
-        if ($this->getService()->off($this) === true) {
+        if (true === $this->getService()->off($this)) {
             $this->setState(false);
 
             return true;
@@ -78,7 +78,7 @@ class Lightbulb extends Device
      */
     public function switchOn(): bool
     {
-        if ($this->getService()->switchOn($this) === true) {
+        if (true === $this->getService()->switchOn($this)) {
             $this->setState(true);
 
             return true;

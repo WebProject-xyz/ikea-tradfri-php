@@ -110,7 +110,7 @@ class Coap extends AdapterAbstract
      * Get data from coaps client.
      *
      * @param string   $requestType
-     * @param int|null $deviceId
+     * @param null|int $deviceId
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -121,7 +121,7 @@ class Coap extends AdapterAbstract
         if ($this->isOnline()) {
             $command = $this->_commands->getCoapsCommandGet($requestType);
 
-            if ($deviceId !== null) {
+            if (null !== $deviceId) {
                 $command .= '/'.$deviceId;
             }
 
@@ -129,7 +129,7 @@ class Coap extends AdapterAbstract
                 Runner::execWithTimeout($command, 1)
             );
 
-            if ($dataRaw !== false) {
+            if (false !== $dataRaw) {
                 $decoded = \json_decode($dataRaw);
                 if (null === $decoded) {
                     $decoded = $dataRaw;
@@ -229,7 +229,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && \count($data) === 4) {
+        if (\is_array($data) && 4 === \count($data)) {
             return true;
         }
 
@@ -256,7 +256,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && \count($data) === 4) {
+        if (\is_array($data) && 4 === \count($data)) {
             return true;
         }
 
@@ -282,7 +282,7 @@ class Coap extends AdapterAbstract
         $data = Runner::execWithTimeout($onCommand, 2);
 
         // verify result
-        if (\is_array($data) && \count($data) === 4) {
+        if (\is_array($data) && 4 === \count($data)) {
             return true;
         }
 
@@ -308,7 +308,7 @@ class Coap extends AdapterAbstract
     /**
      * Get devices.
      *
-     * @param array|null $deviceIds
+     * @param null|array $deviceIds
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -316,7 +316,7 @@ class Coap extends AdapterAbstract
      */
     public function getDevicesData(array $deviceIds = null): array
     {
-        if ($deviceIds === null) {
+        if (null === $deviceIds) {
             $deviceIds = $this->getDeviceIds();
         }
         $deviceData = [];
@@ -374,7 +374,7 @@ class Coap extends AdapterAbstract
             ->getGroupDataMapper()
             ->map($service, $this->getGroupsData());
 
-        if ($groups->isEmpty() === false) {
+        if (false === $groups->isEmpty()) {
             foreach ($groups->toArray() as $group) {
                 /** @var Light $group */
                 $groupDevices = $this

@@ -212,7 +212,7 @@ abstract class Device implements JsonSerializable
     /**
      * Get Service.
      *
-     * @return ServiceInterface|Api
+     * @return Api|ServiceInterface
      */
     public function getService(): ServiceInterface
     {
@@ -275,7 +275,7 @@ abstract class Device implements JsonSerializable
         $data = [];
 
         foreach (\get_class_methods(static::class) as $method) {
-            if ($method !== 'getService' && \strpos($method, 'get') === 0) {
+            if ('getService' !== $method && 0 === \strpos($method, 'get')) {
                 $key = \strtolower((string) \substr($method, 3));
                 $data[$key]
                     = $this->$method();

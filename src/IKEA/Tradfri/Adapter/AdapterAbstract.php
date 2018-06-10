@@ -17,12 +17,12 @@ use IKEA\Tradfri\Service\ServiceInterface;
 abstract class AdapterAbstract implements AdapterInterface
 {
     /**
-     * @var MapperInterface|DeviceData
+     * @var DeviceData|MapperInterface
      */
     protected $_deviceDataMapper;
 
     /**
-     * @var MapperInterface|GroupData
+     * @var GroupData|MapperInterface
      */
     protected $_groupDataMapper;
 

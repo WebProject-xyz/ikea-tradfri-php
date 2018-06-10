@@ -19,12 +19,12 @@ class GroupData extends Mapper
     /**
      * Map given data to models.
      *
-     * @param ServiceInterface|Api $service
+     * @param Api|ServiceInterface $service
      * @param array                $groupDataItems
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Groups|AbstractCollection
+     * @return AbstractCollection|Groups
      */
     public function map(ServiceInterface $service,
         array $groupDataItems): AbstractCollection

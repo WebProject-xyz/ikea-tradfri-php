@@ -17,10 +17,10 @@ interface MapperInterface
     /**
      * Map given data to models.
      *
-     * @param ServiceInterface|Api $service
+     * @param Api|ServiceInterface $service
      * @param array                $dataItems
      *
-     * @return Devices|AbstractCollection
+     * @return AbstractCollection|Devices
      */
     public function map(
         ServiceInterface $service,

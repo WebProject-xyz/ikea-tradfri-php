@@ -51,7 +51,7 @@ class Online
      */
     protected static function _validateMatches(array $matches): bool
     {
-        if (\strpos($matches[0][1], ' 0% packet loss') === false) {
+        if (false === \strpos($matches[0][1], ' 0% packet loss')) {
             throw new RuntimeException('packet loss detected');
         }
 

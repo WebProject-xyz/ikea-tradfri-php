@@ -29,9 +29,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
      */
     protected function _getModel(): Lightbulb
     {
-        $lamp = new Lightbulb($this->id, Device::TYPE_BLUB_E27_W);
-
-        return $lamp;
+        return new Lightbulb($this->id, Device::TYPE_BLUB_E27_W);
     }
 
     public function testSetType()

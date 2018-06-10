@@ -19,7 +19,7 @@ class Unit extends \Codeception\Module
      */
     public function getDevices(): array
     {
-        $devices = [
+        return [
             'asd invalid',
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_TYPE => 'invalid type error',
@@ -91,8 +91,6 @@ class Unit extends \Codeception\Module
                 ],
             ])),
         ];
-
-        return $devices;
     }
 
     /**
@@ -100,7 +98,7 @@ class Unit extends \Codeception\Module
      */
     public function getGroupDataCoapsResponse(): array
     {
-        $groups = [
+        return [
             1000 => \json_decode(\json_encode([
                 CoapCommandKeys::KEY_NAME        => 'Group 1',
                 CoapCommandKeys::KEY_TIME        => 1498340208,
@@ -179,7 +177,5 @@ class Unit extends \Codeception\Module
                 ],
             ])),
         ];
-
-        return $groups;
     }
 }

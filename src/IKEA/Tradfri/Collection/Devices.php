@@ -17,7 +17,7 @@ class Devices extends AbstractCollection
     /**
      * Get lightbulbs.
      *
-     * @return Lightbulbs|Lightbulb[]
+     * @return Lightbulb[]|Lightbulbs
      */
     public function getLightbulbs(): Lightbulbs
     {
@@ -28,15 +28,13 @@ class Devices extends AbstractCollection
             }
         }
 
-        $lightbulbs = $lightbulbs->sortByName();
-
-        return $lightbulbs;
+        return $lightbulbs->sortByName();
     }
 
     /**
      * Get items.
      *
-     * @return Dimmer[]|MotionSensor[]|Lightbulb[]|Remote[]|array
+     * @return array|Dimmer[]|Lightbulb[]|MotionSensor[]|Remote[]
      */
     public function getDevices(): array
     {

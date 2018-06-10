@@ -101,15 +101,13 @@ class Coaps
      */
     public function getPreSharedKeyCommand(): string
     {
-        $command = \sprintf(
+        return \sprintf(
             self::COAP_COMMAND_POST,
             'Client_identity',
             $this->_secret
         )
         .' -e \'{"9090":"'.$this->getUsername().'"}\''
         .$this->_getRequestTypeCoapsUrl(CoapCommandKeys::KEY_GET_SHARED_KEY);
-
-        return $command;
     }
 
     /**
@@ -180,8 +178,8 @@ class Coaps
         if (\count($result) > 0) {
             foreach ($result as $part) {
                 if (!empty($part)
-                    && \strpos($part, 'decrypt') === false
-                    && \strpos($part, 'v:1') === false) {
+                    && false === \strpos($part, 'decrypt')
+                    && false === \strpos($part, 'v:1')) {
                     $parsed = (string) $part;
                 }
             }
@@ -193,7 +191,7 @@ class Coaps
     /**
      * Get CoapsCommand GET string.
      *
-     * @param string|int $requestType
+     * @param int|string $requestType
      *
      * @return string
      */
@@ -233,7 +231,7 @@ class Coaps
     /**
      * Get CoapsCommand POST string.
      *
-     * @param string|int $requestType
+     * @param int|string $requestType
      * @param string     $inject
      *
      * @return string
@@ -271,7 +269,7 @@ class Coaps
     /**
      * Get CoapsCommand PUT string.
      *
-     * @param string|int $requestType
+     * @param int|string $requestType
      * @param string     $inject
      *
      * @return string

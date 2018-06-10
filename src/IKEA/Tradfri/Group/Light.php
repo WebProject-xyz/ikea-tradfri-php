@@ -18,7 +18,7 @@ class Light extends Device
      */
     public function isOn(): bool
     {
-        if ($this->getLights()->isEmpty() === false) {
+        if (false === $this->getLights()->isEmpty()) {
             return $this->getLights()->getActive()->count() > 0;
         }
 

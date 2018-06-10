@@ -53,12 +53,12 @@ class DeviceData extends Mapper
                 $model->setName($device->{CoapCommandKeys::KEY_NAME});
                 $model->setManufacturer(
                     $device
-                        ->{CoapCommandKeys::KEY_DATA}
+                        ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
                         ->{CoapCommandKeys::KEY_MANUFACTURER}
                 );
                 $model->setVersion(
                     $device
-                        ->{CoapCommandKeys::KEY_DATA}
+                        ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
                         ->{CoapCommandKeys::KEY_VERSION}
                 );
 
@@ -111,7 +111,7 @@ class DeviceData extends Mapper
      * @throws TypeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Device|Lightbulb|Remote|MotionSensor
+     * @return Device|Lightbulb|MotionSensor|Remote
      */
     protected function _getModel(
         int $deviceId,
@@ -119,8 +119,8 @@ class DeviceData extends Mapper
         ServiceInterface $service
     ) {
         $type = $device
-            ->{CoapCommandKeys::KEY_DATA}
-            ->{CoapCommandKeys::KEY_TYPE};
+            ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
+            ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO_TYPE};
 
         switch ($type) {
             case Device::TYPE_BLUB_E27_W:

@@ -15,7 +15,7 @@ class Lightbulbs extends Devices
     /**
      * Get first light.
      *
-     * @return Lightbulb|null
+     * @return null|Lightbulb
      */
     public function first()
     {

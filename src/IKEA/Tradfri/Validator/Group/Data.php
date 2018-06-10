@@ -76,7 +76,7 @@ class Data implements ValidatorInterface
      */
     protected function _validateDeviceMustHaves($device): bool
     {
-        if (\is_object($device) === false) {
+        if (false === \is_object($device)) {
             throw new TypeException('device is no object');
         }
         foreach (self::$_mustHaves as $mustHave) {

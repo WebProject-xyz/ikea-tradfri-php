@@ -105,7 +105,7 @@ class Device
      */
     public function getDevices(): Devices
     {
-        if ($this->_devices === null) {
+        if (null === $this->_devices) {
             $this->_devices = new Devices();
         }
 

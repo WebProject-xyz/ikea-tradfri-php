@@ -28,7 +28,7 @@ class Runner
     public static function execWithTimeout(
         string $cmd,
         int $timeout,
-        $asArray = true,
+        bool $asArray = true,
         bool $skipEmptyBufferError = false
     ) {
         // File descriptors passed to the process.
@@ -89,10 +89,10 @@ class Runner
 
         if (!empty($errors) && empty($buffer)) {
             $parts = \explode("\n", $errors);
-            if (\count($parts) === 3) {
+            if (3 === \count($parts)) {
                 $errorMessage = $parts[1];
             } else {
-                if (\count($parts) === 2 && !empty($parts[1])) {
+                if (2 === \count($parts) && !empty($parts[1])) {
                     $errorMessage = $parts[1];
                 } elseif (empty($parts[1])) {
                     $errorMessage = $parts[0];
@@ -100,7 +100,7 @@ class Runner
                     $errorMessage = 'Unknown error';
                 }
             }
-            if ($skipEmptyBufferError === false) {
+            if (false === $skipEmptyBufferError) {
                 throw new RuntimeException($errorMessage);
             }
         }
@@ -118,7 +118,7 @@ class Runner
 
         \proc_close($process);
 
-        if ($asArray === true) {
+        if (true === $asArray) {
             return \explode("\n", $buffer);
         }
 

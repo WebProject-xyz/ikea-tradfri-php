@@ -46,7 +46,7 @@ interface AdapterInterface
     /**
      * Get devices as array.
      *
-     * @param array|null $deviceIds
+     * @param null|array $deviceIds
      *
      * @return array
      */
