@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
@@ -129,7 +130,7 @@ abstract class Put
     }
 
     /**
-     * Get Request type
+     * Get Request type.
      *
      * @return string
      */
