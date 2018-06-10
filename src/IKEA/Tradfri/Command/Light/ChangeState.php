@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command\Light;
@@ -12,7 +13,7 @@ class ChangeState extends Put
 {
     /**
      * Build command from coap command
-     *        // todo rethink this
+     *        // todo rethink this.
      *
      * @return string
      */
