@@ -10,7 +10,7 @@ phpenv rehash
 # create directories for the tests
 mkdir -p "$HOME/.php-cs-fixer"
 
-travis_retry composer self-update
+composer self-update --profile
 git config --global user.name travis-ci
 git config --global user.email travis@webproject.xyz
 if [[ $RUN_WITH_COVERAGE == 'true' ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
