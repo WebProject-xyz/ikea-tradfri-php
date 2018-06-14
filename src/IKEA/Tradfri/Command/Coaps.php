@@ -42,7 +42,7 @@ class Coaps
     /**
      * Coaps constructor.
      *
-     * @param string $ipAddress
+     * @param string $gatewayAddress
      * @param string $secret
      * @param string $apiKey
      * @param string $username
@@ -51,24 +51,19 @@ class Coaps
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function __construct(
-        string $ipAddress,
+        string $gatewayAddress,
         string $secret,
         string $apiKey,
-        $username = null
+        $username
     ) {
-        $this->setIp($ipAddress);
+        $this->setIp($gatewayAddress);
         $this->_secret = $secret;
         if (empty($apiKey)) {
             throw new RuntimeException('$apiKey can not be empty');
         }
 
         $this->setApiKey($apiKey);
-
-        if (null !== $username) {
-            $this->setUsername($username);
-        } else {
-            $this->setUsername('wrapper');
-        }
+        $this->setUsername($username);
     }
 
     /**
@@ -84,7 +79,9 @@ class Coaps
         $onCommand = $this->getPreSharedKeyCommand();
 
         // run command
-        $result = $this->parseResult(Runner::execWithTimeout($onCommand, 2));
+        $result = $this->parseResult(
+            (new Runner())->execWithTimeout($onCommand, 2)
+        );
 
         // verify result
         if (isset($result->{CoapCommandKeys::KEY_SHARED_KEY})) {
@@ -147,16 +144,16 @@ class Coaps
     /**
      * Set and filter ip.
      *
-     * @param $ipAddress
+     * @param $gatewayAddress
      *
      * @throws \InvalidArgumentException
      *
      * @return $this
      */
-    public function setIp(string $ipAddress): self
+    public function setIp(string $gatewayAddress): self
     {
-        if (\filter_var($ipAddress, FILTER_VALIDATE_IP)) {
-            $this->_ip = $ipAddress;
+        if (\filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
+            $this->_ip = $gatewayAddress;
 
             return $this;
         }

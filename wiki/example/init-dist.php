@@ -24,7 +24,7 @@ defined('COAP_GATEWAY_FLOOD_PROTECTION') ? null : define('COAP_GATEWAY_FLOOD_PRO
 
 $deviceMapper = new IKEA\Tradfri\Mapper\DeviceData();
 $groupMapper = new IKEA\Tradfri\Mapper\GroupData();
-$commands = new Coaps(COAP_GATEWAY_IP, COAP_GATEWAY_SECRET, COAP_API_KEY);
+$commands = new Coaps(COAP_GATEWAY_IP, COAP_GATEWAY_SECRET, COAP_API_KEY, 'php-api-user');
 $adapter = new Adapter($commands, $deviceMapper, $groupMapper);
 $client = new \IKEA\Tradfri\Client\Client($adapter);
 $api = new \IKEA\Tradfri\Service\Api($client);

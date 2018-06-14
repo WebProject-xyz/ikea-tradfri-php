@@ -25,11 +25,11 @@ class Runner
      *
      * @return array|string
      */
-    public static function execWithTimeout(
+    public function execWithTimeout(
         string $cmd,
         int $timeout,
-        bool $asArray = true,
-        bool $skipEmptyBufferError = false
+        bool $asArray = null,
+        bool $skipEmptyBufferError = null
     ) {
         // File descriptors passed to the process.
         $descriptors = [
@@ -55,6 +55,86 @@ class Runner
         $buffer = '';
 
         // While we have time to wait.
+        $buffer = $this->_startProcess($timeout, $pipes, $process, $buffer);
+
+        // Check if there were any errors.
+        $errors = \stream_get_contents($pipes[2]);
+
+        if (!empty($errors) && empty($buffer)) {
+            $this->_parseErrors($skipEmptyBufferError, $errors);
+        }
+
+        // Kill the process in case the timeout expired and it's still running.
+        // If the process already exited this won't do anything.
+        $this->_killProcess($process);
+
+        // Close all streams.
+        \fclose($pipes[0]);
+        \fclose($pipes[1]);
+        \fclose($pipes[2]);
+
+        \proc_close($process);
+
+        if (true === $asArray) {
+            return \explode("\n", $buffer);
+        }
+
+        return $buffer;
+    }
+
+    /**
+     * Kill process.
+     *
+     * @param $process
+     */
+    private function _killProcess($process)
+    {
+        if (\proc_terminate($process, 9)) {
+            throw new RuntimeException('timeout expired');
+        }
+    }
+
+    /**
+     * Parse errors.
+     *
+     * @param bool $skipEmptyBufferError
+     * @param      $errors
+     */
+    private function _parseErrors(bool $skipEmptyBufferError, $errors)
+    {
+        $parts = \explode("\n", $errors);
+        if (3 === \count($parts)) {
+            $errorMessage = $parts[1];
+        } else {
+            if (2 === \count($parts) && !empty($parts[1])) {
+                $errorMessage = $parts[1];
+            } elseif (empty($parts[1])) {
+                $errorMessage = $parts[0];
+            } else {
+                $errorMessage = 'Unknown error';
+            }
+        }
+        if (false === $skipEmptyBufferError) {
+            throw new RuntimeException($errorMessage);
+        }
+    }
+
+    /**
+     * Start process.
+     *
+     * @param int    $timeout
+     * @param array  $pipes
+     * @param        $process
+     * @param string $buffer
+     *
+     * @return string
+     */
+    private function _startProcess(
+        int $timeout,
+        array $pipes,
+        $process,
+        string $buffer
+    ): string {
         while ($timeout > 0) {
             $start = \microtime(true);
 
@@ -82,44 +162,6 @@ class Runner
 
             // Subtract the number of microseconds that we waited.
             $timeout -= (\microtime(true) - $start) * 1000000;
-        }
-
-        // Check if there were any errors.
-        $errors = \stream_get_contents($pipes[2]);
-
-        if (!empty($errors) && empty($buffer)) {
-            $parts = \explode("\n", $errors);
-            if (3 === \count($parts)) {
-                $errorMessage = $parts[1];
-            } else {
-                if (2 === \count($parts) && !empty($parts[1])) {
-                    $errorMessage = $parts[1];
-                } elseif (empty($parts[1])) {
-                    $errorMessage = $parts[0];
-                } else {
-                    $errorMessage = 'Unknown error';
-                }
-            }
-            if (false === $skipEmptyBufferError) {
-                throw new RuntimeException($errorMessage);
-            }
-        }
-
-        // Kill the process in case the timeout expired and it's still running.
-        // If the process already exited this won't do anything.
-        if (\proc_terminate($process, 9)) {
-            throw new RuntimeException('timeout expired');
-        }
-
-        // Close all streams.
-        \fclose($pipes[0]);
-        \fclose($pipes[1]);
-        \fclose($pipes[2]);
-
-        \proc_close($process);
-
-        if (true === $asArray) {
-            return \explode("\n", $buffer);
         }
 
         return $buffer;

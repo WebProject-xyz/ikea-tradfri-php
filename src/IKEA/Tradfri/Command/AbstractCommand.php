@@ -37,16 +37,16 @@ abstract class AbstractCommand implements CommandInterface
     /**
      * Put constructor.
      *
-     * @param string $ipAddress
+     * @param string $gatewayAddress
      * @param string $username
      * @param string $apiKey
      */
     public function __construct(
-        string $ipAddress,
+        string $gatewayAddress,
         string $username,
         string $apiKey
     ) {
-        $this->_ipAddress = $ipAddress;
+        $this->_ipAddress = $gatewayAddress;
         $this->_username = $username;
         $this->_apiKey = $apiKey;
     }

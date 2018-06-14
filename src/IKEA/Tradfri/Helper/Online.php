@@ -14,17 +14,18 @@ class Online
     /**
      * Check online state.
      *
-     * @param string $ipAddress
+     * @param string $gatewayAddress
      *
      * @return bool
      */
-    public static function isOnline(string $ipAddress): bool
+    public static function isOnline(string $gatewayAddress): bool
     {
         $online = true;
         $regex = '(\ [\d\.]+% packet loss)';
 
         try {
-            $data = Runner::execWithTimeout('ping -c1 '.$ipAddress, 1, false);
+            $data = (new Runner())
+                ->execWithTimeout('ping -c1 '.$gatewayAddress, 1, false);
 
             \preg_match_all($regex, $data, $matches, PREG_SET_ORDER);
             if (isset($matches[0][1])) {

@@ -80,7 +80,7 @@ class Lightbulbs extends Devices
     protected function namesAsKeys(): array
     {
         $elements = [];
-        $this->forAll(function ($key, Device $device) use (&$elements) {
+        $this->forAll(function ($deviceId, Device $device) use (&$elements) {
             $elements[$device->getName()] = $device;
 
             return true;

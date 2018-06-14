@@ -23,7 +23,8 @@
     "symfony/phpunit-bridge": "3.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
-    "codacy/coverage": "1.*"
+    "codacy/coverage": "1.*",
+    "monolog/monolog": "1.*"
   },
   "autoload": {
     "psr-4": {
@@ -33,7 +34,7 @@
   },
   "scripts": {
     "run-tests": [
-      "./vendor/bin/codecept run --steps --colors"
+      "./vendor/bin/codecept run --colors"
     ],
     "cs-check": [
       "./vendor/bin/php-cs-fixer fix --dry-run -vv"

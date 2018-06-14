@@ -55,11 +55,11 @@ class Coap extends AdapterAbstract
      *
      * @deprecated no more ping from gateway
      *
-     * @param string $ipAddress
+     * @param string $gatewayAddress
      *
      * @return bool
      */
-    public function checkOnline(string $ipAddress): bool
+    public function checkOnline(string $gatewayAddress): bool
     {
         // disabled
         $state = true;
@@ -126,7 +126,7 @@ class Coap extends AdapterAbstract
             }
 
             $dataRaw = $this->_commands->parseResult(
-                Runner::execWithTimeout($command, 1)
+                (new Runner())->execWithTimeout($command, 1)
             );
 
             if (false !== $dataRaw) {
@@ -191,7 +191,7 @@ class Coap extends AdapterAbstract
             ->getLightSwitchCommand($deviceId, $toState);
 
         // run command
-        $data = Runner::execWithTimeout(
+        $data = (new Runner())->execWithTimeout(
             $onCommand,
             2,
             true,
@@ -226,7 +226,7 @@ class Coap extends AdapterAbstract
             ->getGroupSwitchCommand($groupId, $toState);
 
         // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
+        $data = (new Runner())->execWithTimeout($onCommand, 2);
 
         // verify result
         if (\is_array($data) && 4 === \count($data)) {
@@ -253,7 +253,7 @@ class Coap extends AdapterAbstract
             ->getLightDimmerCommand($lightId, $level);
 
         // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
+        $data = (new Runner())->execWithTimeout($onCommand, 2);
 
         // verify result
         if (\is_array($data) && 4 === \count($data)) {
@@ -279,7 +279,7 @@ class Coap extends AdapterAbstract
         $onCommand = $this->_commands->getGroupDimmerCommand($groupId, $level);
 
         // run command
-        $data = Runner::execWithTimeout($onCommand, 2);
+        $data = (new Runner())->execWithTimeout($onCommand, 2);
 
         // verify result
         if (\is_array($data) && 4 === \count($data)) {
