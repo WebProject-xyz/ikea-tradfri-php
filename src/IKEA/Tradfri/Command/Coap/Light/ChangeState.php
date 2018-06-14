@@ -12,7 +12,7 @@ use IKEA\Tradfri\Command\Put;
 class ChangeState extends Put
 {
     /**
-     * Build command from coap command
+     * Build command from coap command.
      *
      * @return string
      */
