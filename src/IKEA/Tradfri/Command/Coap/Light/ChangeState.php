@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IKEA\Tradfri\Command\Light;
+namespace IKEA\Tradfri\Command\Coap\Light;
 
 use IKEA\Tradfri\Command\Put;
 
@@ -13,7 +13,6 @@ class ChangeState extends Put
 {
     /**
      * Build command from coap command
-     *        // todo rethink this.
      *
      * @return string
      */

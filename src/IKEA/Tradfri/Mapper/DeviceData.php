@@ -53,12 +53,12 @@ class DeviceData extends Mapper
                 $model->setName($device->{CoapCommandKeys::KEY_NAME});
                 $model->setManufacturer(
                     $device
-                        ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
+                        ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
                         ->{CoapCommandKeys::KEY_MANUFACTURER}
                 );
                 $model->setVersion(
                     $device
-                        ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
+                        ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
                         ->{CoapCommandKeys::KEY_VERSION}
                 );
 
@@ -119,8 +119,8 @@ class DeviceData extends Mapper
         ServiceInterface $service
     ) {
         $type = $device
-            ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO}
-            ->{\IKEA\Tradfri\Command\Keys::ATTR_DEVICE_INFO_TYPE};
+            ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
+            ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE};
 
         switch ($type) {
             case Device::TYPE_BLUB_E27_W:

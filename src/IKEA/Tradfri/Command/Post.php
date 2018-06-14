@@ -7,29 +7,17 @@ namespace IKEA\Tradfri\Command;
 /**
  * Class Get.
  */
-class Post implements CommandInterface
+class Post extends AbstractCommand
 {
     const COAP_COMMAND = 'coap-client -m post -u "%s" -k "%s"';
 
     /**
-     * Execute command.
-     *
-     * @return bool
-     */
-    public function execute(): bool
-    {
-        // @TODO: Implement execute() method.
-        // combine request and coap command and execute it with the client
-    }
-
-    /**
-     * Echo command.
+     * Build command from coap command.
      *
      * @return string
      */
-    public function __toString(): string
+    protected function _buildCommand(): string
     {
-        // @TODO: Implement __toString() method.
-        return '';
+        // @TODO: Implement _buildCommand() method.
     }
 }

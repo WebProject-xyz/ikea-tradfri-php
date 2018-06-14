@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IKEA\Tradfri\Command;
+namespace IKEA\Tradfri\Command\Coap;
 
 /**
  * Class Keys.
