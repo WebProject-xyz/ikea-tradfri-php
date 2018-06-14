@@ -18,7 +18,8 @@ namespace: IKEA\Tests
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
-        #- Codeception\Extension\DotReporter
+        - Codeception\Extension\Logger: # enabled extension
+            max_files: 5 # logger configuration
 settings:
 
     # name of bootstrap that will be used
