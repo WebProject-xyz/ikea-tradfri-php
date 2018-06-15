@@ -13,9 +13,7 @@ use JsonSerializable;
 /**
  * Class Devices.
  */
-abstract class AbstractCollection
-    extends ArrayCollection
-    implements JsonSerializable
+abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
     /**
      * Add item to collection.
@@ -66,7 +64,7 @@ abstract class AbstractCollection
     {
         $data = [];
         foreach ($this->toArray() as $device) {
-            /** @var Device $device */
+            /* @var Device $device */
             $data[$device->getId()] = $device->jsonSerialize();
         }
 
