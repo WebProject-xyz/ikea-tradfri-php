@@ -6,7 +6,6 @@ namespace IKEA\Tradfri\Command;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Helper\Runner;
 
 /**
@@ -86,8 +85,8 @@ class Coaps
         );
 
         // verify result
-        if (isset($result->{CoapCommandKeys::KEY_SHARED_KEY})) {
-            return $result->{CoapCommandKeys::KEY_SHARED_KEY};
+        if (isset($result->{Keys::ATTR_PSK})) {
+            return $result->{Keys::ATTR_PSK};
         }
 
         throw new RuntimeException('Could not get api key');
@@ -106,7 +105,9 @@ class Coaps
             $this->_secret
         )
         .' -e \'{"9090":"'.$this->getUsername().'"}\''
-        .$this->_getRequestTypeCoapsUrl(CoapCommandKeys::KEY_GET_SHARED_KEY);
+        .$this->_getRequestTypeCoapsUrl(
+            Keys::ROOT_GATEWAY.'/'.Keys::ATTR_AUTH
+        );
     }
 
     /**
@@ -294,7 +295,7 @@ class Coaps
     public function getGroupSwitchCommand(int $groupId, bool $state): string
     {
         return $this->getCoapsCommandPut(
-            CoapCommandKeys::KEY_GET_GROUPS.'/'.$groupId,
+            Keys::ROOT_GROUPS.'/'.$groupId,
             self::PAYLOAD_START.Keys::ATTR_LIGHT_STATE.'": '.($state ? '1'
                 : '0').' }\' '
         );
@@ -311,8 +312,8 @@ class Coaps
     public function getGroupDimmerCommand(int $groupId, int $value): string
     {
         return $this->getCoapsCommandPut(
-            CoapCommandKeys::KEY_GET_GROUPS.'/'.$groupId,
-            self::PAYLOAD_START.CoapCommandKeys::KEY_DIMMER.'": '.(int) \round(
+            Keys::ROOT_GROUPS.'/'.$groupId,
+            self::PAYLOAD_START.Keys::ATTR_LIGHT_DIMMER.'": '.(int) \round(
                 $value * 2.55
             ).' }\' '
         );
@@ -331,9 +332,9 @@ class Coaps
         return $this->getCoapsCommandPut(
             Keys::ROOT_DEVICES.'/'.$groupId,
             self::PAYLOAD_START
-            .CoapCommandKeys::KEY_DEVICE_DATA
+            .Keys::ATTR_LIGHT_CONTROL
             .self::PAYLOAD_OPEN
-            .CoapCommandKeys::KEY_DIMMER.'": '.(int) \round($value * 2.55)
+            .Keys::ATTR_LIGHT_DIMMER.'": '.(int) \round($value * 2.55)
             .' }] }\' '
         );
     }
@@ -351,11 +352,11 @@ class Coaps
     public function getLightColorCommand(int $groupId, string $color): string
     {
         $payload = self::PAYLOAD_START
-            .CoapCommandKeys::KEY_DEVICE_DATA
+            .Keys::ATTR_LIGHT_CONTROL
             .self::PAYLOAD_OPEN
-            .CoapCommandKeys::KEY_COLOR
+            .Keys::ATTR_LIGHT_COLOR_X
             .'": %s, "'
-            .CoapCommandKeys::KEY_COLOR_2
+            .Keys::ATTR_LIGHT_COLOR_Y
             .'": %s }] }\' ';
         switch ($color) {
             case 'warm':

@@ -6,10 +6,10 @@ namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Command\Coaps;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Helper\Runner;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -53,14 +53,14 @@ class Coap extends AdapterAbstract
      */
     public function getType(int $deviceId): string
     {
-        $data = $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
+        $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
         if (\is_object($data)
-            && \property_exists($data, CoapCommandKeys::KEY_DATA)
-            && \property_exists($data, CoapCommandKeys::KEY_TYPE)
+            && \property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)
         ) {
             return $data
-                ->{CoapCommandKeys::KEY_DATA}
-                ->{CoapCommandKeys::KEY_TYPE};
+                ->{Keys::ATTR_DEVICE_INFO}
+                ->{Keys::ATTR_DEVICE_INFO_TYPE};
         }
 
         throw new RuntimeException('invalid coap response');
@@ -110,10 +110,10 @@ class Coap extends AdapterAbstract
      */
     public function getManufacturer(int $deviceId): string
     {
-        $data = $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
+        $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
 
-        if (isset($data->{CoapCommandKeys::KEY_DATA}->{'0'})) {
-            return $data->{CoapCommandKeys::KEY_DATA}->{'0'};
+        if (isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
+            return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
         }
 
         throw new RuntimeException('invalid hub response');
@@ -267,7 +267,7 @@ class Coap extends AdapterAbstract
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
-            // @TODO: add command queue
+
             if ((int) COAP_GATEWAY_FLOOD_PROTECTION > 0) {
                 \usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
             }
@@ -285,7 +285,7 @@ class Coap extends AdapterAbstract
      */
     public function getDeviceIds(): array
     {
-        return $this->_getData(CoapCommandKeys::KEY_GET_DATA);
+        return $this->_getData(Keys::ROOT_DEVICES);
     }
 
     /**
@@ -299,7 +299,7 @@ class Coap extends AdapterAbstract
      */
     public function getDeviceData(int $deviceId): \stdClass
     {
-        return $this->_getData(CoapCommandKeys::KEY_GET_DATA, $deviceId);
+        return $this->_getData(Keys::ROOT_DEVICES, $deviceId);
     }
 
     /**
@@ -347,7 +347,7 @@ class Coap extends AdapterAbstract
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $groupData[$groupId] = $this->_getData(
-                CoapCommandKeys::KEY_GET_GROUPS,
+                Keys::ROOT_GROUPS,
                 $groupId
             );
         }
@@ -364,7 +364,7 @@ class Coap extends AdapterAbstract
      */
     public function getGroupIds(): array
     {
-        return $this->_getData(CoapCommandKeys::KEY_GET_GROUPS);
+        return $this->_getData(Keys::ROOT_GROUPS);
     }
 
     /**
