@@ -20,6 +20,7 @@ class Runner
             1 => ['pipe', 'w'],  // stdout
             2 => ['pipe', 'w'],   // stderr
         ];
+
     /**
      * Execute a command and return it's output. Either wait
      * until the command exits or the timeout has expired.
@@ -160,7 +161,7 @@ class Runner
     }
 
     /**
-     * Close all streams
+     * Close all streams.
      *
      * @param array $pipes
      * @param $process

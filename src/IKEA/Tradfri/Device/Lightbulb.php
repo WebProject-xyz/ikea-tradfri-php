@@ -139,7 +139,7 @@ class Lightbulb extends Device
     }
 
     /**
-     * Get Color
+     * Get Color.
      *
      * @return string
      */
@@ -149,7 +149,7 @@ class Lightbulb extends Device
     }
 
     /**
-     * Set Color
+     * Set Color.
      *
      * @param string $color
      *
