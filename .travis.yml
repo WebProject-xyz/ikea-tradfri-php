@@ -29,7 +29,8 @@ before_install:
   - ./build/script/travis_before_install.sh
 
 install:
-  - travis_retry composer update --no-interaction --prefer-source
+  - travis_retry composer self-update
+  - travis_retry composer update --no-interaction --profile
 
 script:
   - ./build/script/travis_script.sh
