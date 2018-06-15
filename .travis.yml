@@ -4,7 +4,7 @@ sudo: false
 
 cache:
   directories:
-  - $TRAVIS_BUILD_DIR/vendor
+  - vendor
   - $HOME/.composer/cache
   - $HOME/.php-cs-fixer
   - $HOME/.local
