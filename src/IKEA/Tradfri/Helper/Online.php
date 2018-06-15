@@ -27,7 +27,7 @@ class Online
             $data = (new Runner())
                 ->execWithTimeout('ping -c1 '.$gatewayAddress, 1, false);
 
-            \preg_match_all($regex, $data, $matches, PREG_SET_ORDER);
+            \preg_match_all($regex, $data, $matches, \PREG_SET_ORDER);
             if (isset($matches[0][1])) {
                 self::_validateMatches($matches);
             } else {
