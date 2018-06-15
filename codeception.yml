@@ -17,6 +17,7 @@ actor_suffix: Tester
 namespace: IKEA\Tests
 extensions:
     enabled:
+        - Codeception\Extension\DotReporter
         - Codeception\Extension\RunFailed
         - Codeception\Extension\Logger: # enabled extension
             max_files: 5 # logger configuration
