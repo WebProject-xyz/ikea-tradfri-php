@@ -30,7 +30,7 @@ before_install:
 
 install:
   - travis_retry composer self-update
-  - travis_retry composer update --no-interaction --profile
+  - travis_retry composer install --prefer-dist --optimize-autoloader  --profile --no-interaction
 
 script:
   - ./build/script/travis_script.sh
