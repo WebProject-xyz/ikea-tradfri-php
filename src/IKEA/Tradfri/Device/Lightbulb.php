@@ -17,6 +17,11 @@ class Lightbulb extends Device
     protected $_brightness;
 
     /**
+     * @var string
+     */
+    protected $_color = '';
+
+    /**
      * @var bool
      */
     protected $_state = false;
@@ -131,5 +136,29 @@ class Lightbulb extends Device
     public function dim(int $level)
     {
         $this->getService()->dim($this, $level);
+    }
+
+    /**
+     * Get Color
+     *
+     * @return string
+     */
+    public function getColor(): string
+    {
+        return \strtoupper($this->_color);
+    }
+
+    /**
+     * Set Color
+     *
+     * @param string $color
+     *
+     * @return Lightbulb
+     */
+    public function setColor(string $color): self
+    {
+        $this->_color = $color;
+
+        return $this;
     }
 }

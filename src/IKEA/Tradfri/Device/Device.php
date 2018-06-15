@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -14,21 +15,14 @@ use JsonSerializable;
  */
 abstract class Device implements JsonSerializable
 {
-    const TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
-    const TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
-    const TYPE_DIMMER = 'TRADFRI dimmer';
-    const TYPE_BLUB_E27_WS = 'TRADFRI bulb E27 WS opal 980lm';
-    const TYPE_BLUB_E27_W = 'TRADFRI bulb E27 W opal 1000lm';
-    const TYPE_BLUB_GU10 = 'TRADFRI bulb GU10 WS 400lm';
-
     /**
      * @var array
      */
     protected static $_lightblubTypes
         = [
-            self::TYPE_BLUB_GU10,
-            self::TYPE_BLUB_E27_W,
-            self::TYPE_BLUB_E27_WS,
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10,
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
         ];
 
     /**
@@ -200,7 +194,7 @@ abstract class Device implements JsonSerializable
      *
      * @return Device
      */
-    public function setType($type): self
+    public function setType(string $type): self
     {
         if ($this->isValidType($type)) {
             $this->_type = $type;
@@ -236,21 +230,21 @@ abstract class Device implements JsonSerializable
     /**
      * Validate Type.
      *
-     * @param $type
+     * @param string $type
      *
      * @throws \IKEA\Tradfri\Exception\TypeException
      *
      * @return bool
      */
-    public function isValidType($type): bool
+    public function isValidType(string $type): bool
     {
         switch ($type) {
-            case self::TYPE_BLUB_E27_W:
-            case self::TYPE_BLUB_E27_WS:
-            case self::TYPE_BLUB_GU10:
-            case self::TYPE_MOTION_SENSOR:
-            case self::TYPE_REMOTE_CONTROL:
-            case self::TYPE_DIMMER:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10:
+            case Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
+            case Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
+            case Keys::ATTR_DEVICE_INFO_TYPE_DIMMER:
                 // todo add more types
                 break;
             default:

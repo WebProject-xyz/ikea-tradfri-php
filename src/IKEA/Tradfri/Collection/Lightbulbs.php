@@ -80,11 +80,13 @@ class Lightbulbs extends Devices
     protected function namesAsKeys(): array
     {
         $elements = [];
-        $this->forAll(function ($deviceId, Device $device) use (&$elements) {
-            $elements[$device->getName()] = $device;
+        $this->forAll(
+            function ($deviceId, Device $device) use (&$elements) {
+                $elements[$device->getName().'_'.$deviceId] = $device;
 
-            return true;
-        });
+                return true;
+            }
+        );
         \ksort($elements, \SORT_NATURAL);
 
         return $elements;

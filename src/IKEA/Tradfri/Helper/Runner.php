@@ -12,6 +12,15 @@ use IKEA\Tradfri\Exception\RuntimeException;
 class Runner
 {
     /**
+     * File descriptors passed to the process.
+     */
+    const DESCRIPTORS
+        = [
+            0 => ['pipe', 'r'],  // stdin
+            1 => ['pipe', 'w'],  // stdout
+            2 => ['pipe', 'w'],   // stderr
+        ];
+    /**
      * Execute a command and return it's output. Either wait
      * until the command exits or the timeout has expired.
      * Found at @link https://stackoverflow.com/a/20992213/3578430.
@@ -31,15 +40,8 @@ class Runner
         bool $asArray = null,
         bool $skipEmptyBufferError = null
     ) {
-        // File descriptors passed to the process.
-        $descriptors = [
-            0 => ['pipe', 'r'],  // stdin
-            1 => ['pipe', 'w'],  // stdout
-            2 => ['pipe', 'w'],   // stderr
-        ];
-
         // Start the process.
-        $process = \proc_open('exec '.$cmd, $descriptors, $pipes);
+        $process = \proc_open('exec '.$cmd, self::DESCRIPTORS, $pipes);
 
         if (!\is_resource($process)) {
             throw new RuntimeException('Could not execute process');
@@ -48,14 +50,8 @@ class Runner
         // Set the stdout stream to none-blocking.
         \stream_set_blocking($pipes[1], false);
 
-        // Turn the timeout into microseconds.
-        $timeout *= 1000000;
-
         // Output buffer.
-        $buffer = '';
-
-        // While we have time to wait.
-        $buffer = $this->_startProcess($timeout, $pipes, $process, $buffer);
+        $buffer = $this->_startProcess($timeout, $pipes, $process, '');
 
         // Check if there were any errors.
         $errors = \stream_get_contents($pipes[2]);
@@ -69,11 +65,7 @@ class Runner
         $this->_killProcess($process);
 
         // Close all streams.
-        \fclose($pipes[0]);
-        \fclose($pipes[1]);
-        \fclose($pipes[2]);
-
-        \proc_close($process);
+        $this->_closeStreams($pipes, $process);
 
         if (true === $asArray) {
             return \explode("\n", $buffer);
@@ -97,22 +89,20 @@ class Runner
     /**
      * Parse errors.
      *
-     * @param bool $skipEmptyBufferError
-     * @param      $errors
+     * @param bool   $skipEmptyBufferError
+     * @param string $errors
      */
-    private function _parseErrors(bool $skipEmptyBufferError, $errors)
+    private function _parseErrors(bool $skipEmptyBufferError, string $errors)
     {
         $parts = \explode("\n", $errors);
-        if (3 === \count($parts)) {
-            $errorMessage = $parts[1];
-        } else {
-            if (2 === \count($parts) && !empty($parts[1])) {
+        switch (\count($parts)) {
+            case 2 && !empty($parts[1]):
+            case 3:
                 $errorMessage = $parts[1];
-            } elseif (empty($parts[1])) {
-                $errorMessage = $parts[0];
-            } else {
+
+                break;
+            default:
                 $errorMessage = 'Unknown error';
-            }
         }
         if (false === $skipEmptyBufferError) {
             throw new RuntimeException($errorMessage);
@@ -135,6 +125,8 @@ class Runner
         $process,
         string $buffer
     ): string {
+        // Turn the timeout into microseconds.
+        $timeout *= 1000000;
         while ($timeout > 0) {
             $start = \microtime(true);
 
@@ -165,5 +157,20 @@ class Runner
         }
 
         return $buffer;
+    }
+
+    /**
+     * Close all streams
+     *
+     * @param array $pipes
+     * @param $process
+     */
+    protected function _closeStreams(array $pipes, $process)
+    {
+        \fclose($pipes[0]);
+        \fclose($pipes[1]);
+        \fclose($pipes[2]);
+
+        \proc_close($process);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Helper\Runner;
@@ -15,9 +16,10 @@ use IKEA\Tradfri\Helper\Runner;
  */
 class Coaps
 {
-    const COAP_COMMAND_GET = 'coap-client -m get -u "%s" -k "%s"';
+    const PAYLOAD_START = ' -e \'{ "';
+    const PAYLOAD_OPEN = '": [{ "';
+
     const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
-    const COAP_COMMAND_POST = 'coap-client -m post -u "%s" -k "%s"';
 
     /**
      * @var string
@@ -99,7 +101,7 @@ class Coaps
     public function getPreSharedKeyCommand(): string
     {
         return \sprintf(
-            self::COAP_COMMAND_POST,
+            Post::COAP_COMMAND,
             'Client_identity',
             $this->_secret
         )
@@ -152,7 +154,7 @@ class Coaps
      */
     public function setIp(string $gatewayAddress): self
     {
-        if (\filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
+        if (\filter_var($gatewayAddress, \FILTER_VALIDATE_IP)) {
             $this->_ip = $gatewayAddress;
 
             return $this;
@@ -170,15 +172,14 @@ class Coaps
      */
     public function parseResult(array $result)
     {
-        // @todo: debug logging
         $parsed = false;
-        if (\count($result) > 0) {
-            foreach ($result as $part) {
-                if (!empty($part)
-                    && false === \strpos($part, 'decrypt')
-                    && false === \strpos($part, 'v:1')) {
-                    $parsed = (string) $part;
-                }
+        foreach ($result as $part) {
+            if (!empty($part)
+                && false === \strpos($part, 'decrypt')
+                && false === \strpos($part, 'v:1')) {
+                $parsed = (string) $part;
+
+                break;
             }
         }
 
@@ -195,7 +196,7 @@ class Coaps
     public function getCoapsCommandGet($requestType): string
     {
         return \sprintf(
-            self::COAP_COMMAND_GET,
+            Get::COAP_COMMAND,
             $this->getUsername(),
             $this->getApiKey()
         ).$this->_getRequestTypeCoapsUrl($requestType);
@@ -236,7 +237,7 @@ class Coaps
     public function getCoapsCommandPost($requestType, string $inject): string
     {
         return \sprintf(
-            self::COAP_COMMAND_POST,
+            Post::COAP_COMMAND,
             $this->getUsername(),
             $this->getApiKey()
         )
@@ -254,11 +255,11 @@ class Coaps
     public function getLightSwitchCommand(int $deviceId, bool $state): string
     {
         return $this->getCoapsCommandPut(
-            CoapCommandKeys::KEY_GET_DATA.'/'.$deviceId,
-            ' -e \'{ "'
-            .CoapCommandKeys::KEY_DEVICE_DATA
-            .'": [{ "'.
-            CoapCommandKeys::KEY_ONOFF.'": '.($state ? '1' : '0')
+            Keys::ROOT_DEVICES.'/'.$deviceId,
+            self::PAYLOAD_START
+            .Keys::ATTR_LIGHT_CONTROL
+            .self::PAYLOAD_OPEN
+            .Keys::ATTR_LIGHT_STATE.'": '.($state ? '1' : '0')
             .' }] }\' '
         );
     }
@@ -274,7 +275,7 @@ class Coaps
     public function getCoapsCommandPut($requestType, string $inject): string
     {
         return \sprintf(
-            self::COAP_COMMAND_PUT,
+            Put::COAP_COMMAND,
             $this->getUsername(),
             $this->getApiKey()
         )
@@ -294,7 +295,7 @@ class Coaps
     {
         return $this->getCoapsCommandPut(
             CoapCommandKeys::KEY_GET_GROUPS.'/'.$groupId,
-            ' -e \'{ "'.CoapCommandKeys::KEY_ONOFF.'": '.($state ? '1'
+            self::PAYLOAD_START.Keys::ATTR_LIGHT_STATE.'": '.($state ? '1'
                 : '0').' }\' '
         );
     }
@@ -311,7 +312,7 @@ class Coaps
     {
         return $this->getCoapsCommandPut(
             CoapCommandKeys::KEY_GET_GROUPS.'/'.$groupId,
-            ' -e \'{ "'.CoapCommandKeys::KEY_DIMMER.'": '.(int) \round(
+            self::PAYLOAD_START.CoapCommandKeys::KEY_DIMMER.'": '.(int) \round(
                 $value * 2.55
             ).' }\' '
         );
@@ -328,8 +329,10 @@ class Coaps
     public function getLightDimmerCommand(int $groupId, int $value): string
     {
         return $this->getCoapsCommandPut(
-            CoapCommandKeys::KEY_GET_DATA.'/'.$groupId,
-            ' -e \'{ "'.CoapCommandKeys::KEY_DEVICE_DATA.'": [{ "'
+            Keys::ROOT_DEVICES.'/'.$groupId,
+            self::PAYLOAD_START
+            .CoapCommandKeys::KEY_DEVICE_DATA
+            .self::PAYLOAD_OPEN
             .CoapCommandKeys::KEY_DIMMER.'": '.(int) \round($value * 2.55)
             .' }] }\' '
         );
@@ -347,9 +350,13 @@ class Coaps
      */
     public function getLightColorCommand(int $groupId, string $color): string
     {
-        $payload = ' -e \'{ "'.CoapCommandKeys::KEY_DEVICE_DATA.'": [{ "'
-            .CoapCommandKeys::KEY_COLOR.'": %s, "'
-            .CoapCommandKeys::KEY_COLOR_2.'": %s }] }\' ';
+        $payload = self::PAYLOAD_START
+            .CoapCommandKeys::KEY_DEVICE_DATA
+            .self::PAYLOAD_OPEN
+            .CoapCommandKeys::KEY_COLOR
+            .'": %s, "'
+            .CoapCommandKeys::KEY_COLOR_2
+            .'": %s }] }\' ';
         switch ($color) {
             case 'warm':
                 $payload = \sprintf($payload, '33135', '27211');
@@ -368,7 +375,7 @@ class Coaps
         }
 
         return $this->getCoapsCommandPut(
-            CoapCommandKeys::KEY_GET_DATA.'/'.$groupId,
+            Keys::ROOT_DEVICES.'/'.$groupId,
             $payload
         );
     }

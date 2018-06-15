@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace IKEA\Tests\Tradfri\Device;
 
 use IKEA\Tradfri\Client\Client;
-use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\Api;
@@ -29,19 +29,19 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
      */
     protected function _getModel(): Lightbulb
     {
-        return new Lightbulb($this->id, Device::TYPE_BLUB_E27_W);
+        return new Lightbulb($this->id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
     }
 
     public function testSetType()
     {
         // Arrange
         $lamp = $this->_getModel();
-        $lamp->setType(Device::TYPE_BLUB_E27_W);
+        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
         // Act
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Device::TYPE_BLUB_E27_W, $result);
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
     }
 
     public function testIsLightbulb()
@@ -93,24 +93,24 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
     {
         // Arrange
         $lamp = $this->_getModel();
-        $lamp->setType(Device::TYPE_BLUB_E27_WS);
+        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         // Act
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Device::TYPE_BLUB_E27_WS, $result);
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $result);
     }
 
     public function testSetTypeGU10()
     {
         // Arrange
         $lamp = $this->_getModel();
-        $lamp->setType(Device::TYPE_BLUB_GU10);
+        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10);
         // Act
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Device::TYPE_BLUB_GU10, $result);
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10, $result);
     }
 
     public function testStates()

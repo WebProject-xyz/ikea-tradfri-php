@@ -6,6 +6,7 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
+use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Lightbulb;
@@ -13,7 +14,6 @@ use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -41,38 +41,23 @@ class DeviceData extends Mapper
                 if (false === $this->_isValidData($device)) {
                     continue;
                 }
-                $id = (int) $device->{CoapCommandKeys::KEY_ID};
 
                 try {
-                    $model = $this->_getModel($id, $device, $service);
+                    $model = $this->_getModel(
+                        $this->_getDeviceId($device),
+                        $device,
+                        $service
+                    );
                 } catch (TypeException $typeException) {
+                    // unknown type
                     // todo add logger
                     continue;
                 }
 
-                $model->setName($device->{CoapCommandKeys::KEY_NAME});
-                $model->setManufacturer(
-                    $device
-                        ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
-                        ->{CoapCommandKeys::KEY_MANUFACTURER}
-                );
-                $model->setVersion(
-                    $device
-                        ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
-                        ->{CoapCommandKeys::KEY_VERSION}
-                );
+                $this->_setDeviceAttributes($model, $device);
 
                 if ($model instanceof Lightbulb) {
-                    $model->setBrightness(
-                        $device
-                            ->{CoapCommandKeys::KEY_DEVICE_DATA}[0]
-                            ->{CoapCommandKeys::KEY_DIMMER}
-                    );
-                    $model->setState(
-                        (bool) $device
-                            ->{CoapCommandKeys::KEY_DEVICE_DATA}[0]
-                            ->{CoapCommandKeys::KEY_ONOFF}
-                    );
+                    $this->_setLightBlubAttributes($model, $device);
                 }
 
                 $collection->set($model->getId(), $model);
@@ -119,25 +104,25 @@ class DeviceData extends Mapper
         ServiceInterface $service
     ) {
         $type = $device
-            ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO}
-            ->{\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE};
+            ->{AttributeKeys::ATTR_DEVICE_INFO}
+            ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
 
         switch ($type) {
-            case Device::TYPE_BLUB_E27_W:
-            case Device::TYPE_BLUB_E27_WS:
-            case Device::TYPE_BLUB_GU10:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10:
                 $model = new Lightbulb($deviceId, $type);
 
                 break;
-            case Device::TYPE_MOTION_SENSOR:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
                 $model = new MotionSensor($deviceId);
 
                 break;
-            case Device::TYPE_REMOTE_CONTROL:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
                 $model = new Remote($deviceId);
 
                 break;
-            case Device::TYPE_DIMMER:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_DIMMER:
                 $model = new Dimmer($deviceId);
 
                 break;
@@ -146,5 +131,69 @@ class DeviceData extends Mapper
         }
 
         return $model->setType($type)->setService($service);
+    }
+
+    /**
+     * Get Device id.
+     *
+     * @param $device
+     *
+     * @return int
+     */
+    protected function _getDeviceId($device): int
+    {
+        return (int) $device->{AttributeKeys::ATTR_ID};
+    }
+
+    /**
+     * Set Lightbulb attributes.
+     *
+     * @param $model
+     * @param $device
+     */
+    protected function _setLightBlubAttributes(
+        Lightbulb $model,
+        \stdClass $device
+    ) {
+        $model->setBrightness(
+            $device
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_DIMMER}
+        );
+
+        $model->setColor(
+            $device
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_COLOR_HEX} ?? ''
+        );
+
+        $model->setState(
+            (bool) $device
+                      ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_STATE}
+        );
+    }
+
+    /**
+     * Set Device attributes.
+     *
+     * @param $model
+     * @param $device
+     */
+    protected function _setDeviceAttributes(Device $model, \stdClass $device)
+    {
+        $model->setName($device->{AttributeKeys::ATTR_NAME});
+
+        $model->setManufacturer(
+            $device
+                ->{AttributeKeys::ATTR_DEVICE_INFO}
+                ->{AttributeKeys::ATTR_DEVICE_INFO_MANUFACTURER}
+        );
+
+        $model->setVersion(
+            $device
+                ->{AttributeKeys::ATTR_DEVICE_INFO}
+                ->{AttributeKeys::ATTR_DEVICE_VERSION}
+        );
     }
 }

@@ -6,8 +6,8 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Group\Light;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 
@@ -36,17 +36,17 @@ class GroupData extends Mapper
             }
 
             $group = new Light(
-                (int) $device->{CoapCommandKeys::KEY_ID}, $service
+                (int) $device->{Keys::ATTR_ID}, $service
             );
-            $group->setName($device->{CoapCommandKeys::KEY_NAME});
+            $group->setName($device->{Keys::ATTR_NAME});
             $group->setDeviceIds(
                 $device
-                    ->{CoapCommandKeys::KEY_GROUPS_DATA}
-                    ->{CoapCommandKeys::KEY_GET_LIGHTS}
-                    ->{CoapCommandKeys::KEY_ID}
+                    ->{Keys::ATTR_GROUP_INFO}
+                    ->{Keys::ATTR_GROUP_LIGHTS}
+                    ->{Keys::ATTR_ID}
             );
-            $group->setBrightness($device->{CoapCommandKeys::KEY_DIMMER});
-            $group->setState((bool) $device->{CoapCommandKeys::KEY_ONOFF});
+            $group->setBrightness($device->{Keys::ATTR_LIGHT_DIMMER});
+            $group->setState((bool) $device->{Keys::ATTR_LIGHT_STATE});
 
             $collection->addGroup($group);
         }

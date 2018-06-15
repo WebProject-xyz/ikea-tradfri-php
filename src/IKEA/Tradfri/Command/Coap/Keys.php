@@ -16,9 +16,11 @@ class Keys
     const ROOT_GATEWAY = '15011';
     const ROOT_GROUPS = '15004';
     const ROOT_MOODS = '15005';
-    const ROOT_NOTIFICATION = '15006';  // speculative name
+    // speculative name
+    const ROOT_NOTIFICATION = '15006';
     const ROOT_SMART_TASKS = '15010';
-    const ROOT_START_ACTION = '15013';  // found under ATTR_START_ACTION
+    // found under ATTR_START_ACTION
+    const ROOT_START_ACTION = '15013';
     const ROOT_SWITCH = '15009';
 
     const ATTR_ALEXA_PAIR_STATUS = '9093';
@@ -34,8 +36,19 @@ class Keys
     const ATTR_CURRENT_TIME_UNIX = '9059';
     const ATTR_CURRENT_TIME_ISO8601 = '9060';
 
+    const ATTR_GROUP_INFO = '9018';
+    const ATTR_GROUP_LIGHTS = '15002';
+
     const ATTR_DEVICE_INFO = '3';
+    const ATTR_DEVICE_INFO_MANUFACTURER = '0';
     const ATTR_DEVICE_INFO_TYPE = '1';
+    const ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
+    const ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
+    const ATTR_DEVICE_INFO_TYPE_DIMMER = 'TRADFRI dimmer';
+    const ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS = 'TRADFRI bulb E27 WS opal 980lm';
+    const ATTR_DEVICE_INFO_TYPE_BLUB_E27_W = 'TRADFRI bulb E27 W opal 1000lm';
+    const ATTR_DEVICE_INFO_TYPE_BLUB_GU10 = 'TRADFRI bulb GU10 WS 400lm';
+    const ATTR_DEVICE_VERSION = '3';
 
     const ATTR_GATEWAY_TIME_SOURCE = '9071';
     const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';
@@ -50,25 +63,32 @@ class Keys
     const ATTR_KEY_PAIR = '9097';
 
     const ATTR_LAST_SEEN = '9020';
-    const ATTR_LIGHT_CONTROL = '3311';  // array
+    // array
+    const ATTR_LIGHT_CONTROL = '3311';
 
     const ATTR_MASTER_TOKEN_TAG = '9036';
 
     const ATTR_NAME = '9001';
     const ATTR_NTP = '9023';
     const ATTR_FIRMWARE_VERSION = '9029';
-    const ATTR_FIRST_SETUP = '9069';  // ??? unix epoch value when gateway first setup
+    // ??? unix epoch value when gateway first setup
+    const ATTR_FIRST_SETUP = '9069';
 
     const ATTR_GATEWAY_INFO = '15012';
-    const ATTR_GATEWAY_ID = '9081';  // ??? id of the gateway
-    const ATTR_GATEWAY_REBOOT = '9030';  // gw reboot
-    const ATTR_GATEWAY_FACTORY_DEFAULTS = '9031';  // gw to factory defaults
+    // ??? id of the gateway
+    const ATTR_GATEWAY_ID = '9081';
+    // gw reboot
+    const ATTR_GATEWAY_REBOOT = '9030';
+    // gw to factory defaults
+    const ATTR_GATEWAY_FACTORY_DEFAULTS = '9031';
     const ATTR_GATEWAY_FACTORY_DEFAULTS_MIN_MAX_MSR = '5605';
     const ATTR_GOOGLE_HOME_PAIR_STATUS = '9105';
-
-    const ATTR_LIGHT_STATE = '5850';  // 0 / 1
-    const ATTR_LIGHT_DIMMER = '5851';  // Dimmer, not following spec: 0..255
-    const ATTR_LIGHT_COLOR_HEX = '5706';  // string representing a value in hex
+    // 0 / 1
+    const ATTR_LIGHT_STATE = '5850';
+    // Dimmer, not following spec: 0..255
+    const ATTR_LIGHT_DIMMER = '5851';
+    // string representing a value in hex
+    const ATTR_LIGHT_COLOR_HEX = '5706';
     const ATTR_LIGHT_COLOR_X = '5709';
     const ATTR_LIGHT_COLOR_Y = '5710';
     const ATTR_LIGHT_COLOR_HUE = '5707';
@@ -101,8 +121,10 @@ class Keys
     const ATTR_SENSOR_TYPE = '5751';
     const ATTR_SENSOR_UNIT = '5701';
     const ATTR_SENSOR_VALUE = '5700';
-    const ATTR_START_ACTION = '9042';  // array
-    const ATTR_SMART_TASK_TYPE = '9040';  // 4 = transition | 1 = not home | 2 = on/off
+    // array
+    const ATTR_START_ACTION = '9042';
+    // 4 = transition | 1 = not home | 2 = on/off
+    const ATTR_SMART_TASK_TYPE = '9040';
     const ATTR_SMART_TASK_NOT_AT_HOME = 1;
     const ATTR_SMART_TASK_LIGHTS_OFF = 2;
     const ATTR_SMART_TASK_WAKE_UP = 4;
@@ -120,7 +142,8 @@ class Keys
     const ATTR_USE_CURRENT_LIGHT_SETTINGS = '9070';
 
     // URL to json-file containing links to all firmware updates
-    const URL_OTA_FW = 'https://fw.ota.homesmart.ikea.net/feed/version_info.json';
+    const URL_OTA_FW
+        = 'https://fw.ota.homesmart.ikea.net/feed/version_info.json';
 
     // Mireds range that white-spectrum bulbs can show
     const RANGE_MIREDS = ['min' => 250, 'max' => 454];

@@ -35,11 +35,11 @@ class Unit extends \Codeception\Module
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID          => 1000,
-                CoapCommandKeys::KEY_NAME        => Device::TYPE_BLUB_E27_W,
+                CoapCommandKeys::KEY_NAME        => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
                 CoapCommandKeys::KEY_DATA        => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_BLUB_E27_W,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
                 ],
                 CoapCommandKeys::KEY_DEVICE_DATA => [
                     0 => [
@@ -50,11 +50,11 @@ class Unit extends \Codeception\Module
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID          => 2000,
-                CoapCommandKeys::KEY_NAME        => Device::TYPE_BLUB_E27_WS,
+                CoapCommandKeys::KEY_NAME        => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
                 CoapCommandKeys::KEY_DATA        => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_BLUB_E27_WS,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
                 ],
                 CoapCommandKeys::KEY_DEVICE_DATA => [
                     0 => [
@@ -65,29 +65,29 @@ class Unit extends \Codeception\Module
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID   => 3000,
-                CoapCommandKeys::KEY_NAME => Device::TYPE_DIMMER,
+                CoapCommandKeys::KEY_NAME => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                 CoapCommandKeys::KEY_DATA => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_DIMMER,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                 ],
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID   => 4000,
-                CoapCommandKeys::KEY_NAME => Device::TYPE_REMOTE_CONTROL,
+                CoapCommandKeys::KEY_NAME => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
                 CoapCommandKeys::KEY_DATA => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_REMOTE_CONTROL,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
                 ],
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID   => 5000,
-                CoapCommandKeys::KEY_NAME => Device::TYPE_MOTION_SENSOR,
+                CoapCommandKeys::KEY_NAME => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 CoapCommandKeys::KEY_DATA => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_MOTION_SENSOR,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 ],
             ])),
         ];
@@ -156,11 +156,11 @@ class Unit extends \Codeception\Module
             ])),
             \json_decode(\json_encode([
                 CoapCommandKeys::KEY_ID   => 5000,
-                CoapCommandKeys::KEY_NAME => Device::TYPE_MOTION_SENSOR,
+                CoapCommandKeys::KEY_NAME => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 CoapCommandKeys::KEY_DATA => [
                     CoapCommandKeys::KEY_MANUFACTURER => 'UnitTestFactory',
                     CoapCommandKeys::KEY_VERSION      => 'v1.33.7',
-                    CoapCommandKeys::KEY_TYPE         => Device::TYPE_MOTION_SENSOR,
+                    CoapCommandKeys::KEY_TYPE         => \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 ],
             ])),
             'asd invalid',

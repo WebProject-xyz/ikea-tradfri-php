@@ -31,6 +31,6 @@ class DimmerTest extends DeviceTester
      */
     protected function _getModel(): Device
     {
-        return new Dimmer($this->id, Device::TYPE_DIMMER);
+        return new Dimmer($this->id, \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_DIMMER);
     }
 }

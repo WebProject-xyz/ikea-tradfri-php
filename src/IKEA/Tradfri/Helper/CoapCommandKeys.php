@@ -6,6 +6,9 @@ namespace IKEA\Tradfri\Helper;
 
 /**
  * Class Keys.
+ *
+ * @deprecated use \IKEA\Tradfri\Command\Coap\Keys
+ * @see \IKEA\Tradfri\Command\Coap\Keys
  */
 class CoapCommandKeys
 {

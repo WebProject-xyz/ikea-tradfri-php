@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Command\Coap\Keys;
+
 /**
  * Class Remote.
  */
@@ -18,6 +20,9 @@ class Remote extends Device
      */
     public function __construct($deviceId)
     {
-        parent::__construct($deviceId, self::TYPE_REMOTE_CONTROL);
+        parent::__construct(
+            $deviceId,
+            Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL
+        );
     }
 }

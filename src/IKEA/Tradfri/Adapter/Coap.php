@@ -10,7 +10,6 @@ use IKEA\Tradfri\Command\Coaps;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Helper\CoapCommandKeys;
-use IKEA\Tradfri\Helper\Online;
 use IKEA\Tradfri\Helper\Runner;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -21,15 +20,11 @@ use IKEA\Tradfri\Service\ServiceInterface;
 class Coap extends AdapterAbstract
 {
     const COULD_NOT_SWITCH_STATE = 'Could not switch state';
+
     /**
      * @var Coaps
      */
     protected $_commands;
-
-    /**
-     * @var bool
-     */
-    protected $_isOnline = false;
 
     /**
      * Coap constructor.
@@ -44,42 +39,7 @@ class Coap extends AdapterAbstract
         MapperInterface $groupDataMapper
     ) {
         $this->_commands = $commands;
-
-        $this->checkOnline($commands->getIp());
-
         parent::__construct($deviceDataMapper, $groupDataMapper);
-    }
-
-    /**
-     * Check online state.
-     *
-     * @deprecated no more ping from gateway
-     *
-     * @param string $gatewayAddress
-     *
-     * @return bool
-     */
-    public function checkOnline(string $gatewayAddress): bool
-    {
-        // disabled
-        $state = true;
-        $this->setOnline(true);
-
-        return $state;
-    }
-
-    /**
-     * Set IsOnline.
-     *
-     * @param bool $isOnline
-     *
-     * @return Coap
-     */
-    public function setOnline(bool $isOnline): self
-    {
-        $this->_isOnline = $isOnline;
-
-        return $this;
     }
 
     /**
@@ -118,40 +78,25 @@ class Coap extends AdapterAbstract
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
-        if ($this->isOnline()) {
-            $command = $this->_commands->getCoapsCommandGet($requestType);
+        $command = $this->_commands->getCoapsCommandGet($requestType);
 
-            if (null !== $deviceId) {
-                $command .= '/'.$deviceId;
-            }
-
-            $dataRaw = $this->_commands->parseResult(
-                (new Runner())->execWithTimeout($command, 1)
-            );
-
-            if (false !== $dataRaw) {
-                $decoded = \json_decode($dataRaw);
-                if (null === $decoded) {
-                    $decoded = $dataRaw;
-                }
-
-                return $decoded;
-            }
-
-            throw new RuntimeException('invalid hub response');
+        if (null !== $deviceId) {
+            $command .= '/'.$deviceId;
         }
 
-        throw new RuntimeException('api is offline');
-    }
+        $dataRaw = $this->_commands->parseResult(
+            (new Runner())->execWithTimeout(
+                $command,
+                1,
+                true
+            )
+        );
 
-    /**
-     * Get isOnline.
-     *
-     * @return bool
-     */
-    public function isOnline(): bool
-    {
-        return $this->_isOnline;
+        if (false !== $dataRaw) {
+            return $this->_decodeData($dataRaw);
+        }
+
+        throw new RuntimeException('invalid hub response');
     }
 
     /**
@@ -186,17 +131,15 @@ class Coap extends AdapterAbstract
      */
     public function changeLightState(int $deviceId, bool $toState): bool
     {
-        // get command to switch light
-        $onCommand = $this->_commands
-            ->getLightSwitchCommand($deviceId, $toState);
-
         // run command
-        $data = (new Runner())->execWithTimeout(
-            $onCommand,
-            2,
-            true,
-            true
-        );
+        $data = (new Runner())
+            ->execWithTimeout(
+                $this->_commands->getLightSwitchCommand($deviceId, $toState),
+                2,
+                true,
+                true
+            );
+
         // verify result
         if (\is_array($data) && empty($data[0])) {
             /*
@@ -221,15 +164,16 @@ class Coap extends AdapterAbstract
      */
     public function changeGroupState(int $groupId, bool $toState): bool
     {
-        // get command to switch light
-        $onCommand = $this->_commands
-            ->getGroupSwitchCommand($groupId, $toState);
-
         // run command
-        $data = (new Runner())->execWithTimeout($onCommand, 2);
+        $data = (new Runner())
+            ->execWithTimeout(
+                $this->_commands->getGroupSwitchCommand($groupId, $toState),
+                2
+            );
 
         // verify result
-        if (\is_array($data) && 4 === \count($data)) {
+
+        if ($this->_verifyResult($data)) {
             return true;
         }
 
@@ -248,15 +192,14 @@ class Coap extends AdapterAbstract
      */
     public function setLightBrightness(int $lightId, int $level): bool
     {
-        // get command to dim light
-        $onCommand = $this->_commands
-            ->getLightDimmerCommand($lightId, $level);
-
         // run command
-        $data = (new Runner())->execWithTimeout($onCommand, 2);
+        $data = (new Runner())->execWithTimeout(
+            $this->_commands->getLightDimmerCommand($lightId, $level),
+            2
+        );
 
         // verify result
-        if (\is_array($data) && 4 === \count($data)) {
+        if ($this->_verifyResult($data)) {
             return true;
         }
 
@@ -275,14 +218,14 @@ class Coap extends AdapterAbstract
      */
     public function setGroupBrightness(int $groupId, int $level): bool
     {
-        // get command to switch light
-        $onCommand = $this->_commands->getGroupDimmerCommand($groupId, $level);
-
         // run command
-        $data = (new Runner())->execWithTimeout($onCommand, 2);
+        $data = (new Runner())->execWithTimeout(
+            $this->_commands->getGroupDimmerCommand($groupId, $level),
+            2
+        );
 
         // verify result
-        if (\is_array($data) && 4 === \count($data)) {
+        if ($this->_verifyResult($data)) {
             return true;
         }
 
@@ -422,5 +365,34 @@ class Coap extends AdapterAbstract
     public function getGroupIds(): array
     {
         return $this->_getData(CoapCommandKeys::KEY_GET_GROUPS);
+    }
+
+    /**
+     * Decode gateway data.
+     *
+     * @param $dataRaw
+     *
+     * @return object|string
+     */
+    protected function _decodeData(string $dataRaw)
+    {
+        $decoded = \json_decode($dataRaw);
+        if (null === $decoded) {
+            $decoded = $dataRaw;
+        }
+
+        return $decoded;
+    }
+
+    /**
+     * Verify result.
+     *
+     * @param $data
+     *
+     * @return bool
+     */
+    protected function _verifyResult(array $data): bool
+    {
+        return \is_array($data) && 4 === \count($data);
     }
 }

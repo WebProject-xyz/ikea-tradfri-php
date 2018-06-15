@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Validator\Group;
 
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Validator\ValidatorInterface;
 
 /**
@@ -18,9 +18,9 @@ class Data implements ValidatorInterface
      * @var array
      */
     protected static $_mustHaves = [
-        CoapCommandKeys::KEY_ID,
-        CoapCommandKeys::KEY_NAME,
-        CoapCommandKeys::KEY_GROUPS_DATA,
+        Keys::ATTR_ID,
+        Keys::ATTR_NAME,
+        Keys::ATTR_GROUP_INFO,
     ];
 
     /**
@@ -39,23 +39,23 @@ class Data implements ValidatorInterface
 
             $isValid = true;
 
-            $groupData = $data->{CoapCommandKeys::KEY_GROUPS_DATA};
+            $groupData = $data->{Keys::ATTR_GROUP_INFO};
             if (!\property_exists(
                 $groupData,
-                CoapCommandKeys::KEY_GET_LIGHTS
+                Keys::ATTR_GROUP_LIGHTS
             )) {
                 throw new RuntimeException(
-                    'attribute missing ('.CoapCommandKeys::KEY_GET_LIGHTS.')'
+                    'attribute missing ('.Keys::ATTR_GROUP_LIGHTS.')'
                 );
             }
-            $lightData = $groupData->{CoapCommandKeys::KEY_GET_LIGHTS};
+            $lightData = $groupData->{Keys::ATTR_GROUP_LIGHTS};
 
-            if (!isset($lightData->{CoapCommandKeys::KEY_ID})) {
+            if (!isset($lightData->{Keys::ATTR_ID})) {
                 throw new RuntimeException(
                     'attribute group data is not an array ('.
-                    CoapCommandKeys::KEY_GROUPS_DATA.
-                    '->'.CoapCommandKeys::KEY_GET_LIGHTS.
-                    '->'.CoapCommandKeys::KEY_ID.')'
+                    Keys::ATTR_GROUP_INFO.
+                    '->'.Keys::ATTR_GROUP_LIGHTS.
+                    '->'.Keys::ATTR_ID.')'
                 );
             }
         } catch (\Throwable $exception) {

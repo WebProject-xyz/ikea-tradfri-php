@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use Closure;
 use Doctrine\Common\Collections\ArrayCollection;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Exception\RuntimeException;
@@ -12,7 +13,9 @@ use JsonSerializable;
 /**
  * Class Devices.
  */
-abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
+abstract class AbstractCollection
+    extends ArrayCollection
+    implements JsonSerializable
 {
     /**
      * Add item to collection.
@@ -21,7 +24,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
      *
      * @return $this
      */
-    public function addDevice(Device $newItem)
+    public function addDevice(Device $newItem): self
     {
         $this->set($newItem->getId(), $newItem);
 
@@ -31,24 +34,22 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     /**
      * Find item by closure.
      *
-     * @param $closure
+     * @param Closure $closure
      *
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return null|Device|void
+     * @return null|Device
      */
-    public function find($closure)
+    public function find(Closure $closure)
     {
         foreach ($this->toArray() as $item) {
-            if (\is_callable($closure)) {
-                if (true === $closure($item)) {
-                    return $item;
-                }
-            } else {
-                throw new RuntimeException('closure function not working');
+            if (true === $closure($item)) {
+                return $item;
             }
         }
+
+        return null;
     }
 
     /**
@@ -65,7 +66,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     {
         $data = [];
         foreach ($this->toArray() as $device) {
-            // @var Device $device
+            /** @var Device $device */
             $data[$device->getId()] = $device->jsonSerialize();
         }
 

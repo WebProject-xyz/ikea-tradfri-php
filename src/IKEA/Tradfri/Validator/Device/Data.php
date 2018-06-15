@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Validator\Device;
 
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Validator\ValidatorInterface;
 
 /**
@@ -36,7 +36,8 @@ class Data implements ValidatorInterface
 
             $this->_hasDataField($device);
 
-            $data = $device->{CoapCommandKeys::KEY_DATA};
+            $data = $this->_getData($device);
+
             $this->_hasDataType($data);
 
             $this->_hasDataManufacturer($data);
@@ -60,9 +61,9 @@ class Data implements ValidatorInterface
      */
     protected function _hasIdField(\stdClass $device): bool
     {
-        if (!\property_exists($device, CoapCommandKeys::KEY_ID)) {
+        if (!\property_exists($device, Keys::ATTR_ID)) {
             throw new RuntimeException(
-                'attribute missing ('.CoapCommandKeys::KEY_ID
+                'attribute missing ('.Keys::ATTR_ID.')'
             );
         }
 
@@ -78,9 +79,9 @@ class Data implements ValidatorInterface
      */
     protected function _hasDataField(\stdClass $device): bool
     {
-        if (!\property_exists($device, CoapCommandKeys::KEY_DATA)) {
+        if (!\property_exists($device, Keys::ATTR_DEVICE_INFO)) {
             throw new RuntimeException(
-                'attribute missing ('.CoapCommandKeys::KEY_DATA
+                'attribute missing ('.Keys::ATTR_DEVICE_INFO.')'
             );
         }
 
@@ -96,7 +97,7 @@ class Data implements ValidatorInterface
      */
     protected function _hasDataType(\stdClass $data): bool
     {
-        if (false === \property_exists($data, CoapCommandKeys::KEY_TYPE)) {
+        if (false === \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
             throw new RuntimeException('attribute missing type key');
         }
 
@@ -112,7 +113,7 @@ class Data implements ValidatorInterface
      */
     protected function _hasDataManufacturer(\stdClass $data): bool
     {
-        if (!\property_exists($data, CoapCommandKeys::KEY_MANUFACTURER)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
             throw new RuntimeException(
                 'attribute missing type manufacturer'
             );
@@ -130,12 +131,24 @@ class Data implements ValidatorInterface
      */
     protected function _hasDataVersion(\stdClass $data): bool
     {
-        if (!\property_exists($data, CoapCommandKeys::KEY_VERSION)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
             throw new RuntimeException(
                 'attribute missing type version'
             );
         }
 
         return true;
+    }
+
+    /**
+     * Get Data.
+     *
+     * @param $device
+     *
+     * @return mixed
+     */
+    protected function _getData(\stdClass $device)
+    {
+        return $device->{Keys::ATTR_DEVICE_INFO};
     }
 }

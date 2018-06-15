@@ -5,7 +5,7 @@ namespace IKEA\Tests\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Device\MotionSensor;
@@ -49,62 +49,62 @@ class DeviceDataTest extends UnitTest
         // Act
         $result = $mapper->map($serviceMock, $this->tester->getDevices());
         // Assert
-        $this->tester->assertInstanceOf(Devices::class, $result);
-        $this->tester->assertFalse($result->isEmpty());
-        $this->tester->assertSame(5, $result->count());
+        $this->assertInstanceOf(Devices::class, $result);
+        $this->assertFalse($result->isEmpty());
+        $this->assertSame(5, $result->count());
 
         $device1 = $result->get(1000);
-        $this->tester->assertInstanceOf(Lightbulb::class, $device1);
-        $this->tester->assertTrue($device1->isLightbulb());
-        $this->tester->assertSame(1000, $device1->getId());
-        $this->tester->assertTrue($device1->isOn());
-        $this->tester->assertSame('On', $device1->getState());
-        $this->tester->assertSame(Device::TYPE_BLUB_E27_W, $device1->getName());
-        $this->tester->assertSame(Device::TYPE_BLUB_E27_W, $device1->getType());
-        $this->tester->assertSame('UnitTestFactory', $device1->getManufacturer());
-        $this->tester->assertSame('v1.33.7', $device1->getVersion());
-        $this->tester->assertSame(9.0, $device1->getBrightness());
+        $this->assertInstanceOf(Lightbulb::class, $device1);
+        $this->assertTrue($device1->isLightbulb());
+        $this->assertSame(1000, $device1->getId());
+        $this->assertTrue($device1->isOn());
+        $this->assertSame('On', $device1->getState());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $device1->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $device1->getType());
+        $this->assertSame('UnitTestFactory', $device1->getManufacturer());
+        $this->assertSame('v1.33.7', $device1->getVersion());
+        $this->assertSame(9.0, $device1->getBrightness());
 
         $device2 = $result->get(2000);
-        $this->tester->assertInstanceOf(Lightbulb::class, $device2);
-        $this->tester->assertTrue($device2->isLightbulb());
-        $this->tester->assertSame(2000, $device2->getId());
-        $this->tester->assertFalse($device2->isOn());
-        $this->tester->assertSame('Off', $device2->getState());
-        $this->tester->assertSame(Device::TYPE_BLUB_E27_WS, $device2->getName());
-        $this->tester->assertSame(Device::TYPE_BLUB_E27_WS, $device2->getType());
-        $this->tester->assertSame('UnitTestFactory', $device2->getManufacturer());
-        $this->tester->assertSame('v1.33.7', $device2->getVersion());
-        $this->tester->assertSame(9.0, $device2->getBrightness());
+        $this->assertInstanceOf(Lightbulb::class, $device2);
+        $this->assertTrue($device2->isLightbulb());
+        $this->assertSame(2000, $device2->getId());
+        $this->assertFalse($device2->isOn());
+        $this->assertSame('Off', $device2->getState());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $device2->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $device2->getType());
+        $this->assertSame('UnitTestFactory', $device2->getManufacturer());
+        $this->assertSame('v1.33.7', $device2->getVersion());
+        $this->assertSame(9.0, $device2->getBrightness());
 
         $device3 = $result->get(3000);
-        $this->tester->assertInstanceOf(Dimmer::class, $device3);
-        $this->tester->assertFalse($device3->isLightbulb());
-        $this->tester->assertSame(3000, $device3->getId());
-        $this->tester->assertSame(Device::TYPE_DIMMER, $device3->getName());
-        $this->tester->assertSame(Device::TYPE_DIMMER, $device3->getType());
-        $this->tester->assertSame('UnitTestFactory', $device3->getManufacturer());
-        $this->tester->assertSame('v1.33.7', $device3->getVersion());
+        $this->assertInstanceOf(Dimmer::class, $device3);
+        $this->assertFalse($device3->isLightbulb());
+        $this->assertSame(3000, $device3->getId());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getType());
+        $this->assertSame('UnitTestFactory', $device3->getManufacturer());
+        $this->assertSame('v1.33.7', $device3->getVersion());
 
         $device4 = $result->get(4000);
-        $this->tester->assertInstanceOf(Remote::class, $device4);
-        $this->tester->assertFalse($device4->isLightbulb());
-        $this->tester->assertSame(4000, $device4->getId());
-        $this->tester->assertSame(Device::TYPE_REMOTE_CONTROL, $device4->getName());
-        $this->tester->assertSame(Device::TYPE_REMOTE_CONTROL, $device4->getType());
-        $this->tester->assertSame('UnitTestFactory', $device4->getManufacturer());
-        $this->tester->assertSame('v1.33.7', $device4->getVersion());
+        $this->assertInstanceOf(Remote::class, $device4);
+        $this->assertFalse($device4->isLightbulb());
+        $this->assertSame(4000, $device4->getId());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getType());
+        $this->assertSame('UnitTestFactory', $device4->getManufacturer());
+        $this->assertSame('v1.33.7', $device4->getVersion());
 
         $device5 = $result->get(5000);
-        $this->tester->assertInstanceOf(MotionSensor::class, $device5);
-        $this->tester->assertFalse($device5->isLightbulb());
-        $this->tester->assertSame(5000, $device5->getId());
-        $this->tester->assertSame(Device::TYPE_MOTION_SENSOR, $device5->getName());
-        $this->tester->assertSame(Device::TYPE_MOTION_SENSOR, $device5->getType());
-        $this->tester->assertSame('UnitTestFactory', $device5->getManufacturer());
-        $this->tester->assertSame('v1.33.7', $device5->getVersion());
+        $this->assertInstanceOf(MotionSensor::class, $device5);
+        $this->assertFalse($device5->isLightbulb());
+        $this->assertSame(5000, $device5->getId());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getType());
+        $this->assertSame('UnitTestFactory', $device5->getManufacturer());
+        $this->assertSame('v1.33.7', $device5->getVersion());
 
         $lights = $result->getLightbulbs();
-        $this->tester->assertSame(2, $lights->count());
+        $this->assertSame(2, $lights->count());
     }
 }
