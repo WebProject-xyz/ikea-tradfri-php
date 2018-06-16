@@ -6,7 +6,7 @@ trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
 
 ## run the tests with no coverage
-if [[ $RUN_WITH_COVERAGE != 'true' && $(phpenv version-name) != '7.2' ]]; then composer run-tests; fi
+if [[ $RUN_WITH_COVERAGE != 'true' ]]; then composer run-tests; fi
 
 ## run the tests with no coverage
 ## enable xdebug again
