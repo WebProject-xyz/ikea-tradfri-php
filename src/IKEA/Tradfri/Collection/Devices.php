@@ -17,42 +17,27 @@ class Devices extends AbstractCollection
     /**
      * Get lightbulbs.
      *
-     * @return Lightbulbs
+     * @return Lightbulb[]|Lightbulbs
      */
     public function getLightbulbs(): Lightbulbs
     {
-        $lamps = new Lightbulbs();
+        $lightbulbs = new Lightbulbs();
         foreach ($this->getDevices() as $device) {
             if ($device->isLightbulb()) {
-                $lamps->addDevice($device);
+                $lightbulbs->addDevice($device);
             }
         }
 
-        return $lamps;
+        return $lightbulbs->sortByName();
     }
 
     /**
      * Get items.
      *
-     * @return Dimmer[]|MotionSensor[]|Lightbulb[]|Remote[]|array
+     * @return array|Dimmer[]|Lightbulb[]|MotionSensor[]|Remote[]
      */
     public function getDevices(): array
     {
         return $this->toArray();
-    }
-
-    /**
-     * Specify data which should be serialized to JSON.
-     *
-     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     *
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     *               which is a value of any type other than a resource.
-     *
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
-    {
-        // @TODO: Implement jsonSerialize() method.
     }
 }

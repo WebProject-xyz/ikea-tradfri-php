@@ -11,8 +11,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class DeviceDataTest
- *
- * @package IKEA\Tests\Tradfri\Mapper
  */
 class GroupDataTest extends UnitTest
 {

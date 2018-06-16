@@ -12,6 +12,20 @@ use IKEA\Tradfri\Collection\Lightbulbs;
 class Light extends Device
 {
     /**
+     * Get State.
+     *
+     * @return bool
+     */
+    public function isOn(): bool
+    {
+        if (false === $this->getLights()->isEmpty()) {
+            return $this->getLights()->getActive()->count() > 0;
+        }
+
+        return false;
+    }
+
+    /**
      * Get Lights.
      *
      * @return Lightbulbs
@@ -22,27 +36,15 @@ class Light extends Device
     }
 
     /**
-     * Get State.
-     *
-     * @return bool
-     */
-    public function isOn(): bool
-    {
-        if ($this->getLights()->isEmpty() === false) {
-            return $this->getLights()->getActive()->count() > 0;
-        }
-
-        return false;
-    }
-
-    /**
      * Switch group on.
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return $this
      */
-    public function on(): self
+    public function switchOn(): self
     {
-        if ($this->service->on($this)) {
+        if ($this->_service->switchOn($this)) {
             $this->setState(true);
         }
 
@@ -56,7 +58,7 @@ class Light extends Device
      */
     public function off(): self
     {
-        if ($this->service->off($this)) {
+        if ($this->_service->off($this)) {
             $this->setState(false);
         }
 
@@ -72,7 +74,7 @@ class Light extends Device
      */
     public function dim(int $level): self
     {
-        if ($this->service->dim($this, $level)) {
+        if ($this->_service->dim($this, $level)) {
             $this->setBrightness($level);
         }
 

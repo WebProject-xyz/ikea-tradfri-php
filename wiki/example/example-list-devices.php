@@ -20,6 +20,7 @@ try {
         if ($device->isLightbulb()) {
             echo '- State is: ' . $device->getState(). PHP_EOL;
             echo '- Brightness ' . $device->getBrightness().'%'. PHP_EOL;
+            echo '- Color HEX #' . $device->getColor().''. PHP_EOL;
         }
         echo ' '.PHP_EOL;
 
@@ -27,6 +28,6 @@ try {
     });
 } catch (\Exception $e) {
     echo $e->getMessage().PHP_EOL.PHP_EOL;
-    print_r($e->getTraceAsString());
+    echo $e->getTraceAsString();
     die();
 }

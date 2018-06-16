@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Exception\RuntimeException;
+
 /**
  * Class Lamp.
  */
@@ -12,12 +14,17 @@ class Lightbulb extends Device
     /**
      * @var int
      */
-    protected $brightness;
+    protected $_brightness;
+
+    /**
+     * @var string
+     */
+    protected $_color = '';
 
     /**
      * @var bool
      */
-    protected $state = false;
+    protected $_state = false;
 
     /**
      * Get Brightness.
@@ -26,7 +33,7 @@ class Lightbulb extends Device
      */
     public function getBrightness(): float
     {
-        return (float) $this->brightness;
+        return (float) $this->_brightness;
     }
 
     /**
@@ -41,9 +48,9 @@ class Lightbulb extends Device
     public function setBrightness(int $brightness): self
     {
         if ($brightness < 0) {
-            $this->brightness = 0;
+            $this->_brightness = 0;
         } else {
-            $this->brightness = round($brightness / 2.54);
+            $this->_brightness = \round($brightness / 2.54);
         }
 
         return $this;
@@ -56,15 +63,15 @@ class Lightbulb extends Device
      *
      * @return bool
      */
-    public function off(): bool
+    public function switchOff(): bool
     {
-        if ($this->getService()->off($this) === true) {
+        if (true === $this->getService()->off($this)) {
             $this->setState(false);
 
             return true;
         }
 
-        return false;
+        throw new RuntimeException('switch OFF failed');
     }
 
     /**
@@ -74,15 +81,15 @@ class Lightbulb extends Device
      *
      * @return bool
      */
-    public function on(): bool
+    public function switchOn(): bool
     {
-        if ($this->getService()->on($this) === true) {
+        if (true === $this->getService()->switchOn($this)) {
             $this->setState(true);
 
             return true;
         }
 
-        return false;
+        throw new RuntimeException('switch ON failed');
     }
 
     /**
@@ -104,7 +111,7 @@ class Lightbulb extends Device
      */
     public function setState(bool $state): self
     {
-        $this->state = $state;
+        $this->_state = $state;
 
         return $this;
     }
@@ -116,7 +123,7 @@ class Lightbulb extends Device
      */
     public function isOn(): bool
     {
-        return $this->state;
+        return $this->_state;
     }
 
     /**
@@ -129,5 +136,29 @@ class Lightbulb extends Device
     public function dim(int $level)
     {
         $this->getService()->dim($this, $level);
+    }
+
+    /**
+     * Get Color.
+     *
+     * @return string
+     */
+    public function getColor(): string
+    {
+        return \strtoupper($this->_color);
+    }
+
+    /**
+     * Set Color.
+     *
+     * @param string $color
+     *
+     * @return Lightbulb
+     */
+    public function setColor(string $color): self
+    {
+        $this->_color = $color;
+
+        return $this;
     }
 }

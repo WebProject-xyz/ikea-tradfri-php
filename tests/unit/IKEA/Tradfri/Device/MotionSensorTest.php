@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Tradfri\Device;
 
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\MotionSensor;
 
 class MotionSensorTest extends DeviceTester
@@ -29,8 +28,8 @@ class MotionSensorTest extends DeviceTester
     /**
      * @return MotionSensor
      */
-    protected function _getModel(): \IKEA\Tradfri\Device\MotionSensor
+    protected function _getModel(): MotionSensor
     {
-        return new MotionSensor($this->id, Device::TYPE_MOTION_SENSOR);
+        return new MotionSensor($this->id);
     }
 }

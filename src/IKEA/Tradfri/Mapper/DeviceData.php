@@ -6,6 +6,7 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
+use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Lightbulb;
@@ -13,7 +14,6 @@ use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
-use IKEA\Tradfri\Helper\CoapCommandKeys;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -31,30 +31,33 @@ class DeviceData extends Mapper
      *
      * @return Devices
      */
-    public function map(ServiceInterface $service, array $devices): AbstractCollection
-    {
-        if (count($devices) > 0) {
+    public function map(
+        ServiceInterface $service,
+        array $devices
+    ): AbstractCollection {
+        if (\count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
                 if (false === $this->_isValidData($device)) {
                     continue;
                 }
-                $id = (int) $device->{CoapCommandKeys::KEY_ID};
 
                 try {
-                    $model = $this->_getModel($id, $device, $service);
-                } catch (TypeException $e) {
+                    $model = $this->_getModel(
+                        $this->_getDeviceId($device),
+                        $device,
+                        $service
+                    );
+                } catch (TypeException $typeException) {
+                    // unknown type
                     // todo add logger
                     continue;
                 }
 
-                $model->setName($device->{CoapCommandKeys::KEY_NAME});
-                $model->setManufacturer($device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_MANUFACTURER});
-                $model->setVersion($device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_VERSION});
+                $this->_setDeviceAttributes($model, $device);
 
                 if ($model instanceof Lightbulb) {
-                    $model->setBrightness($device->{CoapCommandKeys::KEY_DEVICE_DATA}[0]->{CoapCommandKeys::KEY_DIMMER});
-                    $model->setState((bool) $device->{CoapCommandKeys::KEY_DEVICE_DATA}[0]->{CoapCommandKeys::KEY_ONOFF});
+                    $this->_setLightBlubAttributes($model, $device);
                 }
 
                 $collection->set($model->getId(), $model);
@@ -77,39 +80,15 @@ class DeviceData extends Mapper
      */
     protected function _isValidData($device): bool
     {
-        try {
-            switch (false) {
-                case \is_object($device):
-                    throw new TypeException('device is no object');
-                    break;
-                case isset($device->{CoapCommandKeys::KEY_ID}):
-                    throw new RuntimeException('attribute missing ('.CoapCommandKeys::KEY_ID);
-                    break;
-                case isset($device->{CoapCommandKeys::KEY_DATA}, $device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_TYPE}):
-                    throw new RuntimeException('attribute missing type key');
-                    break;
-                case isset($device->{CoapCommandKeys::KEY_DATA}, $device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_MANUFACTURER}):
-                    throw new RuntimeException('attribute missing type manufacturer');
-                    break;
-                case isset($device->{CoapCommandKeys::KEY_DATA}, $device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_VERSION}):
-                    throw new RuntimeException('attribute missing type version');
-                    break;
-                // only for light bulbs (optional)
-                case isset($device->{CoapCommandKeys::KEY_DEVICE_DATA}[0]):
-                case isset($device->{CoapCommandKeys::KEY_DEVICE_DATA}[0]->{CoapCommandKeys::KEY_DIMMER}):
-                case isset($device->{CoapCommandKeys::KEY_DEVICE_DATA}[0]->{CoapCommandKeys::KEY_ONOFF}):
-                default:
-                    return true;
-            }
-        } catch (\Throwable $e) {
-            return false;
-        }
+        $validator = new \IKEA\Tradfri\Validator\Device\Data();
+
+        return $validator->isValid($device);
     }
 
     /**
      * Get model from device object.
      *
-     * @param int              $id
+     * @param int              $deviceId
      * @param \stdClass        $device
      * @param ServiceInterface $service
      *
@@ -117,34 +96,104 @@ class DeviceData extends Mapper
      * @throws TypeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Device|Lightbulb|Remote|MotionSensor
+     * @return Device|Lightbulb|MotionSensor|Remote
      */
-    protected function _getModel(int $id, \stdClass $device, ServiceInterface $service)
-    {
-        if (isset($device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_TYPE})) {
-            $type = $device->{CoapCommandKeys::KEY_DATA}->{CoapCommandKeys::KEY_TYPE};
-            switch ($type) {
-                case Device::TYPE_BLUB_E27_W:
-                case Device::TYPE_BLUB_E27_WS:
-                case Device::TYPE_BLUB_GU10:
-                    $model = new Lightbulb($id, $type);
-                    break;
-                case Device::TYPE_MOTION_SENSOR:
-                    $model = new MotionSensor($id, $type);
-                    break;
-                case Device::TYPE_REMOTE_CONTROL:
-                    $model = new Remote($id, $type);
-                    break;
-                case Device::TYPE_DIMMER:
-                    $model = new Dimmer($id, $type);
-                    break;
-                default:
-                    throw new TypeException('invalid type: '.$type);
-            }
+    protected function _getModel(
+        int $deviceId,
+        \stdClass $device,
+        ServiceInterface $service
+    ) {
+        $type = $device
+            ->{AttributeKeys::ATTR_DEVICE_INFO}
+            ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
 
-            return $model->setType($type)->setService($service);
+        switch ($type) {
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10:
+                $model = new Lightbulb($deviceId, $type);
+
+                break;
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
+                $model = new MotionSensor($deviceId);
+
+                break;
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
+                $model = new Remote($deviceId);
+
+                break;
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_DIMMER:
+                $model = new Dimmer($deviceId);
+
+                break;
+            default:
+                throw new TypeException('invalid type: '.$type);
         }
 
-        throw new TypeException('invalid object');
+        return $model->setType($type)->setService($service);
+    }
+
+    /**
+     * Get Device id.
+     *
+     * @param $device
+     *
+     * @return int
+     */
+    protected function _getDeviceId($device): int
+    {
+        return (int) $device->{AttributeKeys::ATTR_ID};
+    }
+
+    /**
+     * Set Lightbulb attributes.
+     *
+     * @param $model
+     * @param $device
+     */
+    protected function _setLightBlubAttributes(
+        Lightbulb $model,
+        \stdClass $device
+    ) {
+        $model->setBrightness(
+            $device
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_DIMMER}
+        );
+
+        $model->setColor(
+            $device
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_COLOR_HEX} ?? ''
+        );
+
+        $model->setState(
+            (bool) $device
+                      ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_STATE}
+        );
+    }
+
+    /**
+     * Set Device attributes.
+     *
+     * @param $model
+     * @param $device
+     */
+    protected function _setDeviceAttributes(Device $model, \stdClass $device)
+    {
+        $model->setName($device->{AttributeKeys::ATTR_NAME});
+
+        $model->setManufacturer(
+            $device
+                ->{AttributeKeys::ATTR_DEVICE_INFO}
+                ->{AttributeKeys::ATTR_DEVICE_INFO_MANUFACTURER}
+        );
+
+        $model->setVersion(
+            $device
+                ->{AttributeKeys::ATTR_DEVICE_INFO}
+                ->{AttributeKeys::ATTR_DEVICE_VERSION}
+        );
     }
 }

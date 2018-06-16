@@ -1,7 +1,7 @@
 {
   "name": "webproject-xyz/ikea-tradfri-php-api",
   "description": "PHP library to control ikea tradfri hub",
-  "minimum-stability": "stable",
+  "prefer-stable": true,
   "license": "MIT",
   "version": "0.2.0",
   "authors": [
@@ -14,15 +14,17 @@
   "type": "library",
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "^7",
-    "doctrine/collections": "^1"
+    "php": "7.*",
+    "doctrine/collections": "1.4.*"
   },
   "require-dev": {
-    "codeception/codeception": "^2.3",
-    "mockery/mockery": "^1",
-    "symfony/phpunit-bridge": "^3.3",
-    "friendsofphp/php-cs-fixer": "^2",
-    "codeclimate/php-test-reporter": "^0"
+    "codeception/codeception": "2.4.*",
+    "mockery/mockery": "1.*",
+    "symfony/phpunit-bridge": "4.*",
+    "friendsofphp/php-cs-fixer": "2.*",
+    "codeclimate/php-test-reporter": "0.*",
+    "codacy/coverage": "1.*",
+    "monolog/monolog": "1.*"
   },
   "autoload": {
     "psr-4": {
@@ -32,7 +34,10 @@
   },
   "scripts": {
     "run-tests": [
-      "./vendor/bin/codecept run --steps --colors"
+      "./vendor/bin/codecept run --colors"
+    ],
+    "run-tests-72": [
+      "php codecept.phar run --colors"
     ],
     "cs-check": [
       "./vendor/bin/php-cs-fixer fix --dry-run -vv"
@@ -43,7 +48,7 @@
     ],
     "build-coverage": [
       "echo 'Build coverage'",
-      "./vendor/bin/codecept run --coverage-xml --coverage --xml --colors --steps "
+      "./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
     ]
   }
 }

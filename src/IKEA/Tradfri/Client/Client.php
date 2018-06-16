@@ -20,17 +20,7 @@ class Client
     /**
      * @var AdapterInterface
      */
-    protected $adapter;
-
-    /**
-     * Get Adapter.
-     *
-     * @return AdapterInterface
-     */
-    private function getAdapter(): AdapterInterface
-    {
-        return $this->adapter;
-    }
+    protected $_adapter;
 
     /**
      * Client constructor.
@@ -41,7 +31,7 @@ class Client
      */
     public function __construct(AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
+        $this->_adapter = $adapter;
     }
 
     /**
@@ -54,6 +44,16 @@ class Client
     public function getDevices(ServiceInterface $service): Devices
     {
         return $this->getAdapter()->getDeviceCollection($service);
+    }
+
+    /**
+     * Get Adapter.
+     *
+     * @return AdapterInterface
+     */
+    private function getAdapter(): AdapterInterface
+    {
+        return $this->_adapter;
     }
 
     /**
@@ -89,7 +89,9 @@ class Client
      */
     public function lightOff(Lightbulb $lightbulb): bool
     {
-        return $this->getAdapter()->changeLightState($lightbulb->getId(), false);
+        return $this->getAdapter()->changeLightState(
+            $lightbulb->getId(), false
+        );
     }
 
     /**
@@ -124,9 +126,11 @@ class Client
      *
      * @return bool
      */
-    public function dimLight(Lightbulb $lightbulb, int $level):bool
+    public function dimLight(Lightbulb $lightbulb, int $level): bool
     {
-        return $this->getAdapter()->setLightBrightness($lightbulb->getId(), $level);
+        return $this->getAdapter()->setLightBrightness(
+            $lightbulb->getId(), $level
+        );
     }
 
     /**
