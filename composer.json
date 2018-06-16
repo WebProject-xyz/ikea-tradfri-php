@@ -14,13 +14,13 @@
   "type": "library",
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "7.* < 7.3",
+    "php": "7.*",
     "doctrine/collections": "1.4.*"
   },
   "require-dev": {
-    "codeception/codeception": "^2",
+    "codeception/codeception": "2.4.*",
     "mockery/mockery": "1.*",
-    "symfony/phpunit-bridge": "3.*",
+    "symfony/phpunit-bridge": "4.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",

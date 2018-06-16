@@ -4,7 +4,8 @@ trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit
 
 # run static php-cs-fixer code analysis
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
-
+## because of Skipped installation of bin codecept for package codeception/codeception: file not found in package in 7.2
+if [[ $(phpenv version-name) == '7.2' ]]; then wget http://codeception.com/codecept.phar | chmod +x codecept.phar | mv codecept.phar vendor/bin/codecept ; fi
 ## run the tests with no coverage
 if [[ $RUN_WITH_COVERAGE != 'true' ]]; then composer run-tests; fi
 
