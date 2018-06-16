@@ -13,8 +13,7 @@ use JsonSerializable;
 /**
  * Class Devices.
  */
-abstract class AbstractCollection
-    extends ArrayCollection implements JsonSerializable
+abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
     /**
      * Add item to collection.
