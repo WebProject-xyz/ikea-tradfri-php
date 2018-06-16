@@ -1,26 +1,67 @@
-engines:
-  duplication:
-    enabled: true
+version: "2"
+checks:
+  argument-count:
     config:
-      languages:
-      - php
-  fixme:
-    enabled: true
+      threshold: 4
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 250
+  method-complexity:
+    config:
+      threshold: 5
+  method-count:
+    config:
+      threshold: 20
+  method-lines:
+    config:
+      threshold: 25
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
+  similar-code:
+    config:
+      threshold: # language-specific defaults. an override will affect all languages.
+  identical-code:
+    config:
+      threshold: # language-specific defaults. an override will affect all languages.
+
+plugins:
   phpmd:
     enabled: true
     config:
       file_extensions:
         - php
-      rulesets: "cleancode,codesize,naming,design,unusedcode"
+      rulesets: "unusedcode,codesize,naming,build/configs/ruleset.xml"
   phpcodesniffer:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "ZEND"
-ratings:
-  paths:
-  - src/**
-  - "**.php"
-exclude_paths:
-  - "vendor/**/*"
-  - "**Test.php"
+      standard: "Zend"
+    checks:
+      Generic Functions OpeningFunctionBraceBsdAllman BraceOnSameLine:
+        enabled: false
+      PSR2 Methods MethodDeclaration Underscore:
+        enabled: false
+      PSR2 Classes PropertyDeclaration Underscore:
+        enabled: false
+      PSR1 Files SideEffects FoundWithSymbols:
+        enabled: false
+  sonar-php:
+    enabled: true
+    config:
+      tests_patterns:
+        - test/unit/**
+  duplication:
+    enabled: true
+
+exclude_patterns:
+- .git/**/*
+- vendor/**/*
+- tests/**/*
+- wiki/**/*

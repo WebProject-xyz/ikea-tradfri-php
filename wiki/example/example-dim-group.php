@@ -35,7 +35,7 @@ try {
         echo '---------- Switch Group'.PHP_EOL;
         echo 'group is: ' . ($group->isOn() ? 'on' : 'off') . PHP_EOL;
         echo 'brightness is: ' . $group->getBrightness() . PHP_EOL;
-        $group->isOn() ? null : $group->on();
+        $group->isOn() ? null : $group->switchOn();
         if ($group->isOn()) {
             if ($group->dim(15)) {
                 echo 'dim to 15'. PHP_EOL;
@@ -54,6 +54,6 @@ try {
 } catch (\Exception $e) {
     echo PHP_EOL.'---------- Error';
     echo PHP_EOL. $e->getMessage().PHP_EOL.PHP_EOL;
-    print_r($e->getTraceAsString());
+    echo $e->getTraceAsString();
     die();
 }

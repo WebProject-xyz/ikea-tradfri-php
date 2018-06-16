@@ -16,148 +16,48 @@ class Device
     /**
      * @var int
      */
-    protected $id;
+    protected $_id;
 
     /**
      * @var string
      */
-    protected $name;
+    protected $_name;
 
     /**
      * @var Api|ServiceInterface
      */
-    protected $service;
+    protected $_service;
 
     /**
      * @var Devices
      */
-    protected $devices;
+    protected $_devices;
 
     /**
      * @var array
      */
-    protected $deviceIds = [];
+    protected $_deviceIds = [];
 
     /**
      * @var int
      */
-    protected $brightness;
+    protected $_brightness;
 
     /**
      * @var bool
      */
-    protected $state;
+    protected $_state;
 
     /**
      * Group constructor.
      *
-     * @param int              $id
+     * @param int              $deviceId
      * @param ServiceInterface $service
      */
-    public function __construct(int $id, ServiceInterface $service)
+    public function __construct(int $deviceId, ServiceInterface $service)
     {
-        $this->setId($id);
+        $this->setId($deviceId);
         $this->setService($service);
-    }
-
-    /**
-     * Set device ids.
-     *
-     * @param array $ids
-     *
-     * @return $this
-     */
-    public function setDeviceIds(array $ids)
-    {
-        $this->deviceIds = $ids;
-
-        return $this;
-    }
-
-    /**
-     * Get LightIds.
-     *
-     * @return array
-     */
-    public function getDeviceIds(): array
-    {
-        return $this->deviceIds;
-    }
-
-    /**
-     * Get Devices.
-     *
-     * @return Devices
-     */
-    public function getDevices(): Devices
-    {
-        if ($this->devices === null) {
-            $this->devices = new Devices();
-        }
-
-        return $this->devices;
-    }
-
-    /**
-     * Set Devices.
-     *
-     * @param Devices $devices
-     *
-     * @return $this
-     */
-    public function setDevices(Devices $devices): self
-    {
-        $this->devices = $devices;
-
-        return $this;
-    }
-
-    /**
-     * Get Id.
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set Id.
-     *
-     * @param int $id
-     *
-     * @return Device
-     */
-    public function setId($id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get Name.
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set Name.
-     *
-     * @param string $name
-     *
-     * @return Device
-     */
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -169,19 +69,107 @@ class Device
      */
     public function setService(ServiceInterface $service): self
     {
-        $this->service = $service;
+        $this->_service = $service;
 
         return $this;
     }
 
     /**
-     * @param int $level
+     * Get LightIds.
+     *
+     * @return array
+     */
+    public function getDeviceIds(): array
+    {
+        return $this->_deviceIds;
+    }
+
+    /**
+     * Set device ids.
+     *
+     * @param array $ids
      *
      * @return $this
      */
-    public function setBrightness(int $level)
+    public function setDeviceIds(array $ids)
     {
-        $this->brightness = $level;
+        $this->_deviceIds = $ids;
+
+        return $this;
+    }
+
+    /**
+     * Get Devices.
+     *
+     * @return Devices
+     */
+    public function getDevices(): Devices
+    {
+        if (null === $this->_devices) {
+            $this->_devices = new Devices();
+        }
+
+        return $this->_devices;
+    }
+
+    /**
+     * Set Devices.
+     *
+     * @param Devices $devices
+     *
+     * @return $this
+     */
+    public function setDevices(Devices $devices): self
+    {
+        $this->_devices = $devices;
+
+        return $this;
+    }
+
+    /**
+     * Get Id.
+     *
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->_id;
+    }
+
+    /**
+     * Set Id.
+     *
+     * @param int $deviceId
+     *
+     * @return Device
+     */
+    public function setId($deviceId): self
+    {
+        $this->_id = $deviceId;
+
+        return $this;
+    }
+
+    /**
+     * Get Name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Set Name.
+     *
+     * @param string $name
+     *
+     * @return Device
+     */
+    public function setName(string $name): self
+    {
+        $this->_name = $name;
 
         return $this;
     }
@@ -195,7 +183,7 @@ class Device
      */
     public function setState(bool $state)
     {
-        $this->state = $state;
+        $this->_state = $state;
 
         return $this;
     }
@@ -207,7 +195,19 @@ class Device
      */
     public function getBrightness(): float
     {
-        return (float) $this->brightness;
+        return (float) $this->_brightness;
+    }
+
+    /**
+     * @param int $level
+     *
+     * @return $this
+     */
+    public function setBrightness(int $level)
+    {
+        $this->_brightness = $level;
+
+        return $this;
     }
 
     /**
@@ -217,6 +217,6 @@ class Device
      */
     public function isOn(): bool
     {
-        return $this->state;
+        return $this->_state;
     }
 }

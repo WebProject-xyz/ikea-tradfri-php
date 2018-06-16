@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Tradfri\Device;
 
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Remote;
 
 class RemoteTest extends DeviceTester
@@ -29,8 +28,8 @@ class RemoteTest extends DeviceTester
     /**
      * @return Remote
      */
-    protected function _getModel(): \IKEA\Tradfri\Device\Remote
+    protected function _getModel(): Remote
     {
-        return new Remote($this->id, Device::TYPE_REMOTE_CONTROL);
+        return new Remote($this->id);
     }
 }

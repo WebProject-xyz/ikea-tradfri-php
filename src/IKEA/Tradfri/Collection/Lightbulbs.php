@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Lightbulb;
 
 /**
@@ -14,7 +15,7 @@ class Lightbulbs extends Devices
     /**
      * Get first light.
      *
-     * @return Lightbulb|null
+     * @return null|Lightbulb
      */
     public function first()
     {
@@ -26,13 +27,19 @@ class Lightbulbs extends Devices
      *
      * @return $this
      */
-    public function sortByState()
+    public function sortByState(): self
     {
         $items = $this->toArray();
 
-        usort($items, function (Lightbulb $a, Lightbulb $b) {
-            return strcmp($a->getState(), $b->getState());
-        });
+        \usort(
+            $items,
+            function (Lightbulb $lightbulbOne, Lightbulb $lightbulbTwo) {
+                return \strcmp(
+                    $lightbulbOne->getState(),
+                    $lightbulbTwo->getState()
+                );
+            }
+        );
 
         return $this->createFrom($items);
     }
@@ -42,7 +49,7 @@ class Lightbulbs extends Devices
      *
      * @return static
      */
-    public function getActive()
+    public function getActive(): self
     {
         $newItems = [];
         foreach ($this->toArray() as $key => $light) {
@@ -56,17 +63,32 @@ class Lightbulbs extends Devices
     }
 
     /**
-     * Specify data which should be serialized to JSON.
+     * Sort items by name.
      *
-     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     *
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     *               which is a value of any type other than a resource.
-     *
-     * @since 5.4.0
+     * @return static
      */
-    public function jsonSerialize()
+    public function sortByName()
     {
-        // @TODO: Implement jsonSerialize() method.
+        return $this->createFrom($this->namesAsKeys());
+    }
+
+    /**
+     * Get an array with names as keys.
+     *
+     * @return array
+     */
+    protected function namesAsKeys(): array
+    {
+        $elements = [];
+        $this->forAll(
+            function ($deviceId, Device $device) use (&$elements) {
+                $elements[$device->getName().'_'.$deviceId] = $device;
+
+                return true;
+            }
+        );
+        \ksort($elements, \SORT_NATURAL);
+
+        return $elements;
     }
 }

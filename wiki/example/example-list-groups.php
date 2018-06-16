@@ -36,6 +36,6 @@ try {
     });
 } catch (\Exception $e) {
     echo $e->getMessage().PHP_EOL.PHP_EOL;
-    print_r($e->getTraceAsString());
+    echo $e->getTraceAsString();
     die();
 }

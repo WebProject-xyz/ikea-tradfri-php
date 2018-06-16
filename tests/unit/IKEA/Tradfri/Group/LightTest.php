@@ -11,8 +11,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class LightTest
- *
- * @package IKEA\Tests\Tradfri\Group
  */
 class LightTest extends UnitTest
 {
