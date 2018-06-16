@@ -36,6 +36,9 @@
     "run-tests": [
       "./vendor/bin/codecept run --colors"
     ],
+    "run-tests-72": [
+      "php codecept.phar run --colors"
+    ],
     "cs-check": [
       "./vendor/bin/php-cs-fixer fix --dry-run -vv"
     ],
