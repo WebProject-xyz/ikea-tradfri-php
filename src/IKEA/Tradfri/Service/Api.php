@@ -81,9 +81,11 @@ class Api implements ServiceInterface
             function ($lightbulbKey, $lightbulb) use ($service) {
                 /** @var Lightbulb $lightbulb */
                 if ($lightbulbKey === $lightbulb->getId()) {
-                    // this is ok but who cars can't make var unused
+                    // this is ok but who cares can't make var unused
                 }
                 $service->off($lightbulb);
+
+                return true;
             }
         );
 

@@ -9,8 +9,9 @@ namespace IKEA\Tradfri\Command;
  */
 abstract class AbstractCommand implements CommandInterface
 {
+    const COAP_COMMAND = '%s invalid %s';
     /**
-     * @var
+     * @var string
      */
     protected $_requestType;
 
@@ -133,7 +134,7 @@ abstract class AbstractCommand implements CommandInterface
      *
      * @return string
      */
-    protected function _getRequestType()
+    protected function _getRequestType(): string
     {
         return $this->_requestType;
     }

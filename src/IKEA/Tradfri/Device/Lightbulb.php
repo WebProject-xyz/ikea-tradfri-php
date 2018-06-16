@@ -12,7 +12,7 @@ use IKEA\Tradfri\Exception\RuntimeException;
 class Lightbulb extends Device
 {
     /**
-     * @var int
+     * @var float
      */
     protected $_brightness;
 

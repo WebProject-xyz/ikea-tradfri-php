@@ -72,7 +72,7 @@ class DeviceData extends Mapper
     /**
      * Validate device data from api.
      *
-     * @param $device
+     * @param null|\stdClass $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -136,11 +136,11 @@ class DeviceData extends Mapper
     /**
      * Get Device id.
      *
-     * @param $device
+     * @param \stdClass $device
      *
      * @return int
      */
-    protected function _getDeviceId($device): int
+    protected function _getDeviceId(\stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
@@ -148,8 +148,8 @@ class DeviceData extends Mapper
     /**
      * Set Lightbulb attributes.
      *
-     * @param $model
-     * @param $device
+     * @param Lightbulb $model
+     * @param \stdClass $device
      */
     protected function _setLightBlubAttributes(
         Lightbulb $model,
@@ -177,8 +177,8 @@ class DeviceData extends Mapper
     /**
      * Set Device attributes.
      *
-     * @param $model
-     * @param $device
+     * @param Device $model
+     * @param \stdClass$device
      */
     protected function _setDeviceAttributes(Device $model, \stdClass $device)
     {

@@ -12,7 +12,7 @@ interface ValidatorInterface
     /**
      * Is valid.
      *
-     * @param $data
+     * @param mixed $data
      *
      * @return bool
      */

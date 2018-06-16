@@ -26,7 +26,7 @@ class Data implements ValidatorInterface
     /**
      * Is valid.
      *
-     * @param $data
+     * @param null|\stdClass $data
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -68,7 +68,7 @@ class Data implements ValidatorInterface
     /**
      * Validate must have properties.
      *
-     * @param \stdClass $device
+     * @param null|\stdClass $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
