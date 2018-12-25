@@ -3,11 +3,10 @@ set -e
 trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit code $?' ERR
 
 ## backup and disable xdebug
-if [[ $RUN_WITH_COVERAGE == 'true' ]]; then
 cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/.phpenv/versions/$(phpenv version-name)/xdebug.ini.bak
 echo > ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
 phpenv rehash
-fi
+
 # create directories for the tests
 mkdir -p "$HOME/.php-cs-fixer"
 
