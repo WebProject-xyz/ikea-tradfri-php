@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
 /**
- * Class Invoker
+ * Class Invoker.
  */
 class Invoker
 {
@@ -25,7 +26,7 @@ class Invoker
     }
 
     /**
-     * executes the command; the invoker is the same whatever is the command
+     * executes the command; the invoker is the same whatever is the command.
      */
     public function run()
     {
