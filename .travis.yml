@@ -22,6 +22,7 @@ matrix:
   - php: 7.3
   - php: nightly
   allow_failures:
+  - php: 7.3
   - php: nightly
 
 before_install:
@@ -29,7 +30,7 @@ before_install:
 
 install:
   - travis_retry composer self-update
-  - travis_retry composer install --prefer-dist --optimize-autoloader  --profile --no-interaction
+  - travis_retry composer update --prefer-dist --optimize-autoloader  --profile --no-interaction
 
 script:
   - ./build/script/travis_script.sh
