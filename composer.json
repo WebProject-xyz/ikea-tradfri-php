@@ -23,12 +23,10 @@
   "require-dev": {
     "codeception/codeception": "2.*",
     "mockery/mockery": "1.*",
-    "symfony/phpunit-bridge": "4.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",
     "monolog/monolog": "1.*",
-    "fahl-design/log4php-slack-appender": "dev-develop",
     "roave/security-advisories": "dev-master"
   },
   "autoload": {

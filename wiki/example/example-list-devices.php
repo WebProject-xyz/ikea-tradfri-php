@@ -4,8 +4,6 @@ declare(strict_types=1);
 require __DIR__.'/init.php';
 
 try {
-    echo '---------- IKEA Tradfri PHP API Example: '.basename(__FILE__).PHP_EOL;
-
     $devices = $api->getDevices();
 
     echo '---------- IKEA Tradfri PHP API Example: '.basename(__FILE__).PHP_EOL;

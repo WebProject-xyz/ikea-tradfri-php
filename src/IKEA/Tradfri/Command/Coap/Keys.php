@@ -43,12 +43,14 @@ class Keys
     const ATTR_DEVICE_INFO_MANUFACTURER = '0';
     const ATTR_DEVICE_INFO_TYPE = '1';
     const ATTR_DEVICE_VERSION = '3';
+    //@todo: add more device types and move types to config
     const ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR = 'TRADFRI motion sensor';
     const ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL = 'TRADFRI remote control';
     const ATTR_DEVICE_INFO_TYPE_DIMMER = 'TRADFRI dimmer';
     const ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS = 'TRADFRI bulb E27 WS opal 980lm';
     const ATTR_DEVICE_INFO_TYPE_BLUB_E27_W = 'TRADFRI bulb E27 W opal 1000lm';
-    const ATTR_DEVICE_INFO_TYPE_BLUB_GU10 = 'TRADFRI bulb GU10 WS 400lm';
+    const ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS = 'TRADFRI bulb GU10 WS 400lm';
+    const ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W = 'TRADFRI bulb GU10 W 400lm';
 
     const ATTR_GATEWAY_TIME_SOURCE = '9071';
     const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';
