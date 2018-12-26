@@ -14,17 +14,22 @@
   "type": "library",
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "7.*",
+    "php": "^7.1",
     "doctrine/collections": "1.4.*"
   },
+  "config": {
+    "optimize-autoloader": true
+  },
   "require-dev": {
-    "codeception/codeception": "2.4.*",
+    "codeception/codeception": "2.*",
     "mockery/mockery": "1.*",
-    "symfony/phpunit-bridge": "4.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",
-    "monolog/monolog": "1.*"
+    "monolog/monolog": "1.*",
+    "fahl-design/log4php-slack-appender": "1.*",
+    "roave/security-advisories": "dev-master",
+    "symfony/var-dumper": "4.*"
   },
   "autoload": {
     "psr-4": {
@@ -35,9 +40,6 @@
   "scripts": {
     "run-tests": [
       "./vendor/bin/codecept run --colors"
-    ],
-    "run-tests-72": [
-      "php codecept.phar run --colors"
     ],
     "cs-check": [
       "./vendor/bin/php-cs-fixer fix --dry-run -vv"

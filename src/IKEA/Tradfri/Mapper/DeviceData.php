@@ -110,7 +110,8 @@ class DeviceData extends Mapper
         switch ($type) {
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
                 $model = new Lightbulb($deviceId, $type);
 
                 break;

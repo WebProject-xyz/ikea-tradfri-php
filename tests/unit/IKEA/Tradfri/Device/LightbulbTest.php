@@ -105,12 +105,12 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
     {
         // Arrange
         $lamp = $this->_getModel();
-        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10);
+        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS);
         // Act
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10, $result);
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS, $result);
     }
 
     public function testStates()

@@ -20,7 +20,8 @@ abstract class Device implements JsonSerializable
      */
     protected static $_lightblubTypes
         = [
-            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10,
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W,
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS,
             Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
             Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
         ];
@@ -241,7 +242,8 @@ abstract class Device implements JsonSerializable
         switch ($type) {
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
-            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
             case Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
             case Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
             case Keys::ATTR_DEVICE_INFO_TYPE_DIMMER:
