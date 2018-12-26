@@ -42,17 +42,11 @@ class DeviceData extends Mapper
                     continue;
                 }
 
-                try {
-                    $model = $this->_getModel(
-                        $this->_getDeviceId($device),
-                        $device,
-                        $service
-                    );
-                } catch (TypeException $typeException) {
-                    // unknown type
-                    // todo add logger
-                    continue;
-                }
+                $model = $this->_getModel(
+                    $this->_getDeviceId($device),
+                    $device,
+                    $service
+                );
 
                 $this->_setDeviceAttributes($model, $device);
 
@@ -108,8 +102,8 @@ class DeviceData extends Mapper
             ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
 
         switch ($type) {
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+          //  case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
+           // case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
                 $model = new Lightbulb($deviceId, $type);
