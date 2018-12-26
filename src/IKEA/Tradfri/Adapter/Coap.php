@@ -168,7 +168,8 @@ class Coap extends AdapterAbstract
         $data = (new Runner())
             ->execWithTimeout(
                 $this->_commands->getGroupSwitchCommand($groupId, $toState),
-                2
+                2,
+                true
             );
 
         // verify result
@@ -195,7 +196,8 @@ class Coap extends AdapterAbstract
         // run command
         $data = (new Runner())->execWithTimeout(
             $this->_commands->getLightDimmerCommand($lightId, $level),
-            2
+            2,
+            true
         );
 
         // verify result
@@ -221,7 +223,8 @@ class Coap extends AdapterAbstract
         // run command
         $data = (new Runner())->execWithTimeout(
             $this->_commands->getGroupDimmerCommand($groupId, $level),
-            2
+            2,
+            true
         );
 
         // verify result
