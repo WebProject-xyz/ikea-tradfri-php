@@ -24,14 +24,25 @@ php api to control Ikea smart lights (tradfri)
 [![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/develop/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
 [![StyleCI](https://styleci.io/repos/115823629/shield?branch=develop)](https://styleci.io/repos/115823629)
 
-## Example usage:
+## Requirements and initial setup
 
-see `wiki/example` folder
+see [requirements.md](requirements.md)
 
-## Docker Coap-Client [WIP]
-work in progress
-`docker build . -t webproject/coap-client:latest`
+## Examples:
 
-### Run command in Docker [WIP]
- work in progress
-`docker run --rm --name coap-client2 webproject/coap-client` 
+### Config
+- [Example config](wiki/example/init-dist.php)
+
+### Commands
+- [wiki/example](wiki/example)
+
+## Docker Coap-Client
+#### Build 
+`docker build -t webproject/coap-client:latest . `
+
+### Run command in Docker
+#### Generate API User and <COAP_API_KEY> (Shared Key)
+`docker run --rm --name coap-client webproject/coap-client -m post -u "Client_identity" -k "<COAP_GATEWAY_SECRET>" -e '{"9090":"php-api-user"}' "coaps://<COAP_GATEWAY_IP>:5684/15011/9063""`
+
+#### Get all api endpoints
+`docker run --rm --name coap-client webproject/coap-client -m get -u "php-api-user"  -k "<COAP_API_KEY>" "coaps://<COAP_GATEWAY_IP>:5684/.well-known/core"` 

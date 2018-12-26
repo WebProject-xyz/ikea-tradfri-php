@@ -29,5 +29,6 @@ FROM debian:stable-slim as runner
 COPY --from=builder ./usr/local/bin/coap-client /usr/local/bin/coap-client
 COPY --from=builder ./usr/local/bin/coap-server /usr/local/bin/coap-server
 COPY --from=builder ./usr/local/bin/coap-rd /usr/local/bin/coap-rd
-RUN cd /usr/local/bin/ && ls -l
-ENTRYPOINT /usr/local/bin/coap-client
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+CMD ["/usr/local/bin/coap-client"]
