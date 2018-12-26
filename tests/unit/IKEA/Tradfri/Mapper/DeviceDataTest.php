@@ -51,7 +51,7 @@ class DeviceDataTest extends UnitTest
         // Assert
         $this->assertInstanceOf(Devices::class, $result);
         $this->assertFalse($result->isEmpty());
-        $this->assertSame(5, $result->count());
+        $this->assertSame(6, $result->count());
 
         $device1 = $result->get(1000);
         $this->assertInstanceOf(Lightbulb::class, $device1);
@@ -104,7 +104,7 @@ class DeviceDataTest extends UnitTest
         $this->assertSame('UnitTestFactory', $device5->getManufacturer());
         $this->assertSame('v1.33.7', $device5->getVersion());
 
-        $lights = $result->getLightbulbs();
-        $this->assertSame(2, $lights->count());
+        $this->assertCount(6, $result->getDevices());
+        $this->assertCount(2, $result->getLightbulbs());
     }
 }

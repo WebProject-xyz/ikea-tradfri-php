@@ -15,11 +15,13 @@ use JsonSerializable;
  */
 abstract class Device implements JsonSerializable
 {
+    const TYPE_UNKNOWN = 'TRADFRI unknown';
     /**
      * @var array
      */
     protected static $_lightblubTypes
         = [
+            Keys::ATTR_DEVICE_INFO_TYPE_BLUB,
             Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W,
             Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS,
             Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
@@ -173,7 +175,8 @@ abstract class Device implements JsonSerializable
      */
     public function isLightbulb(): bool
     {
-        return \in_array($this->getType(), self::$_lightblubTypes, true);
+        return \in_array($this->getType(), self::$_lightblubTypes, true) ||
+            0 === \strpos(Keys::ATTR_DEVICE_INFO_TYPE_BLUB, $this->getType());
     }
 
     /**
@@ -247,10 +250,11 @@ abstract class Device implements JsonSerializable
             case Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
             case Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
             case Keys::ATTR_DEVICE_INFO_TYPE_DIMMER:
+            case self::TYPE_UNKNOWN:
                 // todo add more types
                 break;
             default:
-                throw new TypeException('unknown type');
+                throw new TypeException('unknown type: '.$type);
         }
 
         return true;

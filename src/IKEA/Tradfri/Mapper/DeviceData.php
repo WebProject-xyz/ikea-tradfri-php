@@ -12,8 +12,8 @@ use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -86,8 +86,6 @@ class DeviceData extends Mapper
      * @param \stdClass        $device
      * @param ServiceInterface $service
      *
-     * @throws \IKEA\Tradfri\Exception\TypeException
-     * @throws TypeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return Device|Lightbulb|MotionSensor|Remote
@@ -122,10 +120,10 @@ class DeviceData extends Mapper
 
                 break;
             default:
-                throw new TypeException('invalid type: '.$type);
+                $model = new Unknown($deviceId);
         }
 
-        return $model->setType($type)->setService($service);
+        return $model->setService($service);
     }
 
     /**
