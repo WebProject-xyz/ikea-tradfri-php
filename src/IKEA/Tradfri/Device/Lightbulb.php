@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Device\Feature\Switchable;
 use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
  * Class Lamp.
  */
-class Lightbulb extends Device
+class Lightbulb extends Device implements Switchable
 {
     /**
      * @var float
@@ -107,9 +108,9 @@ class Lightbulb extends Device
      *
      * @param bool $state
      *
-     * @return Lightbulb
+     * @return static
      */
-    public function setState(bool $state): self
+    public function setState(bool $state)
     {
         $this->_state = $state;
 

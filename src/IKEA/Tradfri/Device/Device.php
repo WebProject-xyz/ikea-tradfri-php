@@ -59,7 +59,7 @@ abstract class Device implements JsonSerializable
     /**
      * Lightbulb constructor.
      *
-     * @param int    $deviceId
+     * @param int $deviceId
      * @param string $type
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -242,11 +242,13 @@ abstract class Device implements JsonSerializable
         switch ($type) {
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+            case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_CWS:
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
             case Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
             case Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
             case Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
             case Keys::ATTR_DEVICE_INFO_TYPE_DIMMER:
+            case Keys::ATTR_DEVICE_INFO_TYPE_OUTLET:
                 // todo add more types
                 break;
             default:

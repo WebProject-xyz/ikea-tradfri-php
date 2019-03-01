@@ -7,10 +7,13 @@ namespace IKEA\Tradfri\Mapper;
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
+use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Feature\Switchable;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Device\MotionSensor;
+use IKEA\Tradfri\Device\Outlet;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
@@ -25,7 +28,7 @@ class DeviceData extends Mapper
      * Map data to Lightbulbs.
      *
      * @param ServiceInterface $service
-     * @param array            $devices
+     * @param array $devices
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -52,6 +55,10 @@ class DeviceData extends Mapper
 
                 if ($model instanceof Lightbulb) {
                     $this->_setLightBlubAttributes($model, $device);
+                }
+
+                if ($model instanceof Switchable) {
+                    $this->_setSwitchableAttributes($model, $device);
                 }
 
                 $collection->set($model->getId(), $model);
@@ -82,8 +89,8 @@ class DeviceData extends Mapper
     /**
      * Get model from device object.
      *
-     * @param int              $deviceId
-     * @param \stdClass        $device
+     * @param int $deviceId
+     * @param \stdClass $device
      * @param ServiceInterface $service
      *
      * @throws \IKEA\Tradfri\Exception\TypeException
@@ -104,6 +111,7 @@ class DeviceData extends Mapper
         switch ($type) {
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_CWS:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
                 $model = new Lightbulb($deviceId, $type);
@@ -121,8 +129,12 @@ class DeviceData extends Mapper
                 $model = new Dimmer($deviceId);
 
                 break;
+            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_OUTLET:
+                $model = new Outlet($deviceId);
+
+                break;
             default:
-                throw new TypeException('invalid type: '.$type);
+                throw new TypeException('invalid type: ' . $type);
         }
 
         return $model->setType($type)->setService($service);
@@ -161,19 +173,34 @@ class DeviceData extends Mapper
                 ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
                 ->{AttributeKeys::ATTR_LIGHT_COLOR_HEX} ?? ''
         );
+    }
 
-        $model->setState(
-            (bool) $device
-                      ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
-                ->{AttributeKeys::ATTR_LIGHT_STATE}
-        );
+    /**
+     * Set attributes for a switchable model
+     *
+     * @param Switchable $model
+     * @param \stdClass $device
+     */
+    protected function _setSwitchableAttributes(
+        Switchable $model,
+        \stdClass $device
+    ) {
+        foreach ([Keys::ATTR_LIGHT_CONTROL, Keys::ATTR_OUTLET_CONTROL] as $control) {
+            if (property_exists($device, $control)) {
+                $model->setState(
+                    (bool) $device
+                        ->{$control}[0]
+                        ->{AttributeKeys::ATTR_LIGHT_STATE}
+                );
+            }
+        }
     }
 
     /**
      * Set Device attributes.
      *
      * @param Device $model
-     * @param \stdClass$device
+     * @param \stdClass $device
      */
     protected function _setDeviceAttributes(Device $model, \stdClass $device)
     {

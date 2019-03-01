@@ -9,8 +9,10 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\Lightbulbs;
 use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Device\Feature\Switchable;
 use IKEA\Tradfri\Device\Group;
 use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\Outlet;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
@@ -107,12 +109,12 @@ class Api implements ServiceInterface
             return $this->_client->groupOff($device);
         }
 
-        if ($device instanceof Lightbulb) {
-            return $this->_client->lightOff($device);
+        if ($device instanceof Switchable) {
+            return $this->_client->off($device);
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
+            self::INVALID_DEVICE_TYPE . $device->getType()
         );
     }
 
@@ -125,26 +127,41 @@ class Api implements ServiceInterface
      *
      * @return bool
      */
-    public function switchOn($device): bool
+    public function on($device): bool
     {
         if ($device instanceof Light) {
             return $this->_client->groupOn($device);
         }
 
-        if ($device instanceof Lightbulb) {
-            return $this->_client->lightOn($device);
+        if ($device instanceof Switchable) {
+            return $this->_client->on($device);
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
+            self::INVALID_DEVICE_TYPE . $device->getType()
         );
+    }
+
+    /**
+     * Switch device on.
+     *
+     * @deprecated This functionality is moved to the "on" method
+     * @param Device|Light $device
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function switchOn($device): bool
+    {
+        $this->on($device);
     }
 
     /**
      * Dim device or group.
      *
      * @param Device|Light $device
-     * @param int          $level
+     * @param int $level
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -161,7 +178,7 @@ class Api implements ServiceInterface
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
+            self::INVALID_DEVICE_TYPE . $device->getType()
         );
     }
 }

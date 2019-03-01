@@ -63,6 +63,21 @@ class Unit extends \Codeception\Module
                 ],
             ])),
             \json_decode(\json_encode([
+                Keys::ATTR_ID                 => 2500,
+                Keys::ATTR_NAME               => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_CWS,
+                Keys::ATTR_DEVICE_INFO        => [
+                    Keys::ATTR_DEVICE_INFO_MANUFACTURER => 'UnitTestFactory',
+                    Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
+                    Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_CWS,
+                ],
+                Keys::ATTR_LIGHT_CONTROL => [
+                    0 => [
+                        Keys::ATTR_LIGHT_DIMMER => 22,
+                        Keys::ATTR_LIGHT_STATE  => 0,
+                    ],
+                ],
+            ])),
+            \json_decode(\json_encode([
                 Keys::ATTR_ID          => 3000,
                 Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                 Keys::ATTR_DEVICE_INFO => [
@@ -87,6 +102,15 @@ class Unit extends \Codeception\Module
                     Keys::ATTR_DEVICE_INFO_MANUFACTURER => 'UnitTestFactory',
                     Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                     Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
+                ],
+            ])),
+            \json_decode(\json_encode([
+                Keys::ATTR_ID          => 6000,
+                Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_OUTLET,
+                Keys::ATTR_DEVICE_INFO => [
+                    Keys::ATTR_DEVICE_INFO_MANUFACTURER => 'UnitTestFactory',
+                    Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
+                    Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_OUTLET,
                 ],
             ])),
         ];

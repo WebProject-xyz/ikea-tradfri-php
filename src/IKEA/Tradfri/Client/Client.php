@@ -7,6 +7,7 @@ namespace IKEA\Tradfri\Client;
 use IKEA\Tradfri\Adapter\AdapterInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\Feature\Switchable;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\Api;
@@ -71,27 +72,51 @@ class Client
     /**
      * Switch device on.
      *
+     * @deprecated This method is moved to the on method
      * @param Lightbulb $lightbulb
      *
      * @return bool
      */
     public function lightOn(Lightbulb $lightbulb): bool
     {
-        return $this->getAdapter()->changeLightState($lightbulb->getId(), true);
+        return $this->on($lightbulb);
     }
 
     /**
      * Switch device off.
      *
+     * @deprecated This method is moved to the off method
      * @param Lightbulb $lightbulb
      *
      * @return bool
      */
     public function lightOff(Lightbulb $lightbulb): bool
     {
-        return $this->getAdapter()->changeLightState(
-            $lightbulb->getId(), false
-        );
+        return $this->off($lightbulb);
+    }
+
+    /**
+     * Switch device on.
+     *
+     * @param Switchable $switchable
+     *
+     * @return bool
+     */
+    public function on(Switchable $switchable): bool
+    {
+        return $this->getAdapter()->changeLightState($switchable->getId(), true);
+    }
+
+    /**
+     * Switch device off.
+     *
+     * @param Switchable $switchable
+     *
+     * @return bool
+     */
+    public function off(Switchable $switchable): bool
+    {
+        return $this->getAdapter()->changeLightState($switchable->getId(), false);
     }
 
     /**
@@ -122,7 +147,7 @@ class Client
      * Din Light.
      *
      * @param Lightbulb $lightbulb
-     * @param int       $level
+     * @param int $level
      *
      * @return bool
      */
@@ -137,7 +162,7 @@ class Client
      * Dim Group.
      *
      * @param Group $group
-     * @param int   $level
+     * @param int $level
      *
      * @return bool
      */
