@@ -72,27 +72,40 @@ class Client
     /**
      * Switch device on.
      *
-     * @deprecated This method is moved to the on method
+     * @deprecated This method is moved to the swtichhOn method
      * @param Lightbulb $lightbulb
      *
      * @return bool
      */
     public function lightOn(Lightbulb $lightbulb): bool
     {
-        return $this->on($lightbulb);
+        return $this->switchOn($lightbulb);
     }
 
     /**
      * Switch device off.
      *
-     * @deprecated This method is moved to the off method
+     * @deprecated This method is moved to the switchOff method
      * @param Lightbulb $lightbulb
      *
      * @return bool
      */
     public function lightOff(Lightbulb $lightbulb): bool
     {
-        return $this->off($lightbulb);
+        return $this->switchOff($lightbulb);
+    }
+
+    /**
+     * Switch device off.
+     *
+     * @deprecated This functionality is moved to the "switchOff" method
+     * @param Switchable $switchable
+     *
+     * @return bool
+     */
+    public function off(Switchable $switchable): bool
+    {
+        return $this->switchOff($switchable);
     }
 
     /**
@@ -102,7 +115,7 @@ class Client
      *
      * @return bool
      */
-    public function on(Switchable $switchable): bool
+    public function switchOn(Switchable $switchable): bool
     {
         return $this
             ->getAdapter()
@@ -116,7 +129,7 @@ class Client
      *
      * @return bool
      */
-    public function off(Switchable $switchable): bool
+    public function switchOff(Switchable $switchable): bool
     {
         return $this
             ->getAdapter()

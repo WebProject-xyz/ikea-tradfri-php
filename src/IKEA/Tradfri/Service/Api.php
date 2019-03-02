@@ -125,7 +125,7 @@ class Api implements ServiceInterface
         }
 
         if ($device instanceof Switchable) {
-            return $this->_client->off($device);
+            return $this->_client->switchOff($device);
         }
 
         throw new RuntimeException(
@@ -149,7 +149,7 @@ class Api implements ServiceInterface
         }
 
         if ($device instanceof Switchable) {
-            return $this->_client->on($device);
+            return $this->_client->switchOn($device);
         }
 
         throw new RuntimeException(

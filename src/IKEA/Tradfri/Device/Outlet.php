@@ -55,4 +55,14 @@ class Outlet extends Device implements Switchable
 
         return $this;
     }
+
+    /**
+     * Get State.
+     *
+     * @return bool
+     */
+    public function isOn(): bool
+    {
+        return $this->_state;
+    }
 }
