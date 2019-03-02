@@ -106,7 +106,7 @@ class Api implements ServiceInterface
      */
     public function off($device): bool
     {
-
+        return $this->switchOff($device);
     }
 
     /**
