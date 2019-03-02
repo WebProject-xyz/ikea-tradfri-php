@@ -98,12 +98,27 @@ class Api implements ServiceInterface
      * Switch device off.
      *
      * @param Device|Light $device
+     * @deprecated This functionality is moved to the "switchOff" method
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return bool
      */
     public function off($device): bool
+    {
+
+    }
+
+    /**
+     * Switch device on.
+     *
+     * @param Device|Light $device
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *
+     * @return bool
+     */
+    public function switchOff($device): bool
     {
         if ($device instanceof Light) {
             return $this->_client->groupOff($device);
@@ -127,7 +142,7 @@ class Api implements ServiceInterface
      *
      * @return bool
      */
-    public function on($device): bool
+    public function switchOn($device): bool
     {
         if ($device instanceof Light) {
             return $this->_client->groupOn($device);
@@ -140,21 +155,6 @@ class Api implements ServiceInterface
         throw new RuntimeException(
             self::INVALID_DEVICE_TYPE . $device->getType()
         );
-    }
-
-    /**
-     * Switch device on.
-     *
-     * @deprecated This functionality is moved to the "on" method
-     * @param Device|Light $device
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
-     */
-    public function switchOn($device): bool
-    {
-        $this->on($device);
     }
 
     /**

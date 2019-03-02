@@ -108,6 +108,18 @@ class DeviceData extends Mapper
             ->{AttributeKeys::ATTR_DEVICE_INFO}
             ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
 
+        $model = $this->_getDevice($deviceId, $type);
+
+        return $model->setType($type)->setService($service);
+    }
+
+    /**
+     * @param int $deviceId
+     * @param string $type
+     * @return Dimmer|Lightbulb|MotionSensor|Outlet|Remote
+     */
+    protected function _getDevice(int $deviceId, string $type)
+    {
         switch ($type) {
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
             case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
@@ -136,8 +148,7 @@ class DeviceData extends Mapper
             default:
                 throw new TypeException('invalid type: ' . $type);
         }
-
-        return $model->setType($type)->setService($service);
+        return $model;
     }
 
     /**
@@ -185,7 +196,12 @@ class DeviceData extends Mapper
         Switchable $model,
         \stdClass $device
     ) {
-        foreach ([Keys::ATTR_LIGHT_CONTROL, Keys::ATTR_OUTLET_CONTROL] as $control) {
+        $keys = [
+            Keys::ATTR_LIGHT_CONTROL,
+            Keys::ATTR_OUTLET_CONTROL
+        ];
+
+        foreach ($keys as $control) {
             if (property_exists($device, $control)) {
                 $model->setState(
                     (bool) $device

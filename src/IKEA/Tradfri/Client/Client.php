@@ -104,7 +104,9 @@ class Client
      */
     public function on(Switchable $switchable): bool
     {
-        return $this->getAdapter()->changeLightState($switchable->getId(), true);
+        return $this
+            ->getAdapter()
+            ->changeLightState($switchable->getId(), true);
     }
 
     /**
@@ -116,7 +118,9 @@ class Client
      */
     public function off(Switchable $switchable): bool
     {
-        return $this->getAdapter()->changeLightState($switchable->getId(), false);
+        return $this
+            ->getAdapter()
+            ->changeLightState($switchable->getId(), false);
     }
 
     /**
@@ -128,7 +132,9 @@ class Client
      */
     public function groupOn(Group $group): bool
     {
-        return $this->getAdapter()->changeGroupState($group->getId(), true);
+        return $this
+            ->getAdapter()
+            ->changeGroupState($group->getId(), true);
     }
 
     /**
@@ -140,7 +146,9 @@ class Client
      */
     public function groupOff(Group $group): bool
     {
-        return $this->getAdapter()->changeGroupState($group->getId(), false);
+        return $this
+            ->getAdapter()
+            ->changeGroupState($group->getId(), false);
     }
 
     /**
@@ -153,9 +161,9 @@ class Client
      */
     public function dimLight(Lightbulb $lightbulb, int $level): bool
     {
-        return $this->getAdapter()->setLightBrightness(
-            $lightbulb->getId(), $level
-        );
+        return $this
+            ->getAdapter()
+            ->setLightBrightness($lightbulb->getId(), $level);
     }
 
     /**
@@ -168,6 +176,8 @@ class Client
      */
     public function dimGroup(Group $group, int $level): bool
     {
-        return $this->getAdapter()->setGroupBrightness($group->getId(), $level);
+        return $this
+            ->getAdapter()
+            ->setGroupBrightness($group->getId(), $level);
     }
 }
