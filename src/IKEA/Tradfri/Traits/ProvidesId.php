@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
 /**
- * Trait ProvidesId
+ * Trait ProvidesId.
  */
 trait ProvidesId
 {
@@ -14,7 +15,7 @@ trait ProvidesId
     protected $_id;
 
     /**
-     * Get Id
+     * Get Id.
      *
      * @return int
      */
@@ -24,7 +25,7 @@ trait ProvidesId
     }
 
     /**
-     * Set Id
+     * Set Id.
      *
      * @param int $id
      *
