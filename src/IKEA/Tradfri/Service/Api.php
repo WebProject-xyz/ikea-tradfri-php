@@ -19,7 +19,7 @@ use IKEA\Tradfri\Group\Light;
  */
 class Api implements ServiceInterface
 {
-    const INVALID_DEVICE_TYPE = 'invalid device type: ';
+    public const INVALID_DEVICE_TYPE = 'invalid device type: ';
     /**
      * @var Client
      */

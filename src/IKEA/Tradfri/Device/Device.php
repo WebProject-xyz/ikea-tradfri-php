@@ -15,7 +15,7 @@ use JsonSerializable;
  */
 abstract class Device implements JsonSerializable
 {
-    const TYPE_UNKNOWN = 'TRADFRI unknown';
+    public const TYPE_UNKNOWN = 'TRADFRI unknown';
     /**
      * @var array
      */

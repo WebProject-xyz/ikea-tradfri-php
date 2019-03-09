@@ -9,7 +9,7 @@ namespace IKEA\Tradfri\Command\Coap;
  */
 class Receiver
 {
-    const COAP_COMMAND = '%s invalid %s';
+    public const COAP_COMMAND = '%s invalid %s';
     /**
      * @var string
      */
