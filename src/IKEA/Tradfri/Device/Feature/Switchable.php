@@ -3,7 +3,7 @@
 namespace IKEA\Tradfri\Device\Feature;
 
 /**
- * Interface Switchable
+ * Interface Switchable.
  */
 interface Switchable
 {

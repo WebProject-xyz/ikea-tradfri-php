@@ -189,7 +189,7 @@ class DeviceData extends Mapper
     }
 
     /**
-     * Set attributes for a switchable model
+     * Set attributes for a switchable model.
      *
      * @param Switchable $model
      * @param \stdClass  $device
@@ -200,7 +200,7 @@ class DeviceData extends Mapper
     ) {
         $keys = [
             Keys::ATTR_LIGHT_CONTROL,
-            Keys::ATTR_OUTLET_CONTROL
+            Keys::ATTR_OUTLET_CONTROL,
         ];
 
         foreach ($keys as $control) {
