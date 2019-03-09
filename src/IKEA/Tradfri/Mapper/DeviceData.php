@@ -6,8 +6,8 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Command\Coap\Keys;
+use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Feature\Switchable;
@@ -28,7 +28,7 @@ class DeviceData extends Mapper
      * Map data to Lightbulbs.
      *
      * @param ServiceInterface $service
-     * @param array $devices
+     * @param array            $devices
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -89,8 +89,8 @@ class DeviceData extends Mapper
     /**
      * Get model from device object.
      *
-     * @param int $deviceId
-     * @param \stdClass $device
+     * @param int              $deviceId
+     * @param \stdClass        $device
      * @param ServiceInterface $service
      *
      * @throws \IKEA\Tradfri\Exception\TypeException
@@ -114,8 +114,9 @@ class DeviceData extends Mapper
     }
 
     /**
-     * @param int $deviceId
+     * @param int    $deviceId
      * @param string $type
+     *
      * @return Dimmer|Lightbulb|MotionSensor|Outlet|Remote
      */
     protected function _getDevice(int $deviceId, string $type)
@@ -146,8 +147,9 @@ class DeviceData extends Mapper
 
                 break;
             default:
-                throw new TypeException('invalid type: ' . $type);
+                throw new TypeException('invalid type: '.$type);
         }
+
         return $model;
     }
 
@@ -190,7 +192,7 @@ class DeviceData extends Mapper
      * Set attributes for a switchable model
      *
      * @param Switchable $model
-     * @param \stdClass $device
+     * @param \stdClass  $device
      */
     protected function _setSwitchableAttributes(
         Switchable $model,
@@ -202,7 +204,7 @@ class DeviceData extends Mapper
         ];
 
         foreach ($keys as $control) {
-            if (property_exists($device, $control)) {
+            if (\property_exists($device, $control)) {
                 $model->setState(
                     (bool) $device
                         ->{$control}[0]
@@ -215,7 +217,7 @@ class DeviceData extends Mapper
     /**
      * Set Device attributes.
      *
-     * @param Device $model
+     * @param Device    $model
      * @param \stdClass $device
      */
     protected function _setDeviceAttributes(Device $model, \stdClass $device)

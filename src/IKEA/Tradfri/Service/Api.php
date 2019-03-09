@@ -12,7 +12,6 @@ use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Feature\Switchable;
 use IKEA\Tradfri\Device\Group;
 use IKEA\Tradfri\Device\Lightbulb;
-use IKEA\Tradfri\Device\Outlet;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
@@ -98,6 +97,7 @@ class Api implements ServiceInterface
      * Switch device off.
      *
      * @param Device|Light $device
+     *
      * @deprecated This functionality is moved to the "switchOff" method
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -129,7 +129,7 @@ class Api implements ServiceInterface
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE . $device->getType()
+            self::INVALID_DEVICE_TYPE.$device->getType()
         );
     }
 
@@ -153,7 +153,7 @@ class Api implements ServiceInterface
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE . $device->getType()
+            self::INVALID_DEVICE_TYPE.$device->getType()
         );
     }
 
@@ -161,7 +161,7 @@ class Api implements ServiceInterface
      * Dim device or group.
      *
      * @param Device|Light $device
-     * @param int $level
+     * @param int          $level
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -178,7 +178,7 @@ class Api implements ServiceInterface
         }
 
         throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE . $device->getType()
+            self::INVALID_DEVICE_TYPE.$device->getType()
         );
     }
 }

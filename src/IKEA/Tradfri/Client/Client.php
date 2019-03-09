@@ -73,6 +73,7 @@ class Client
      * Switch device on.
      *
      * @deprecated This method is moved to the swtichhOn method
+     *
      * @param Lightbulb $lightbulb
      *
      * @return bool
@@ -86,6 +87,7 @@ class Client
      * Switch device off.
      *
      * @deprecated This method is moved to the switchOff method
+     *
      * @param Lightbulb $lightbulb
      *
      * @return bool
@@ -99,6 +101,7 @@ class Client
      * Switch device off.
      *
      * @deprecated This functionality is moved to the "switchOff" method
+     *
      * @param Switchable $switchable
      *
      * @return bool
@@ -168,7 +171,7 @@ class Client
      * Din Light.
      *
      * @param Lightbulb $lightbulb
-     * @param int $level
+     * @param int       $level
      *
      * @return bool
      */
@@ -183,7 +186,7 @@ class Client
      * Dim Group.
      *
      * @param Group $group
-     * @param int $level
+     * @param int   $level
      *
      * @return bool
      */
