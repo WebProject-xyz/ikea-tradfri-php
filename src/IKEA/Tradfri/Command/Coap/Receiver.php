@@ -79,7 +79,9 @@ class Receiver
     protected function _getUri(): string
     {
         return \sprintf(
-            self::COAP_COMMAND, $this->_getUsername(), $this->_getApiKey()
+            self::COAP_COMMAND,
+            $this->_getUsername(),
+            $this->_getApiKey()
         );
     }
 

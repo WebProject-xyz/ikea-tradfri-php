@@ -42,7 +42,7 @@ plugins:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "Zend"
+      standard: "PSR2,PSR1,Zend"
     checks:
       Generic Functions OpeningFunctionBraceBsdAllman BraceOnSameLine:
         enabled: false
