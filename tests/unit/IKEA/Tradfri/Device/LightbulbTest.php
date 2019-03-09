@@ -29,7 +29,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
      */
     protected function _getModel(): Lightbulb
     {
-        return new Lightbulb($this->id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        return new Lightbulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
     }
 
     public function testSetType()
@@ -124,7 +124,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
 
         // Assert
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOn()
@@ -147,14 +147,14 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertTrue($result);
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
 
         // Act
         $result = $lamp->switchOn();
         // Assert
         $this->assertTrue($result);
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOnFails()
@@ -166,7 +166,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
 
         /** @var ServiceInterface $service */
         $service = \Mockery::mock(Api::class);
-        $service->shouldReceive('switchOn')->andReturn(false);
+        $service->shouldReceive('on')->andReturn(false);
 
         $lamp->setService($service);
         $this->assertFalse($lamp->isOn());
@@ -177,7 +177,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertFalse($result);
         $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getState());
+        $this->assertSame('Off', $lamp->getReadableState());
     }
 
     public function testICanSwitchOff()
@@ -199,7 +199,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertTrue($result);
         $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getState());
+        $this->assertSame('Off', $lamp->getReadableState());
 
         // Act
         $result = $lamp->switchOff();
@@ -207,7 +207,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertTrue($result);
         $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getState());
+        $this->assertSame('Off', $lamp->getReadableState());
     }
 
     public function testICanSwitchOffFails()
@@ -238,7 +238,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertFalse($result);
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOffReturnedFalse()
@@ -264,7 +264,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert
         $this->assertFalse($result);
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
 
         // Act 2
         $result = $lamp->switchOff();
@@ -272,6 +272,6 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Assert 2
         $this->assertFalse($result);
         $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getState());
+        $this->assertSame('On', $lamp->getReadableState());
     }
 }

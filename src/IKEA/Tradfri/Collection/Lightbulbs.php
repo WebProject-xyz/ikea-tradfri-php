@@ -35,8 +35,8 @@ class Lightbulbs extends Devices
             $items,
             function (Lightbulb $lightbulbOne, Lightbulb $lightbulbTwo) {
                 return \strcmp(
-                    $lightbulbOne->getState(),
-                    $lightbulbTwo->getState()
+                    $lightbulbOne->getReadableState(),
+                    $lightbulbTwo->getReadableState()
                 );
             }
         );

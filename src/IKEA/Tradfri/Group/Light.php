@@ -44,7 +44,7 @@ class Light extends Device
      */
     public function switchOn(): self
     {
-        if ($this->_service->switchOn($this)) {
+        if ($this->_service->on($this)) {
             $this->setState(true);
         }
 

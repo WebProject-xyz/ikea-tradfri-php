@@ -28,11 +28,16 @@
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",
     "monolog/monolog": "1.*",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "symfony/var-dumper": "4.2.*"
   },
   "autoload": {
     "psr-4": {
-      "IKEA\\": "src/IKEA",
+      "IKEA\\": "src/IKEA"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "IKEA\\Tests\\": "tests/unit/IKEA"
     }
   },

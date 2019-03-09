@@ -25,7 +25,7 @@ try {
                 echo '- Name: ' . $light->getName(). PHP_EOL;
                 echo '- Manufacturer: ' . $light->getManufacturer(). PHP_EOL;
                 echo '- Version: ' . $light->getVersion(). PHP_EOL;
-                echo '- State is: ' . $light->getState(). PHP_EOL;
+                echo '- State is: ' . $light->getReadableState(). PHP_EOL;
                 echo '- Brightness ' . $light->getBrightness().'%'. PHP_EOL;
                 echo ' '.PHP_EOL;
 

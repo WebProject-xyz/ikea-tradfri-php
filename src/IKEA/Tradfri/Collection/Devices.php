@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\Lightbulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
@@ -22,8 +23,9 @@ class Devices extends AbstractCollection
     public function getLightbulbs(): Lightbulbs
     {
         $lightbulbs = new Lightbulbs();
+        $typeHelper = new Type();
         foreach ($this->getDevices() as $device) {
-            if ($device->isLightbulb()) {
+            if ($typeHelper->isLightbulb($device->getType())) {
                 $lightbulbs->addDevice($device);
             }
         }

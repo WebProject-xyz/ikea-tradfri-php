@@ -37,7 +37,7 @@ plugins:
     config:
       file_extensions:
         - php
-      rulesets: "unusedcode,codesize,naming,build/configs/ruleset.xml"
+      rulesets: "unusedcode,codesize,build/configs/ruleset.xml"
   phpcodesniffer:
     enabled: true
     config:

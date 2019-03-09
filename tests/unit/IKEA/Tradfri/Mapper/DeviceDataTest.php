@@ -58,7 +58,7 @@ class DeviceDataTest extends UnitTest
         $this->assertTrue($device1->isLightbulb());
         $this->assertSame(1000, $device1->getId());
         $this->assertTrue($device1->isOn());
-        $this->assertSame('On', $device1->getState());
+        $this->assertSame('On', $device1->getReadableState());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $device1->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $device1->getType());
         $this->assertSame('UnitTestFactory', $device1->getManufacturer());
@@ -70,7 +70,7 @@ class DeviceDataTest extends UnitTest
         $this->assertTrue($device2->isLightbulb());
         $this->assertSame(2000, $device2->getId());
         $this->assertFalse($device2->isOn());
-        $this->assertSame('Off', $device2->getState());
+        $this->assertSame('Off', $device2->getReadableState());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $device2->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $device2->getType());
         $this->assertSame('UnitTestFactory', $device2->getManufacturer());

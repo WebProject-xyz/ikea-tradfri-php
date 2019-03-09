@@ -125,7 +125,7 @@ class Api implements ServiceInterface
      *
      * @return bool
      */
-    public function switchOn($device): bool
+    public function on($device): bool
     {
         if ($device instanceof Light) {
             return $this->_client->groupOn($device);
