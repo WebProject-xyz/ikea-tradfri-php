@@ -59,7 +59,7 @@ abstract class Device implements JsonSerializable
     /**
      * Lightbulb constructor.
      *
-     * @param int $deviceId
+     * @param int    $deviceId
      * @param string $type
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
