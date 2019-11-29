@@ -15,7 +15,7 @@
   "homepage": "https://www.webproject.xyz",
   "require": {
     "php": "^7.1",
-    "doctrine/collections": "1.4.*"
+    "doctrine/collections": "1.4.* || 1.6.*"
   },
   "config": {
     "optimize-autoloader": true
