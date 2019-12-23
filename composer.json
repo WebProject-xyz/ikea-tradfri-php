@@ -21,7 +21,7 @@
     "optimize-autoloader": true
   },
   "require-dev": {
-    "codeception/codeception": "2.*",
+    "codeception/codeception": "2.* || 4.*",
     "mockery/mockery": "1.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
