@@ -14,19 +14,20 @@
   "type": "library",
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "^7.1",
-    "doctrine/collections": "1.4.*"
+    "php": "^7.3",
+    "doctrine/collections": "1.6.*"
   },
   "config": {
     "optimize-autoloader": true
   },
   "require-dev": {
-    "codeception/codeception": "2.*",
+    "codeception/codeception": "4.*",
+    "codeception/module-asserts": "1.*",
     "mockery/mockery": "1.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",
-    "monolog/monolog": "1.*",
+    "monolog/monolog": "2.*",
     "roave/security-advisories": "dev-master"
   },
   "autoload": {
