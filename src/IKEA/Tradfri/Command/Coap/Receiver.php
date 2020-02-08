@@ -9,7 +9,7 @@ namespace IKEA\Tradfri\Command\Coap;
  */
 class Receiver
 {
-    const COAP_COMMAND = '%s invalid %s';
+    public const COAP_COMMAND = '%s invalid %s';
     /**
      * @var string
      */
@@ -79,7 +79,9 @@ class Receiver
     protected function _getUri(): string
     {
         return \sprintf(
-            self::COAP_COMMAND, $this->_getUsername(), $this->_getApiKey()
+            self::COAP_COMMAND,
+            $this->_getUsername(),
+            $this->_getApiKey()
         );
     }
 

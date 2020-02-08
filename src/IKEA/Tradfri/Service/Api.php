@@ -19,7 +19,7 @@ use IKEA\Tradfri\Group\Light;
  */
 class Api implements ServiceInterface
 {
-    const INVALID_DEVICE_TYPE = 'invalid device type: ';
+    public const INVALID_DEVICE_TYPE = 'invalid device type: ';
     /**
      * @var Client
      */
@@ -125,7 +125,7 @@ class Api implements ServiceInterface
      *
      * @return bool
      */
-    public function switchOn($device): bool
+    public function on($device): bool
     {
         if ($device instanceof Light) {
             return $this->_client->groupOn($device);

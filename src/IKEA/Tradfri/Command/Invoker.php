@@ -20,7 +20,7 @@ class Invoker
      *
      * @param CommandInterface $cmd
      */
-    public function setCommand(CommandInterface $cmd)
+    public function setCommand(CommandInterface $cmd): void
     {
         $this->_command = $cmd;
     }
@@ -28,7 +28,7 @@ class Invoker
     /**
      * executes the command; the invoker is the same whatever is the command.
      */
-    public function run()
+    public function run(): void
     {
         $this->_command->execute();
     }

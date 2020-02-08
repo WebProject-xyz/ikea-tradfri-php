@@ -15,10 +15,10 @@ use IKEA\Tradfri\Helper\Runner;
  */
 class Coaps
 {
-    const PAYLOAD_START = ' -e \'{ "';
-    const PAYLOAD_OPEN = '": [{ "';
+    public const PAYLOAD_START = ' -e \'{ "';
+    public const PAYLOAD_OPEN = '": [{ "';
 
-    const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
+    public const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
 
     /**
      * @var string

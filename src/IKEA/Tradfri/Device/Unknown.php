@@ -20,7 +20,7 @@ class Unknown extends Device
     {
         parent::__construct(
             $deviceId,
-            self::TYPE_UNKNOWN
+            'TRADFRI unknown'
         );
     }
 }

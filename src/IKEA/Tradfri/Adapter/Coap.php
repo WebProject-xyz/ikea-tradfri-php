@@ -19,7 +19,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 class Coap extends AdapterAbstract
 {
-    const COULD_NOT_SWITCH_STATE = 'Could not switch state';
+    public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     /**
      * @var Coaps

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use IKEA\Tradfri\Device\Helper\Type as TypeHelper;
+
 require __DIR__.'/init.php';
 
 try {
@@ -15,7 +17,7 @@ try {
         echo '- Name: ' . $device->getName(). PHP_EOL;
         echo '- Manufacturer: ' . $device->getManufacturer(). PHP_EOL;
         echo '- Version: ' . $device->getVersion(). PHP_EOL;
-        if ($device->isLightbulb()) {
+        if ((new TypeHelper())->isLightbulb($device->getType())) {
             echo '- State is: ' . $device->getState(). PHP_EOL;
             echo '- Brightness ' . $device->getBrightness().'%'. PHP_EOL;
             echo '- Color HEX #' . $device->getColor().''. PHP_EOL;

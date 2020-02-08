@@ -90,7 +90,8 @@ class Client
     public function lightOff(Lightbulb $lightbulb): bool
     {
         return $this->getAdapter()->changeLightState(
-            $lightbulb->getId(), false
+            $lightbulb->getId(),
+            false
         );
     }
 
@@ -103,7 +104,10 @@ class Client
      */
     public function groupOn(Group $group): bool
     {
-        return $this->getAdapter()->changeGroupState($group->getId(), true);
+        return $this->getAdapter()->changeGroupState(
+            $group->getId(),
+            true
+        );
     }
 
     /**
@@ -129,7 +133,8 @@ class Client
     public function dimLight(Lightbulb $lightbulb, int $level): bool
     {
         return $this->getAdapter()->setLightBrightness(
-            $lightbulb->getId(), $level
+            $lightbulb->getId(),
+            $level
         );
     }
 

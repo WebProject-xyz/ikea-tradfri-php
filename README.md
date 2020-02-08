@@ -37,8 +37,9 @@ see [requirements.md](requirements.md)
 - [wiki/example](wiki/example)
 
 ## Docker Coap-Client
-#### Build 
-`docker build -t webproject/coap-client:latest . `
+#### Get client 
+- `docker pull webproject/coap-client:latest`
+  -- https://hub.docker.com/r/webproject/coap-client
 
 ### Run command in Docker
 #### Generate API User and <COAP_API_KEY> (Shared Key)

@@ -133,7 +133,7 @@ class ApiTest extends UnitTest
         $this->assertFalse($lightbulb->isOn());
 
         // Act
-        $result = $service->switchOn($lightbulb);
+        $result = $service->on($lightbulb);
 
         // Assert
         $this->assertTrue($result);
@@ -157,7 +157,7 @@ class ApiTest extends UnitTest
         $this->assertFalse($lightbulb->isOn());
 
         // Act
-        $result = $service->switchOn($lightbulb);
+        $result = $service->on($lightbulb);
     }
 
     public function testICanNotSwitchLightOnBecauseItIsOn()
@@ -174,7 +174,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($lightbulb->isOn());
 
         // Act
-        $result = $service->switchOn($lightbulb);
+        $result = $service->on($lightbulb);
         // Assert
         $this->assertTrue($result);
     }
@@ -223,7 +223,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($group->isOn());
 
         // Act
-        $result = $service->switchOn($group);
+        $result = $service->on($group);
         // Assert
         $this->assertTrue($result);
     }
@@ -244,7 +244,7 @@ class ApiTest extends UnitTest
         $this->assertFalse($group->isOn());
 
         // Act
-        $result = $service->switchOn($group);
+        $result = $service->on($group);
         // Assert
         $this->assertTrue($result);
     }
@@ -283,7 +283,7 @@ class ApiTest extends UnitTest
         $client = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
-        $result = $service->switchOn($dimmer);
+        $result = $service->on($dimmer);
     }
 
     public function testICanSwitchADimmerOff()
@@ -313,7 +313,7 @@ class ApiTest extends UnitTest
         $client = \Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
-        $result = $service->switchOn($remote);
+        $result = $service->on($remote);
     }
 
     public function testICanSwitchARemoteOff()
