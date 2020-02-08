@@ -34,10 +34,10 @@ trait ProvidesBrightness
     public function setBrightness(int $brightness): self
     {
         if ($brightness < 0) {
-            $this->_brightness = 0;
-        } else {
-            $this->_brightness = \round($brightness / 2.54);
+            $brightness = 1;
         }
+
+        $this->_brightness = \round($brightness / 2.54);
 
         return $this;
     }
