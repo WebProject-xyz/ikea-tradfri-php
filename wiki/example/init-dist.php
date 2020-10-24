@@ -12,6 +12,8 @@ require __DIR__.'/../../vendor/autoload.php';
 
 define('COAP_GATEWAY_IP', 'yourHubIp');
 define('COAP_GATEWAY_SECRET', 'secretFromBacksideOfHub');
+
+// API Key from: coap-client -m post -u "Client_identity" -k "<COAP_GATEWAY_SECRET>" -e '{"9090":"php-api-user"}' "coaps://<COAP_GATEWAY_IP>/15011/9063"
 define('COAP_API_KEY', 'generatedApiKeySeeReadme');
 
 defined('COAP_API_KEY') ? null : die('FOLLOW FIRST RUN HELP IN README');

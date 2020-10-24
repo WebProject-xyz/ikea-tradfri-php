@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 
@@ -15,7 +15,7 @@ use IKEA\Tradfri\Device\Remote;
 class Type
 {
     public const BLUB = 'TRADFRI bulb';
-    public const BLUB_CLASS = Lightbulb::class;
+    public const BLUB_CLASS = LightBulb::class;
     public const MOTION_SENSOR = 'TRADFRI motion sensor';
     public const MOTION_SENSOR_CLASS = MotionSensor::class;
     public const REMOTE = 'TRADFRI remote control';

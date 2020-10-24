@@ -10,7 +10,7 @@ use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Helper\Type;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Unknown;
@@ -51,7 +51,7 @@ class DeviceData extends Mapper
 
                 $this->_setDeviceAttributes($model, $device);
 
-                if ($model instanceof Lightbulb) {
+                if ($model instanceof LightBulb) {
                     $this->_setLightBlubAttributes($model, $device);
                 }
 
@@ -85,9 +85,9 @@ class DeviceData extends Mapper
      *
      * @param \stdClass $device
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @return Device|LightBulb|MotionSensor|Remote
+     *@throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Device|Lightbulb|MotionSensor|Remote
      */
     protected function _getModel(\stdClass $device)
     {
@@ -96,7 +96,7 @@ class DeviceData extends Mapper
 
         switch (true) {
             case $deviceTypeHelper->isLightbulb($typeAttribute):
-                $modelName = Lightbulb::class;
+                $modelName = LightBulb::class;
 
                 break;
             case $deviceTypeHelper->isMotionSensor($typeAttribute):
@@ -137,11 +137,11 @@ class DeviceData extends Mapper
     /**
      * Set Lightbulb attributes.
      *
-     * @param Lightbulb $model
+     * @param LightBulb $model
      * @param \stdClass $device
      */
     protected function _setLightBlubAttributes(
-        Lightbulb $model,
+        LightBulb $model,
         \stdClass $device
     ) {
         $model->setBrightness(

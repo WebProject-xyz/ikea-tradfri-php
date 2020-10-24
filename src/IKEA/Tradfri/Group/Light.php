@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Group;
 
 use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Device\SwitchableInterface;
 
 /**
  * Class Light.
  */
-class Light extends Device
+class Light extends Device implements SwitchableInterface
 {
     /**
      * Get State.

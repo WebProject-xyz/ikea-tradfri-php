@@ -7,7 +7,7 @@ use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
@@ -54,7 +54,7 @@ class DeviceDataTest extends UnitTest
         $this->assertSame(6, $result->count());
 
         $device1 = $result->get(1000);
-        $this->assertInstanceOf(Lightbulb::class, $device1);
+        $this->assertInstanceOf(LightBulb::class, $device1);
         $this->assertTrue($device1->isLightbulb());
         $this->assertSame(1000, $device1->getId());
         $this->assertTrue($device1->isOn());
@@ -66,7 +66,7 @@ class DeviceDataTest extends UnitTest
         $this->assertSame(9.0, $device1->getBrightness());
 
         $device2 = $result->get(2000);
-        $this->assertInstanceOf(Lightbulb::class, $device2);
+        $this->assertInstanceOf(LightBulb::class, $device2);
         $this->assertTrue($device2->isLightbulb());
         $this->assertSame(2000, $device2->getId());
         $this->assertFalse($device2->isOn());

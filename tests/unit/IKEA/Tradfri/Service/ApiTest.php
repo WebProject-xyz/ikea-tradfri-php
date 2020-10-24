@@ -10,7 +10,7 @@ use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\Lightbulbs;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light as Group;
@@ -73,7 +73,7 @@ class ApiTest extends UnitTest
 
         $service = new Api($client);
 
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(true);
 
         $this->assertTrue($lightbulb->isOn());
@@ -92,7 +92,7 @@ class ApiTest extends UnitTest
 
         $service = new Api($client);
 
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(true);
 
         $this->assertTrue($lightbulb->isOn());
@@ -103,7 +103,7 @@ class ApiTest extends UnitTest
     public function testICanNotSwitchLightOffBecauseItIsOff()
     {
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(false);
 
         /** @var Client $client */
@@ -122,7 +122,7 @@ class ApiTest extends UnitTest
     public function testICanSwitchLightOn()
     {
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(false);
 
         /** @var Client $client */
@@ -146,7 +146,7 @@ class ApiTest extends UnitTest
         $this->expectExceptionMessage('unable to change state of lightbulb: 1');
 
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(false);
 
         /** @var Client $client */
@@ -163,7 +163,7 @@ class ApiTest extends UnitTest
     public function testICanNotSwitchLightOnBecauseItIsOn()
     {
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(true);
 
         /** @var Client $client */
@@ -182,7 +182,7 @@ class ApiTest extends UnitTest
     public function testICanSwitchAllLightsOff()
     {
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightbulb->setState(true);
 
         $lightbulbs = new Lightbulbs();
@@ -214,7 +214,7 @@ class ApiTest extends UnitTest
         $group->setState(true);
         $group->getDevices()
             ->addDevice(
-            (new Lightbulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
+            (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
             )
             ->setState(true)
             ->setName('test')
@@ -237,7 +237,7 @@ class ApiTest extends UnitTest
         $service = new Api($client);
 
         $group = new Group(1, $service);
-        $group->getDevices()->addDevice((new Lightbulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
+        $group->getDevices()->addDevice((new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
             ->setState(false)
             ->setName('test'));
 
@@ -258,7 +258,7 @@ class ApiTest extends UnitTest
         $service = new Api($client);
         $group = new Group(1, $service);
 
-        $group->getDevices()->addDevice((new Lightbulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
+        $group->getDevices()->addDevice((new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
             ->setState(true)
             ->setName('test')
         );
@@ -348,7 +348,7 @@ class ApiTest extends UnitTest
     public function testICanDimALight()
     {
         // Arrange
-        $lightbulb = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        $lightbulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
 
         /** @var Client $client */
         $client = \Mockery::mock(Client::class);

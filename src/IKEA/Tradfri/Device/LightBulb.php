@@ -12,7 +12,7 @@ use IKEA\Tradfri\Traits\ProvidesState;
 /**
  * Class Lamp.
  */
-class Lightbulb extends Device
+class LightBulb extends Device implements SwitchableInterface
 {
     use ProvidesBrightness;
     use ProvidesColor;

@@ -16,7 +16,7 @@ try {
         echo '- Name: ' . $group->getName(). PHP_EOL;
         echo ' '.PHP_EOL;
         $group->getDevices()->forAll(function ($key, $device) use ($group) {
-            /** @var \IKEA\Tradfri\Device\Device|\IKEA\Tradfri\Device\Lightbulb $device */
+            /** @var \IKEA\Tradfri\Device\Device|\IKEA\Tradfri\Device\LightBulb $device */
             echo '---------- Device Information in Group: '.$group->getName() .PHP_EOL;
             echo '- ID: ' . $device->getId(). PHP_EOL;
             echo '- Type: ' . $device->getType(). PHP_EOL;

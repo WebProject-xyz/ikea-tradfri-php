@@ -19,7 +19,7 @@ try {
         if (false === $lights->isEmpty()) {
             $light = $lights->first();
             $lights->forAll(function ($key, $light) {
-                /** @var \IKEA\Tradfri\Device\Lightbulb $light */
+                /** @var \IKEA\Tradfri\Device\LightBulb $light */
                 echo '---------- Light Information'.PHP_EOL;
                 echo '- ID: ' . $light->getId(). PHP_EOL;
                 echo '- Name: ' . $light->getName(). PHP_EOL;

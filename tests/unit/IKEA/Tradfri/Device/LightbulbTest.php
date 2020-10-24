@@ -5,7 +5,7 @@ namespace IKEA\Tests\Tradfri\Device;
 
 use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Command\Coap\Keys;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -21,15 +21,15 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Act
         $lamp = $this->_getModel();
         // Assert
-        $this->assertInstanceOf(Lightbulb::class, $lamp);
+        $this->assertInstanceOf(LightBulb::class, $lamp);
     }
 
     /**
-     * @return \IKEA\Tradfri\Device\Lightbulb
+     * @return \IKEA\Tradfri\Device\LightBulb
      */
-    protected function _getModel(): Lightbulb
+    protected function _getModel(): LightBulb
     {
-        return new Lightbulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        return new LightBulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
     }
 
     public function testSetType()

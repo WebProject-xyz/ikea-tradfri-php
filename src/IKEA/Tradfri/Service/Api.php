@@ -10,80 +10,49 @@ use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\Lightbulbs;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Group;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
-/**
- * Class Client.
- */
 class Api implements ServiceInterface
 {
     public const INVALID_DEVICE_TYPE = 'invalid device type: ';
-    /**
-     * @var Client
-     */
-    protected $_client;
 
-    /**
-     * Api constructor.
-     *
-     * @param Client $client
-     */
+    protected Client $client;
+
     public function __construct(Client $client)
     {
-        $this->_client = $client;
+        $this->client = $client;
     }
 
-    /**
-     * Get Collection of lights.
-     *
-     * @return Lightbulbs
-     */
     public function getLights(): Lightbulbs
     {
         return $this->getDevices()->getLightbulbs();
     }
 
-    /**
-     * Get devices from client.
-     *
-     * @return Devices
-     */
     public function getDevices(): Devices
     {
-        return $this->_client->getDevices($this);
+        return $this->client->getDevices($this);
     }
 
-    /**
-     * Get Collection of groups.
-     *
-     * @return Groups
-     */
     public function getGroups(): Groups
     {
-        return $this->_client->getGroups($this);
+        return $this->client->getGroups($this);
     }
 
     /**
-     * Switch all lights off.
-     *
-     * @param Lightbulbs $lightbulbsCollection
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function allLightsOff(Lightbulbs $lightbulbsCollection): bool
+    public function allLightsOff(Lightbulbs $lightBulbsCollection): bool
     {
         $service = $this;
-        $lightbulbsCollection->forAll(
-            function ($lightbulbKey, $lightbulb) use ($service) {
-                /** @var Lightbulb $lightbulb */
-                if ($lightbulbKey === $lightbulb->getId()) {
+        $lightBulbsCollection->forAll(
+            function ($lightBulbKey, $lightBulb) use ($service) {
+                /** @var LightBulb $lightBulb */
+                if ($lightBulbKey === $lightBulb->getId()) {
                     // this is ok but who cares can't make var unused
                 }
-                $service->off($lightbulb);
+                $service->off($lightBulb);
 
                 return true;
             }
@@ -93,22 +62,18 @@ class Api implements ServiceInterface
     }
 
     /**
-     * Switch device off.
-     *
-     * @param Device|Light $device
-     *
+     * @todo interface switchable
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function off($device): bool
     {
+        // @todo interface for "switch" on
         if ($device instanceof Light) {
-            return $this->_client->groupOff($device);
+            return $this->client->groupOff($device);
         }
 
-        if ($device instanceof Lightbulb) {
-            return $this->_client->lightOff($device);
+        if ($device instanceof LightBulb) {
+            return $this->client->lightOff($device);
         }
 
         throw new RuntimeException(
@@ -117,22 +82,18 @@ class Api implements ServiceInterface
     }
 
     /**
-     * Switch device on.
-     *
-     * @param Device|Light $device
+     * @todo interface switchable
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function on($device): bool
     {
         if ($device instanceof Light) {
-            return $this->_client->groupOn($device);
+            return $this->client->groupOn($device);
         }
 
-        if ($device instanceof Lightbulb) {
-            return $this->_client->lightOn($device);
+        if ($device instanceof LightBulb) {
+            return $this->client->lightOn($device);
         }
 
         throw new RuntimeException(
@@ -141,23 +102,18 @@ class Api implements ServiceInterface
     }
 
     /**
-     * Dim device or group.
-     *
      * @param Device|Light $device
-     * @param int          $level
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function dim($device, int $level): bool
+    public function dim(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
     {
         if ($device instanceof Light) {
-            return $this->_client->dimGroup($device, $level);
+            return $this->client->dimGroup($device, $level);
         }
 
-        if ($device instanceof Lightbulb) {
-            return $this->_client->dimLight($device, $level);
+        if ($device instanceof LightBulb) {
+            return $this->client->dimLight($device, $level);
         }
 
         throw new RuntimeException(

@@ -7,6 +7,7 @@ namespace IKEA\Tradfri\Service;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Lightbulbs;
 use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Group\Light;
 
 /**
@@ -31,13 +32,13 @@ interface ServiceInterface
     /**
      * Switch all lights off.
      *
-     * @param Lightbulbs $lightbulbsCollection
+     * @param Lightbulbs $lightBulbsCollection
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return bool
      */
-    public function allLightsOff(Lightbulbs $lightbulbsCollection): bool;
+    public function allLightsOff(Lightbulbs $lightBulbsCollection): bool;
 
     /**
      * Switch state of.
@@ -48,7 +49,7 @@ interface ServiceInterface
      *
      * @return bool
      */
-    public function on($device): bool;
+    public function on(DeviceInterface $device): bool;
 
     /**
      * Switch state of.
@@ -59,7 +60,7 @@ interface ServiceInterface
      *
      * @return bool
      */
-    public function off($device): bool;
+    public function off(DeviceInterface $device): bool;
 
     /**
      * Dom device.
@@ -71,5 +72,5 @@ interface ServiceInterface
      *
      * @return bool
      */
-    public function dim($device, int $level): bool;
+    public function dim(DeviceInterface $device, int $level): bool;
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 
 require __DIR__.'/init.php';
 
@@ -12,10 +12,10 @@ try {
 
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
-        /** @var Lightbulb $light */
+        /** @var LightBulb $light */
         $light = $lights->find(
             function ($light) {
-                /** @var Lightbulb $light */
+                /** @var LightBulb $light */
                 return $light->getName() === 'Wohnzimmer - Schreibtisch';
             }
         );

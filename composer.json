@@ -13,16 +13,17 @@
   ],
   "type": "library",
   "homepage": "https://www.webproject.xyz",
-  "require": {
-    "php": "^7.3",
-    "ext-json": "*",
-    "doctrine/collections": "1.6.*"
-  },
   "config": {
     "optimize-autoloader": true
   },
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "doctrine/collections": "1.6.*",
+    "symfony/messenger": "^5.1"
+  },
   "require-dev": {
-    "codeception/codeception": "4.*",
+    "codeception/codeception": "^4",
     "codeception/module-asserts": "1.*",
     "mockery/mockery": "1.*",
     "friendsofphp/php-cs-fixer": "2.*",
@@ -30,7 +31,7 @@
     "codacy/coverage": "1.*",
     "monolog/monolog": "2.*",
     "roave/security-advisories": "dev-master",
-    "symfony/var-dumper": "5.*"
+    "symfony/var-dumper": "^5.1"
   },
   "autoload": {
     "psr-4": {
