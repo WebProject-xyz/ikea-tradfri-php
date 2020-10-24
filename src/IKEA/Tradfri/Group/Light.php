@@ -43,13 +43,14 @@ class Light extends Device implements SwitchableInterface
      *
      * @return $this
      */
-    public function switchOn(): self
+    public function switchOn(): bool
     {
         if ($this->_service->on($this)) {
             $this->setState(true);
+            return true;
         }
 
-        return $this;
+        return false;
     }
 
     /**
@@ -80,5 +81,15 @@ class Light extends Device implements SwitchableInterface
         }
 
         return $this;
+    }
+
+    public function switchOff(): bool
+    {
+        if ($this->_service->off($this)) {
+            $this->setState(false);
+            return true;
+        }
+
+        return false;
     }
 }
