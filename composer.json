@@ -19,8 +19,7 @@
   "require": {
     "php": "^7.4",
     "ext-json": "*",
-    "doctrine/collections": "1.6.*",
-    "symfony/messenger": "^5.1"
+    "doctrine/collections": "1.6.*"
   },
   "require-dev": {
     "codeception/codeception": "^4",
