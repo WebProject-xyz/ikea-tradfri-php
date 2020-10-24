@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Service;
 
 use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Group\Light;
@@ -18,9 +18,9 @@ interface ServiceInterface
     /**
      * Get Collection of lights.
      *
-     * @return Lightbulbs
+     * @return LightBulbs
      */
-    public function getLights(): Lightbulbs;
+    public function getLights(): LightBulbs;
 
     /**
      * Get devices from client.
@@ -32,13 +32,13 @@ interface ServiceInterface
     /**
      * Switch all lights off.
      *
-     * @param Lightbulbs $lightBulbsCollection
+     * @param LightBulbs $lightBulbsCollection
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return bool
      */
-    public function allLightsOff(Lightbulbs $lightBulbsCollection): bool;
+    public function allLightsOff(LightBulbs $lightBulbsCollection): bool;
 
     /**
      * Switch state of.

@@ -92,7 +92,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setDeviceIds(array $ids)
+    public function setDeviceIds(array $ids): self
     {
         $this->_deviceIds = $ids;
 
@@ -182,7 +182,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setState(bool $state)
+    public function setState(bool $state): self
     {
         $this->_state = $state;
 
@@ -204,7 +204,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setBrightness(int $level)
+    public function setBrightness(int $level): self
     {
         $this->_brightness = $level;
 

@@ -5,6 +5,7 @@ namespace IKEA\Tests\Tradfri\Device;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -25,7 +26,7 @@ abstract class DeviceTester extends UnitTest
     {
         // Arrange
         $this->expectException('TypeError');
-        $lamp = $this->_getModel();
+        $lamp = $this->getModel();
 
         // Act
         $lamp->getService();
@@ -36,12 +37,12 @@ abstract class DeviceTester extends UnitTest
     /**
      * @return Device
      */
-    abstract protected function _getModel();
+    abstract protected function getModel(): DeviceInterface;
 
     public function testICanGetService(): void
     {
         // Arrange
-        $device = $this->_getModel();
+        $device = $this->getModel();
 
         $serviceMock = $this->createMock(ServiceInterface::class);
         // Act
@@ -55,7 +56,7 @@ abstract class DeviceTester extends UnitTest
     public function testGetSetName(): void
     {
         // Arrange
-        $lamp = $this->_getModel();
+        $lamp = $this->getModel();
         $lamp->setName('UnitTest');
         // Act
         $result = $lamp->getName();
@@ -67,7 +68,7 @@ abstract class DeviceTester extends UnitTest
     public function testGetSetManufacturer(): void
     {
         // Arrange
-        $lamp = $this->_getModel();
+        $lamp = $this->getModel();
         $lamp->setManufacturer('UnitTest');
         // Act
         $result = $lamp->getManufacturer();
@@ -79,7 +80,7 @@ abstract class DeviceTester extends UnitTest
     public function testGetSetId(): void
     {
         // Arrange
-        $lamp = $this->_getModel();
+        $lamp = $this->getModel();
         $lamp->setId(2);
         // Act
         $result = $lamp->getId();
@@ -91,7 +92,7 @@ abstract class DeviceTester extends UnitTest
     public function testGetSetVersion(): void
     {
         // Arrange
-        $lamp = $this->_getModel();
+        $lamp = $this->getModel();
         $lamp->setVersion('V123');
         // Act
         $result = $lamp->getVersion();

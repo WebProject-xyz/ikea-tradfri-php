@@ -23,7 +23,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
 class DeviceData extends Mapper
 {
     /**
-     * Map data to Lightbulbs.
+     * Map data to LightBulbs.
      *
      * @param ServiceInterface $service
      * @param array            $devices
@@ -94,7 +94,7 @@ class DeviceData extends Mapper
         $typeAttribute = $this->_getDeviceTypeAttribute($device);
 
         switch (true) {
-            case $deviceTypeHelper->isLightbulb($typeAttribute):
+            case $deviceTypeHelper->isLightBulb($typeAttribute):
                 $modelName = LightBulb::class;
 
                 break;
@@ -134,7 +134,7 @@ class DeviceData extends Mapper
     }
 
     /**
-     * Set Lightbulb attributes.
+     * Set LightBulb attributes.
      *
      * @param LightBulb $model
      * @param \stdClass $device
@@ -142,7 +142,7 @@ class DeviceData extends Mapper
     protected function _setLightBlubAttributes(
         LightBulb $model,
         \stdClass $device
-    ) {
+    ): void {
         $model->setBrightness(
             $device
                 ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
@@ -168,7 +168,7 @@ class DeviceData extends Mapper
      * @param Device $model
      * @param \stdClass$device
      */
-    protected function _setDeviceAttributes(Device $model, \stdClass $device)
+    protected function _setDeviceAttributes(Device $model, \stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
 

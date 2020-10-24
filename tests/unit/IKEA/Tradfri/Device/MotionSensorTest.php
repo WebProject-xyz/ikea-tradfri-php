@@ -12,16 +12,16 @@ class MotionSensorTest extends DeviceTester
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertInstanceOf(MotionSensor::class, $model);
     }
 
-    public function testIsMotionSensor()
+    public function testIsMotionSensor(): void
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertTrue((new Type())->isMotionSensor($model->getType()));
     }
@@ -29,7 +29,7 @@ class MotionSensorTest extends DeviceTester
     /**
      * @return MotionSensor
      */
-    protected function _getModel(): MotionSensor
+    protected function getModel(): MotionSensor
     {
         return new MotionSensor($this->_id);
     }

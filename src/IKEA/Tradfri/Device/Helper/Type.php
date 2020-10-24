@@ -32,7 +32,7 @@ class Type
      *
      * @return bool
      */
-    public function isLightbulb(string $typeAttribute): bool
+    public function isLightBulb(string $typeAttribute): bool
     {
         return 0 === \strpos($typeAttribute, self::BLUB);
     }

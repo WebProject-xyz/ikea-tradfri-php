@@ -40,7 +40,7 @@ abstract class AbstractCollection extends ArrayCollection implements
      *
      * @return null|Device
      */
-    public function find(Closure $closure)
+    public function find(Closure $closure): ?Device
     {
         foreach ($this->toArray() as $item) {
             if (true === $closure($item)) {

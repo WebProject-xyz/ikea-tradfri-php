@@ -8,7 +8,7 @@ use IKEA\Tradfri\Group\Device;
 use IKEA\Tradfri\Group\Light;
 
 /**
- * Class Lightbulbs.
+ * Class LightBulbs.
  */
 class Groups extends AbstractCollection
 {

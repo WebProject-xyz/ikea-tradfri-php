@@ -26,7 +26,7 @@ abstract class Device implements JsonSerializable, DeviceInterface
     use ProvidesService;
 
     /**
-     * Lightbulb constructor.
+     * LightBulb constructor.
      *
      * @param int    $deviceId
      * @param string $type
@@ -46,9 +46,9 @@ abstract class Device implements JsonSerializable, DeviceInterface
      *
      * @deprecated
      */
-    public function isLightbulb(): bool
+    public function isLightBulb(): bool
     {
-        return (new Type())->isLightbulb($this->getType());
+        return (new Type())->isLightBulb($this->getType());
     }
 
     public function jsonSerialize(): array

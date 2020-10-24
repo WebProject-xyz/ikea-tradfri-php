@@ -80,7 +80,7 @@ class Runner
      *
      * @param $process
      */
-    private function _killProcess($process)
+    private function _killProcess($process): void
     {
         if (\proc_terminate($process, 9)) {
             throw new RuntimeException('timeout expired');
@@ -93,7 +93,7 @@ class Runner
      * @param bool   $skipEmptyBufferError
      * @param string $errors
      */
-    private function _parseErrors(bool $skipEmptyBufferError, string $errors)
+    private function _parseErrors(bool $skipEmptyBufferError, string $errors): void
     {
         $parts = \explode("\n", $errors);
         switch (\count($parts)) {
@@ -166,7 +166,7 @@ class Runner
      * @param array $pipes
      * @param $process
      */
-    protected function _closeStreams(array $pipes, $process)
+    protected function _closeStreams(array $pipes, $process): void
     {
         \fclose($pipes[0]);
         \fclose($pipes[1]);

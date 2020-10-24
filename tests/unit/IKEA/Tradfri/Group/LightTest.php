@@ -5,7 +5,7 @@ namespace IKEA\Tests\Tradfri\Group;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
 
@@ -14,7 +14,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights()
+    public function testICanInitGroupOfLights(): Light
     {
         // Arrange
         $service = \Mockery::mock(ServiceInterface::class);
@@ -28,7 +28,7 @@ class LightTest extends UnitTest
         return $group;
     }
 
-    public function testICanGetDeviceIdsFromGroup()
+    public function testICanGetDeviceIdsFromGroup(): void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();
@@ -41,7 +41,7 @@ class LightTest extends UnitTest
         $this->assertCount(0, $deviceIds);
     }
 
-    public function testICanSetDevicesCollectionToGroup()
+    public function testICanSetDevicesCollectionToGroup(): void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();
@@ -53,6 +53,6 @@ class LightTest extends UnitTest
         $resultLights = $group->getLights();
         // Assert
         $this->assertInstanceOf(Devices::class, $result);
-        $this->assertInstanceOf(Lightbulbs::class, $resultLights);
+        $this->assertInstanceOf(LightBulbs::class, $resultLights);
     }
 }

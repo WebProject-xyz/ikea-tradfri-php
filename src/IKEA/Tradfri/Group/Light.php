@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Group;
 
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\SwitchableInterface;
 
 /**
@@ -29,11 +29,11 @@ class Light extends Device implements SwitchableInterface
     /**
      * Get Lights.
      *
-     * @return Lightbulbs
+     * @return LightBulbs
      */
-    public function getLights(): Lightbulbs
+    public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightbulbs();
+        return $this->getDevices()->getLightBulbs();
     }
 
     /**

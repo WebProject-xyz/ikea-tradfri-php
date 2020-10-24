@@ -16,16 +16,16 @@ class DimmerTest extends DeviceTester
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertInstanceOf(Dimmer::class, $model);
     }
 
-    public function testIsDimmer()
+    public function testIsDimmer(): void
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertTrue((new Type())->isDimmer($model->getType()));
     }
@@ -33,7 +33,7 @@ class DimmerTest extends DeviceTester
     /**
      * @return Device
      */
-    protected function _getModel(): Device
+    protected function getModel(): Device
     {
         return new Dimmer($this->_id);
     }

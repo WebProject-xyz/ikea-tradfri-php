@@ -19,7 +19,7 @@ class GroupDataTest extends UnitTest
      */
     protected $tester;
 
-    public function testICanMapEmptyDataWithNoError()
+    public function testICanMapEmptyDataWithNoError(): void
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
@@ -32,7 +32,7 @@ class GroupDataTest extends UnitTest
         $this->tester->assertInstanceOf(\IKEA\Tradfri\Collection\Groups::class, $result);
     }
 
-    public function testICanMapDataToCollectionWithNoError()
+    public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);

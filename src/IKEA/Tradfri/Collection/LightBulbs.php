@@ -8,16 +8,16 @@ use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
 
 /**
- * Class Lightbulbs.
+ * Class LightBulbs.
  */
-class Lightbulbs extends Devices
+class LightBulbs extends Devices
 {
     /**
      * Get first light.
      *
      * @return null|LightBulb
      */
-    public function first()
+    public function first(): ?LightBulb
     {
         return parent::first();
     }

@@ -160,7 +160,7 @@ class Receiver
         return $this;
     }
 
-    public function sendRequest()
+    public function sendRequest(): string
     {
         // send command to gateway
         return \implode("\n", $this->_output);

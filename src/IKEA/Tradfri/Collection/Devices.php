@@ -18,14 +18,14 @@ class Devices extends AbstractCollection
     /**
      * Get lightBulbs.
      *
-     * @return LightBulb[]|Lightbulbs
+     * @return LightBulb[]|LightBulbs
      */
-    public function getLightbulbs(): Lightbulbs
+    public function getLightBulbs(): LightBulbs
     {
-        $lightBulbs = new Lightbulbs();
+        $lightBulbs = new LightBulbs();
         $typeHelper = new Type();
         foreach ($this->getDevices() as $device) {
-            if ($typeHelper->isLightbulb($device->getType())) {
+            if ($typeHelper->isLightBulb($device->getType())) {
                 $lightBulbs->addDevice($device);
             }
         }

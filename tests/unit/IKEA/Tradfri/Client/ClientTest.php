@@ -19,7 +19,7 @@ class ClientTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    public function testICanGetAnInstanceOfClient()
+    public function testICanGetAnInstanceOfClient(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -29,7 +29,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertInstanceOf(Client::class, $client);
     }
 
-    public function testICanGetDevicesFromClient()
+    public function testICanGetDevicesFromClient(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -44,7 +44,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertCount(0, $devices->toArray());
     }
 
-    public function testICanGetGroupFromClient()
+    public function testICanGetGroupFromClient(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -59,7 +59,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertCount(0, $groups->toArray());
     }
 
-    public function testICanTurnLightOn()
+    public function testICanTurnLightOn(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -73,7 +73,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertTrue($result);
     }
 
-    public function testICanTurnLightOff()
+    public function testICanTurnLightOff(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -87,7 +87,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertTrue($result);
     }
 
-    public function testICanTurnGroupOn()
+    public function testICanTurnGroupOn(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -101,7 +101,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertTrue($result);
     }
 
-    public function testICanTurnGroupOff()
+    public function testICanTurnGroupOff(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -115,7 +115,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertTrue($result);
     }
 
-    public function testICanDimLight()
+    public function testICanDimLight(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);
@@ -129,7 +129,7 @@ class ClientTest extends \Codeception\Test\Unit
         $this->tester->assertTrue($result);
     }
 
-    public function testICanDimGroup()
+    public function testICanDimGroup(): void
     {
         // Arrange
         $adapter = \Mockery::mock(AdapterInterface::class);

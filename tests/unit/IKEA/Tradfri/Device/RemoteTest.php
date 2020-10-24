@@ -12,16 +12,16 @@ class RemoteTest extends DeviceTester
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertInstanceOf(Remote::class, $model);
     }
 
-    public function testIsRemote()
+    public function testIsRemote(): void
     {
         // Arrange
         // Act
-        $model = $this->_getModel();
+        $model = $this->getModel();
         // Assert
         $this->assertTrue((new Type())->isRemote($model->getType()));
     }
@@ -29,7 +29,7 @@ class RemoteTest extends DeviceTester
     /**
      * @return Remote
      */
-    protected function _getModel(): Remote
+    protected function getModel(): Remote
     {
         return new Remote($this->_id);
     }

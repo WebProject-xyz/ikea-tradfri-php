@@ -14,9 +14,9 @@ class TypeTest extends \Codeception\Test\Unit
     /**
      * @param string $typeAttribute
      * @param bool   $assertTrue
-     * @dataProvider isLightbulbData
+     * @dataProvider isLightBulbData
      */
-    public function testIsLightbulb(
+    public function testIsLightBulb(
         string $typeAttribute,
         bool $assertTrue
     ): void {
@@ -24,7 +24,7 @@ class TypeTest extends \Codeception\Test\Unit
         $helper = new Type();
 
         // Act
-        $condition = $helper->isLightbulb($typeAttribute);
+        $condition = $helper->isLightBulb($typeAttribute);
         // Assert
         if ($assertTrue) {
             $this->assertTrue(
@@ -42,7 +42,7 @@ class TypeTest extends \Codeception\Test\Unit
     /**
      * @return array
      */
-    public function isLightbulbData(): array
+    public function isLightBulbData(): array
     {
         return [
             ['invalidStringValue', false],

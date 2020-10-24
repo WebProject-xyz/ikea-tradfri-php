@@ -7,7 +7,7 @@ namespace IKEA\Tradfri\Service;
 use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
@@ -24,9 +24,9 @@ class Api implements ServiceInterface
         $this->client = $client;
     }
 
-    public function getLights(): Lightbulbs
+    public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightbulbs();
+        return $this->getDevices()->getLightBulbs();
     }
 
     public function getDevices(): Devices
@@ -42,7 +42,7 @@ class Api implements ServiceInterface
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function allLightsOff(Lightbulbs $lightBulbsCollection): bool
+    public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
         $service = $this;
         $lightBulbsCollection->forAll(
