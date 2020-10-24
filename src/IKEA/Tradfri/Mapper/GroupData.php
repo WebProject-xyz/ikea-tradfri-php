@@ -26,8 +26,10 @@ class GroupData extends Mapper
      *
      * @return AbstractCollection|Groups
      */
-    public function map(ServiceInterface $service,
-        array $groupDataItems): AbstractCollection
+    public function map(
+        ServiceInterface $service,
+        array $groupDataItems
+    ): AbstractCollection
     {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
@@ -36,7 +38,8 @@ class GroupData extends Mapper
             }
 
             $group = new Light(
-                (int) $device->{Keys::ATTR_ID}, $service
+                (int) $device->{Keys::ATTR_ID},
+                $service
             );
             $group->setName($device->{Keys::ATTR_NAME});
             $group->setDeviceIds(
