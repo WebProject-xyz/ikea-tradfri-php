@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Group;
 
 use IKEA\Tradfri\Collection\Devices;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * Class Device.
  */
-class Device
+class Device implements DeviceInterface
 {
     /**
      * @var int

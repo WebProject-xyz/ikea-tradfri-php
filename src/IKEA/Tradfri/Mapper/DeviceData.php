@@ -9,11 +9,12 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -43,14 +44,13 @@ class DeviceData extends Mapper
                 }
 
                 $model = $this->_getModel(
-                    $this->_getDeviceId($device),
-                    $device,
-                    $service
+                    $device
                 );
+                $model->setService($service);
 
                 $this->_setDeviceAttributes($model, $device);
 
-                if ($model instanceof Lightbulb) {
+                if ($model instanceof LightBulb) {
                     $this->_setLightBlubAttributes($model, $device);
                 }
 
@@ -82,50 +82,43 @@ class DeviceData extends Mapper
     /**
      * Get model from device object.
      *
-     * @param int              $deviceId
-     * @param \stdClass        $device
-     * @param ServiceInterface $service
+     * @param \stdClass $device
      *
-     * @throws \IKEA\Tradfri\Exception\TypeException
-     * @throws TypeException
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     *@throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return Device|Lightbulb|MotionSensor|Remote
+     * @return Device|LightBulb|MotionSensor|Remote
      */
-    protected function _getModel(
-        int $deviceId,
-        \stdClass $device,
-        ServiceInterface $service
-    ) {
-        $type = $device
-            ->{AttributeKeys::ATTR_DEVICE_INFO}
-            ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
+    protected function _getModel(\stdClass $device)
+    {
+        $deviceTypeHelper = new Type();
+        $typeAttribute = $this->_getDeviceTypeAttribute($device);
 
-        switch ($type) {
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W:
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS:
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS:
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W:
-                $model = new Lightbulb($deviceId, $type);
+        switch (true) {
+            case $deviceTypeHelper->isLightbulb($typeAttribute):
+                $modelName = LightBulb::class;
 
                 break;
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR:
-                $model = new MotionSensor($deviceId);
+            case $deviceTypeHelper->isMotionSensor($typeAttribute):
+                $modelName = MotionSensor::class;
 
                 break;
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL:
-                $model = new Remote($deviceId);
+            case $deviceTypeHelper->isRemote($typeAttribute):
+                $modelName = Remote::class;
 
                 break;
-            case AttributeKeys::ATTR_DEVICE_INFO_TYPE_DIMMER:
-                $model = new Dimmer($deviceId);
+            case $deviceTypeHelper->isDimmer($typeAttribute):
+                $modelName = Dimmer::class;
 
                 break;
+            case false === $deviceTypeHelper->isKnownDeviceType($typeAttribute):
             default:
-                throw new TypeException('invalid type: '.$type);
+                $modelName = Unknown::class;
         }
 
-        return $model->setType($type)->setService($service);
+        return new $modelName(
+            $this->_getDeviceId($device),
+            $typeAttribute
+        );
     }
 
     /**
@@ -143,11 +136,11 @@ class DeviceData extends Mapper
     /**
      * Set Lightbulb attributes.
      *
-     * @param Lightbulb $model
+     * @param LightBulb $model
      * @param \stdClass $device
      */
     protected function _setLightBlubAttributes(
-        Lightbulb $model,
+        LightBulb $model,
         \stdClass $device
     ) {
         $model->setBrightness(
@@ -190,5 +183,19 @@ class DeviceData extends Mapper
                 ->{AttributeKeys::ATTR_DEVICE_INFO}
                 ->{AttributeKeys::ATTR_DEVICE_VERSION}
         );
+    }
+
+    /**
+     * Get Device Type Attribute.
+     *
+     * @param \stdClass $device
+     *
+     * @return mixed
+     */
+    protected function _getDeviceTypeAttribute(\stdClass $device): string
+    {
+        return $device
+            ->{AttributeKeys::ATTR_DEVICE_INFO}
+            ->{AttributeKeys::ATTR_DEVICE_INFO_TYPE};
     }
 }

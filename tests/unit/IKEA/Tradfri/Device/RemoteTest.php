@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Tradfri\Device;
 
+use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\Remote;
 
 class RemoteTest extends DeviceTester
@@ -16,13 +17,13 @@ class RemoteTest extends DeviceTester
         $this->assertInstanceOf(Remote::class, $model);
     }
 
-    public function testIsLightbulb()
+    public function testIsRemote()
     {
         // Arrange
         // Act
         $model = $this->_getModel();
         // Assert
-        $this->assertFalse($model->isLightbulb());
+        $this->assertTrue((new Type())->isRemote($model->getType()));
     }
 
     /**
@@ -30,6 +31,6 @@ class RemoteTest extends DeviceTester
      */
     protected function _getModel(): Remote
     {
-        return new Remote($this->id);
+        return new Remote($this->_id);
     }
 }

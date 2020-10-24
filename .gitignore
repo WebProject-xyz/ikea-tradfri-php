@@ -78,3 +78,4 @@ fabric.properties
 coverage/*
 !coverage/.gitkeep
 composer.lock
+composer.phar

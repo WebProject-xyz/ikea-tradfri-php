@@ -13,27 +13,33 @@
   ],
   "type": "library",
   "homepage": "https://www.webproject.xyz",
-  "require": {
-    "php": "^7.1",
-    "doctrine/collections": "1.4.*"
-  },
   "config": {
     "optimize-autoloader": true
   },
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "doctrine/collections": "1.6.*",
+    "symfony/messenger": "^5.1"
+  },
   "require-dev": {
-    "codeception/codeception": "2.*",
+    "codeception/codeception": "^4",
+    "codeception/module-asserts": "1.*",
     "mockery/mockery": "1.*",
     "friendsofphp/php-cs-fixer": "2.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "1.*",
-    "monolog/monolog": "1.*",
-    "fahl-design/log4php-slack-appender": "1.*",
+    "monolog/monolog": "2.*",
     "roave/security-advisories": "dev-master",
-    "symfony/var-dumper": "4.*"
+    "symfony/var-dumper": "^5.1"
   },
   "autoload": {
     "psr-4": {
-      "IKEA\\": "src/IKEA",
+      "IKEA\\": "src/IKEA"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "IKEA\\Tests\\": "tests/unit/IKEA"
     }
   },

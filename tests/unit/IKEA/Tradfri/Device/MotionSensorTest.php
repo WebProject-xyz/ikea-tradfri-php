@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Tradfri\Device;
 
+use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\MotionSensor;
 
 class MotionSensorTest extends DeviceTester
@@ -16,13 +17,13 @@ class MotionSensorTest extends DeviceTester
         $this->assertInstanceOf(MotionSensor::class, $model);
     }
 
-    public function testIsLightbulb()
+    public function testIsMotionSensor()
     {
         // Arrange
         // Act
         $model = $this->_getModel();
         // Assert
-        $this->assertFalse($model->isLightbulb());
+        $this->assertTrue((new Type())->isMotionSensor($model->getType()));
     }
 
     /**
@@ -30,6 +31,6 @@ class MotionSensorTest extends DeviceTester
      */
     protected function _getModel(): MotionSensor
     {
-        return new MotionSensor($this->id);
+        return new MotionSensor($this->_id);
     }
 }

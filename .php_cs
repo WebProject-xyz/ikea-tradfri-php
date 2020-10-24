@@ -89,7 +89,7 @@ return PhpCsFixer\Config::create()
             'multiline_comment_opening_closing' => false,
             'native_constant_invocation' => true,
             'native_function_casing' => true,
-            '@PHP71Migration' => false,
+            '@PHP71Migration' => true,
             'function_typehint_space' => true,
             'fully_qualified_strict_types' => true,
             'modernize_types_casting' => true,

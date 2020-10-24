@@ -10,6 +10,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
 
 /**
  * Class GroupData.
@@ -29,8 +30,7 @@ class GroupData extends Mapper
     public function map(
         ServiceInterface $service,
         array $groupDataItems
-    ): AbstractCollection
-    {
+    ): AbstractCollection {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
             if (false === $this->_isValidData($device)) {
@@ -68,7 +68,7 @@ class GroupData extends Mapper
      */
     protected function _isValidData($device): bool
     {
-        $validator = new \IKEA\Tradfri\Validator\Group\Data();
+        $validator = new GroupDataValidator();
 
         return $validator->isValid($device);
     }

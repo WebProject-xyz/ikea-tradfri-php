@@ -5,7 +5,6 @@ namespace IKEA\Tests\Tradfri\Device;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -18,11 +17,11 @@ abstract class DeviceTester extends UnitTest
     /**
      * @var int
      */
-    protected $id = 1;
+    protected $_id = 1;
 
     abstract public function testGetAnInstance();
 
-    public function testICanNotGetService()
+    public function testICanNotGetService(): void
     {
         // Arrange
         $this->expectException('TypeError');
@@ -39,7 +38,7 @@ abstract class DeviceTester extends UnitTest
      */
     abstract protected function _getModel();
 
-    public function testICanGetService()
+    public function testICanGetService(): void
     {
         // Arrange
         $device = $this->_getModel();
@@ -53,7 +52,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertInstanceOf(ServiceInterface::class, $service);
     }
 
-    public function testGetSetName()
+    public function testGetSetName(): void
     {
         // Arrange
         $lamp = $this->_getModel();
@@ -65,7 +64,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetManufacturer()
+    public function testGetSetManufacturer(): void
     {
         // Arrange
         $lamp = $this->_getModel();
@@ -77,7 +76,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetId()
+    public function testGetSetId(): void
     {
         // Arrange
         $lamp = $this->_getModel();
@@ -89,7 +88,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame(2, $result);
     }
 
-    public function testGetSetVersion()
+    public function testGetSetVersion(): void
     {
         // Arrange
         $lamp = $this->_getModel();
@@ -99,13 +98,5 @@ abstract class DeviceTester extends UnitTest
 
         // Assert
         $this->assertSame('V123', $result);
-    }
-
-    public function testSetTypeError()
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('unknown type');
-
-        $this->_getModel()->setType('asdf');
     }
 }

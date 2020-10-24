@@ -37,12 +37,12 @@ plugins:
     config:
       file_extensions:
         - php
-      rulesets: "unusedcode,codesize,naming,build/configs/ruleset.xml"
+      rulesets: "unusedcode,codesize,build/configs/ruleset.xml"
   phpcodesniffer:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "Zend"
+      standard: "PSR2,PSR1,Zend"
     checks:
       Generic Functions OpeningFunctionBraceBsdAllman BraceOnSameLine:
         enabled: false

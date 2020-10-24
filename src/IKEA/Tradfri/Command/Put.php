@@ -9,7 +9,7 @@ namespace IKEA\Tradfri\Command;
  */
 class Put extends AbstractCommand
 {
-    const COAP_COMMAND = 'coap-client -m put -u "%s" -k "%s"';
+    public const COAP_COMMAND = 'coap-client -m put -u "%s" -k "%s"';
 
     /**
      * Build command from coap command.
