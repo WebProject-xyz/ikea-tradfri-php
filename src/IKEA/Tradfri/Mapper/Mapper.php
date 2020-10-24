@@ -12,7 +12,7 @@ abstract class Mapper implements MapperInterface
     /**
      * Validate device data from api.
      *
-     * @param $device
+     * @param null|\stdClass $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *

@@ -14,7 +14,7 @@ class Runner
     /**
      * File descriptors passed to the process.
      */
-    const DESCRIPTORS
+    public const DESCRIPTORS
         = [
             0 => ['pipe', 'r'],  // stdin
             1 => ['pipe', 'w'],  // stdout

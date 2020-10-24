@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 
 /**
  * Class Lightbulbs.
@@ -15,7 +15,7 @@ class Lightbulbs extends Devices
     /**
      * Get first light.
      *
-     * @return null|Lightbulb
+     * @return null|LightBulb
      */
     public function first()
     {
@@ -33,10 +33,10 @@ class Lightbulbs extends Devices
 
         \usort(
             $items,
-            function (Lightbulb $lightbulbOne, Lightbulb $lightbulbTwo) {
+            function (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) {
                 return \strcmp(
-                    $lightbulbOne->getState(),
-                    $lightbulbTwo->getState()
+                    $lightBulbOne->getReadableState(),
+                    $lightBulbTwo->getReadableState()
                 );
             }
         );
@@ -53,7 +53,7 @@ class Lightbulbs extends Devices
     {
         $newItems = [];
         foreach ($this->toArray() as $key => $light) {
-            /** @var Lightbulb $light */
+            /** @var LightBulb $light */
             if ($light->isOn()) {
                 $newItems[$key] = $light;
             }

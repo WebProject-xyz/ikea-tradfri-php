@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 
 require __DIR__.'/init.php';
 
@@ -12,10 +12,10 @@ try {
 
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
-        /** @var Lightbulb $light */
+        /** @var LightBulb $light */
         $light = $lights->find(
             function ($light) {
-                /** @var Lightbulb $light */
+                /** @var LightBulb $light */
                 return $light->getName() === 'Wohnzimmer - Schreibtisch';
             }
         );
@@ -25,7 +25,7 @@ try {
         echo '- Name: ' . $light->getName(). PHP_EOL;
         echo '- Manufacturer: ' . $light->getManufacturer(). PHP_EOL;
         echo '- Version: ' . $light->getVersion(). PHP_EOL;
-        echo '- State is: ' . $light->getState(). PHP_EOL;
+        echo '- State is: ' . $light->getReadableState(). PHP_EOL;
         echo '- Brightness ' . $light->getBrightness().'%'. PHP_EOL;
         echo ' '.PHP_EOL;
         echo '---------- Change State'.PHP_EOL;
@@ -38,7 +38,7 @@ try {
                 echo 'switched on'. PHP_EOL;
             }
         }
-        echo 'light is now ' . $light->getState() . PHP_EOL;
+        echo 'light is now ' . $light->getReadableState() . PHP_EOL;
         return true;
     }
 } catch (\Exception $e) {

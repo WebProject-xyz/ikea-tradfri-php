@@ -17,7 +17,7 @@ class Data implements ValidatorInterface
     /**
      * Is valid.
      *
-     * @param $device
+     * @param null|\stdClass $device
      *
      * @throws RuntimeException
      *
@@ -53,7 +53,9 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * @param $device
+     * Check id attribute.
+     *
+     * @param \stdClass $device
      *
      * @throws RuntimeException
      *
@@ -71,7 +73,9 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * @param $device
+     * Check data attribute.
+     *
+     * @param \stdClass $device
      *
      * @throws RuntimeException
      *
@@ -89,7 +93,9 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * @param $data
+     * Check data type attribute.
+     *
+     * @param \stdClass $data
      *
      * @throws RuntimeException
      *
@@ -105,7 +111,9 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * @param $data
+     * Check manufacturer attribute.
+     *
+     * @param \stdClass $data
      *
      * @throws RuntimeException
      *
@@ -123,7 +131,9 @@ class Data implements ValidatorInterface
     }
 
     /**
-     * @param $data
+     * Check version attribute.
+     *
+     * @param \stdClass $data
      *
      * @throws RuntimeException
      *
@@ -143,7 +153,7 @@ class Data implements ValidatorInterface
     /**
      * Get Data.
      *
-     * @param $device
+     * @param \stdClass $device
      *
      * @return mixed
      */

@@ -8,7 +8,7 @@ use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coap\Keys;
-use IKEA\Tradfri\Device\Lightbulb;
+use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
 
@@ -66,7 +66,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        $light = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
         // Act
         $result = $client->lightOn($light);
         // Assert
@@ -80,7 +80,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        $light = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
         // Act
         $result = $client->lightOff($light);
         // Assert
@@ -122,7 +122,7 @@ class ClientTest extends \Codeception\Test\Unit
         $adapter->shouldReceive('setLightBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $light = new Lightbulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        $light = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
         // Act
         $result = $client->dimLight($light, 50);
         // Assert

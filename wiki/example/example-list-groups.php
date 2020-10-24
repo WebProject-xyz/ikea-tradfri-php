@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use IKEA\Tradfri\Device\Helper\Type;
+
 require __DIR__.'/init.php';
 
 try {
-    echo '---------- IKEA Tradfri PHP API Example: '.basename(__FILE__).PHP_EOL;
-
     $lights = $api->getGroups();
 
     echo '---------- IKEA Tradfri PHP API Example: '.basename(__FILE__).PHP_EOL;
@@ -16,7 +16,7 @@ try {
         echo '- Name: ' . $group->getName(). PHP_EOL;
         echo ' '.PHP_EOL;
         $group->getDevices()->forAll(function ($key, $device) use ($group) {
-            /** @var \IKEA\Tradfri\Device\Device|\IKEA\Tradfri\Device\Lightbulb $device */
+            /** @var \IKEA\Tradfri\Device\Device|\IKEA\Tradfri\Device\LightBulb $device */
             echo '---------- Device Information in Group: '.$group->getName() .PHP_EOL;
             echo '- ID: ' . $device->getId(). PHP_EOL;
             echo '- Type: ' . $device->getType(). PHP_EOL;
@@ -24,8 +24,8 @@ try {
             echo '- GroupName: ' . $group->getName(). PHP_EOL;
             echo '- Manufacturer: ' . $device->getManufacturer(). PHP_EOL;
             echo '- Version: ' . $device->getVersion(). PHP_EOL;
-            if ($device->isLightbulb()) {
-                echo '- State is: ' . $device->getState(). PHP_EOL;
+            if ((new Type())->isLightbulb($device->getType())) {
+                echo '- State is: ' . $device->getReadableState(). PHP_EOL;
                 echo '- Brightness ' . $device->getBrightness().'%'. PHP_EOL;
             }
             echo ' '.PHP_EOL;
