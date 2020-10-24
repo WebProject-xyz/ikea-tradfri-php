@@ -9,7 +9,6 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Group\Light as Group;
-use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 class Client

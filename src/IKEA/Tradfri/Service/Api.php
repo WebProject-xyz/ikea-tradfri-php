@@ -9,7 +9,6 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\Lightbulbs;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\Group;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
@@ -63,6 +62,7 @@ class Api implements ServiceInterface
 
     /**
      * @todo interface switchable
+     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function off($device): bool

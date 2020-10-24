@@ -44,7 +44,6 @@ class DeviceData extends Mapper
                 }
 
                 $model = $this->_getModel(
-
                     $device
                 );
                 $model->setService($service);
@@ -85,9 +84,9 @@ class DeviceData extends Mapper
      *
      * @param \stdClass $device
      *
-     * @return Device|LightBulb|MotionSensor|Remote
      *@throws \IKEA\Tradfri\Exception\RuntimeException
      *
+     * @return Device|LightBulb|MotionSensor|Remote
      */
     protected function _getModel(\stdClass $device)
     {

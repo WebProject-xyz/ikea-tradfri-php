@@ -47,6 +47,7 @@ class Light extends Device implements SwitchableInterface
     {
         if ($this->_service->on($this)) {
             $this->setState(true);
+
             return true;
         }
 
@@ -87,6 +88,7 @@ class Light extends Device implements SwitchableInterface
     {
         if ($this->_service->off($this)) {
             $this->setState(false);
+
             return true;
         }
 
