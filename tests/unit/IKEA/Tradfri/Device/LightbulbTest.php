@@ -214,7 +214,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
     {
         // Assert
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('unable to change state of lightbulb: 1');
+        $this->expectExceptionMessage('unable to change state of lightBulb: 1');
         // Arrange
         $lamp = $this->_getModel();
         $lamp->setState(true);
@@ -224,7 +224,7 @@ class LightbulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $client
             ->shouldReceive('lightOff')
             ->andThrow(
-                new RuntimeException('unable to change state of lightbulb: 1')
+                new RuntimeException('unable to change state of lightBulb: 1')
             );
 
         $service = new Api($client);
