@@ -77,5 +77,4 @@ fabric.properties
 /tests/_data/example.php
 coverage/*
 !coverage/.gitkeep
-composer.lock
 composer.phar
