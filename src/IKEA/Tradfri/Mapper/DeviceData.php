@@ -204,7 +204,6 @@ class DeviceData extends Mapper
         );
     }
 
-
     /**
      * Set Device attributes.
      *

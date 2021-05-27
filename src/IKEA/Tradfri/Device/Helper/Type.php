@@ -37,9 +37,6 @@ class Type
     public const ROLLER_BLIND = 'FYRTUR block-out roller blind';
     public const ROLLER_BLIND_CLASS = RollerBlind::class;
 
-
-
-
     /**
      * Check if given type attribute is from a light blub.
      *

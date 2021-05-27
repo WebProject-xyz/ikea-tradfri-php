@@ -129,6 +129,7 @@ class Api implements ServiceInterface
     /**
      * @param Device|RollerBlind $device
      * @param int                $level
+     *
      * @return bool
      */
     public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
