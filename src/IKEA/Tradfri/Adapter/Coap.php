@@ -211,6 +211,7 @@ class Coap extends AdapterAbstract
     /**
      * @param $rollerBlindId
      * @param $level
+     *
      * @return bool
      */
     public function setRollerBlindPosition($rollerBlindId, $level): bool

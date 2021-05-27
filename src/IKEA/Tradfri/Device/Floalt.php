@@ -9,5 +9,4 @@ namespace IKEA\Tradfri\Device;
  */
 class Floalt extends LightBulb
 {
-
 }

@@ -340,7 +340,7 @@ class Coaps
     }
 
     /**
-     * Get Command to set roller blind position
+     * Get Command to set roller blind position.
      *
      * @param int $deviceId
      * @param int $value

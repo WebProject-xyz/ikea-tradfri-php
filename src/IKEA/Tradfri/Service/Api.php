@@ -128,10 +128,10 @@ class Api implements ServiceInterface
 
     /**
      * @param Device|RollerBlind $device
-     * @param int $level
+     * @param int                $level
      * @return bool
      */
-    public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level):bool
+    public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
     {
         if ($device instanceof RollerBlind) {
             return $this->client->setRollerBlindPosition($device, $level);

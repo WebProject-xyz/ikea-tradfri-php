@@ -9,5 +9,4 @@ namespace IKEA\Tradfri\Device;
  */
 class OpenCloseRemote extends Device
 {
-
 }

@@ -75,7 +75,8 @@ class Client
         return $this->getAdapter()->setGroupBrightness($group->getId(), $level);
     }
 
-    public function setRollerBlindPosition(RollerBlind $blind, int $level){
+    public function setRollerBlindPosition(RollerBlind $blind, int $level): bool
+    {
         return $this->getAdapter()->setRollerBlindPosition($blind->getId(), $level);
     }
 }

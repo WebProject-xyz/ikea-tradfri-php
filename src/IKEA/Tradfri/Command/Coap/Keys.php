@@ -79,7 +79,6 @@ class Keys
     public const ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND
         = 'FYRTUR block-out roller blind';
 
-
     public const ATTR_GATEWAY_TIME_SOURCE = '9071';
     public const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';
 

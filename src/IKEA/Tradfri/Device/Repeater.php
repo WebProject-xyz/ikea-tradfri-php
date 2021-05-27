@@ -10,5 +10,4 @@ namespace IKEA\Tradfri\Device;
  */
 class Repeater extends Device
 {
-
 }

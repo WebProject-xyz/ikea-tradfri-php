@@ -40,9 +40,10 @@ class RollerBlind extends Device
     /**
      * Set Roller Blind to specific position.
      *
+     * @param $level
+     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @param $level
      * @return bool
      */
     public function setToPosition($level): bool
