@@ -10,6 +10,7 @@ use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
@@ -118,6 +119,22 @@ class Api implements ServiceInterface
 
         if ($device instanceof LightBulb) {
             return $this->client->dimLight($device, $level);
+        }
+
+        throw new RuntimeException(
+            self::INVALID_DEVICE_TYPE.$device->getType()
+        );
+    }
+
+    /**
+     * @param Device|RollerBlind $device
+     * @param int $level
+     * @return bool
+     */
+    public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level):bool
+    {
+        if ($device instanceof RollerBlind) {
+            return $this->client->setRollerBlindPosition($device, $level);
         }
 
         throw new RuntimeException(

@@ -8,6 +8,7 @@ use IKEA\Tradfri\Adapter\AdapterInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Device\LightBulb;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\ServiceInterface;
 
@@ -72,5 +73,9 @@ class Client
     public function dimGroup(Group $group, int $level): bool
     {
         return $this->getAdapter()->setGroupBrightness($group->getId(), $level);
+    }
+
+    public function setRollerBlindPosition(RollerBlind $blind, int $level){
+        return $this->getAdapter()->setRollerBlindPosition($blind->getId(), $level);
     }
 }

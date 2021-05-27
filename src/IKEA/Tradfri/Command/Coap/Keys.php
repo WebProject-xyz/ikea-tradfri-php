@@ -66,6 +66,19 @@ class Keys
         = 'TRADFRI bulb GU10 W 400lm';
     public const ATTR_DEVICE_INFO_TYPE_BLUB_E14_W
         = 'TRADFRI bulb E14 W op/ch 400lm';
+    public const ATTR_DEVICE_INFO_TYPE_REPEATER
+        = 'TRADFRI Signal Repeater';
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30x90
+        = 'FLOALT panel WS 30x90';
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_60x60
+        = 'FLOALT panel WS 60x60';
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30x30
+        = 'FLOALT panel WS 30x30';
+    public const ATTR_DEVICE_INFO_TYPE_OPEN_CLOSE_REMOTE
+        = 'TRADFRI open/close remote';
+    public const ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND
+        = 'FYRTUR block-out roller blind';
+
 
     public const ATTR_GATEWAY_TIME_SOURCE = '9071';
     public const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';
@@ -157,6 +170,9 @@ class Keys
     public const ATTR_TRANSITION_TIME = '5712';
 
     public const ATTR_USE_CURRENT_LIGHT_SETTINGS = '9070';
+
+    public const ATTR_FYRTUR_CONTROL = '15015';
+    public const ATTR_FYRTUR_STATE = '5536';
 
     // URL to json-file containing links to all firmware updates
     public const URL_OTA_FW

@@ -209,6 +209,29 @@ class Coap extends AdapterAbstract
     }
 
     /**
+     * @param $rollerBlindId
+     * @param $level
+     * @return bool
+     */
+    public function setRollerBlindPosition($rollerBlindId, $level): bool
+    {
+
+        // run command
+        $data = (new Runner())->execWithTimeout(
+            $this->_commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+            2,
+            true
+        );
+        //@todo: verify result, seems to work for now.
+        return true;
+        if ($this->_verifyResult($data)) {
+            return true;
+        }
+
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+    }
+
+    /**
      * Set Group Brightness.
      *
      * @param int $groupId

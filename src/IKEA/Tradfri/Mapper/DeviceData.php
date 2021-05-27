@@ -9,13 +9,18 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
+use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\Repeater;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Validator\Device\Data;
 
 /**
  * Class DeviceData.
@@ -52,6 +57,10 @@ class DeviceData extends Mapper
 
                 if ($model instanceof LightBulb) {
                     $this->_setLightBlubAttributes($model, $device);
+                }
+
+                if ($model instanceof RollerBlind) {
+                    $this->_setLightRollerBlindAttributes($model, $device);
                 }
 
                 $collection->set($model->getId(), $model);
@@ -110,6 +119,22 @@ class DeviceData extends Mapper
                 $modelName = Dimmer::class;
 
                 break;
+            case $deviceTypeHelper->isFloalt($typeAttribute):
+                $modelName = Floalt::class;
+
+                break;
+            case $deviceTypeHelper->isOpenCloseRemote($typeAttribute):
+                $modelName = OpenCloseRemote::class;
+
+                break;
+            case $deviceTypeHelper->isRepeater($typeAttribute):
+                $modelName = Repeater::class;
+
+                break;
+            case $deviceTypeHelper->isRollerBlind($typeAttribute):
+                $modelName = RollerBlind::class;
+
+                break;
             case false === $deviceTypeHelper->isKnownDeviceType($typeAttribute):
             default:
                 $modelName = Unknown::class;
@@ -161,6 +186,24 @@ class DeviceData extends Mapper
                 ->{AttributeKeys::ATTR_LIGHT_STATE}
         );
     }
+
+    /**
+     * Set LightBulb attributes.
+     *
+     * @param RollerBlind $model
+     * @param \stdClass $device
+     */
+    protected function _setLightRollerBlindAttributes(
+        RollerBlind $model,
+        \stdClass $device
+    ): void {
+        $model->setDarkenedState(
+            (int) $device
+                ->{AttributeKeys::ATTR_FYRTUR_CONTROL}[0]
+                ->{AttributeKeys::ATTR_FYRTUR_STATE}
+        );
+    }
+
 
     /**
      * Set Device attributes.
