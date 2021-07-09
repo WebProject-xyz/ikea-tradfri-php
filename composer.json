@@ -24,7 +24,7 @@
     "codeception/codeception": "^4",
     "codeception/module-asserts": "^1",
     "mockery/mockery": "^1",
-    "friendsofphp/php-cs-fixer": "2.*",
+    "friendsofphp/php-cs-fixer": "2.* || 3.*",
     "codeclimate/php-test-reporter": "0.*",
     "codacy/coverage": "^1",
     "monolog/monolog": "^2",
