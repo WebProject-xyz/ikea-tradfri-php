@@ -16,9 +16,9 @@ matrix:
   fast_finish: true
   include:
   - php: 7.4
-    env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
+    env: EXECUTE_CS_CHECK=true XDEBUG_MODE=coverage RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
   - php: 8.0
-    env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
+    env: EXECUTE_CS_CHECK=true XDEBUG_MODE=coverage RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
 
 before_install:
   - ./build/script/travis_before_install.sh
