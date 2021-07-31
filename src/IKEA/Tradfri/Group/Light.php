@@ -14,8 +14,6 @@ class Light extends Device implements SwitchableInterface
 {
     /**
      * Get State.
-     *
-     * @return bool
      */
     public function isOn(): bool
     {
@@ -28,8 +26,6 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Get Lights.
-     *
-     * @return LightBulbs
      */
     public function getLights(): LightBulbs
     {
@@ -70,8 +66,6 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Dim group to level.
-     *
-     * @param int $level
      *
      * @return $this
      */

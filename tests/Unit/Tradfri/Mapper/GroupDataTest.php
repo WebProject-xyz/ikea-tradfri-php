@@ -1,16 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Mapper;
+namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
 
 /**
- * Class DeviceDataTest
+ * Class DeviceDataTest.
  */
 class GroupDataTest extends UnitTest
 {
@@ -22,8 +24,8 @@ class GroupDataTest extends UnitTest
     public function testICanMapEmptyDataWithNoError(): void
     {
         // Arrange
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $devices = [];
+        $serviceMock = Mockery::mock(ServiceInterface::class);
+        $devices     = [];
 
         $mapper = new GroupData();
         // Act
@@ -35,7 +37,7 @@ class GroupDataTest extends UnitTest
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $serviceMock = Mockery::mock(ServiceInterface::class);
 
         $mapper = new GroupData();
         // Act

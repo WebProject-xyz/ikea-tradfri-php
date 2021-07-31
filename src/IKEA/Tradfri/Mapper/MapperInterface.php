@@ -18,7 +18,6 @@ interface MapperInterface
      * Map given data to models.
      *
      * @param Api|ServiceInterface $service
-     * @param array                $dataItems
      *
      * @return AbstractCollection|Devices
      */

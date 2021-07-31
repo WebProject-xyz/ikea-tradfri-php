@@ -16,8 +16,6 @@ trait ProvidesBrightness
 
     /**
      * Get Brightness.
-     *
-     * @return float
      */
     public function getBrightness(): float
     {
@@ -27,8 +25,6 @@ trait ProvidesBrightness
     /**
      * Set Brightness.
      *
-     * @param int $brightness
-     *
      * @return static
      */
     public function setBrightness(int $brightness): self
@@ -37,7 +33,7 @@ trait ProvidesBrightness
             $brightness = 1;
         }
 
-        $this->_brightness = \round($brightness / 2.54);
+        $this->_brightness = round($brightness / 2.54);
 
         return $this;
     }

@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Device;
+namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Command\Coap\Keys;
@@ -9,13 +10,14 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
 
 /**
- * Class LightBulbTest
+ * Class LightBulbTest.
  */
-class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
+class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
 {
-    public function testGetAnInstance()
+    public function testGetAnInstance(): void
     {
         // Arrange
         // Act
@@ -24,9 +26,6 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $this->assertInstanceOf(LightBulb::class, $lamp);
     }
 
-    /**
-     * @return \IKEA\Tradfri\Device\LightBulb
-     */
     protected function getModel(): LightBulb
     {
         return new LightBulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
@@ -69,7 +68,7 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
     {
         // Arrange
         $lamp = $this->getModel();
-        $lamp->setBrightness((int) \round(30 * 2.54));
+        $lamp->setBrightness((int) round(30 * 2.54));
         // Act
         $result = $lamp->getBrightness();
 
@@ -133,7 +132,7 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $lamp = $this->getModel();
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOn')->andReturn(true);
 
         $service = new Api($client);
@@ -165,7 +164,7 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $lamp = $this->getModel();
 
         /** @var ServiceInterface $service */
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->shouldReceive('on')->andReturn(false);
 
         $lamp->setService($service);
@@ -185,7 +184,7 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         // Arrange
         $lamp = $this->getModel();
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(true);
 
         $service = new Api($client);
@@ -220,7 +219,7 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $lamp->setState(true);
 
         /** var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client
             ->shouldReceive('lightOff')
             ->andThrow(
@@ -248,8 +247,8 @@ class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
         $this->expectExceptionMessage('switch OFF failed');
 
         // Arrange
-        $lamp = $this->getModel();
-        $service = \Mockery::mock(Api::class);
+        $lamp    = $this->getModel();
+        $service = Mockery::mock(Api::class);
         $service->shouldReceive('off')->andReturn(false);
 
         $lamp->setService($service);

@@ -47,7 +47,7 @@ class Api implements ServiceInterface
     {
         $service = $this;
         $lightBulbsCollection->forAll(
-            function ($lightBulbKey, $lightBulb) use ($service) {
+            static function ($lightBulbKey, $lightBulb) use ($service) {
                 /** @var LightBulb $lightBulb */
                 if ($lightBulbKey === $lightBulb->getId()) {
                     // this is ok but who cares can't make var unused
@@ -79,9 +79,7 @@ class Api implements ServiceInterface
             return $this->client->lightOff($device);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
@@ -101,9 +99,7 @@ class Api implements ServiceInterface
             return $this->client->lightOn($device);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
@@ -121,9 +117,7 @@ class Api implements ServiceInterface
             return $this->client->dimLight($device, $level);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**

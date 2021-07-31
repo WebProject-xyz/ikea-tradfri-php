@@ -18,8 +18,6 @@ trait ProvidesType
 
     /**
      * Get Type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -28,8 +26,6 @@ trait ProvidesType
 
     /**
      * Set Type.
-     *
-     * @param string $type
      *
      * @return static
      */
@@ -43,11 +39,7 @@ trait ProvidesType
     /**
      * Validate Type.
      *
-     * @param string $type
-     *
      * @throws \IKEA\Tradfri\Exception\TypeException
-     *
-     * @return bool
      */
     public function isValidType(string $type): bool
     {

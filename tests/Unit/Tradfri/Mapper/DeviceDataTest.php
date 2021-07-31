@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Mapper;
+namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
@@ -15,7 +16,7 @@ use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class DeviceDataTest
+ * Class DeviceDataTest.
  *
  * @method createMock($originalClassName)
  */
@@ -32,7 +33,7 @@ class DeviceDataTest extends UnitTest
         $this->expectException(RuntimeException::class);
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new DeviceData();
         // Act

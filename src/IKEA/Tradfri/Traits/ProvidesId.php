@@ -16,8 +16,6 @@ trait ProvidesId
 
     /**
      * Get Id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -26,8 +24,6 @@ trait ProvidesId
 
     /**
      * Set Id.
-     *
-     * @param int $id
      *
      * @return static
      */

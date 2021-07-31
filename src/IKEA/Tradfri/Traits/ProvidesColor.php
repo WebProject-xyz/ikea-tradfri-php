@@ -16,18 +16,14 @@ trait ProvidesColor
 
     /**
      * Get Color.
-     *
-     * @return string
      */
     public function getColor(): string
     {
-        return \strtoupper($this->_color);
+        return strtoupper($this->_color);
     }
 
     /**
      * Set Color.
-     *
-     * @param string $color
      *
      * @return static
      */
