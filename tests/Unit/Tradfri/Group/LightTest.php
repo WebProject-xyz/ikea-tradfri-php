@@ -10,7 +10,6 @@ use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
 use Mockery;
-use function is_array;
 
 /**
  * Class LightTest.
