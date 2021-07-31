@@ -11,6 +11,7 @@ use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
+use stdClass;
 
 /**
  * Class GroupData.
@@ -59,7 +60,7 @@ class GroupData extends Mapper
     /**
      * Validate device data from api.
      *
-     * @param \stdClass|null $device
+     * @param stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */

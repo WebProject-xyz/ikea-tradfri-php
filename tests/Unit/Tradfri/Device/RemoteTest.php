@@ -9,7 +9,7 @@ use IKEA\Tradfri\Device\Remote;
 
 class RemoteTest extends DeviceTester
 {
-    public function testGetAnInstance() : void
+    public function testGetAnInstance(): void
     {
         // Arrange
         // Act
@@ -18,7 +18,7 @@ class RemoteTest extends DeviceTester
         $this->assertInstanceOf(Remote::class, $model);
     }
 
-    public function testIsRemote() : void
+    public function testIsRemote(): void
     {
         // Arrange
         // Act
@@ -27,7 +27,7 @@ class RemoteTest extends DeviceTester
         $this->assertTrue((new Type())->isRemote($model->getType()));
     }
 
-    protected function getModel() : Remote
+    protected function getModel(): Remote
     {
         return new Remote($this->_id);
     }

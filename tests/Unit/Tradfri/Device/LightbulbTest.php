@@ -10,13 +10,14 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
 
 /**
  * Class LightBulbTest.
  */
-class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
+class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
 {
-    public function testGetAnInstance() : void
+    public function testGetAnInstance(): void
     {
         // Arrange
         // Act
@@ -25,12 +26,12 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertInstanceOf(LightBulb::class, $lamp);
     }
 
-    protected function getModel() : LightBulb
+    protected function getModel(): LightBulb
     {
         return new LightBulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
     }
 
-    public function testSetType() : void
+    public function testSetType(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -42,7 +43,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
     }
 
-    public function testIsLightBulb() : void
+    public function testIsLightBulb(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -51,7 +52,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertTrue($lamp->isLightBulb());
     }
 
-    public function testGetBrightnessButNotSet() : void
+    public function testGetBrightnessButNotSet(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -63,11 +64,11 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(0.0, $result);
     }
 
-    public function testGetBrightness() : void
+    public function testGetBrightness(): void
     {
         // Arrange
         $lamp = $this->getModel();
-        $lamp->setBrightness((int) \round(30 * 2.54));
+        $lamp->setBrightness((int) round(30 * 2.54));
         // Act
         $result = $lamp->getBrightness();
 
@@ -75,7 +76,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(30.0, $result);
     }
 
-    public function testSetBrightnessToLow() : void
+    public function testSetBrightnessToLow(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -87,7 +88,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(0.0, $result);
     }
 
-    public function testSetTypeE27WS() : void
+    public function testSetTypeE27WS(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -99,7 +100,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $result);
     }
 
-    public function testSetTypeGU10() : void
+    public function testSetTypeGU10(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -111,7 +112,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS, $result);
     }
 
-    public function testStates() : void
+    public function testStates(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -125,13 +126,13 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame('On', $lamp->getReadableState());
     }
 
-    public function testICanSwitchOn() : void
+    public function testICanSwitchOn(): void
     {
         // Arrange
         $lamp = $this->getModel();
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOn')->andReturn(true);
 
         $service = new Api($client);
@@ -155,7 +156,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame('On', $lamp->getReadableState());
     }
 
-    public function testICanSwitchOnFails() : void
+    public function testICanSwitchOnFails(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('switch ON failed');
@@ -163,7 +164,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $lamp = $this->getModel();
 
         /** @var ServiceInterface $service */
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->shouldReceive('on')->andReturn(false);
 
         $lamp->setService($service);
@@ -178,12 +179,12 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame('Off', $lamp->getReadableState());
     }
 
-    public function testICanSwitchOff() : void
+    public function testICanSwitchOff(): void
     {
         // Arrange
         $lamp = $this->getModel();
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(true);
 
         $service = new Api($client);
@@ -208,7 +209,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame('Off', $lamp->getReadableState());
     }
 
-    public function testICanSwitchOffFails() : void
+    public function testICanSwitchOffFails(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -218,7 +219,7 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $lamp->setState(true);
 
         /** var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client
             ->shouldReceive('lightOff')
             ->andThrow(
@@ -239,15 +240,15 @@ class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         $this->assertSame('On', $lamp->getReadableState());
     }
 
-    public function testICanSwitchOffReturnedFalse() : void
+    public function testICanSwitchOffReturnedFalse(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('switch OFF failed');
 
         // Arrange
-        $lamp = $this->getModel();
-        $service = \Mockery::mock(Api::class);
+        $lamp    = $this->getModel();
+        $service = Mockery::mock(Api::class);
         $service->shouldReceive('off')->andReturn(false);
 
         $lamp->setService($service);

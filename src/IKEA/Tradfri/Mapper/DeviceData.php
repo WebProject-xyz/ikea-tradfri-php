@@ -16,6 +16,8 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
+use stdClass;
+use function count;
 
 /**
  * Class DeviceData.
@@ -33,7 +35,7 @@ class DeviceData extends Mapper
         ServiceInterface $service,
         array $devices
     ): AbstractCollection {
-        if (\count($devices) > 0) {
+        if (count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
                 if (false === $this->_isValidData($device)) {
@@ -63,7 +65,7 @@ class DeviceData extends Mapper
     /**
      * Validate device data from api.
      *
-     * @param \stdClass|null $device
+     * @param stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
@@ -81,10 +83,10 @@ class DeviceData extends Mapper
      *
      * @return Device|LightBulb|MotionSensor|Remote
      */
-    protected function _getModel(\stdClass $device)
+    protected function _getModel(stdClass $device)
     {
         $deviceTypeHelper = new Type();
-        $typeAttribute = $this->_getDeviceTypeAttribute($device);
+        $typeAttribute    = $this->_getDeviceTypeAttribute($device);
 
         switch (true) {
             case $deviceTypeHelper->isLightBulb($typeAttribute):
@@ -117,7 +119,7 @@ class DeviceData extends Mapper
     /**
      * Get Device id.
      */
-    protected function _getDeviceId(\stdClass $device): int
+    protected function _getDeviceId(stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
@@ -127,7 +129,7 @@ class DeviceData extends Mapper
      */
     protected function _setLightBlubAttributes(
         LightBulb $model,
-        \stdClass $device
+        stdClass $device
     ): void {
         $model->setBrightness(
             $device
@@ -153,7 +155,7 @@ class DeviceData extends Mapper
      *
      * @param \stdClass$device
      */
-    protected function _setDeviceAttributes(Device $model, \stdClass $device): void
+    protected function _setDeviceAttributes(Device $model, stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
 
@@ -175,7 +177,7 @@ class DeviceData extends Mapper
      *
      * @return mixed
      */
-    protected function _getDeviceTypeAttribute(\stdClass $device): string
+    protected function _getDeviceTypeAttribute(stdClass $device): string
     {
         return $device
             ->{AttributeKeys::ATTR_DEVICE_INFO}

@@ -19,11 +19,11 @@ use JsonSerializable;
 abstract class Device implements JsonSerializable, DeviceInterface
 {
     use ProvidesId;
-    use ProvidesName;
     use ProvidesManufacturer;
-    use ProvidesVersion;
-    use ProvidesType;
+    use ProvidesName;
     use ProvidesService;
+    use ProvidesType;
+    use ProvidesVersion;
 
     /**
      * LightBulb constructor.
@@ -50,9 +50,9 @@ abstract class Device implements JsonSerializable, DeviceInterface
     {
         $data = [];
 
-        foreach (\get_class_methods(static::class) as $method) {
-            if ('getService' !== $method && 0 === \strpos($method, 'get')) {
-                $key = \strtolower(\substr($method, 3));
+        foreach (get_class_methods(static::class) as $method) {
+            if ('getService' !== $method && 0 === strpos($method, 'get')) {
+                $key        = strtolower(substr($method, 3));
                 $data[$key] = $this->$method();
             }
         }

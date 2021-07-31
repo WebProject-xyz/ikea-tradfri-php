@@ -9,16 +9,18 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
+use function is_array;
 
 /**
  * Class LightTest.
  */
 class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights() : Light
+    public function testICanInitGroupOfLights(): Light
     {
         // Arrange
-        $service = \Mockery::mock(ServiceInterface::class);
+        $service = Mockery::mock(ServiceInterface::class);
 
         // Act
         $group = new Light(1, $service);
@@ -29,7 +31,7 @@ class LightTest extends UnitTest
         return $group;
     }
 
-    public function testICanGetDeviceIdsFromGroup() : void
+    public function testICanGetDeviceIdsFromGroup(): void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();
@@ -38,11 +40,11 @@ class LightTest extends UnitTest
         $deviceIds = $group->getDeviceIds();
 
         // Assert
-        $this->assertTrue(\is_array($deviceIds));
+        $this->assertIsArray($deviceIds);
         $this->assertCount(0, $deviceIds);
     }
 
-    public function testICanSetDevicesCollectionToGroup() : void
+    public function testICanSetDevicesCollectionToGroup(): void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();
@@ -50,7 +52,7 @@ class LightTest extends UnitTest
         // Act
         $group->setDevices(new Devices());
 
-        $result = $group->getDevices();
+        $result       = $group->getDevices();
         $resultLights = $group->getLights();
         // Assert
         $this->assertInstanceOf(Devices::class, $result);

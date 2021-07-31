@@ -14,23 +14,23 @@ use IKEA\Tradfri\Device\Remote;
  */
 class Type
 {
-    public const BLUB = 'TRADFRI bulb';
-    public const BLUB_CLASS = LightBulb::class;
-    public const MOTION_SENSOR = 'TRADFRI motion sensor';
+    public const BLUB                = 'TRADFRI bulb';
+    public const BLUB_CLASS          = LightBulb::class;
+    public const MOTION_SENSOR       = 'TRADFRI motion sensor';
     public const MOTION_SENSOR_CLASS = MotionSensor::class;
-    public const REMOTE = 'TRADFRI remote control';
-    public const REMOTE_CLASS = Remote::class;
-    public const DIMMER = 'TRADFRI dimmer';
-    public const DIMMER_CLASS = Dimmer::class;
-    public const DRIVER = 'TRADFRI Driver ';
-    public const DRIVER_CLASS = Driver::class;
+    public const REMOTE              = 'TRADFRI remote control';
+    public const REMOTE_CLASS        = Remote::class;
+    public const DIMMER              = 'TRADFRI dimmer';
+    public const DIMMER_CLASS        = Dimmer::class;
+    public const DRIVER              = 'TRADFRI Driver ';
+    public const DRIVER_CLASS        = Driver::class;
 
     /**
      * Check if given type attribute is from a light blub.
      */
     public function isLightBulb(string $typeAttribute): bool
     {
-        return 0 === \strpos($typeAttribute, self::BLUB);
+        return 0 === strpos($typeAttribute, self::BLUB);
     }
 
     /**
@@ -38,7 +38,7 @@ class Type
      */
     public function isRemote(string $typeAttribute): bool
     {
-        return 0 === \strpos($typeAttribute, self::REMOTE);
+        return 0 === strpos($typeAttribute, self::REMOTE);
     }
 
     /**
@@ -46,7 +46,7 @@ class Type
      */
     public function isDimmer(string $typeAttribute): bool
     {
-        return 0 === \strpos($typeAttribute, self::DIMMER);
+        return 0 === strpos($typeAttribute, self::DIMMER);
     }
 
     /**
@@ -54,7 +54,7 @@ class Type
      */
     public function isDriver(string $typeAttribute): bool
     {
-        return 0 === \strpos($typeAttribute, self::DRIVER);
+        return 0 === strpos($typeAttribute, self::DRIVER);
     }
 
     /**
@@ -62,7 +62,7 @@ class Type
      */
     public function isMotionSensor(string $typeAttribute): bool
     {
-        return 0 === \strpos($typeAttribute, self::MOTION_SENSOR);
+        return 0 === strpos($typeAttribute, self::MOTION_SENSOR);
     }
 
     /**
@@ -70,7 +70,7 @@ class Type
      */
     public function isKnownDeviceType(string $typeAttribute): bool
     {
-        foreach (\get_class_methods($this) as $method) {
+        foreach (get_class_methods($this) as $method) {
             if (__FUNCTION__ !== $method && $this->$method($typeAttribute)) {
                 return true;
             }

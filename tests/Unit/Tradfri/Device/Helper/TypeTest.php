@@ -18,7 +18,7 @@ class TypeTest extends \Codeception\Test\Unit
     public function testIsLightBulb(
         string $typeAttribute,
         bool $assertTrue
-    ) : void {
+    ): void {
         // Arrange
         $helper = new Type();
 
@@ -28,17 +28,17 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         }
     }
 
-    public function isLightBulbData() : array
+    public function isLightBulbData(): array
     {
         return [
             ['invalidStringValue', false],
@@ -58,7 +58,7 @@ class TypeTest extends \Codeception\Test\Unit
     public function testIsDimmer(
         string $typeAttribute,
         bool $assertTrue
-    ) : void {
+    ): void {
         // Arrange
         $helper = new Type();
 
@@ -68,17 +68,17 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         }
     }
 
-    public function isDimmerData() : array
+    public function isDimmerData(): array
     {
         return [
             ['invalidStringValue', false],
@@ -98,7 +98,7 @@ class TypeTest extends \Codeception\Test\Unit
     public function testIsRemote(
         string $typeAttribute,
         bool $assertTrue
-    ) : void {
+    ): void {
         // Arrange
         $helper = new Type();
 
@@ -108,17 +108,17 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         }
     }
 
-    public function isRemoteData() : array
+    public function isRemoteData(): array
     {
         return [
             ['invalidStringValue', false],
@@ -138,7 +138,7 @@ class TypeTest extends \Codeception\Test\Unit
     public function testIsMotionSensor(
         string $typeAttribute,
         bool $assertTrue
-    ) : void {
+    ): void {
         // Arrange
         $helper = new Type();
 
@@ -148,17 +148,17 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         }
     }
 
-    public function isMotionSensorData() : array
+    public function isMotionSensorData(): array
     {
         return [
             ['invalidStringValue', false],
@@ -178,7 +178,7 @@ class TypeTest extends \Codeception\Test\Unit
     public function testKnownDeviceType(
         string $typeAttribute,
         bool $assertTrue
-    ) : void {
+    ): void {
         // Arrange
         $helper = new Type();
 
@@ -188,17 +188,17 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: '.$typeAttribute
+                'Type: ' . $typeAttribute
             );
         }
     }
 
-    public function isKnownDeviceTypeData() : array
+    public function isKnownDeviceTypeData(): array
     {
         return [
             ['invalidStringValue', false],

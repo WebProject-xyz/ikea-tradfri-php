@@ -33,7 +33,7 @@ trait ProvidesBrightness
             $brightness = 1;
         }
 
-        $this->_brightness = \round($brightness / 2.54);
+        $this->_brightness = round($brightness / 2.54);
 
         return $this;
     }

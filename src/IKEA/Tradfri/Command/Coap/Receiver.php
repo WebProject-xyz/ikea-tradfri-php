@@ -49,8 +49,8 @@ class Receiver
         string $apiKey
     ) {
         $this->_ipAddress = $gatewayAddress;
-        $this->_username = $username;
-        $this->_apiKey = $apiKey;
+        $this->_username  = $username;
+        $this->_apiKey    = $apiKey;
     }
 
     /**
@@ -59,10 +59,10 @@ class Receiver
     final public function getCommand(): string
     {
         return $this->_getUri()
-            .$this->_getInjectCommand()
-            .' "'
-            .$this->_getClientUri()
-            .'"';
+            . $this->_getInjectCommand()
+            . ' "'
+            . $this->_getClientUri()
+            . '"';
     }
 
     /**
@@ -70,7 +70,7 @@ class Receiver
      */
     protected function _getUri(): string
     {
-        return \sprintf(
+        return sprintf(
             self::COAP_COMMAND,
             $this->_getUsername(),
             $this->_getApiKey()
@@ -106,8 +106,8 @@ class Receiver
      */
     protected function _getClientUri(): string
     {
-        return 'coaps://'.$this->_getIpAddress().':5684/'
-            .$this->_getRequestType();
+        return 'coaps://' . $this->_getIpAddress() . ':5684/'
+            . $this->_getRequestType();
     }
 
     /**
@@ -139,6 +139,6 @@ class Receiver
     public function sendRequest(): string
     {
         // send command to gateway
-        return \implode("\n", $this->_output);
+        return implode("\n", $this->_output);
     }
 }

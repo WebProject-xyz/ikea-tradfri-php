@@ -16,28 +16,29 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\Api;
+use Mockery;
 
 /**
  * Class ApiTest.
  */
 class ApiTest extends UnitTest
 {
-    public function testIGotAnInstanceOfApiService() : void
+    public function testIGotAnInstanceOfApiService(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         // Act
         $service = new Api($client);
         // Assert
         $this->assertInstanceOf(Api::class, $service);
     }
 
-    public function testICanGetDevicesCollectionFromService() : void
+    public function testICanGetDevicesCollectionFromService(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('getDevices')->andReturn(new Devices());
         $service = new Api($client);
 
@@ -48,11 +49,11 @@ class ApiTest extends UnitTest
         $this->assertInstanceOf(Devices::class, $result);
     }
 
-    public function testICanGetLightblubsCollectionFromService() : void
+    public function testICanGetLightblubsCollectionFromService(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('getDevices')->andReturn(new Devices());
 
         $service = new Api($client);
@@ -65,11 +66,11 @@ class ApiTest extends UnitTest
         $this->assertInstanceOf(LightBulbs::class, $result);
     }
 
-    public function testICanSwitchLightOff() : void
+    public function testICanSwitchLightOff(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(true);
 
         $service = new Api($client);
@@ -84,11 +85,11 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchLightOff() : void
+    public function testICanNotSwitchLightOff(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(false);
 
         $service = new Api($client);
@@ -101,14 +102,14 @@ class ApiTest extends UnitTest
         $result = $service->off($lightBulb);
     }
 
-    public function testICanNotSwitchLightOffBecauseItIsOff() : void
+    public function testICanNotSwitchLightOffBecauseItIsOff(): void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(true);
         $service = new Api($client);
 
@@ -120,14 +121,14 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchLightOn() : void
+    public function testICanSwitchLightOn(): void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOn')->andReturn(true);
         $service = new Api($client);
 
@@ -140,7 +141,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchLightOn() : void
+    public function testICanNotSwitchLightOn(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -151,7 +152,7 @@ class ApiTest extends UnitTest
         $lightBulb->setState(false);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOn')->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
         $service = new Api($client);
 
@@ -161,14 +162,14 @@ class ApiTest extends UnitTest
         $result = $service->on($lightBulb);
     }
 
-    public function testICanNotSwitchLightOnBecauseItIsOn() : void
+    public function testICanNotSwitchLightOnBecauseItIsOn(): void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOn')->andReturn(true);
         $service = new Api($client);
 
@@ -180,7 +181,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchAllLightsOff() : void
+    public function testICanSwitchAllLightsOff(): void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
@@ -191,7 +192,7 @@ class ApiTest extends UnitTest
         $lightBulbs->addDevice((clone $lightBulb)->setId(2));
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('lightOff')->andReturn(true);
         $service = new Api($client);
 
@@ -202,12 +203,12 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchGroupOnBecauseItIsOn() : void
+    public function testICanNotSwitchGroupOnBecauseItIsOn(): void
     {
         // Arrange
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('groupOn')->andReturn(true);
         $service = new Api($client);
 
@@ -215,11 +216,11 @@ class ApiTest extends UnitTest
         $group->setState(true);
         $group->getDevices()
             ->addDevice(
-            (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
+                (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
             )
             ->setState(true)
             ->setName('test')
-        );
+            );
 
         $this->assertTrue($group->isOn());
 
@@ -229,11 +230,11 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchGroupOn() : void
+    public function testICanSwitchGroupOn(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('groupOn')->andReturn(true);
         $service = new Api($client);
 
@@ -250,16 +251,17 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchGroupOff() : void
+    public function testICanSwitchGroupOff(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('groupOff')->andReturn(true);
         $service = new Api($client);
-        $group = new Group(1, $service);
+        $group   = new Group(1, $service);
 
-        $group->getDevices()->addDevice((new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
+        $group->getDevices()->addDevice(
+            (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
             ->setState(true)
             ->setName('test')
         );
@@ -272,7 +274,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchADimmerOn() : void
+    public function testICanSwitchADimmerOn(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -281,13 +283,13 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->on($dimmer);
     }
 
-    public function testICanSwitchADimmerOff() : void
+    public function testICanSwitchADimmerOff(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -296,13 +298,13 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->off($dimmer);
     }
 
-    public function testICanSwitchARemoteOn() : void
+    public function testICanSwitchARemoteOn(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -311,13 +313,13 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->on($remote);
     }
 
-    public function testICanSwitchARemoteOff() : void
+    public function testICanSwitchARemoteOff(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -326,34 +328,34 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->off($remote);
     }
 
-    public function testICanDimAGroup() : void
+    public function testICanDimAGroup(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('dimGroup')->andReturn(true);
 
         $service = new Api($client);
-        $group = new Group(1, $service);
+        $group   = new Group(1, $service);
         // Act
         $result = $service->dim($group, 20);
         // Assert
         $this->assertTrue($result);
     }
 
-    public function testICanDimALight() : void
+    public function testICanDimALight(): void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('dimLight')->andReturn(true);
 
         $service = new Api($client);
@@ -363,7 +365,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotDimADimmer() : void
+    public function testICanNotDimADimmer(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -372,13 +374,13 @@ class ApiTest extends UnitTest
         $dimmer = new Dimmer(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->dim($dimmer, 20);
     }
 
-    public function testICanNotDimARemote() : void
+    public function testICanNotDimARemote(): void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -387,17 +389,17 @@ class ApiTest extends UnitTest
         $remote = new Remote(1);
 
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
         $result = $service->dim($remote, 20);
     }
 
-    public function testICanGetGroupsFromService() : void
+    public function testICanGetGroupsFromService(): void
     {
         // Arrange
         /** @var Client $client */
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->shouldReceive('getGroups')->andReturn(new Groups());
         $service = new Api($client);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use const SORT_NATURAL;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
 
@@ -29,10 +30,10 @@ class LightBulbs extends Devices
     {
         $items = $this->toArray();
 
-        \usort(
+        usort(
             $items,
             function (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) {
-                return \strcmp(
+                return strcmp(
                     $lightBulbOne->getReadableState(),
                     $lightBulbTwo->getReadableState()
                 );
@@ -78,12 +79,12 @@ class LightBulbs extends Devices
         $elements = [];
         $this->forAll(
             function ($deviceId, Device $device) use (&$elements) {
-                $elements[$device->getName().'_'.$deviceId] = $device;
+                $elements[$device->getName() . '_' . $deviceId] = $device;
 
                 return true;
             }
         );
-        \ksort($elements, \SORT_NATURAL);
+        ksort($elements, SORT_NATURAL);
 
         return $elements;
     }

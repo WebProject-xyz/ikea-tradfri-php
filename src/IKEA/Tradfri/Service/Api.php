@@ -78,7 +78,7 @@ class Api implements ServiceInterface
             return $this->client->lightOff($device);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
@@ -98,7 +98,7 @@ class Api implements ServiceInterface
             return $this->client->lightOn($device);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
@@ -116,6 +116,6 @@ class Api implements ServiceInterface
             return $this->client->dimLight($device, $level);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 }

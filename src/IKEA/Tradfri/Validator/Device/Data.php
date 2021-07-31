@@ -8,6 +8,9 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Validator\ValidatorInterface;
+use stdClass;
+use Throwable;
+use function is_object;
 
 /**
  * Class Data.
@@ -17,7 +20,7 @@ class Data implements ValidatorInterface
     /**
      * Is valid.
      *
-     * @param \stdClass|null $device
+     * @param stdClass|null $device
      *
      * @throws RuntimeException
      */
@@ -26,7 +29,7 @@ class Data implements ValidatorInterface
         $isValid = true;
 
         try {
-            if (false === \is_object($device)) {
+            if (false === is_object($device)) {
                 throw new TypeException('device is no object');
             }
 
@@ -43,7 +46,7 @@ class Data implements ValidatorInterface
             $this->_hasDataVersion($data);
         } catch (RuntimeException $exception) {
             $isValid = false;
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $isValid = false;
         }
 
@@ -55,10 +58,10 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasIdField(\stdClass $device): bool
+    protected function _hasIdField(stdClass $device): bool
     {
-        if (!\property_exists($device, Keys::ATTR_ID)) {
-            throw new RuntimeException('attribute missing ('.Keys::ATTR_ID.')');
+        if (!property_exists($device, Keys::ATTR_ID)) {
+            throw new RuntimeException('attribute missing (' . Keys::ATTR_ID . ')');
         }
 
         return true;
@@ -69,10 +72,10 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataField(\stdClass $device): bool
+    protected function _hasDataField(stdClass $device): bool
     {
-        if (!\property_exists($device, Keys::ATTR_DEVICE_INFO)) {
-            throw new RuntimeException('attribute missing ('.Keys::ATTR_DEVICE_INFO.')');
+        if (!property_exists($device, Keys::ATTR_DEVICE_INFO)) {
+            throw new RuntimeException('attribute missing (' . Keys::ATTR_DEVICE_INFO . ')');
         }
 
         return true;
@@ -83,9 +86,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataType(\stdClass $data): bool
+    protected function _hasDataType(stdClass $data): bool
     {
-        if (false === \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
+        if (false === property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
             throw new RuntimeException('attribute missing type key');
         }
 
@@ -97,9 +100,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataManufacturer(\stdClass $data): bool
+    protected function _hasDataManufacturer(stdClass $data): bool
     {
-        if (!\property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
+        if (!property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
             throw new RuntimeException('attribute missing type manufacturer');
         }
 
@@ -111,9 +114,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataVersion(\stdClass $data): bool
+    protected function _hasDataVersion(stdClass $data): bool
     {
-        if (!\property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
+        if (!property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
             throw new RuntimeException('attribute missing type version');
         }
 
@@ -125,7 +128,7 @@ class Data implements ValidatorInterface
      *
      * @return mixed
      */
-    protected function _getData(\stdClass $device)
+    protected function _getData(stdClass $device)
     {
         return $device->{Keys::ATTR_DEVICE_INFO};
     }

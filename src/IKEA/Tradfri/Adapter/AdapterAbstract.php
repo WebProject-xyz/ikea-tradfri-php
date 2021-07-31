@@ -34,7 +34,7 @@ abstract class AdapterAbstract implements AdapterInterface
         MapperInterface $groupDataMapper
     ) {
         $this->_deviceDataMapper = $deviceDataMapper;
-        $this->_groupDataMapper = $groupDataMapper;
+        $this->_groupDataMapper  = $groupDataMapper;
     }
 
     /**

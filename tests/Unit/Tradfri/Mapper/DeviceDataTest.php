@@ -27,13 +27,13 @@ class DeviceDataTest extends UnitTest
      */
     protected $tester;
 
-    public function testMapDataErrorNoData() : void
+    public function testMapDataErrorNoData(): void
     {
         $this->expectExceptionMessage('no data');
         $this->expectException(RuntimeException::class);
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new DeviceData();
         // Act
@@ -41,7 +41,7 @@ class DeviceDataTest extends UnitTest
         // Assert
     }
 
-    public function testICanMapDataToCollectionWithNoError() : void
+    public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);

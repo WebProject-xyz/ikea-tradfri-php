@@ -13,6 +13,10 @@ use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Helper\Runner;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
+use stdClass;
+use function count;
+use function is_array;
+use function is_object;
 
 /**
  * Class Coap.
@@ -46,9 +50,9 @@ class Coap extends AdapterAbstract
     public function getType(int $deviceId): string
     {
         $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
-        if (\is_object($data)
-            && \property_exists($data, Keys::ATTR_DEVICE_INFO)
-            && \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)
+        if (is_object($data)
+            && property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)
         ) {
             return $data
                 ->{Keys::ATTR_DEVICE_INFO}
@@ -63,14 +67,14 @@ class Coap extends AdapterAbstract
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @return array|\stdClass|string
+     * @return array|stdClass|string
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
         $command = $this->_commands->getCoapsCommandGet($requestType);
 
         if (null !== $deviceId) {
-            $command .= '/'.$deviceId;
+            $command .= '/' . $deviceId;
         }
 
         $dataRaw = $this->_commands->parseResult(
@@ -121,7 +125,7 @@ class Coap extends AdapterAbstract
             );
 
         // verify result
-        if (\is_array($data) && empty($data[0])) {
+        if (is_array($data) && empty($data[0])) {
             /*
              * @example data response is now empty since hub update
              * so we only check if there is no error message inside
@@ -229,7 +233,7 @@ class Coap extends AdapterAbstract
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
             if ((int) COAP_GATEWAY_FLOOD_PROTECTION > 0) {
-                \usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
+                usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
             }
         }
 
@@ -251,7 +255,7 @@ class Coap extends AdapterAbstract
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function getDeviceData(int $deviceId): \stdClass
+    public function getDeviceData(int $deviceId): stdClass
     {
         return $this->_getData(Keys::ROOT_DEVICES, $deviceId);
     }
@@ -322,7 +326,7 @@ class Coap extends AdapterAbstract
      */
     protected function _decodeData(string $dataRaw)
     {
-        $decoded = \json_decode($dataRaw);
+        $decoded = json_decode($dataRaw);
         if (null === $decoded) {
             $decoded = $dataRaw;
         }
@@ -337,6 +341,6 @@ class Coap extends AdapterAbstract
      */
     protected function _verifyResult(array $data): bool
     {
-        return \is_array($data) && 4 === \count($data);
+        return is_array($data) && 4 === count($data);
     }
 }

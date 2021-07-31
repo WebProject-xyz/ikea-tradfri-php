@@ -19,7 +19,7 @@ trait ProvidesColor
      */
     public function getColor(): string
     {
-        return \strtoupper($this->_color);
+        return strtoupper($this->_color);
     }
 
     /**
