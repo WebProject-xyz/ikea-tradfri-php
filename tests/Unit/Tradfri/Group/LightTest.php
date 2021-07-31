@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Group;
@@ -10,11 +11,11 @@ use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class LightTest
+ * Class LightTest.
  */
 class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights(): Light
+    public function testICanInitGroupOfLights() : Light
     {
         // Arrange
         $service = \Mockery::mock(ServiceInterface::class);
@@ -28,7 +29,7 @@ class LightTest extends UnitTest
         return $group;
     }
 
-    public function testICanGetDeviceIdsFromGroup(): void
+    public function testICanGetDeviceIdsFromGroup() : void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();
@@ -41,7 +42,7 @@ class LightTest extends UnitTest
         $this->assertCount(0, $deviceIds);
     }
 
-    public function testICanSetDevicesCollectionToGroup(): void
+    public function testICanSetDevicesCollectionToGroup() : void
     {
         // Arrange
         $group = $this->testICanInitGroupOfLights();

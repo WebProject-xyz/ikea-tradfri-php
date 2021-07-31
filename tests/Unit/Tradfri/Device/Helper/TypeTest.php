@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
@@ -7,19 +8,17 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;
 
 /**
- * Class TypeTest
+ * Class TypeTest.
  */
 class TypeTest extends \Codeception\Test\Unit
 {
     /**
-     * @param string $typeAttribute
-     * @param bool   $assertTrue
      * @dataProvider isLightBulbData
      */
     public function testIsLightBulb(
         string $typeAttribute,
         bool $assertTrue
-    ): void {
+    ) : void {
         // Arrange
         $helper = new Type();
 
@@ -39,10 +38,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    /**
-     * @return array
-     */
-    public function isLightBulbData(): array
+    public function isLightBulbData() : array
     {
         return [
             ['invalidStringValue', false],
@@ -57,14 +53,12 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param string $typeAttribute
-     * @param bool   $assertTrue
      * @dataProvider isDimmerData
      */
     public function testIsDimmer(
         string $typeAttribute,
         bool $assertTrue
-    ): void {
+    ) : void {
         // Arrange
         $helper = new Type();
 
@@ -84,10 +78,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    /**
-     * @return array
-     */
-    public function isDimmerData(): array
+    public function isDimmerData() : array
     {
         return [
             ['invalidStringValue', false],
@@ -102,14 +93,12 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param string $typeAttribute
-     * @param bool   $assertTrue
      * @dataProvider isRemoteData
      */
     public function testIsRemote(
         string $typeAttribute,
         bool $assertTrue
-    ): void {
+    ) : void {
         // Arrange
         $helper = new Type();
 
@@ -129,10 +118,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    /**
-     * @return array
-     */
-    public function isRemoteData(): array
+    public function isRemoteData() : array
     {
         return [
             ['invalidStringValue', false],
@@ -147,14 +133,12 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param string $typeAttribute
-     * @param bool   $assertTrue
      * @dataProvider isMotionSensorData
      */
     public function testIsMotionSensor(
         string $typeAttribute,
         bool $assertTrue
-    ): void {
+    ) : void {
         // Arrange
         $helper = new Type();
 
@@ -174,10 +158,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    /**
-     * @return array
-     */
-    public function isMotionSensorData(): array
+    public function isMotionSensorData() : array
     {
         return [
             ['invalidStringValue', false],
@@ -192,14 +173,12 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param string $typeAttribute
-     * @param bool   $assertTrue
      * @dataProvider isKnownDeviceTypeData
      */
     public function testKnownDeviceType(
         string $typeAttribute,
         bool $assertTrue
-    ): void {
+    ) : void {
         // Arrange
         $helper = new Type();
 
@@ -219,10 +198,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    /**
-     * @return array
-     */
-    public function isKnownDeviceTypeData(): array
+    public function isKnownDeviceTypeData() : array
     {
         return [
             ['invalidStringValue', false],

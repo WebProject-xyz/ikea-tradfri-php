@@ -16,18 +16,14 @@ trait ProvidesManufacturer
 
     /**
      * Get Manufacturer.
-     *
-     * @return string
      */
-    public function getManufacturer(): string
+    public function getManufacturer() : string
     {
         return $this->_manufacturer;
     }
 
     /**
      * Set Manufacturer.
-     *
-     * @param string $manufacturer
      *
      * @return static
      */

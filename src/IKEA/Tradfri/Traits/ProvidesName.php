@@ -16,18 +16,14 @@ trait ProvidesName
 
     /**
      * Get Name.
-     *
-     * @return string
      */
-    public function getName(): string
+    public function getName() : string
     {
         return $this->_name;
     }
 
     /**
      * Set Name.
-     *
-     * @param string $name
      *
      * @return static
      */

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Device;
@@ -8,11 +9,11 @@ use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Helper\Type;
 
 /**
- * Class DimmerTest
+ * Class DimmerTest.
  */
 class DimmerTest extends DeviceTester
 {
-    public function testGetAnInstance(): void
+    public function testGetAnInstance() : void
     {
         // Arrange
         // Act
@@ -21,7 +22,7 @@ class DimmerTest extends DeviceTester
         $this->assertInstanceOf(Dimmer::class, $model);
     }
 
-    public function testIsDimmer(): void
+    public function testIsDimmer() : void
     {
         // Arrange
         // Act
@@ -30,10 +31,7 @@ class DimmerTest extends DeviceTester
         $this->assertTrue((new Type())->isDimmer($model->getType()));
     }
 
-    /**
-     * @return Device
-     */
-    protected function getModel(): Device
+    protected function getModel() : Device
     {
         return new Dimmer($this->_id);
     }

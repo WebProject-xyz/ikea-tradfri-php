@@ -18,8 +18,6 @@ abstract class AbstractCommand implements CommandInterface
 
     /**
      * AbstractCommand constructor.
-     *
-     * @param Receiver $_receiver
      */
     public function __construct(Receiver $_receiver)
     {
@@ -28,15 +26,10 @@ abstract class AbstractCommand implements CommandInterface
 
     /**
      * Build command from coap command.
-     *
-     * @return string
      */
-    abstract protected function _buildCommand(): string;
+    abstract protected function _buildCommand() : string;
 
-    /**
-     * @return string
-     */
-    public function __toString(): string
+    public function __toString() : string
     {
         return $this->_buildCommand();
     }

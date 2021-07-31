@@ -28,9 +28,6 @@ abstract class Device implements JsonSerializable, DeviceInterface
     /**
      * LightBulb constructor.
      *
-     * @param int    $deviceId
-     * @param string $type
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function __construct(int $deviceId, string $type)
@@ -42,16 +39,14 @@ abstract class Device implements JsonSerializable, DeviceInterface
     /**
      * Is this a lightblub.
      *
-     * @return bool
-     *
      * @deprecated
      */
-    public function isLightBulb(): bool
+    public function isLightBulb() : bool
     {
         return (new Type())->isLightBulb($this->getType());
     }
 
-    public function jsonSerialize(): array
+    public function jsonSerialize() : array
     {
         $data = [];
 

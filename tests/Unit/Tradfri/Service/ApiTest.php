@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Service;
@@ -17,11 +18,11 @@ use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\Api;
 
 /**
- * Class ApiTest
+ * Class ApiTest.
  */
 class ApiTest extends UnitTest
 {
-    public function testIGotAnInstanceOfApiService(): void
+    public function testIGotAnInstanceOfApiService() : void
     {
         // Arrange
         /** @var Client $client */
@@ -32,7 +33,7 @@ class ApiTest extends UnitTest
         $this->assertInstanceOf(Api::class, $service);
     }
 
-    public function testICanGetDevicesCollectionFromService(): void
+    public function testICanGetDevicesCollectionFromService() : void
     {
         // Arrange
         /** @var Client $client */
@@ -47,7 +48,7 @@ class ApiTest extends UnitTest
         $this->assertInstanceOf(Devices::class, $result);
     }
 
-    public function testICanGetLightblubsCollectionFromService(): void
+    public function testICanGetLightblubsCollectionFromService() : void
     {
         // Arrange
         /** @var Client $client */
@@ -64,7 +65,7 @@ class ApiTest extends UnitTest
         $this->assertInstanceOf(LightBulbs::class, $result);
     }
 
-    public function testICanSwitchLightOff(): void
+    public function testICanSwitchLightOff() : void
     {
         // Arrange
         /** @var Client $client */
@@ -83,7 +84,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchLightOff(): void
+    public function testICanNotSwitchLightOff() : void
     {
         // Arrange
         /** @var Client $client */
@@ -100,7 +101,7 @@ class ApiTest extends UnitTest
         $result = $service->off($lightBulb);
     }
 
-    public function testICanNotSwitchLightOffBecauseItIsOff(): void
+    public function testICanNotSwitchLightOffBecauseItIsOff() : void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
@@ -119,7 +120,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchLightOn(): void
+    public function testICanSwitchLightOn() : void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
@@ -139,7 +140,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchLightOn(): void
+    public function testICanNotSwitchLightOn() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -160,7 +161,7 @@ class ApiTest extends UnitTest
         $result = $service->on($lightBulb);
     }
 
-    public function testICanNotSwitchLightOnBecauseItIsOn(): void
+    public function testICanNotSwitchLightOnBecauseItIsOn() : void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
@@ -179,7 +180,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchAllLightsOff(): void
+    public function testICanSwitchAllLightsOff() : void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
@@ -201,7 +202,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotSwitchGroupOnBecauseItIsOn(): void
+    public function testICanNotSwitchGroupOnBecauseItIsOn() : void
     {
         // Arrange
 
@@ -228,7 +229,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchGroupOn(): void
+    public function testICanSwitchGroupOn() : void
     {
         // Arrange
         /** @var Client $client */
@@ -249,7 +250,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchGroupOff(): void
+    public function testICanSwitchGroupOff() : void
     {
         // Arrange
         /** @var Client $client */
@@ -271,7 +272,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanSwitchADimmerOn(): void
+    public function testICanSwitchADimmerOn() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -286,7 +287,7 @@ class ApiTest extends UnitTest
         $result = $service->on($dimmer);
     }
 
-    public function testICanSwitchADimmerOff(): void
+    public function testICanSwitchADimmerOff() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -301,7 +302,7 @@ class ApiTest extends UnitTest
         $result = $service->off($dimmer);
     }
 
-    public function testICanSwitchARemoteOn(): void
+    public function testICanSwitchARemoteOn() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -316,7 +317,7 @@ class ApiTest extends UnitTest
         $result = $service->on($remote);
     }
 
-    public function testICanSwitchARemoteOff(): void
+    public function testICanSwitchARemoteOff() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -331,7 +332,7 @@ class ApiTest extends UnitTest
         $result = $service->off($remote);
     }
 
-    public function testICanDimAGroup(): void
+    public function testICanDimAGroup() : void
     {
         // Arrange
         /** @var Client $client */
@@ -345,7 +346,8 @@ class ApiTest extends UnitTest
         // Assert
         $this->assertTrue($result);
     }
-    public function testICanDimALight(): void
+
+    public function testICanDimALight() : void
     {
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
@@ -361,7 +363,7 @@ class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
-    public function testICanNotDimADimmer(): void
+    public function testICanNotDimADimmer() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -376,7 +378,7 @@ class ApiTest extends UnitTest
         $result = $service->dim($dimmer, 20);
     }
 
-    public function testICanNotDimARemote(): void
+    public function testICanNotDimARemote() : void
     {
         // Assert
         $this->expectException(RuntimeException::class);
@@ -391,7 +393,7 @@ class ApiTest extends UnitTest
         $result = $service->dim($remote, 20);
     }
 
-    public function testICanGetGroupsFromService(): void
+    public function testICanGetGroupsFromService() : void
     {
         // Arrange
         /** @var Client $client */

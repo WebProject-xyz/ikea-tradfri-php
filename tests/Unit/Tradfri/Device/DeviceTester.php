@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Device;
@@ -9,7 +10,7 @@ use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class DeviceTest
+ * Class DeviceTest.
  *
  * @method createMock($originalClassName)
  */
@@ -20,9 +21,9 @@ abstract class DeviceTester extends UnitTest
      */
     protected $_id = 1;
 
-    abstract public function testGetAnInstance(): void;
+    abstract public function testGetAnInstance() : void;
 
-    public function testICanNotGetService(): void
+    public function testICanNotGetService() : void
     {
         // Arrange
         $this->expectException('TypeError');
@@ -37,9 +38,9 @@ abstract class DeviceTester extends UnitTest
     /**
      * @return Device
      */
-    abstract protected function getModel(): DeviceInterface;
+    abstract protected function getModel() : DeviceInterface;
 
-    public function testICanGetService(): void
+    public function testICanGetService() : void
     {
         // Arrange
         $device = $this->getModel();
@@ -53,7 +54,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertInstanceOf(ServiceInterface::class, $service);
     }
 
-    public function testGetSetName(): void
+    public function testGetSetName() : void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -65,7 +66,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetManufacturer(): void
+    public function testGetSetManufacturer() : void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -77,7 +78,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetId(): void
+    public function testGetSetId() : void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -89,7 +90,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame(2, $result);
     }
 
-    public function testGetSetVersion(): void
+    public function testGetSetVersion() : void
     {
         // Arrange
         $lamp = $this->getModel();

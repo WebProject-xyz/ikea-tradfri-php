@@ -28,9 +28,6 @@ abstract class AdapterAbstract implements AdapterInterface
 
     /**
      * AdapterAbstract constructor.
-     *
-     * @param MapperInterface $deviceDataMapper
-     * @param MapperInterface $groupDataMapper
      */
     public function __construct(
         MapperInterface $deviceDataMapper,
@@ -42,25 +39,17 @@ abstract class AdapterAbstract implements AdapterInterface
 
     /**
      * Get a collection of devices.
-     *
-     * @param ServiceInterface $service
-     *
-     * @return Devices
      */
     abstract public function getDeviceCollection(
         ServiceInterface $service
-    ): Devices;
+    ) : Devices;
 
     /**
      * Get a collection of Groups.
-     *
-     * @param ServiceInterface $service
-     *
-     * @return Groups
      */
     abstract public function getGroupCollection(
         ServiceInterface $service
-    ): Groups;
+    ) : Groups;
 
     /**
      * Get DeviceDataMapper.

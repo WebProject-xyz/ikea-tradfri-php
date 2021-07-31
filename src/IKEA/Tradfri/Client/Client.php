@@ -20,27 +20,27 @@ class Client
         $this->adapter = $adapter;
     }
 
-    public function getDevices(ServiceInterface $service): Devices
+    public function getDevices(ServiceInterface $service) : Devices
     {
         return $this->getAdapter()->getDeviceCollection($service);
     }
 
-    private function getAdapter(): AdapterInterface
+    private function getAdapter() : AdapterInterface
     {
         return $this->adapter;
     }
 
-    public function getGroups(ServiceInterface $service): Groups
+    public function getGroups(ServiceInterface $service) : Groups
     {
         return $this->getAdapter()->getGroupCollection($service);
     }
 
-    public function lightOn(LightBulb $lightBulb): bool
+    public function lightOn(LightBulb $lightBulb) : bool
     {
         return $this->getAdapter()->changeLightState($lightBulb->getId(), true);
     }
 
-    public function lightOff(LightBulb $lightBulb): bool
+    public function lightOff(LightBulb $lightBulb) : bool
     {
         return $this->getAdapter()->changeLightState(
             $lightBulb->getId(),
@@ -48,7 +48,7 @@ class Client
         );
     }
 
-    public function groupOn(Group $group): bool
+    public function groupOn(Group $group) : bool
     {
         return $this->getAdapter()->changeGroupState(
             $group->getId(),
@@ -56,12 +56,12 @@ class Client
         );
     }
 
-    public function groupOff(Group $group): bool
+    public function groupOff(Group $group) : bool
     {
         return $this->getAdapter()->changeGroupState($group->getId(), false);
     }
 
-    public function dimLight(LightBulb $lightBulb, int $level): bool
+    public function dimLight(LightBulb $lightBulb, int $level) : bool
     {
         return $this->getAdapter()->setLightBrightness(
             $lightBulb->getId(),
@@ -69,7 +69,7 @@ class Client
         );
     }
 
-    public function dimGroup(Group $group, int $level): bool
+    public function dimGroup(Group $group, int $level) : bool
     {
         return $this->getAdapter()->setGroupBrightness($group->getId(), $level);
     }

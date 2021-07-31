@@ -28,10 +28,6 @@ class Coap extends AdapterAbstract
 
     /**
      * Coap constructor.
-     *
-     * @param Coaps           $commands
-     * @param MapperInterface $deviceDataMapper
-     * @param MapperInterface $groupDataMapper
      */
     public function __construct(
         Coaps $commands,
@@ -45,13 +41,9 @@ class Coap extends AdapterAbstract
     /**
      * Get device type.
      *
-     * @param int $deviceId
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return string
      */
-    public function getType(int $deviceId): string
+    public function getType(int $deviceId) : string
     {
         $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
         if (\is_object($data)
@@ -68,9 +60,6 @@ class Coap extends AdapterAbstract
 
     /**
      * Get data from coaps client.
-     *
-     * @param string   $requestType
-     * @param null|int $deviceId
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -102,13 +91,9 @@ class Coap extends AdapterAbstract
     /**
      * Get Manufacturer by device id.
      *
-     * @param int $deviceId
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return string
      */
-    public function getManufacturer(int $deviceId): string
+    public function getManufacturer(int $deviceId) : string
     {
         $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
 
@@ -122,14 +107,9 @@ class Coap extends AdapterAbstract
     /**
      * Change State of given device.
      *
-     * @param int  $deviceId
-     * @param bool $toState
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function changeLightState(int $deviceId, bool $toState): bool
+    public function changeLightState(int $deviceId, bool $toState) : bool
     {
         // run command
         $data = (new Runner())
@@ -155,14 +135,9 @@ class Coap extends AdapterAbstract
     /**
      * Change state of group.
      *
-     * @param int  $groupId
-     * @param bool $toState
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function changeGroupState(int $groupId, bool $toState): bool
+    public function changeGroupState(int $groupId, bool $toState) : bool
     {
         // run command
         $data = (new Runner())
@@ -184,14 +159,9 @@ class Coap extends AdapterAbstract
     /**
      * Set Light Brightness.
      *
-     * @param int $lightId
-     * @param int $level
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function setLightBrightness(int $lightId, int $level): bool
+    public function setLightBrightness(int $lightId, int $level) : bool
     {
         // run command
         $data = (new Runner())->execWithTimeout(
@@ -211,14 +181,9 @@ class Coap extends AdapterAbstract
     /**
      * Set Group Brightness.
      *
-     * @param int $groupId
-     * @param int $level
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function setGroupBrightness(int $groupId, int $level): bool
+    public function setGroupBrightness(int $groupId, int $level) : bool
     {
         // run command
         $data = (new Runner())->execWithTimeout(
@@ -238,13 +203,9 @@ class Coap extends AdapterAbstract
     /**
      * Get a collection of devices.
      *
-     * @param ServiceInterface $service
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return Devices
      */
-    public function getDeviceCollection(ServiceInterface $service): Devices
+    public function getDeviceCollection(ServiceInterface $service) : Devices
     {
         return $this
             ->getDeviceDataMapper()
@@ -254,13 +215,9 @@ class Coap extends AdapterAbstract
     /**
      * Get devices.
      *
-     * @param null|array $deviceIds
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
      */
-    public function getDevicesData(array $deviceIds = null): array
+    public function getDevicesData(array $deviceIds = null) : array
     {
         if (null === $deviceIds) {
             $deviceIds = $this->getDeviceIds();
@@ -283,10 +240,8 @@ class Coap extends AdapterAbstract
      * Get an array with lamp ids from soap client.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
      */
-    public function getDeviceIds(): array
+    public function getDeviceIds() : array
     {
         return $this->_getData(Keys::ROOT_DEVICES);
     }
@@ -294,13 +249,9 @@ class Coap extends AdapterAbstract
     /**
      * Get Device data.
      *
-     * @param int $deviceId
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return \stdClass
      */
-    public function getDeviceData(int $deviceId): \stdClass
+    public function getDeviceData(int $deviceId) : \stdClass
     {
         return $this->_getData(Keys::ROOT_DEVICES, $deviceId);
     }
@@ -308,13 +259,9 @@ class Coap extends AdapterAbstract
     /**
      * Get a collection of Groups.
      *
-     * @param ServiceInterface $service
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return Groups
      */
-    public function getGroupCollection(ServiceInterface $service): Groups
+    public function getGroupCollection(ServiceInterface $service) : Groups
     {
         $groups = $this
             ->getGroupDataMapper()
@@ -340,10 +287,8 @@ class Coap extends AdapterAbstract
      * Get Groups from hub.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
      */
-    public function getGroupsData(): array
+    public function getGroupsData() : array
     {
         $groupData = [];
         foreach ($this->getGroupIds() as $groupId) {
@@ -362,10 +307,8 @@ class Coap extends AdapterAbstract
      * Get Group data from hub.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return array
      */
-    public function getGroupIds(): array
+    public function getGroupIds() : array
     {
         return $this->_getData(Keys::ROOT_GROUPS);
     }
@@ -391,10 +334,8 @@ class Coap extends AdapterAbstract
      * Verify result.
      *
      * @param $data
-     *
-     * @return bool
      */
-    protected function _verifyResult(array $data): bool
+    protected function _verifyResult(array $data) : bool
     {
         return \is_array($data) && 4 === \count($data);
     }

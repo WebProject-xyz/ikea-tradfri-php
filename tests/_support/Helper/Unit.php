@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Helper;
@@ -9,14 +10,11 @@ namespace IKEA\Tests\Helper;
 use IKEA\Tradfri\Command\Coap\Keys;
 
 /**
- * Class Unit
+ * Class Unit.
  */
 class Unit extends \Codeception\Module
 {
-    /**
-     * @return array
-     */
-    public function getDevices(): array
+    public function getDevices() : array
     {
         return [
             'asd invalid',
@@ -92,10 +90,7 @@ class Unit extends \Codeception\Module
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getGroupDataCoapsResponse(): array
+    public function getGroupDataCoapsResponse() : array
     {
         return [
             1000 => \json_decode(\json_encode([

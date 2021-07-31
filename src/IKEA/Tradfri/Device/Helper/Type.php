@@ -27,72 +27,48 @@ class Type
 
     /**
      * Check if given type attribute is from a light blub.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isLightBulb(string $typeAttribute): bool
+    public function isLightBulb(string $typeAttribute) : bool
     {
         return 0 === \strpos($typeAttribute, self::BLUB);
     }
 
     /**
      * Check if given type attribute is from a remote control.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isRemote(string $typeAttribute): bool
+    public function isRemote(string $typeAttribute) : bool
     {
         return 0 === \strpos($typeAttribute, self::REMOTE);
     }
 
     /**
      * Check if given type attribute is from a dimmer.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isDimmer(string $typeAttribute): bool
+    public function isDimmer(string $typeAttribute) : bool
     {
         return 0 === \strpos($typeAttribute, self::DIMMER);
     }
 
     /**
      * Check if given type attribute is from a driver.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isDriver(string $typeAttribute): bool
+    public function isDriver(string $typeAttribute) : bool
     {
         return 0 === \strpos($typeAttribute, self::DRIVER);
     }
 
     /**
      * Check if given type attribute is from a MotionSensor.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isMotionSensor(string $typeAttribute): bool
+    public function isMotionSensor(string $typeAttribute) : bool
     {
         return 0 === \strpos($typeAttribute, self::MOTION_SENSOR);
     }
 
     /**
      * Check if given type attribute can be processed.
-     *
-     * @param string $typeAttribute
-     *
-     * @return bool
      */
-    public function isKnownDeviceType(string $typeAttribute): bool
+    public function isKnownDeviceType(string $typeAttribute) : bool
     {
         foreach (\get_class_methods($this) as $method) {
             if (__FUNCTION__ !== $method && $this->$method($typeAttribute)) {

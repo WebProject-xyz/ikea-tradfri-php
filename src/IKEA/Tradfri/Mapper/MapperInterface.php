@@ -18,12 +18,11 @@ interface MapperInterface
      * Map given data to models.
      *
      * @param Api|ServiceInterface $service
-     * @param array                $dataItems
      *
      * @return AbstractCollection|Devices
      */
     public function map(
         ServiceInterface $service,
         array $dataItems
-    ): AbstractCollection;
+    ) : AbstractCollection;
 }

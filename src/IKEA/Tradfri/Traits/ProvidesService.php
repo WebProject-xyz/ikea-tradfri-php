@@ -18,18 +18,14 @@ trait ProvidesService
 
     /**
      * Get Service.
-     *
-     * @return ServiceInterface
      */
-    public function getService(): ServiceInterface
+    public function getService() : ServiceInterface
     {
         return $this->_service;
     }
 
     /**
      * Set Service.
-     *
-     * @param ServiceInterface $service
      *
      * @return static
      */
@@ -42,10 +38,8 @@ trait ProvidesService
 
     /**
      * Has Service.
-     *
-     * @return bool
      */
-    public function hasService(): bool
+    public function hasService() : bool
     {
         return null !== $this->_service;
     }

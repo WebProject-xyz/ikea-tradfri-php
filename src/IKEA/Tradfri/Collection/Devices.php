@@ -20,7 +20,7 @@ class Devices extends AbstractCollection
      *
      * @return LightBulb[]|LightBulbs
      */
-    public function getLightBulbs(): LightBulbs
+    public function getLightBulbs() : LightBulbs
     {
         $lightBulbs = new LightBulbs();
         $typeHelper = new Type();
@@ -38,7 +38,7 @@ class Devices extends AbstractCollection
      *
      * @return array|Dimmer[]|LightBulb[]|MotionSensor[]|Remote[]
      */
-    public function getDevices(): array
+    public function getDevices() : array
     {
         return $this->toArray();
     }

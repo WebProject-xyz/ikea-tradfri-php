@@ -26,13 +26,11 @@ class Data implements ValidatorInterface
     /**
      * Is valid.
      *
-     * @param null|\stdClass $data
+     * @param \stdClass|null $data
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function isValid($data): bool
+    public function isValid($data) : bool
     {
         try {
             $this->_validateDeviceMustHaves($data);
@@ -40,23 +38,16 @@ class Data implements ValidatorInterface
             $isValid = true;
 
             $groupData = $data->{Keys::ATTR_GROUP_INFO};
-            if (!\property_exists(
+            if (! \property_exists(
                 $groupData,
                 Keys::ATTR_GROUP_LIGHTS
             )) {
-                throw new RuntimeException(
-                    'attribute missing ('.Keys::ATTR_GROUP_LIGHTS.')'
-                );
+                throw new RuntimeException('attribute missing ('.Keys::ATTR_GROUP_LIGHTS.')');
             }
             $lightData = $groupData->{Keys::ATTR_GROUP_LIGHTS};
 
-            if (!isset($lightData->{Keys::ATTR_ID})) {
-                throw new RuntimeException(
-                    'attribute group data is not an array ('.
-                    Keys::ATTR_GROUP_INFO.
-                    '->'.Keys::ATTR_GROUP_LIGHTS.
-                    '->'.Keys::ATTR_ID.')'
-                );
+            if (! isset($lightData->{Keys::ATTR_ID})) {
+                throw new RuntimeException('attribute group data is not an array ('.Keys::ATTR_GROUP_INFO.'->'.Keys::ATTR_GROUP_LIGHTS.'->'.Keys::ATTR_ID.')');
             }
         } catch (\Throwable $exception) {
             $isValid = false;
@@ -68,22 +59,18 @@ class Data implements ValidatorInterface
     /**
      * Validate must have properties.
      *
-     * @param null|\stdClass $device
+     * @param \stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    protected function _validateDeviceMustHaves($device): bool
+    protected function _validateDeviceMustHaves($device) : bool
     {
         if (false === \is_object($device)) {
             throw new TypeException('device is no object');
         }
         foreach (self::$_mustHaves as $mustHave) {
-            if (!\property_exists($device, $mustHave)) {
-                throw new RuntimeException(
-                    'attribute missing ('.$mustHave.')'
-                );
+            if (! \property_exists($device, $mustHave)) {
+                throw new RuntimeException('attribute missing ('.$mustHave.')');
             }
         }
 

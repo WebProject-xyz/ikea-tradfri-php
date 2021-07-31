@@ -14,10 +14,8 @@ class Light extends Device implements SwitchableInterface
 {
     /**
      * Get State.
-     *
-     * @return bool
      */
-    public function isOn(): bool
+    public function isOn() : bool
     {
         if (false === $this->getLights()->isEmpty()) {
             return $this->getLights()->getActive()->count() > 0;
@@ -28,10 +26,8 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Get Lights.
-     *
-     * @return LightBulbs
      */
-    public function getLights(): LightBulbs
+    public function getLights() : LightBulbs
     {
         return $this->getDevices()->getLightBulbs();
     }
@@ -43,7 +39,7 @@ class Light extends Device implements SwitchableInterface
      *
      * @return $this
      */
-    public function switchOn(): bool
+    public function switchOn() : bool
     {
         if ($this->_service->on($this)) {
             $this->setState(true);
@@ -59,7 +55,7 @@ class Light extends Device implements SwitchableInterface
      *
      * @return $this
      */
-    public function off(): self
+    public function off() : self
     {
         if ($this->_service->off($this)) {
             $this->setState(false);
@@ -71,11 +67,9 @@ class Light extends Device implements SwitchableInterface
     /**
      * Dim group to level.
      *
-     * @param int $level
-     *
      * @return $this
      */
-    public function dim(int $level): self
+    public function dim(int $level) : self
     {
         if ($this->_service->dim($this, $level)) {
             $this->setBrightness($level);
@@ -84,7 +78,7 @@ class Light extends Device implements SwitchableInterface
         return $this;
     }
 
-    public function switchOff(): bool
+    public function switchOff() : bool
     {
         if ($this->_service->off($this)) {
             $this->setState(false);

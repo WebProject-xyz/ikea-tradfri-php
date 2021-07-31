@@ -17,10 +17,8 @@ class Invoker
     /**
      * in the invoker we find this kind of method for subscribing the command
      * There can be also a stack, a list, a fixed set ...
-     *
-     * @param CommandInterface $cmd
      */
-    public function setCommand(CommandInterface $cmd): void
+    public function setCommand(CommandInterface $cmd) : void
     {
         $this->_command = $cmd;
     }
@@ -28,7 +26,7 @@ class Invoker
     /**
      * executes the command; the invoker is the same whatever is the command.
      */
-    public function run(): void
+    public function run() : void
     {
         $this->_command->execute();
     }

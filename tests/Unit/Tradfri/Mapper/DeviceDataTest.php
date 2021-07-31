@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Mapper;
@@ -15,7 +16,7 @@ use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class DeviceDataTest
+ * Class DeviceDataTest.
  *
  * @method createMock($originalClassName)
  */
@@ -26,7 +27,7 @@ class DeviceDataTest extends UnitTest
      */
     protected $tester;
 
-    public function testMapDataErrorNoData(): void
+    public function testMapDataErrorNoData() : void
     {
         $this->expectExceptionMessage('no data');
         $this->expectException(RuntimeException::class);
@@ -40,7 +41,7 @@ class DeviceDataTest extends UnitTest
         // Assert
     }
 
-    public function testICanMapDataToCollectionWithNoError(): void
+    public function testICanMapDataToCollectionWithNoError() : void
     {
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);

@@ -22,10 +22,8 @@ class LightBulb extends Device implements SwitchableInterface
      * Switch off.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function switchOff(): bool
+    public function switchOff() : bool
     {
         if (true === $this->getService()->off($this)) {
             $this->setState(false);
@@ -40,10 +38,8 @@ class LightBulb extends Device implements SwitchableInterface
      * Switch off.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function switchOn(): bool
+    public function switchOn() : bool
     {
         if (true === $this->getService()->on($this)) {
             $this->setState(true);
@@ -57,13 +53,9 @@ class LightBulb extends Device implements SwitchableInterface
     /**
      * Dim Light.
      *
-     * @param int $level
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    public function dim(int $level): bool
+    public function dim(int $level) : bool
     {
         return $this->getService()->dim($this, $level);
     }

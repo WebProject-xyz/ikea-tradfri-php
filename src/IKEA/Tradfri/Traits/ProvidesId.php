@@ -16,18 +16,14 @@ trait ProvidesId
 
     /**
      * Get Id.
-     *
-     * @return int
      */
-    public function getId(): int
+    public function getId() : int
     {
         return $this->_id;
     }
 
     /**
      * Set Id.
-     *
-     * @param int $id
      *
      * @return static
      */

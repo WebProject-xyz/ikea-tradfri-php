@@ -6,7 +6,7 @@ namespace IKEA\Tradfri\Device;
 
 interface SwitchableInterface
 {
-    public function switchOn(): bool;
+    public function switchOn() : bool;
 
-    public function switchOff(): bool;
+    public function switchOff() : bool;
 }

@@ -24,10 +24,10 @@ class Runner
     /**
      * Execute a command and return it's output. Either wait
      * until the command exits or the timeout has expired.
-     * Found at @link https://stackoverflow.com/a/20992213/3578430.
+     * Found at @see https://stackoverflow.com/a/20992213/3578430.
      *
-     * @param string $cmd                  Command to execute.
-     * @param int    $timeout              Timeout in seconds.
+     * @param string $cmd                  command to execute
+     * @param int    $timeout              timeout in seconds
      * @param bool   $asArray
      * @param bool   $skipEmptyBufferError
      *
@@ -44,7 +44,7 @@ class Runner
         // Start the process.
         $process = \proc_open('exec '.$cmd, self::DESCRIPTORS, $pipes);
 
-        if (!\is_resource($process)) {
+        if (! \is_resource($process)) {
             throw new RuntimeException('Could not execute process');
         }
 
@@ -57,7 +57,7 @@ class Runner
         // Check if there were any errors.
         $errors = \stream_get_contents($pipes[2]);
 
-        if (!empty($errors) && empty($buffer)) {
+        if (! empty($errors) && empty($buffer)) {
             $this->_parseErrors($skipEmptyBufferError, $errors);
         }
 
@@ -80,7 +80,7 @@ class Runner
      *
      * @param $process
      */
-    private function _killProcess($process): void
+    private function _killProcess($process) : void
     {
         if (\proc_terminate($process, 9)) {
             throw new RuntimeException('timeout expired');
@@ -89,15 +89,12 @@ class Runner
 
     /**
      * Parse errors.
-     *
-     * @param bool   $skipEmptyBufferError
-     * @param string $errors
      */
-    private function _parseErrors(bool $skipEmptyBufferError, string $errors): void
+    private function _parseErrors(bool $skipEmptyBufferError, string $errors) : void
     {
         $parts = \explode("\n", $errors);
         switch (\count($parts)) {
-            case 2 && !empty($parts[1]):
+            case 2 && ! empty($parts[1]):
             case 3:
                 $errorMessage = $parts[1];
 
@@ -113,19 +110,14 @@ class Runner
     /**
      * Start process.
      *
-     * @param int    $timeout
-     * @param array  $pipes
-     * @param        $process
-     * @param string $buffer
-     *
-     * @return string
+     * @param $process
      */
     private function _startProcess(
         int $timeout,
         array $pipes,
         $process,
         string $buffer
-    ): string {
+    ) : string {
         // Turn the timeout into microseconds.
         $timeout *= 1000000;
         while ($timeout > 0) {
@@ -147,7 +139,7 @@ class Runner
             // as the stream is none-blocking.
             $buffer .= \stream_get_contents($pipes[1]);
 
-            if (!$status['running']) {
+            if (! $status['running']) {
                 // Break from this loop if the process exited
                 // before the timeout.
                 break;
@@ -163,10 +155,9 @@ class Runner
     /**
      * Close all streams.
      *
-     * @param array $pipes
      * @param $process
      */
-    protected function _closeStreams(array $pipes, $process): void
+    protected function _closeStreams(array $pipes, $process) : void
     {
         \fclose($pipes[0]);
         \fclose($pipes[1]);

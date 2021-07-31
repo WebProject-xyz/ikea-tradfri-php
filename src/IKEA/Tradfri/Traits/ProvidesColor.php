@@ -16,10 +16,8 @@ trait ProvidesColor
 
     /**
      * Get Color.
-     *
-     * @return string
      */
-    public function getColor(): string
+    public function getColor() : string
     {
         return \strtoupper($this->_color);
     }
@@ -27,11 +25,9 @@ trait ProvidesColor
     /**
      * Set Color.
      *
-     * @param string $color
-     *
      * @return static
      */
-    public function setColor(string $color): self
+    public function setColor(string $color) : self
     {
         $this->_color = $color;
 

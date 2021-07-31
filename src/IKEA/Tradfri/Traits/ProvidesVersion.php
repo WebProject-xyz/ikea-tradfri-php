@@ -16,18 +16,14 @@ trait ProvidesVersion
 
     /**
      * Get Version.
-     *
-     * @return string
      */
-    public function getVersion(): string
+    public function getVersion() : string
     {
         return $this->_version;
     }
 
     /**
      * Set Version.
-     *
-     * @param string $name
      *
      * @return static
      */

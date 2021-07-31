@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Mapper;
@@ -10,7 +11,7 @@ use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class DeviceDataTest
+ * Class DeviceDataTest.
  */
 class GroupDataTest extends UnitTest
 {
@@ -19,7 +20,7 @@ class GroupDataTest extends UnitTest
      */
     protected $tester;
 
-    public function testICanMapEmptyDataWithNoError(): void
+    public function testICanMapEmptyDataWithNoError() : void
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
@@ -32,7 +33,7 @@ class GroupDataTest extends UnitTest
         $this->tester->assertInstanceOf(\IKEA\Tradfri\Collection\Groups::class, $result);
     }
 
-    public function testICanMapDataToCollectionWithNoError(): void
+    public function testICanMapDataToCollectionWithNoError() : void
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);

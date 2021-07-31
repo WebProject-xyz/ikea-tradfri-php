@@ -21,7 +21,6 @@ class GroupData extends Mapper
      * Map given data to models.
      *
      * @param Api|ServiceInterface $service
-     * @param array                $groupDataItems
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -30,7 +29,7 @@ class GroupData extends Mapper
     public function map(
         ServiceInterface $service,
         array $groupDataItems
-    ): AbstractCollection {
+    ) : AbstractCollection {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
             if (false === $this->_isValidData($device)) {
@@ -60,13 +59,11 @@ class GroupData extends Mapper
     /**
      * Validate device data from api.
      *
-     * @param null|\stdClass $device
+     * @param \stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    protected function _isValidData($device): bool
+    protected function _isValidData($device) : bool
     {
         $validator = new GroupDataValidator();
 

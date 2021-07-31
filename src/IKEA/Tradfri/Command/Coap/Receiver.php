@@ -42,10 +42,6 @@ class Receiver
 
     /**
      * Put constructor.
-     *
-     * @param string $gatewayAddress
-     * @param string $username
-     * @param string $apiKey
      */
     public function __construct(
         string $gatewayAddress,
@@ -59,10 +55,8 @@ class Receiver
 
     /**
      * Get command.
-     *
-     * @return string
      */
-    final public function getCommand(): string
+    final public function getCommand() : string
     {
         return $this->_getUri()
             .$this->_getInjectCommand()
@@ -73,10 +67,8 @@ class Receiver
 
     /**
      * Get command uri.
-     *
-     * @return string
      */
-    protected function _getUri(): string
+    protected function _getUri() : string
     {
         return \sprintf(
             self::COAP_COMMAND,
@@ -87,40 +79,32 @@ class Receiver
 
     /**
      * Get Username.
-     *
-     * @return string
      */
-    protected function _getUsername(): string
+    protected function _getUsername() : string
     {
         return $this->_username;
     }
 
     /**
      * Get ApiKey.
-     *
-     * @return string
      */
-    protected function _getApiKey(): string
+    protected function _getApiKey() : string
     {
         return $this->_apiKey;
     }
 
     /**
      * Get InjectCommand.
-     *
-     * @return string
      */
-    protected function _getInjectCommand(): string
+    protected function _getInjectCommand() : string
     {
         return $this->_injectCommand;
     }
 
     /**
      * Get coap client uri.
-     *
-     * @return string
      */
-    protected function _getClientUri(): string
+    protected function _getClientUri() : string
     {
         return 'coaps://'.$this->_getIpAddress().':5684/'
             .$this->_getRequestType();
@@ -128,39 +112,31 @@ class Receiver
 
     /**
      * Get IpAddress.
-     *
-     * @return string
      */
-    protected function _getIpAddress(): string
+    protected function _getIpAddress() : string
     {
         return $this->_ipAddress;
     }
 
     /**
      * Get Request type.
-     *
-     * @return string
      */
-    protected function _getRequestType(): string
+    protected function _getRequestType() : string
     {
         return $this->_requestType;
     }
 
     /**
      * Set RequestType.
-     *
-     * @param string $requestType
-     *
-     * @return self
      */
-    public function setRequestType(string $requestType): self
+    public function setRequestType(string $requestType) : self
     {
         $this->_requestType = $requestType;
 
         return $this;
     }
 
-    public function sendRequest(): string
+    public function sendRequest() : string
     {
         // send command to gateway
         return \implode("\n", $this->_output);

@@ -12,11 +12,9 @@ abstract class Mapper implements MapperInterface
     /**
      * Validate device data from api.
      *
-     * @param null|\stdClass $device
+     * @param \stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    abstract protected function _isValidData($device): bool;
+    abstract protected function _isValidData($device) : bool;
 }

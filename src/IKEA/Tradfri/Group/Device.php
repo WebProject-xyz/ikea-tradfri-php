@@ -51,9 +51,6 @@ class Device implements DeviceInterface
 
     /**
      * Group constructor.
-     *
-     * @param int              $deviceId
-     * @param ServiceInterface $service
      */
     public function __construct(int $deviceId, ServiceInterface $service)
     {
@@ -68,7 +65,7 @@ class Device implements DeviceInterface
      *
      * @return Device
      */
-    public function setService(ServiceInterface $service): self
+    public function setService(ServiceInterface $service) : self
     {
         $this->_service = $service;
 
@@ -77,10 +74,8 @@ class Device implements DeviceInterface
 
     /**
      * Get LightIds.
-     *
-     * @return array
      */
-    public function getDeviceIds(): array
+    public function getDeviceIds() : array
     {
         return $this->_deviceIds;
     }
@@ -88,11 +83,9 @@ class Device implements DeviceInterface
     /**
      * Set device ids.
      *
-     * @param array $ids
-     *
      * @return $this
      */
-    public function setDeviceIds(array $ids): self
+    public function setDeviceIds(array $ids) : self
     {
         $this->_deviceIds = $ids;
 
@@ -101,10 +94,8 @@ class Device implements DeviceInterface
 
     /**
      * Get Devices.
-     *
-     * @return Devices
      */
-    public function getDevices(): Devices
+    public function getDevices() : Devices
     {
         if (null === $this->_devices) {
             $this->_devices = new Devices();
@@ -116,11 +107,9 @@ class Device implements DeviceInterface
     /**
      * Set Devices.
      *
-     * @param Devices $devices
-     *
      * @return $this
      */
-    public function setDevices(Devices $devices): self
+    public function setDevices(Devices $devices) : self
     {
         $this->_devices = $devices;
 
@@ -129,10 +118,8 @@ class Device implements DeviceInterface
 
     /**
      * Get Id.
-     *
-     * @return int
      */
-    public function getId(): int
+    public function getId() : int
     {
         return $this->_id;
     }
@@ -144,7 +131,7 @@ class Device implements DeviceInterface
      *
      * @return Device
      */
-    public function setId($deviceId): self
+    public function setId($deviceId) : self
     {
         $this->_id = $deviceId;
 
@@ -153,10 +140,8 @@ class Device implements DeviceInterface
 
     /**
      * Get Name.
-     *
-     * @return string
      */
-    public function getName(): string
+    public function getName() : string
     {
         return $this->_name;
     }
@@ -164,11 +149,9 @@ class Device implements DeviceInterface
     /**
      * Set Name.
      *
-     * @param string $name
-     *
      * @return Device
      */
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         $this->_name = $name;
 
@@ -178,11 +161,9 @@ class Device implements DeviceInterface
     /**
      * Set State of group.
      *
-     * @param bool $state
-     *
      * @return $this
      */
-    public function setState(bool $state): self
+    public function setState(bool $state) : self
     {
         $this->_state = $state;
 
@@ -191,20 +172,16 @@ class Device implements DeviceInterface
 
     /**
      * Get Brightness.
-     *
-     * @return float
      */
-    public function getBrightness(): float
+    public function getBrightness() : float
     {
         return (float) $this->_brightness;
     }
 
     /**
-     * @param int $level
-     *
      * @return $this
      */
-    public function setBrightness(int $level): self
+    public function setBrightness(int $level) : self
     {
         $this->_brightness = $level;
 
@@ -213,10 +190,8 @@ class Device implements DeviceInterface
 
     /**
      * Get State.
-     *
-     * @return bool
      */
-    public function isOn(): bool
+    public function isOn() : bool
     {
         return $this->_state;
     }
