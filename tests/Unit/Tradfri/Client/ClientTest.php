@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\IKEA\Tradfri\Client;
+namespace IKEA\Tests\Unit\Tradfri\Client;
 
 use IKEA\Tradfri\Adapter\AdapterInterface;
 use IKEA\Tradfri\Client\Client;

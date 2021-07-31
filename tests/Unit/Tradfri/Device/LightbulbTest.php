@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Device;
+namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Command\Coap\Keys;
@@ -13,9 +13,9 @@ use IKEA\Tradfri\Service\ServiceInterface;
 /**
  * Class LightBulbTest
  */
-class LightBulbTest extends \IKEA\Tests\Tradfri\Device\DeviceTester
+class LightBulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
 {
-    public function testGetAnInstance()
+    public function testGetAnInstance(): void
     {
         // Arrange
         // Act

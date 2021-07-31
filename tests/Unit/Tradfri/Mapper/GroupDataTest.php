@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Mapper;
+namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Groups;

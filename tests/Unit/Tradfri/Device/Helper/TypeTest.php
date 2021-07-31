@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Device\Helper;
+namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;

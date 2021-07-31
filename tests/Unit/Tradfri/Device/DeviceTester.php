@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Device;
+namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Device\Device;
@@ -20,7 +20,7 @@ abstract class DeviceTester extends UnitTest
      */
     protected $_id = 1;
 
-    abstract public function testGetAnInstance();
+    abstract public function testGetAnInstance(): void;
 
     public function testICanNotGetService(): void
     {

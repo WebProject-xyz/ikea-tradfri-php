@@ -17,8 +17,8 @@ matrix:
   include:
   - php: 7.4
     env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
-  allow_failures:
-  - php: nightly
+  - php: 8.0
+    env: EXECUTE_CS_CHECK=true RUN_WITH_COVERAGE=true PATH="$HOME/.local/bin:$PATH"
 
 before_install:
   - ./build/script/travis_before_install.sh

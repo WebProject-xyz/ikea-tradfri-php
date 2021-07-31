@@ -16,7 +16,7 @@
     "optimize-autoloader": true
   },
   "require": {
-    "php": "^7.4",
+    "php": "^7.4 || ^8.0",
     "ext-json": "*",
     "doctrine/collections": "^1"
   },
@@ -24,9 +24,7 @@
     "codeception/codeception": "^4",
     "codeception/module-asserts": "^1",
     "mockery/mockery": "^1",
-    "friendsofphp/php-cs-fixer": "2.*",
-    "codeclimate/php-test-reporter": "0.*",
-    "codacy/coverage": "^1",
+    "friendsofphp/php-cs-fixer": "^3.0",
     "monolog/monolog": "^2",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^5.1"
@@ -38,7 +36,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "IKEA\\Tests\\": "tests/unit/IKEA"
+      "IKEA\\Tests\\Unit\\": "tests/Unit/"
     }
   },
   "scripts": {

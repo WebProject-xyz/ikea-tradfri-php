@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Device;
+namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\MotionSensor;
 
 class MotionSensorTest extends DeviceTester
 {
-    public function testGetAnInstance()
+    public function testGetAnInstance(): void
     {
         // Arrange
         // Act

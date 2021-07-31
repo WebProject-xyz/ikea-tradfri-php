@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Service;
+namespace IKEA\Tests\Unit\Tradfri\Service;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Client\Client;
