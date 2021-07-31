@@ -68,11 +68,11 @@ class Keys
         = 'TRADFRI bulb E14 W op/ch 400lm';
     public const ATTR_DEVICE_INFO_TYPE_REPEATER
         = 'TRADFRI Signal Repeater';
-    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30x90
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30X90
         = 'FLOALT panel WS 30x90';
-    public const ATTR_DEVICE_INFO_TYPE_FLOALT_60x60
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_60X60
         = 'FLOALT panel WS 60x60';
-    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30x30
+    public const ATTR_DEVICE_INFO_TYPE_FLOALT_30X30
         = 'FLOALT panel WS 30x30';
     public const ATTR_DEVICE_INFO_TYPE_OPEN_CLOSE_REMOTE
         = 'TRADFRI open/close remote';
