@@ -17,8 +17,6 @@ class RollerBlind extends Device
      * Close Roller Blind.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function close(): bool
     {
@@ -29,8 +27,6 @@ class RollerBlind extends Device
      * Open Roller Blind.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function open(): bool
     {
@@ -43,8 +39,6 @@ class RollerBlind extends Device
      * @param $level
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function setToPosition($level): bool
     {

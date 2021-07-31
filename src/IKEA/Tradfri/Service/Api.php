@@ -122,9 +122,6 @@ class Api implements ServiceInterface
 
     /**
      * @param Device|RollerBlind $device
-     * @param int                $level
-     *
-     * @return bool
      */
     public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
     {
@@ -132,8 +129,6 @@ class Api implements ServiceInterface
             return $this->client->setRollerBlindPosition($device, $level);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 }

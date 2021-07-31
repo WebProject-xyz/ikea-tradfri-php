@@ -177,13 +177,10 @@ class DeviceData extends Mapper
 
     /**
      * Set LightBulb attributes.
-     *
-     * @param RollerBlind $model
-     * @param \stdClass   $device
      */
     protected function _setLightRollerBlindAttributes(
         RollerBlind $model,
-        \stdClass $device
+        stdClass $device
     ): void {
         $model->setDarkenedState(
             (int) $device

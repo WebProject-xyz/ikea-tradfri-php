@@ -171,7 +171,7 @@ class Keys
     public const ATTR_USE_CURRENT_LIGHT_SETTINGS = '9070';
 
     public const ATTR_FYRTUR_CONTROL = '15015';
-    public const ATTR_FYRTUR_STATE = '5536';
+    public const ATTR_FYRTUR_STATE   = '5536';
 
     // URL to json-file containing links to all firmware updates
     public const URL_OTA_FW

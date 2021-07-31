@@ -296,21 +296,16 @@ class Coaps
 
     /**
      * Get Command to set roller blind position.
-     *
-     * @param int $deviceId
-     * @param int $value
-     *
-     * @return string
      */
     public function getRollerBlindDarkenedStateCommand(int $deviceId, int $value): string
     {
         return $this->getCoapsCommandPut(
-            Keys::ROOT_DEVICES.'/'.$deviceId,
+            Keys::ROOT_DEVICES . '/' . $deviceId,
             self::PAYLOAD_START
-            .Keys::ATTR_FYRTUR_CONTROL
-            .self::PAYLOAD_OPEN
-            .Keys::ATTR_FYRTUR_STATE.'": '.(float) $value
-            .' }] }\' '
+            . Keys::ATTR_FYRTUR_CONTROL
+            . self::PAYLOAD_OPEN
+            . Keys::ATTR_FYRTUR_STATE . '": ' . (float) $value
+            . ' }] }\' '
         );
     }
 

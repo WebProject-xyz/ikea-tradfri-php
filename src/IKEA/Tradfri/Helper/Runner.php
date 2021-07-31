@@ -28,10 +28,9 @@ class Runner
      * until the command exits or the timeout has expired.
      * Found at @see https://stackoverflow.com/a/20992213/3578430.
      *
-     * @param string $cmd                  command to execute
-     * @param int    $timeout              timeout in seconds
+     * @param string $cmd     command to execute
+     * @param int    $timeout timeout in seconds
      * @param bool   $asArray
-     * @param bool   $skipEmptyBufferError
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *

@@ -185,12 +185,9 @@ class Coap extends AdapterAbstract
     /**
      * @param $rollerBlindId
      * @param $level
-     *
-     * @return bool
      */
     public function setRollerBlindPosition($rollerBlindId, $level): bool
     {
-
         // run command
         $data = (new Runner())->execWithTimeout(
             $this->_commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
