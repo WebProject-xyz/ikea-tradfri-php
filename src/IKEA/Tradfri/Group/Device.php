@@ -65,7 +65,7 @@ class Device implements DeviceInterface
      *
      * @return Device
      */
-    public function setService(ServiceInterface $service) : self
+    public function setService(ServiceInterface $service): self
     {
         $this->_service = $service;
 
@@ -75,7 +75,7 @@ class Device implements DeviceInterface
     /**
      * Get LightIds.
      */
-    public function getDeviceIds() : array
+    public function getDeviceIds(): array
     {
         return $this->_deviceIds;
     }
@@ -85,7 +85,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setDeviceIds(array $ids) : self
+    public function setDeviceIds(array $ids): self
     {
         $this->_deviceIds = $ids;
 
@@ -95,7 +95,7 @@ class Device implements DeviceInterface
     /**
      * Get Devices.
      */
-    public function getDevices() : Devices
+    public function getDevices(): Devices
     {
         if (null === $this->_devices) {
             $this->_devices = new Devices();
@@ -109,7 +109,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setDevices(Devices $devices) : self
+    public function setDevices(Devices $devices): self
     {
         $this->_devices = $devices;
 
@@ -119,7 +119,7 @@ class Device implements DeviceInterface
     /**
      * Get Id.
      */
-    public function getId() : int
+    public function getId(): int
     {
         return $this->_id;
     }
@@ -131,7 +131,7 @@ class Device implements DeviceInterface
      *
      * @return Device
      */
-    public function setId($deviceId) : self
+    public function setId($deviceId): self
     {
         $this->_id = $deviceId;
 
@@ -141,7 +141,7 @@ class Device implements DeviceInterface
     /**
      * Get Name.
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->_name;
     }
@@ -151,7 +151,7 @@ class Device implements DeviceInterface
      *
      * @return Device
      */
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->_name = $name;
 
@@ -163,7 +163,7 @@ class Device implements DeviceInterface
      *
      * @return $this
      */
-    public function setState(bool $state) : self
+    public function setState(bool $state): self
     {
         $this->_state = $state;
 
@@ -173,7 +173,7 @@ class Device implements DeviceInterface
     /**
      * Get Brightness.
      */
-    public function getBrightness() : float
+    public function getBrightness(): float
     {
         return (float) $this->_brightness;
     }
@@ -181,7 +181,7 @@ class Device implements DeviceInterface
     /**
      * @return $this
      */
-    public function setBrightness(int $level) : self
+    public function setBrightness(int $level): self
     {
         $this->_brightness = $level;
 
@@ -191,7 +191,7 @@ class Device implements DeviceInterface
     /**
      * Get State.
      */
-    public function isOn() : bool
+    public function isOn(): bool
     {
         return $this->_state;
     }

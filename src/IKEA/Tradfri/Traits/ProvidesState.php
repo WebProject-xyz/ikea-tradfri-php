@@ -29,7 +29,7 @@ trait ProvidesState
     /**
      * Get state as string.
      */
-    public function getReadableState() : string
+    public function getReadableState(): string
     {
         return $this->isOn() ? 'On' : 'Off';
     }
@@ -37,7 +37,7 @@ trait ProvidesState
     /**
      * Is on.
      */
-    public function isOn() : bool
+    public function isOn(): bool
     {
         return true === $this->_state;
     }
@@ -45,7 +45,7 @@ trait ProvidesState
     /**
      * Is off.
      */
-    public function isOff() : bool
+    public function isOff(): bool
     {
         return false === $this->_state;
     }

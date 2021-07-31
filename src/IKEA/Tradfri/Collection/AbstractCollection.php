@@ -20,7 +20,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
      *
      * @return $this
      */
-    public function addDevice(Device $newItem) : self
+    public function addDevice(Device $newItem): self
     {
         $this->set($newItem->getId(), $newItem);
 
@@ -33,7 +33,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function find(Closure $closure) : ?Device
+    public function find(Closure $closure): ?Device
     {
         foreach ($this->toArray() as $item) {
             if (true === $closure($item)) {

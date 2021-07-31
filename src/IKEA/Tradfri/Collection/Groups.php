@@ -15,7 +15,7 @@ class Groups extends AbstractCollection
     /**
      * Get first light.
      */
-    public function first() : Light
+    public function first(): Light
     {
         return parent::first();
     }
@@ -25,7 +25,7 @@ class Groups extends AbstractCollection
      *
      * @return $this
      */
-    public function addGroup(Device $group) : self
+    public function addGroup(Device $group): self
     {
         $this->set($group->getId(), $group);
 

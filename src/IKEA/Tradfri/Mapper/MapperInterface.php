@@ -24,5 +24,5 @@ interface MapperInterface
     public function map(
         ServiceInterface $service,
         array $dataItems
-    ) : AbstractCollection;
+    ): AbstractCollection;
 }

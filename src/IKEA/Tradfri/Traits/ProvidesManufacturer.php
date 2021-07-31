@@ -17,7 +17,7 @@ trait ProvidesManufacturer
     /**
      * Get Manufacturer.
      */
-    public function getManufacturer() : string
+    public function getManufacturer(): string
     {
         return $this->_manufacturer;
     }

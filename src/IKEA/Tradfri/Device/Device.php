@@ -41,12 +41,12 @@ abstract class Device implements JsonSerializable, DeviceInterface
      *
      * @deprecated
      */
-    public function isLightBulb() : bool
+    public function isLightBulb(): bool
     {
         return (new Type())->isLightBulb($this->getType());
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         $data = [];
 

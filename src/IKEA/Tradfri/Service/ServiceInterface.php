@@ -18,19 +18,19 @@ interface ServiceInterface
     /**
      * Get Collection of lights.
      */
-    public function getLights() : LightBulbs;
+    public function getLights(): LightBulbs;
 
     /**
      * Get devices from client.
      */
-    public function getDevices() : Devices;
+    public function getDevices(): Devices;
 
     /**
      * Switch all lights off.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function allLightsOff(LightBulbs $lightBulbsCollection) : bool;
+    public function allLightsOff(LightBulbs $lightBulbsCollection): bool;
 
     /**
      * Switch state of.
@@ -39,7 +39,7 @@ interface ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function on(DeviceInterface $device) : bool;
+    public function on(DeviceInterface $device): bool;
 
     /**
      * Switch state of.
@@ -48,7 +48,7 @@ interface ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function off(DeviceInterface $device) : bool;
+    public function off(DeviceInterface $device): bool;
 
     /**
      * Dom device.
@@ -57,5 +57,5 @@ interface ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function dim(DeviceInterface $device, int $level) : bool;
+    public function dim(DeviceInterface $device, int $level): bool;
 }

@@ -15,7 +15,7 @@ class LightBulbs extends Devices
     /**
      * Get first light.
      */
-    public function first() : ?LightBulb
+    public function first(): ?LightBulb
     {
         return parent::first();
     }
@@ -25,7 +25,7 @@ class LightBulbs extends Devices
      *
      * @return $this
      */
-    public function sortByState() : self
+    public function sortByState(): self
     {
         $items = $this->toArray();
 
@@ -47,7 +47,7 @@ class LightBulbs extends Devices
      *
      * @return static
      */
-    public function getActive() : self
+    public function getActive(): self
     {
         $newItems = [];
         foreach ($this->toArray() as $key => $light) {
@@ -73,7 +73,7 @@ class LightBulbs extends Devices
     /**
      * Get an array with names as keys.
      */
-    protected function namesAsKeys() : array
+    protected function namesAsKeys(): array
     {
         $elements = [];
         $this->forAll(

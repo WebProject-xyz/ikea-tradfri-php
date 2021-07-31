@@ -42,14 +42,14 @@ abstract class AdapterAbstract implements AdapterInterface
      */
     abstract public function getDeviceCollection(
         ServiceInterface $service
-    ) : Devices;
+    ): Devices;
 
     /**
      * Get a collection of Groups.
      */
     abstract public function getGroupCollection(
         ServiceInterface $service
-    ) : Groups;
+    ): Groups;
 
     /**
      * Get DeviceDataMapper.

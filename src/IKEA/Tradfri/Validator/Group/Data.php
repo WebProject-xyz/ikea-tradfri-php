@@ -30,7 +30,7 @@ class Data implements ValidatorInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function isValid($data) : bool
+    public function isValid($data): bool
     {
         try {
             $this->_validateDeviceMustHaves($data);
@@ -38,7 +38,7 @@ class Data implements ValidatorInterface
             $isValid = true;
 
             $groupData = $data->{Keys::ATTR_GROUP_INFO};
-            if (! \property_exists(
+            if (!\property_exists(
                 $groupData,
                 Keys::ATTR_GROUP_LIGHTS
             )) {
@@ -46,7 +46,7 @@ class Data implements ValidatorInterface
             }
             $lightData = $groupData->{Keys::ATTR_GROUP_LIGHTS};
 
-            if (! isset($lightData->{Keys::ATTR_ID})) {
+            if (!isset($lightData->{Keys::ATTR_ID})) {
                 throw new RuntimeException('attribute group data is not an array ('.Keys::ATTR_GROUP_INFO.'->'.Keys::ATTR_GROUP_LIGHTS.'->'.Keys::ATTR_ID.')');
             }
         } catch (\Throwable $exception) {
@@ -63,13 +63,13 @@ class Data implements ValidatorInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _validateDeviceMustHaves($device) : bool
+    protected function _validateDeviceMustHaves($device): bool
     {
         if (false === \is_object($device)) {
             throw new TypeException('device is no object');
         }
         foreach (self::$_mustHaves as $mustHave) {
-            if (! \property_exists($device, $mustHave)) {
+            if (!\property_exists($device, $mustHave)) {
                 throw new RuntimeException('attribute missing ('.$mustHave.')');
             }
         }

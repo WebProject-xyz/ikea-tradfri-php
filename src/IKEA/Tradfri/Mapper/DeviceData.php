@@ -32,7 +32,7 @@ class DeviceData extends Mapper
     public function map(
         ServiceInterface $service,
         array $devices
-    ) : AbstractCollection {
+    ): AbstractCollection {
         if (\count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
@@ -67,7 +67,7 @@ class DeviceData extends Mapper
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _isValidData($device) : bool
+    protected function _isValidData($device): bool
     {
         $validator = new \IKEA\Tradfri\Validator\Device\Data();
 
@@ -117,7 +117,7 @@ class DeviceData extends Mapper
     /**
      * Get Device id.
      */
-    protected function _getDeviceId(\stdClass $device) : int
+    protected function _getDeviceId(\stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
@@ -128,7 +128,7 @@ class DeviceData extends Mapper
     protected function _setLightBlubAttributes(
         LightBulb $model,
         \stdClass $device
-    ) : void {
+    ): void {
         $model->setBrightness(
             $device
                 ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
@@ -153,7 +153,7 @@ class DeviceData extends Mapper
      *
      * @param \stdClass$device
      */
-    protected function _setDeviceAttributes(Device $model, \stdClass $device) : void
+    protected function _setDeviceAttributes(Device $model, \stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
 
@@ -175,7 +175,7 @@ class DeviceData extends Mapper
      *
      * @return mixed
      */
-    protected function _getDeviceTypeAttribute(\stdClass $device) : string
+    protected function _getDeviceTypeAttribute(\stdClass $device): string
     {
         return $device
             ->{AttributeKeys::ATTR_DEVICE_INFO}

@@ -14,7 +14,7 @@ class Post extends AbstractCommand
     /**
      * Build command from coap command.
      */
-    protected function _buildCommand() : string
+    protected function _buildCommand(): string
     {
         // @TODO: Implement _buildCommand() method.
     }

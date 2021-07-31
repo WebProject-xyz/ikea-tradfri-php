@@ -24,17 +24,17 @@ class Api implements ServiceInterface
         $this->client = $client;
     }
 
-    public function getLights() : LightBulbs
+    public function getLights(): LightBulbs
     {
         return $this->getDevices()->getLightBulbs();
     }
 
-    public function getDevices() : Devices
+    public function getDevices(): Devices
     {
         return $this->client->getDevices($this);
     }
 
-    public function getGroups() : Groups
+    public function getGroups(): Groups
     {
         return $this->client->getGroups($this);
     }
@@ -42,7 +42,7 @@ class Api implements ServiceInterface
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function allLightsOff(LightBulbs $lightBulbsCollection) : bool
+    public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
         $service = $this;
         $lightBulbsCollection->forAll(
@@ -67,7 +67,7 @@ class Api implements ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function off($device) : bool
+    public function off($device): bool
     {
         // @todo interface for "switch" on
         if ($device instanceof Light) {
@@ -88,7 +88,7 @@ class Api implements ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function on($device) : bool
+    public function on($device): bool
     {
         if ($device instanceof Light) {
             return $this->client->groupOn($device);
@@ -106,7 +106,7 @@ class Api implements ServiceInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function dim(\IKEA\Tradfri\Device\DeviceInterface $device, int $level) : bool
+    public function dim(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
     {
         if ($device instanceof Light) {
             return $this->client->dimGroup($device, $level);

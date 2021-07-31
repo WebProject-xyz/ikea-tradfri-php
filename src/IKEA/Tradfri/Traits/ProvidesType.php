@@ -19,7 +19,7 @@ trait ProvidesType
     /**
      * Get Type.
      */
-    public function getType() : string
+    public function getType(): string
     {
         return $this->_type;
     }
@@ -41,7 +41,7 @@ trait ProvidesType
      *
      * @throws \IKEA\Tradfri\Exception\TypeException
      */
-    public function isValidType(string $type) : bool
+    public function isValidType(string $type): bool
     {
         return (new Type())->isKnownDeviceType($type);
     }

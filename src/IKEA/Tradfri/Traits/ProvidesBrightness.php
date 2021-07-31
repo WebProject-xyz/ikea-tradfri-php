@@ -17,7 +17,7 @@ trait ProvidesBrightness
     /**
      * Get Brightness.
      */
-    public function getBrightness() : float
+    public function getBrightness(): float
     {
         return (float) $this->_brightness;
     }
@@ -27,7 +27,7 @@ trait ProvidesBrightness
      *
      * @return static
      */
-    public function setBrightness(int $brightness) : self
+    public function setBrightness(int $brightness): self
     {
         if ($brightness < 0) {
             $brightness = 1;

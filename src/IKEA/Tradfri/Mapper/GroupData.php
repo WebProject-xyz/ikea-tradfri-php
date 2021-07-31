@@ -29,7 +29,7 @@ class GroupData extends Mapper
     public function map(
         ServiceInterface $service,
         array $groupDataItems
-    ) : AbstractCollection {
+    ): AbstractCollection {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
             if (false === $this->_isValidData($device)) {
@@ -63,7 +63,7 @@ class GroupData extends Mapper
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _isValidData($device) : bool
+    protected function _isValidData($device): bool
     {
         $validator = new GroupDataValidator();
 

@@ -14,7 +14,7 @@ class ChangeState extends Put
     /**
      * Build command from coap command.
      */
-    protected function _buildCommand() : string
+    protected function _buildCommand(): string
     {
         // todo rethink this
 

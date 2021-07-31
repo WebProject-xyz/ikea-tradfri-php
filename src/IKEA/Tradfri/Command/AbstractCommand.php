@@ -27,9 +27,9 @@ abstract class AbstractCommand implements CommandInterface
     /**
      * Build command from coap command.
      */
-    abstract protected function _buildCommand() : string;
+    abstract protected function _buildCommand(): string;
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->_buildCommand();
     }

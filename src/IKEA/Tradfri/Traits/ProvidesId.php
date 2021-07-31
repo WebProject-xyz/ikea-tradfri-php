@@ -17,7 +17,7 @@ trait ProvidesId
     /**
      * Get Id.
      */
-    public function getId() : int
+    public function getId(): int
     {
         return $this->_id;
     }

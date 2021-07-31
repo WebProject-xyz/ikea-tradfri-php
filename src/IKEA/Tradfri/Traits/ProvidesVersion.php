@@ -17,7 +17,7 @@ trait ProvidesVersion
     /**
      * Get Version.
      */
-    public function getVersion() : string
+    public function getVersion(): string
     {
         return $this->_version;
     }

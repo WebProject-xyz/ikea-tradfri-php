@@ -69,7 +69,7 @@ class Coaps
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function getSharedKeyFromGateway() : string
+    public function getSharedKeyFromGateway(): string
     {
         // get command to switch light
         $onCommand = $this->getPreSharedKeyCommand();
@@ -90,7 +90,7 @@ class Coaps
     /**
      * Get Command to get an api key from gateway.
      */
-    public function getPreSharedKeyCommand() : string
+    public function getPreSharedKeyCommand(): string
     {
         return \sprintf(
             Post::COAP_COMMAND,
@@ -106,7 +106,7 @@ class Coaps
     /**
      * Get Username.
      */
-    public function getUsername() : string
+    public function getUsername(): string
     {
         return $this->_username;
     }
@@ -116,7 +116,7 @@ class Coaps
      *
      * @return $this
      */
-    public function setUsername(string $username) : self
+    public function setUsername(string $username): self
     {
         $this->_username = $username;
 
@@ -126,7 +126,7 @@ class Coaps
     /**
      * Get Ip.
      */
-    public function getIp() : string
+    public function getIp(): string
     {
         return $this->_ip;
     }
@@ -140,7 +140,7 @@ class Coaps
      *
      * @return $this
      */
-    public function setIp(string $gatewayAddress) : self
+    public function setIp(string $gatewayAddress): self
     {
         if (\filter_var($gatewayAddress, \FILTER_VALIDATE_IP)) {
             $this->_ip = $gatewayAddress;
@@ -160,7 +160,7 @@ class Coaps
     {
         $parsed = false;
         foreach ($result as $part) {
-            if (! empty($part)
+            if (!empty($part)
                 && false === \strpos($part, 'decrypt')
                 && false === \strpos($part, 'v:1')) {
                 $parsed = (string) $part;
@@ -177,7 +177,7 @@ class Coaps
      *
      * @param int|string $requestType
      */
-    public function getCoapsCommandGet($requestType) : string
+    public function getCoapsCommandGet($requestType): string
     {
         return \sprintf(
             Get::COAP_COMMAND,
@@ -189,7 +189,7 @@ class Coaps
     /**
      * Get ApiKey.
      */
-    public function getApiKey() : string
+    public function getApiKey(): string
     {
         return $this->_apiKey;
     }
@@ -199,7 +199,7 @@ class Coaps
      *
      * @return Coaps
      */
-    public function setApiKey(string $apiKey) : self
+    public function setApiKey(string $apiKey): self
     {
         $this->_apiKey = $apiKey;
 
@@ -211,7 +211,7 @@ class Coaps
      *
      * @param int|string $requestType
      */
-    public function getCoapsCommandPost($requestType, string $inject) : string
+    public function getCoapsCommandPost($requestType, string $inject): string
     {
         return \sprintf(
             Post::COAP_COMMAND,
@@ -224,7 +224,7 @@ class Coaps
     /**
      * Get Command to switch light on or off.
      */
-    public function getLightSwitchCommand(int $deviceId, bool $state) : string
+    public function getLightSwitchCommand(int $deviceId, bool $state): string
     {
         return $this->getCoapsCommandPut(
             Keys::ROOT_DEVICES.'/'.$deviceId,
@@ -241,7 +241,7 @@ class Coaps
      *
      * @param int|string $requestType
      */
-    public function getCoapsCommandPut($requestType, string $inject) : string
+    public function getCoapsCommandPut($requestType, string $inject): string
     {
         return \sprintf(
             Put::COAP_COMMAND,
@@ -255,7 +255,7 @@ class Coaps
     /**
      * Get command to switch group on / off.
      */
-    public function getGroupSwitchCommand(int $groupId, bool $state) : string
+    public function getGroupSwitchCommand(int $groupId, bool $state): string
     {
         return $this->getCoapsCommandPut(
             Keys::ROOT_GROUPS.'/'.$groupId,
@@ -267,7 +267,7 @@ class Coaps
     /**
      * Get Command to dim group.
      */
-    public function getGroupDimmerCommand(int $groupId, int $value) : string
+    public function getGroupDimmerCommand(int $groupId, int $value): string
     {
         return $this->getCoapsCommandPut(
             Keys::ROOT_GROUPS.'/'.$groupId,
@@ -280,7 +280,7 @@ class Coaps
     /**
      * Get Command to dim light.
      */
-    public function getLightDimmerCommand(int $groupId, int $value) : string
+    public function getLightDimmerCommand(int $groupId, int $value): string
     {
         return $this->getCoapsCommandPut(
             Keys::ROOT_DEVICES.'/'.$groupId,
@@ -299,7 +299,7 @@ class Coaps
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function getLightColorCommand(int $groupId, string $color) : string
+    public function getLightColorCommand(int $groupId, string $color): string
     {
         $payload = self::PAYLOAD_START
             .Keys::ATTR_LIGHT_CONTROL
@@ -336,7 +336,7 @@ class Coaps
      *
      * @param $requestType
      */
-    protected function _getRequestTypeCoapsUrl($requestType) : string
+    protected function _getRequestTypeCoapsUrl($requestType): string
     {
         return ' "coaps://'.$this->getIp().':5684/'.$requestType.'"';
     }

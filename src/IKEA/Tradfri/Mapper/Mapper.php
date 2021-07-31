@@ -16,5 +16,5 @@ abstract class Mapper implements MapperInterface
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    abstract protected function _isValidData($device) : bool;
+    abstract protected function _isValidData($device): bool;
 }

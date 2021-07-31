@@ -56,7 +56,7 @@ class Receiver
     /**
      * Get command.
      */
-    final public function getCommand() : string
+    final public function getCommand(): string
     {
         return $this->_getUri()
             .$this->_getInjectCommand()
@@ -68,7 +68,7 @@ class Receiver
     /**
      * Get command uri.
      */
-    protected function _getUri() : string
+    protected function _getUri(): string
     {
         return \sprintf(
             self::COAP_COMMAND,
@@ -80,7 +80,7 @@ class Receiver
     /**
      * Get Username.
      */
-    protected function _getUsername() : string
+    protected function _getUsername(): string
     {
         return $this->_username;
     }
@@ -88,7 +88,7 @@ class Receiver
     /**
      * Get ApiKey.
      */
-    protected function _getApiKey() : string
+    protected function _getApiKey(): string
     {
         return $this->_apiKey;
     }
@@ -96,7 +96,7 @@ class Receiver
     /**
      * Get InjectCommand.
      */
-    protected function _getInjectCommand() : string
+    protected function _getInjectCommand(): string
     {
         return $this->_injectCommand;
     }
@@ -104,7 +104,7 @@ class Receiver
     /**
      * Get coap client uri.
      */
-    protected function _getClientUri() : string
+    protected function _getClientUri(): string
     {
         return 'coaps://'.$this->_getIpAddress().':5684/'
             .$this->_getRequestType();
@@ -113,7 +113,7 @@ class Receiver
     /**
      * Get IpAddress.
      */
-    protected function _getIpAddress() : string
+    protected function _getIpAddress(): string
     {
         return $this->_ipAddress;
     }
@@ -121,7 +121,7 @@ class Receiver
     /**
      * Get Request type.
      */
-    protected function _getRequestType() : string
+    protected function _getRequestType(): string
     {
         return $this->_requestType;
     }
@@ -129,14 +129,14 @@ class Receiver
     /**
      * Set RequestType.
      */
-    public function setRequestType(string $requestType) : self
+    public function setRequestType(string $requestType): self
     {
         $this->_requestType = $requestType;
 
         return $this;
     }
 
-    public function sendRequest() : string
+    public function sendRequest(): string
     {
         // send command to gateway
         return \implode("\n", $this->_output);

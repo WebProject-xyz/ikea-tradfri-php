@@ -17,7 +17,7 @@ trait ProvidesName
     /**
      * Get Name.
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->_name;
     }
