@@ -6,19 +6,19 @@ namespace IKEA\Tradfri\Traits;
 
 trait ProvidesVersion
 {
-    protected string $_version;
+    protected string $version;
 
     /**
      * Get Version.
      */
     public function getVersion(): string
     {
-        return $this->_version;
+        return $this->version;
     }
 
     public function setVersion(string $name): self
     {
-        $this->_version = $name;
+        $this->version = $name;
 
         return $this;
     }

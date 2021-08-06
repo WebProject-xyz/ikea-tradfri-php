@@ -8,16 +8,16 @@ use IKEA\Tradfri\Device\Helper\Type;
 
 trait ProvidesType
 {
-    protected string $_type;
+    protected string $type;
 
     public function getType(): string
     {
-        return $this->_type;
+        return $this->type;
     }
 
     public function setType(string $type): self
     {
-        $this->_type = $type;
+        $this->type = $type;
 
         return $this;
     }

@@ -6,16 +6,16 @@ namespace IKEA\Tradfri\Traits;
 
 trait ProvidesManufacturer
 {
-    protected string $_manufacturer;
+    protected string $manufacturer;
 
     public function getManufacturer(): string
     {
-        return $this->_manufacturer;
+        return $this->manufacturer;
     }
 
     public function setManufacturer(string $manufacturer): self
     {
-        $this->_manufacturer = $manufacturer;
+        $this->manufacturer = $manufacturer;
 
         return $this;
     }

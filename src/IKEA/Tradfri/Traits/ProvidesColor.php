@@ -6,16 +6,16 @@ namespace IKEA\Tradfri\Traits;
 
 trait ProvidesColor
 {
-    protected string $_color = '';
+    protected string $color = '';
 
     public function getColor(): string
     {
-        return strtoupper($this->_color);
+        return strtoupper($this->color);
     }
 
     public function setColor(string $color): self
     {
-        $this->_color = $color;
+        $this->color = $color;
 
         return $this;
     }

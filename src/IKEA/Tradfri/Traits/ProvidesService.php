@@ -9,7 +9,7 @@ use RuntimeException;
 
 trait ProvidesService
 {
-    protected ?ServiceInterface $_service = null;
+    protected ?ServiceInterface $service = null;
 
     public function getService(): ServiceInterface
     {
@@ -17,18 +17,18 @@ trait ProvidesService
             throw new RuntimeException('Service missing');
         }
 
-        return $this->_service;
+        return $this->service;
     }
 
     public function setService(ServiceInterface $service): self
     {
-        $this->_service = $service;
+        $this->service = $service;
 
         return $this;
     }
 
     public function hasService(): bool
     {
-        return null !== $this->_service;
+        return null !== $this->service;
     }
 }

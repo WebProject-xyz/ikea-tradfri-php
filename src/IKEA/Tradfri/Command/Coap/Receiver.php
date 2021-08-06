@@ -24,7 +24,7 @@ class Receiver
     /**
      * @var string[]
      */
-    protected array $_output = [];
+    protected array $output = [];
 
     public function __construct(
         string $gatewayAddress,
@@ -122,6 +122,6 @@ class Receiver
     public function sendRequest(): string
     {
         // send command to gateway
-        return implode("\n", $this->_output);
+        return implode("\n", $this->output);
     }
 }

@@ -6,11 +6,11 @@ namespace IKEA\Tradfri\Traits;
 
 trait ProvidesState
 {
-    protected bool $_state = false;
+    protected bool $state = false;
 
     public function setState(bool $state): self
     {
-        $this->_state = $state;
+        $this->state = $state;
 
         return $this;
     }
@@ -22,11 +22,11 @@ trait ProvidesState
 
     public function isOn(): bool
     {
-        return true === $this->_state;
+        return true === $this->state;
     }
 
     public function isOff(): bool
     {
-        return false === $this->_state;
+        return false === $this->state;
     }
 }
