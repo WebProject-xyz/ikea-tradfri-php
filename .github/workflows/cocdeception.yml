@@ -10,10 +10,11 @@ jobs:
         strategy:
             matrix:
                 include:
-                    - { php-version: 7.4, dependencies: highest, experimental: true }
-                    - { php-version: 8.0, dependencies: highest, experimental: true }
-                    - { php-version: 8.0, dependencies: highest, experimental: false }
-                    - { php-version: 8.0, dependencies: lowest, experimental: false }
+                    - { php-version: 7.4, dependencies: locked, coverage: none, with_coverage: "" }
+                    - { php-version: 7.4, dependencies: highest, coverage: none, with_coverage: "" }
+
+                    - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: "" }
+                    - { php-version: 8.0, dependencies: locked, coverage: pcov, with_coverage: "yes" }
 
         steps:
             - name: "Checkout code"
@@ -22,7 +23,7 @@ jobs:
             - name: "Install PHP"
               uses: "shivammathur/setup-php@v2"
               with:
-                  coverage: "none"
+                  coverage: "${{ matrix.coverage }}"
                   ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
                   php-version: "${{ matrix.php-version }}"
 
@@ -30,6 +31,13 @@ jobs:
               uses: "ramsey/composer-install@v1"
               with:
                   dependency-versions: "${{ matrix.dependencies }}"
-
+                  
             - name: "Run Codeception"
-              run: "vendor/bin/codecept run -c . -vvv --json"
+              env:
+                  WITH_COVERAEG: "${{ matrix.with_coverage }}"
+              run: |
+                  if [ ! -z "$WITH_COVERAEG" ]; then
+                      vendor/bin/codecept run -c . -vvv --json
+                  else:
+                      vendor/bin/codecept run -c . -vvv --json --coverage --coverage-xml
+                  fi
