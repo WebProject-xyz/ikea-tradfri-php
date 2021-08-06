@@ -20,18 +20,12 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
-use IKEA\Tradfri\Validator\Device\Data;
 use stdClass;
 use function count;
 
-/**
- * Class DeviceData.
- */
 class DeviceData extends Mapper
 {
     /**
-     * Map data to LightBulbs.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return Devices
@@ -72,8 +66,6 @@ class DeviceData extends Mapper
     }
 
     /**
-     * Validate device data from api.
-     *
      * @param stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -86,8 +78,6 @@ class DeviceData extends Mapper
     }
 
     /**
-     * Get model from device object.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return Device|LightBulb|MotionSensor|Remote
@@ -141,17 +131,11 @@ class DeviceData extends Mapper
         );
     }
 
-    /**
-     * Get Device id.
-     */
     protected function getDeviceId(stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
 
-    /**
-     * Set LightBulb attributes.
-     */
     protected function setLightBlubAttributes(
         LightBulb $model,
         stdClass $device
@@ -175,9 +159,6 @@ class DeviceData extends Mapper
         );
     }
 
-    /**
-     * Set LightBulb attributes.
-     */
     protected function _setLightRollerBlindAttributes(
         RollerBlind $model,
         stdClass $device
@@ -189,9 +170,6 @@ class DeviceData extends Mapper
         );
     }
 
-    /**
-     * Set Device attributes.
-     */
     protected function setDeviceAttributes(Device $model, stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
@@ -209,11 +187,6 @@ class DeviceData extends Mapper
         );
     }
 
-    /**
-     * Get Device Type Attribute.
-     *
-     * @return mixed
-     */
     protected function getDeviceTypeAttribute(stdClass $device): string
     {
         return $device

@@ -6,30 +6,16 @@ namespace IKEA\Tradfri\Traits;
 
 use IKEA\Tradfri\Device\Helper\Type;
 
-/**
- * Trait ProvidesType.
- */
 trait ProvidesType
 {
-    /**
-     * @var string
-     */
-    protected $_type;
+    protected string $_type;
 
-    /**
-     * Get Type.
-     */
     public function getType(): string
     {
         return $this->_type;
     }
 
-    /**
-     * Set Type.
-     *
-     * @return static
-     */
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->_type = $type;
 
@@ -37,8 +23,6 @@ trait ProvidesType
     }
 
     /**
-     * Validate Type.
-     *
      * @throws \IKEA\Tradfri\Exception\TypeException
      */
     public function isValidType(string $type): bool

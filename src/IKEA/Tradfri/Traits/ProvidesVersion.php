@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-/**
- * Trait ProvidesVersion.
- */
 trait ProvidesVersion
 {
-    /**
-     * @var string
-     */
-    protected $_version;
+    protected string $_version;
 
     /**
      * Get Version.
@@ -22,12 +16,7 @@ trait ProvidesVersion
         return $this->_version;
     }
 
-    /**
-     * Set Version.
-     *
-     * @return static
-     */
-    public function setVersion(string $name)
+    public function setVersion(string $name): self
     {
         $this->_version = $name;
 

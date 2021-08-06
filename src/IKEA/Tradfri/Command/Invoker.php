@@ -9,10 +9,7 @@ namespace IKEA\Tradfri\Command;
  */
 class Invoker
 {
-    /**
-     * @var CommandInterface
-     */
-    protected $_command;
+    protected CommandInterface $command;
 
     /**
      * in the invoker we find this kind of method for subscribing the command
@@ -20,14 +17,14 @@ class Invoker
      */
     public function setCommand(CommandInterface $cmd): void
     {
-        $this->_command = $cmd;
+        $this->command = $cmd;
     }
 
     /**
-     * executes the command; the invoker is the same whatever is the command.
+     * Executes the command; the invoker is the same whatever is the command.
      */
     public function run(): void
     {
-        $this->_command->execute();
+        $this->command->execute();
     }
 }

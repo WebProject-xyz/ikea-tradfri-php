@@ -13,9 +13,6 @@ use IKEA\Tradfri\Traits\ProvidesType;
 use IKEA\Tradfri\Traits\ProvidesVersion;
 use JsonSerializable;
 
-/**
- * Class Device.
- */
 abstract class Device implements JsonSerializable, DeviceInterface
 {
     use ProvidesId;
@@ -26,8 +23,6 @@ abstract class Device implements JsonSerializable, DeviceInterface
     use ProvidesVersion;
 
     /**
-     * LightBulb constructor.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function __construct(int $deviceId, string $type)
@@ -37,8 +32,6 @@ abstract class Device implements JsonSerializable, DeviceInterface
     }
 
     /**
-     * Is this a lightblub.
-     *
      * @deprecated
      */
     public function isLightBulb(): bool
@@ -51,7 +44,7 @@ abstract class Device implements JsonSerializable, DeviceInterface
         $data = [];
 
         foreach (get_class_methods(static::class) as $method) {
-            if ('getService' !== $method && 0 === strpos($method, 'get')) {
+            if ('getService' !== $method && 0 === strncmp($method, 'get', 3)) {
                 $key        = strtolower(substr($method, 3));
                 $data[$key] = $this->$method();
             }

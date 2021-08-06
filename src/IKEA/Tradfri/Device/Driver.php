@@ -6,7 +6,7 @@ namespace IKEA\Tradfri\Device;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 
-class MotionSensor extends Device
+class Driver extends Device
 {
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -15,7 +15,7 @@ class MotionSensor extends Device
     {
         parent::__construct(
             $deviceId,
-            Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR
+            Keys::ATTR_DEVICE_INFO_TYPE_DRIVER_30W
         );
     }
 }

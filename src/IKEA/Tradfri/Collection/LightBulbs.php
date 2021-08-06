@@ -9,23 +9,15 @@ use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
 
 /**
- * Class LightBulbs.
+ * @method self createFrom(array $elements)
  */
 class LightBulbs extends Devices
 {
-    /**
-     * Get first light.
-     */
     public function first(): ?LightBulb
     {
         return parent::first();
     }
 
-    /**
-     * Sort by blub state.
-     *
-     * @return $this
-     */
     public function sortByState(): self
     {
         $items = $this->toArray();
@@ -43,11 +35,6 @@ class LightBulbs extends Devices
         return $this->createFrom($items);
     }
 
-    /**
-     * Get active lights.
-     *
-     * @return static
-     */
     public function getActive(): self
     {
         $newItems = [];
@@ -61,19 +48,11 @@ class LightBulbs extends Devices
         return $this->createFrom($newItems);
     }
 
-    /**
-     * Sort items by name.
-     *
-     * @return static
-     */
-    public function sortByName()
+    public function sortByName(): self
     {
         return $this->createFrom($this->namesAsKeys());
     }
 
-    /**
-     * Get an array with names as keys.
-     */
     protected function namesAsKeys(): array
     {
         $elements = [];

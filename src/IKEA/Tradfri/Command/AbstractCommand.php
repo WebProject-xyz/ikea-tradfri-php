@@ -11,27 +11,21 @@ use IKEA\Tradfri\Command\Coap\Receiver;
  */
 abstract class AbstractCommand implements CommandInterface
 {
-    /**
-     * @var Receiver
-     */
-    protected $_receiver;
+    protected Receiver $receiver;
 
-    /**
-     * AbstractCommand constructor.
-     */
     public function __construct(Receiver $_receiver)
     {
-        $this->_receiver = $_receiver;
+        $this->receiver = $_receiver;
     }
 
     /**
      * Build command from coap command.
      */
-    abstract protected function _buildCommand(): string;
+    abstract protected function buildCommand(): string;
 
     public function __toString(): string
     {
-        return $this->_buildCommand();
+        return $this->buildCommand();
     }
 
     /**

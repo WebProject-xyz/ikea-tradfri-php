@@ -4,29 +4,15 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-/**
- * Trait ProvidesBrightness.
- */
 trait ProvidesBrightness
 {
-    /**
-     * @var float
-     */
-    protected $_brightness;
+    protected float $_brightness = 0;
 
-    /**
-     * Get Brightness.
-     */
     public function getBrightness(): float
     {
-        return (float) $this->_brightness;
+        return $this->_brightness;
     }
 
-    /**
-     * Set Brightness.
-     *
-     * @return static
-     */
     public function setBrightness(int $brightness): self
     {
         if ($brightness < 0) {

@@ -14,8 +14,8 @@ class Put extends AbstractCommand
     /**
      * Build command from coap command.
      */
-    protected function _buildCommand(): string
+    protected function buildCommand(): string
     {
-        // @TODO: Implement _buildCommand() method.
+        return self::COAP_COMMAND; // @TODO: Implement _buildCommand() method.
     }
 }

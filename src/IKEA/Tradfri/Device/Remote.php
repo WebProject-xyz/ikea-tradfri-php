@@ -6,19 +6,12 @@ namespace IKEA\Tradfri\Device;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 
-/**
- * Class Remote.
- */
 class Remote extends Device
 {
     /**
-     * Remote constructor.
-     *
-     * @param int $deviceId
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct($deviceId)
+    public function __construct(int $deviceId)
     {
         parent::__construct(
             $deviceId,

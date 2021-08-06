@@ -12,15 +12,10 @@ use stdClass;
 use Throwable;
 use function is_object;
 
-/**
- * Class Data.
- */
 class Data implements ValidatorInterface
 {
     /**
-     * Is valid.
-     *
-     * @param stdClass|null $device
+     * @param stdClass|mixed|null $device
      *
      * @throws RuntimeException
      */

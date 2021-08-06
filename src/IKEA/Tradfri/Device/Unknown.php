@@ -4,19 +4,12 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
-/**
- * Class Unknown.
- */
 class Unknown extends Device
 {
     /**
-     * Unknown device constructor.
-     *
-     * @param int $deviceId
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct($deviceId)
+    public function __construct(int $deviceId)
     {
         parent::__construct(
             $deviceId,
