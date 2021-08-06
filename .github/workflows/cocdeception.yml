@@ -36,13 +36,13 @@ jobs:
               env:
                   WITH_COVERAGE: "${{ matrix.with_coverage }}"
               run: |
-                  if [ ! -z "$WITH_COVERAGE" ]; then
+                  if [ -z "$WITH_COVERAGE" ]; then
                       vendor/bin/codecept run -c . -vvv --json
                   fi
             - name: "Run Codeception with coverage"
               env:
                   WITH_COVERAGE: "${{ matrix.with_coverage }}"
               run: |
-                  if [ -z "$WITH_COVERAGE" ]; then
+                  if [ ! -z "$WITH_COVERAGE" ]; then
                       vendor/bin/codecept run -c . -vvv --json --coverage --coverage-xml
                   fi
