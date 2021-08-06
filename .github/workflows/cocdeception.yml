@@ -1,0 +1,48 @@
+on: [push, pull_request]
+name: Cocdeception
+
+jobs:
+    codeception-tests:
+        name: "Codeception tests"
+        runs-on: "ubuntu-20.04"
+        continue-on-error: ${{ matrix.allow-fail }}
+        strategy:
+            matrix:
+                include:
+#                    - { php-version: 7.4, dependencies: locked, coverage: none, with_coverage: "", allow-fail: false }
+                    - { php-version: 7.4, dependencies: highest, coverage: none, with_coverage: "", allow-fail: true }
+                    - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: "", allow-fail: false }
+                    - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: "", allow-fail: true }
+                    - { php-version: 8.0, dependencies: locked, coverage: xdebug, with_coverage: "yes", allow-fail: false }
+#                    - { php-version: 8.1, dependencies: highest, coverage: none, with_coverage: "", allow-fail: true }
+
+        steps:
+            - name: "Checkout code"
+              uses: "actions/checkout@v2"
+
+            - name: "Install PHP"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "${{ matrix.coverage }}"
+                  ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
+                  php-version: "${{ matrix.php-version }}"
+
+            - name: "Install dependencies with Composer"
+              uses: "ramsey/composer-install@v1"
+              with:
+                  dependency-versions: "${{ matrix.dependencies }}"
+                  
+            - name: "Run Codeception"
+              env:
+                  WITH_COVERAGE: "${{ matrix.with_coverage }}"
+              run: |
+                  if [ -z "$WITH_COVERAGE" ]; then
+                      vendor/bin/codecept run -c . -vvv --json
+                  fi
+            - name: "Run Codeception with coverage"
+              env:
+                  WITH_COVERAGE: "${{ matrix.with_coverage }}"
+              run: |
+                  if [ ! -z "$WITH_COVERAGE" ]; then
+                      vendor/bin/codecept run -c . -vvv --json --coverage --coverage-xml
+                  fi
