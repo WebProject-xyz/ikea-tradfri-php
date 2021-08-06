@@ -73,7 +73,8 @@ crashlytics-build.properties
 fabric.properties
 
 
-/.php_cs.cache
+.php_cs.cache
+.php-cs-fixer.cache
 /tests/_data/example.php
 coverage/*
 !coverage/.gitkeep

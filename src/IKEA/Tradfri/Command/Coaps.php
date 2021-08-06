@@ -19,6 +19,7 @@ class Coaps
 {
     public const PAYLOAD_START = ' -e \'{ "';
     public const PAYLOAD_OPEN  = '": [{ "';
+    public const PAYLOAD_END   = ' }] }\' ';
 
     public const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
 
@@ -234,7 +235,7 @@ class Coaps
             . Keys::ATTR_LIGHT_CONTROL
             . self::PAYLOAD_OPEN
             . Keys::ATTR_LIGHT_STATE . '": ' . ($state ? '1' : '0')
-            . ' }] }\' '
+            . self::PAYLOAD_END
         );
     }
 
@@ -290,7 +291,22 @@ class Coaps
             . Keys::ATTR_LIGHT_CONTROL
             . self::PAYLOAD_OPEN
             . Keys::ATTR_LIGHT_DIMMER . '": ' . (int) round($value * 2.55)
-            . ' }] }\' '
+            . self::PAYLOAD_END
+        );
+    }
+
+    /**
+     * Get Command to set roller blind position.
+     */
+    public function getRollerBlindDarkenedStateCommand(int $deviceId, int $value): string
+    {
+        return $this->getCoapsCommandPut(
+            Keys::ROOT_DEVICES . '/' . $deviceId,
+            self::PAYLOAD_START
+            . Keys::ATTR_FYRTUR_CONTROL
+            . self::PAYLOAD_OPEN
+            . Keys::ATTR_FYRTUR_STATE . '": ' . (float) $value
+            . self::PAYLOAD_END
         );
     }
 

@@ -28,10 +28,9 @@ class Runner
      * until the command exits or the timeout has expired.
      * Found at @see https://stackoverflow.com/a/20992213/3578430.
      *
-     * @param string $cmd                  command to execute
-     * @param int    $timeout              timeout in seconds
+     * @param string $cmd     command to execute
+     * @param int    $timeout timeout in seconds
      * @param bool   $asArray
-     * @param bool   $skipEmptyBufferError
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -41,7 +40,7 @@ class Runner
         string $cmd,
         int $timeout,
         bool $asArray = null,
-        bool $skipEmptyBufferError = null
+        bool $skipEmptyBufferError = false
     ) {
         // Start the process.
         $process = proc_open('exec ' . $cmd, self::DESCRIPTORS, $pipes);
@@ -59,7 +58,7 @@ class Runner
         // Check if there were any errors.
         $errors = stream_get_contents($pipes[2]);
 
-        if (!empty($errors) && empty($buffer)) {
+        if (count(explode("\n", $errors)) > 2 && empty($buffer)) {
             $this->_parseErrors($skipEmptyBufferError, $errors);
         }
 

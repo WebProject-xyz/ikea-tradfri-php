@@ -183,6 +183,23 @@ class Coap extends AdapterAbstract
     }
 
     /**
+     * @param $rollerBlindId
+     * @param $level
+     */
+    public function setRollerBlindPosition($rollerBlindId, $level): bool
+    {
+        // run command
+        $data = (new Runner())->execWithTimeout(
+            $this->_commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+            2,
+            true
+        );
+
+        // @todo: fix validation
+        return true;
+    }
+
+    /**
      * Set Group Brightness.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException

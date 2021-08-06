@@ -9,13 +9,18 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
+use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\Repeater;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Validator\Device\Data;
 use stdClass;
 use function count;
 
@@ -38,19 +43,23 @@ class DeviceData extends Mapper
         if (count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
-                if (false === $this->_isValidData($device)) {
+                if (false === $this->isValidData($device)) {
                     continue;
                 }
 
-                $model = $this->_getModel(
+                $model = $this->getModel(
                     $device
                 );
                 $model->setService($service);
 
-                $this->_setDeviceAttributes($model, $device);
+                $this->setDeviceAttributes($model, $device);
 
                 if ($model instanceof LightBulb) {
-                    $this->_setLightBlubAttributes($model, $device);
+                    $this->setLightBlubAttributes($model, $device);
+                }
+
+                if ($model instanceof RollerBlind) {
+                    $this->_setLightRollerBlindAttributes($model, $device);
                 }
 
                 $collection->set($model->getId(), $model);
@@ -69,7 +78,7 @@ class DeviceData extends Mapper
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _isValidData($device): bool
+    protected function isValidData($device): bool
     {
         $validator = new \IKEA\Tradfri\Validator\Device\Data();
 
@@ -79,14 +88,14 @@ class DeviceData extends Mapper
     /**
      * Get model from device object.
      *
-     *@throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return Device|LightBulb|MotionSensor|Remote
      */
-    protected function _getModel(stdClass $device)
+    protected function getModel(stdClass $device)
     {
+        $typeAttribute    = $this->getDeviceTypeAttribute($device);
         $deviceTypeHelper = new Type();
-        $typeAttribute    = $this->_getDeviceTypeAttribute($device);
 
         switch (true) {
             case $deviceTypeHelper->isLightBulb($typeAttribute):
@@ -105,13 +114,29 @@ class DeviceData extends Mapper
                 $modelName = Dimmer::class;
 
                 break;
+            case $deviceTypeHelper->isFloalt($typeAttribute):
+                $modelName = Floalt::class;
+
+                break;
+            case $deviceTypeHelper->isOpenCloseRemote($typeAttribute):
+                $modelName = OpenCloseRemote::class;
+
+                break;
+            case $deviceTypeHelper->isRepeater($typeAttribute):
+                $modelName = Repeater::class;
+
+                break;
+            case $deviceTypeHelper->isRollerBlind($typeAttribute):
+                $modelName = RollerBlind::class;
+
+                break;
             case false === $deviceTypeHelper->isKnownDeviceType($typeAttribute):
             default:
                 $modelName = Unknown::class;
         }
 
         return new $modelName(
-            $this->_getDeviceId($device),
+            $this->getDeviceId($device),
             $typeAttribute
         );
     }
@@ -119,7 +144,7 @@ class DeviceData extends Mapper
     /**
      * Get Device id.
      */
-    protected function _getDeviceId(stdClass $device): int
+    protected function getDeviceId(stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
@@ -127,7 +152,7 @@ class DeviceData extends Mapper
     /**
      * Set LightBulb attributes.
      */
-    protected function _setLightBlubAttributes(
+    protected function setLightBlubAttributes(
         LightBulb $model,
         stdClass $device
     ): void {
@@ -145,17 +170,29 @@ class DeviceData extends Mapper
 
         $model->setState(
             (bool) $device
-                      ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
                 ->{AttributeKeys::ATTR_LIGHT_STATE}
         );
     }
 
     /**
-     * Set Device attributes.
-     *
-     * @param \stdClass$device
+     * Set LightBulb attributes.
      */
-    protected function _setDeviceAttributes(Device $model, stdClass $device): void
+    protected function _setLightRollerBlindAttributes(
+        RollerBlind $model,
+        stdClass $device
+    ): void {
+        $model->setDarkenedState(
+            (int) $device
+                ->{AttributeKeys::ATTR_FYRTUR_CONTROL}[0]
+                ->{AttributeKeys::ATTR_FYRTUR_STATE}
+        );
+    }
+
+    /**
+     * Set Device attributes.
+     */
+    protected function setDeviceAttributes(Device $model, stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
 
@@ -177,7 +214,7 @@ class DeviceData extends Mapper
      *
      * @return mixed
      */
-    protected function _getDeviceTypeAttribute(stdClass $device): string
+    protected function getDeviceTypeAttribute(stdClass $device): string
     {
         return $device
             ->{AttributeKeys::ATTR_DEVICE_INFO}
