@@ -43,19 +43,19 @@ class DeviceData extends Mapper
         if (count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
-                if (false === $this->_isValidData($device)) {
+                if (false === $this->isValidData($device)) {
                     continue;
                 }
 
-                $model = $this->_getModel(
+                $model = $this->getModel(
                     $device
                 );
                 $model->setService($service);
 
-                $this->_setDeviceAttributes($model, $device);
+                $this->setDeviceAttributes($model, $device);
 
                 if ($model instanceof LightBulb) {
-                    $this->_setLightBlubAttributes($model, $device);
+                    $this->setLightBlubAttributes($model, $device);
                 }
 
                 if ($model instanceof RollerBlind) {
@@ -78,7 +78,7 @@ class DeviceData extends Mapper
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _isValidData($device): bool
+    protected function isValidData($device): bool
     {
         $validator = new \IKEA\Tradfri\Validator\Device\Data();
 
@@ -88,14 +88,14 @@ class DeviceData extends Mapper
     /**
      * Get model from device object.
      *
-     *@throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return Device|LightBulb|MotionSensor|Remote
      */
-    protected function _getModel(stdClass $device)
+    protected function getModel(stdClass $device)
     {
+        $typeAttribute    = $this->getDeviceTypeAttribute($device);
         $deviceTypeHelper = new Type();
-        $typeAttribute    = $this->_getDeviceTypeAttribute($device);
 
         switch (true) {
             case $deviceTypeHelper->isLightBulb($typeAttribute):
@@ -136,7 +136,7 @@ class DeviceData extends Mapper
         }
 
         return new $modelName(
-            $this->_getDeviceId($device),
+            $this->getDeviceId($device),
             $typeAttribute
         );
     }
@@ -144,7 +144,7 @@ class DeviceData extends Mapper
     /**
      * Get Device id.
      */
-    protected function _getDeviceId(stdClass $device): int
+    protected function getDeviceId(stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
@@ -152,7 +152,7 @@ class DeviceData extends Mapper
     /**
      * Set LightBulb attributes.
      */
-    protected function _setLightBlubAttributes(
+    protected function setLightBlubAttributes(
         LightBulb $model,
         stdClass $device
     ): void {
@@ -170,7 +170,7 @@ class DeviceData extends Mapper
 
         $model->setState(
             (bool) $device
-                      ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
                 ->{AttributeKeys::ATTR_LIGHT_STATE}
         );
     }
@@ -191,10 +191,8 @@ class DeviceData extends Mapper
 
     /**
      * Set Device attributes.
-     *
-     * @param \stdClass$device
      */
-    protected function _setDeviceAttributes(Device $model, stdClass $device): void
+    protected function setDeviceAttributes(Device $model, stdClass $device): void
     {
         $model->setName($device->{AttributeKeys::ATTR_NAME});
 
@@ -216,7 +214,7 @@ class DeviceData extends Mapper
      *
      * @return mixed
      */
-    protected function _getDeviceTypeAttribute(stdClass $device): string
+    protected function getDeviceTypeAttribute(stdClass $device): string
     {
         return $device
             ->{AttributeKeys::ATTR_DEVICE_INFO}

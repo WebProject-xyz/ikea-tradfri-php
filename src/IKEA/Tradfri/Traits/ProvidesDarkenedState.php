@@ -9,7 +9,7 @@ namespace IKEA\Tradfri\Traits;
  */
 trait ProvidesDarkenedState
 {
-    protected int $_darkenedState = 0;
+    protected int $darkenedState = 0;
 
     /**
      * Set State.
@@ -18,7 +18,7 @@ trait ProvidesDarkenedState
      */
     public function setDarkenedState(int $state): self
     {
-        $this->_darkenedState = $state;
+        $this->darkenedState = $state;
 
         return $this;
     }
@@ -28,7 +28,7 @@ trait ProvidesDarkenedState
      */
     public function getDarkenedState(): int
     {
-        return $this->_darkenedState;
+        return $this->darkenedState;
     }
 
     /**
@@ -36,7 +36,7 @@ trait ProvidesDarkenedState
      */
     public function isFullyOpened(): bool
     {
-        return 0 === $this->_darkenedState;
+        return 0 === $this->darkenedState;
     }
 
     /**
@@ -44,6 +44,6 @@ trait ProvidesDarkenedState
      */
     public function isFullyClosed(): bool
     {
-        return 100 === $this->_darkenedState;
+        return 100 === $this->darkenedState;
     }
 }

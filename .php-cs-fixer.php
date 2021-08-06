@@ -58,7 +58,7 @@ $rules = [
 $config = new \PhpCsFixer\Config('default');
 $config->setRules($rules);
 $config->setRiskyAllowed(true);
-$config->setUsingCache(false);
+$config->setUsingCache(true);
 $config->setLineEnding("\n");
 $config->setFinder($finder);
 

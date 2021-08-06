@@ -33,7 +33,7 @@ class GroupData extends Mapper
     ): AbstractCollection {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
-            if (false === $this->_isValidData($device)) {
+            if (false === $this->isValidData($device)) {
                 continue;
             }
 
@@ -64,7 +64,7 @@ class GroupData extends Mapper
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function _isValidData($device): bool
+    protected function isValidData($device): bool
     {
         $validator = new GroupDataValidator();
 

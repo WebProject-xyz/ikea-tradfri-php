@@ -194,12 +194,8 @@ class Coap extends AdapterAbstract
             2,
             true
         );
-        //@todo: verify result, seems to work for now.
-//        if ($this->_verifyResult($data)) {
-//            return true;
-//        }
-//
-//        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+
+        // @todo: fix validation
         return true;
     }
 
