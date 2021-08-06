@@ -16,8 +16,6 @@ trait ProvidesName
 
     /**
      * Get Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -26,8 +24,6 @@ trait ProvidesName
 
     /**
      * Set Name.
-     *
-     * @param string $name
      *
      * @return static
      */

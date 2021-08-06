@@ -17,8 +17,6 @@ trait ProvidesState
     /**
      * Set State.
      *
-     * @param bool $state
-     *
      * @return static
      */
     public function setState(bool $state)
@@ -30,8 +28,6 @@ trait ProvidesState
 
     /**
      * Get state as string.
-     *
-     * @return string
      */
     public function getReadableState(): string
     {
@@ -40,8 +36,6 @@ trait ProvidesState
 
     /**
      * Is on.
-     *
-     * @return bool
      */
     public function isOn(): bool
     {
@@ -50,8 +44,6 @@ trait ProvidesState
 
     /**
      * Is off.
-     *
-     * @return bool
      */
     public function isOff(): bool
     {

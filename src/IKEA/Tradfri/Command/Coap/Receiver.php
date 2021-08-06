@@ -42,10 +42,6 @@ class Receiver
 
     /**
      * Put constructor.
-     *
-     * @param string $gatewayAddress
-     * @param string $username
-     * @param string $apiKey
      */
     public function __construct(
         string $gatewayAddress,
@@ -53,32 +49,28 @@ class Receiver
         string $apiKey
     ) {
         $this->_ipAddress = $gatewayAddress;
-        $this->_username = $username;
-        $this->_apiKey = $apiKey;
+        $this->_username  = $username;
+        $this->_apiKey    = $apiKey;
     }
 
     /**
      * Get command.
-     *
-     * @return string
      */
     final public function getCommand(): string
     {
         return $this->_getUri()
-            .$this->_getInjectCommand()
-            .' "'
-            .$this->_getClientUri()
-            .'"';
+            . $this->_getInjectCommand()
+            . ' "'
+            . $this->_getClientUri()
+            . '"';
     }
 
     /**
      * Get command uri.
-     *
-     * @return string
      */
     protected function _getUri(): string
     {
-        return \sprintf(
+        return sprintf(
             self::COAP_COMMAND,
             $this->_getUsername(),
             $this->_getApiKey()
@@ -87,8 +79,6 @@ class Receiver
 
     /**
      * Get Username.
-     *
-     * @return string
      */
     protected function _getUsername(): string
     {
@@ -97,8 +87,6 @@ class Receiver
 
     /**
      * Get ApiKey.
-     *
-     * @return string
      */
     protected function _getApiKey(): string
     {
@@ -107,8 +95,6 @@ class Receiver
 
     /**
      * Get InjectCommand.
-     *
-     * @return string
      */
     protected function _getInjectCommand(): string
     {
@@ -117,19 +103,15 @@ class Receiver
 
     /**
      * Get coap client uri.
-     *
-     * @return string
      */
     protected function _getClientUri(): string
     {
-        return 'coaps://'.$this->_getIpAddress().':5684/'
-            .$this->_getRequestType();
+        return 'coaps://' . $this->_getIpAddress() . ':5684/'
+            . $this->_getRequestType();
     }
 
     /**
      * Get IpAddress.
-     *
-     * @return string
      */
     protected function _getIpAddress(): string
     {
@@ -138,8 +120,6 @@ class Receiver
 
     /**
      * Get Request type.
-     *
-     * @return string
      */
     protected function _getRequestType(): string
     {
@@ -148,10 +128,6 @@ class Receiver
 
     /**
      * Set RequestType.
-     *
-     * @param string $requestType
-     *
-     * @return self
      */
     public function setRequestType(string $requestType): self
     {
@@ -160,9 +136,9 @@ class Receiver
         return $this;
     }
 
-    public function sendRequest()
+    public function sendRequest(): string
     {
         // send command to gateway
-        return \implode("\n", $this->_output);
+        return implode("\n", $this->_output);
     }
 }

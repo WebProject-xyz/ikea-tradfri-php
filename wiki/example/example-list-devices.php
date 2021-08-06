@@ -17,7 +17,7 @@ try {
         echo '- Name: ' . $device->getName(). PHP_EOL;
         echo '- Manufacturer: ' . $device->getManufacturer(). PHP_EOL;
         echo '- Version: ' . $device->getVersion(). PHP_EOL;
-        if ((new TypeHelper())->isLightbulb($device->getType())) {
+        if ((new TypeHelper())->isLightBulb($device->getType())) {
             echo '- State is: ' . $device->getState(). PHP_EOL;
             echo '- Brightness ' . $device->getBrightness().'%'. PHP_EOL;
             echo '- Color HEX #' . $device->getColor().''. PHP_EOL;

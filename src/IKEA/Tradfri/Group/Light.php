@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Group;
 
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\SwitchableInterface;
 
 /**
@@ -14,8 +14,6 @@ class Light extends Device implements SwitchableInterface
 {
     /**
      * Get State.
-     *
-     * @return bool
      */
     public function isOn(): bool
     {
@@ -28,12 +26,10 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Get Lights.
-     *
-     * @return Lightbulbs
      */
-    public function getLights(): Lightbulbs
+    public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightbulbs();
+        return $this->getDevices()->getLightBulbs();
     }
 
     /**
@@ -70,8 +66,6 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Dim group to level.
-     *
-     * @param int $level
      *
      * @return $this
      */

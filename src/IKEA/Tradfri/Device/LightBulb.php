@@ -22,8 +22,6 @@ class LightBulb extends Device implements SwitchableInterface
      * Switch off.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function switchOff(): bool
     {
@@ -40,8 +38,6 @@ class LightBulb extends Device implements SwitchableInterface
      * Switch off.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function switchOn(): bool
     {
@@ -57,11 +53,7 @@ class LightBulb extends Device implements SwitchableInterface
     /**
      * Dim Light.
      *
-     * @param int $level
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
     public function dim(int $level): bool
     {

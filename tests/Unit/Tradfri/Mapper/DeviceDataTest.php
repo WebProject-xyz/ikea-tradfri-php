@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace IKEA\Tests\Tradfri\Mapper;
+namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
@@ -15,7 +16,7 @@ use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * Class DeviceDataTest
+ * Class DeviceDataTest.
  *
  * @method createMock($originalClassName)
  */
@@ -26,13 +27,13 @@ class DeviceDataTest extends UnitTest
      */
     protected $tester;
 
-    public function testMapDataErrorNoData()
+    public function testMapDataErrorNoData(): void
     {
         $this->expectExceptionMessage('no data');
         $this->expectException(RuntimeException::class);
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new DeviceData();
         // Act
@@ -40,7 +41,7 @@ class DeviceDataTest extends UnitTest
         // Assert
     }
 
-    public function testICanMapDataToCollectionWithNoError()
+    public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
         $serviceMock = $this->createMock(ServiceInterface::class);
@@ -55,7 +56,7 @@ class DeviceDataTest extends UnitTest
 
         $device1 = $result->get(1000);
         $this->assertInstanceOf(LightBulb::class, $device1);
-        $this->assertTrue($device1->isLightbulb());
+        $this->assertTrue($device1->isLightBulb());
         $this->assertSame(1000, $device1->getId());
         $this->assertTrue($device1->isOn());
         $this->assertSame('On', $device1->getReadableState());
@@ -67,7 +68,7 @@ class DeviceDataTest extends UnitTest
 
         $device2 = $result->get(2000);
         $this->assertInstanceOf(LightBulb::class, $device2);
-        $this->assertTrue($device2->isLightbulb());
+        $this->assertTrue($device2->isLightBulb());
         $this->assertSame(2000, $device2->getId());
         $this->assertFalse($device2->isOn());
         $this->assertSame('Off', $device2->getReadableState());
@@ -79,7 +80,7 @@ class DeviceDataTest extends UnitTest
 
         $device3 = $result->get(3000);
         $this->assertInstanceOf(Dimmer::class, $device3);
-        $this->assertFalse($device3->isLightbulb());
+        $this->assertFalse($device3->isLightBulb());
         $this->assertSame(3000, $device3->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getType());
@@ -88,7 +89,7 @@ class DeviceDataTest extends UnitTest
 
         $device4 = $result->get(4000);
         $this->assertInstanceOf(Remote::class, $device4);
-        $this->assertFalse($device4->isLightbulb());
+        $this->assertFalse($device4->isLightBulb());
         $this->assertSame(4000, $device4->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getType());
@@ -97,7 +98,7 @@ class DeviceDataTest extends UnitTest
 
         $device5 = $result->get(5000);
         $this->assertInstanceOf(MotionSensor::class, $device5);
-        $this->assertFalse($device5->isLightbulb());
+        $this->assertFalse($device5->isLightBulb());
         $this->assertSame(5000, $device5->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getType());
@@ -105,6 +106,6 @@ class DeviceDataTest extends UnitTest
         $this->assertSame('v1.33.7', $device5->getVersion());
 
         $this->assertCount(6, $result->getDevices());
-        $this->assertCount(2, $result->getLightbulbs());
+        $this->assertCount(2, $result->getLightBulbs());
     }
 }

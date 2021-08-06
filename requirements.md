@@ -32,11 +32,11 @@ coap-client -m get -u "php-api-user" -k "PRE SHARED KEY" "coaps://IP_ADDRESS:568
 coap-client -m post -u "Client_identity" -k "<key>" -e '{"9090":"php-api-user"}' "coaps://<hub>:5684/15011/9063"
 # getting tradfri information
 coap-client -m get -u "php-api-user" -k "<psk>" "coaps://<hup>:5684/15001"
-# getting tradfri lightbulb status
+# getting tradfri lightBulb status
 coap-client -m get -u "php-api-user" -k "<psk>" "coaps://<hup>:5684/15001/65537"
 
-# turn on tradfri lightbulb
+# turn on tradfri lightBulb
 coap-client -m put -u "php-api-user" -k "<psk>" -e '{ "3311" : [{ "5850" : 1 ]} }' "coaps://<hup>:5684/15001/65537"
-# turn off tradfri lightbulb
+# turn off tradfri lightBulb
 coap-client -m put -u "php-api-user" -k "<psk>" -e '{ "3311" : [{ "5850" : 0 ]} }' "coaps://<hup>:5684/15001/65537"
 ```

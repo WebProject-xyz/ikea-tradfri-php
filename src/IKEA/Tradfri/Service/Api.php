@@ -7,9 +7,10 @@ namespace IKEA\Tradfri\Service;
 use IKEA\Tradfri\Client\Client;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Collection\Lightbulbs;
+use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\LightBulb;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
@@ -24,9 +25,9 @@ class Api implements ServiceInterface
         $this->client = $client;
     }
 
-    public function getLights(): Lightbulbs
+    public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightbulbs();
+        return $this->getDevices()->getLightBulbs();
     }
 
     public function getDevices(): Devices
@@ -42,11 +43,11 @@ class Api implements ServiceInterface
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function allLightsOff(Lightbulbs $lightBulbsCollection): bool
+    public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
         $service = $this;
         $lightBulbsCollection->forAll(
-            function ($lightBulbKey, $lightBulb) use ($service) {
+            static function ($lightBulbKey, $lightBulb) use ($service) {
                 /** @var LightBulb $lightBulb */
                 if ($lightBulbKey === $lightBulb->getId()) {
                     // this is ok but who cares can't make var unused
@@ -63,6 +64,8 @@ class Api implements ServiceInterface
     /**
      * @todo interface switchable
      *
+     * @param mixed $device
+     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function off($device): bool
@@ -76,13 +79,13 @@ class Api implements ServiceInterface
             return $this->client->lightOff($device);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
      * @todo interface switchable
+     *
+     * @param mixed $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
@@ -96,9 +99,7 @@ class Api implements ServiceInterface
             return $this->client->lightOn($device);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 
     /**
@@ -116,8 +117,18 @@ class Api implements ServiceInterface
             return $this->client->dimLight($device, $level);
         }
 
-        throw new RuntimeException(
-            self::INVALID_DEVICE_TYPE.$device->getType()
-        );
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
+    }
+
+    /**
+     * @param Device|RollerBlind $device
+     */
+    public function setRollerBlindPosition(\IKEA\Tradfri\Device\DeviceInterface $device, int $level): bool
+    {
+        if ($device instanceof RollerBlind) {
+            return $this->client->setRollerBlindPosition($device, $level);
+        }
+
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
     }
 }

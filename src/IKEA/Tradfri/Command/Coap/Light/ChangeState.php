@@ -13,8 +13,6 @@ class ChangeState extends Put
 {
     /**
      * Build command from coap command.
-     *
-     * @return string
      */
     protected function _buildCommand(): string
     {

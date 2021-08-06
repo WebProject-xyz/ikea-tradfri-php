@@ -13,8 +13,6 @@ interface ValidatorInterface
      * Is valid.
      *
      * @param mixed $data
-     *
-     * @return bool
      */
     public function isValid($data): bool;
 }

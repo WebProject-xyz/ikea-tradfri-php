@@ -16,8 +16,6 @@ trait ProvidesManufacturer
 
     /**
      * Get Manufacturer.
-     *
-     * @return string
      */
     public function getManufacturer(): string
     {
@@ -26,8 +24,6 @@ trait ProvidesManufacturer
 
     /**
      * Set Manufacturer.
-     *
-     * @param string $manufacturer
      *
      * @return static
      */

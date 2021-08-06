@@ -51,9 +51,6 @@ class Device implements DeviceInterface
 
     /**
      * Group constructor.
-     *
-     * @param int              $deviceId
-     * @param ServiceInterface $service
      */
     public function __construct(int $deviceId, ServiceInterface $service)
     {
@@ -77,8 +74,6 @@ class Device implements DeviceInterface
 
     /**
      * Get LightIds.
-     *
-     * @return array
      */
     public function getDeviceIds(): array
     {
@@ -88,11 +83,9 @@ class Device implements DeviceInterface
     /**
      * Set device ids.
      *
-     * @param array $ids
-     *
      * @return $this
      */
-    public function setDeviceIds(array $ids)
+    public function setDeviceIds(array $ids): self
     {
         $this->_deviceIds = $ids;
 
@@ -101,8 +94,6 @@ class Device implements DeviceInterface
 
     /**
      * Get Devices.
-     *
-     * @return Devices
      */
     public function getDevices(): Devices
     {
@@ -116,8 +107,6 @@ class Device implements DeviceInterface
     /**
      * Set Devices.
      *
-     * @param Devices $devices
-     *
      * @return $this
      */
     public function setDevices(Devices $devices): self
@@ -129,8 +118,6 @@ class Device implements DeviceInterface
 
     /**
      * Get Id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -153,8 +140,6 @@ class Device implements DeviceInterface
 
     /**
      * Get Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -163,8 +148,6 @@ class Device implements DeviceInterface
 
     /**
      * Set Name.
-     *
-     * @param string $name
      *
      * @return Device
      */
@@ -178,11 +161,9 @@ class Device implements DeviceInterface
     /**
      * Set State of group.
      *
-     * @param bool $state
-     *
      * @return $this
      */
-    public function setState(bool $state)
+    public function setState(bool $state): self
     {
         $this->_state = $state;
 
@@ -191,8 +172,6 @@ class Device implements DeviceInterface
 
     /**
      * Get Brightness.
-     *
-     * @return float
      */
     public function getBrightness(): float
     {
@@ -200,11 +179,9 @@ class Device implements DeviceInterface
     }
 
     /**
-     * @param int $level
-     *
      * @return $this
      */
-    public function setBrightness(int $level)
+    public function setBrightness(int $level): self
     {
         $this->_brightness = $level;
 
@@ -213,8 +190,6 @@ class Device implements DeviceInterface
 
     /**
      * Get State.
-     *
-     * @return bool
      */
     public function isOn(): bool
     {

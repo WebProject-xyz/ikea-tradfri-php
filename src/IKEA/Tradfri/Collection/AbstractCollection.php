@@ -13,13 +13,10 @@ use JsonSerializable;
 /**
  * Class Devices.
  */
-abstract class AbstractCollection extends ArrayCollection implements
-    JsonSerializable
+abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
     /**
      * Add item to collection.
-     *
-     * @param Device $newItem
      *
      * @return $this
      */
@@ -33,14 +30,10 @@ abstract class AbstractCollection extends ArrayCollection implements
     /**
      * Find item by closure.
      *
-     * @param Closure $closure
-     *
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return null|Device
      */
-    public function find(Closure $closure)
+    public function find(Closure $closure): ?Device
     {
         foreach ($this->toArray() as $item) {
             if (true === $closure($item)) {
@@ -54,10 +47,10 @@ abstract class AbstractCollection extends ArrayCollection implements
     /**
      * Specify data which should be serialized to JSON.
      *
-     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  http://php.net/manual/en/jsonserializable.jsonserialize.php
      *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     *               which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
      *
      * @since 5.4.0
      */

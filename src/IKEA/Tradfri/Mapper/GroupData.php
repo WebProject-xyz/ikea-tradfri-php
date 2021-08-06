@@ -11,6 +11,7 @@ use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
+use stdClass;
 
 /**
  * Class GroupData.
@@ -21,7 +22,6 @@ class GroupData extends Mapper
      * Map given data to models.
      *
      * @param Api|ServiceInterface $service
-     * @param array                $groupDataItems
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -33,7 +33,7 @@ class GroupData extends Mapper
     ): AbstractCollection {
         $collection = new Groups();
         foreach ($groupDataItems as $device) {
-            if (false === $this->_isValidData($device)) {
+            if (false === $this->isValidData($device)) {
                 continue;
             }
 
@@ -60,13 +60,11 @@ class GroupData extends Mapper
     /**
      * Validate device data from api.
      *
-     * @param null|\stdClass $device
+     * @param stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return bool
      */
-    protected function _isValidData($device): bool
+    protected function isValidData($device): bool
     {
         $validator = new GroupDataValidator();
 

@@ -8,14 +8,12 @@ use IKEA\Tradfri\Group\Device;
 use IKEA\Tradfri\Group\Light;
 
 /**
- * Class Lightbulbs.
+ * Class LightBulbs.
  */
 class Groups extends AbstractCollection
 {
     /**
      * Get first light.
-     *
-     * @return Light
      */
     public function first(): Light
     {
@@ -24,8 +22,6 @@ class Groups extends AbstractCollection
 
     /**
      * Add Group.
-     *
-     * @param Device $group
      *
      * @return $this
      */

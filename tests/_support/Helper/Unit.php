@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace IKEA\Tests\Helper;
@@ -9,21 +10,18 @@ namespace IKEA\Tests\Helper;
 use IKEA\Tradfri\Command\Coap\Keys;
 
 /**
- * Class Unit
+ * Class Unit.
  */
 class Unit extends \Codeception\Module
 {
-    /**
-     * @return array
-     */
     public function getDevices(): array
     {
         return [
             'asd invalid',
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_DEVICE_INFO_TYPE => 'invalid type error',
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 9999,
                 Keys::ATTR_NAME        => 'invalid',
                 Keys::ATTR_DEVICE_INFO => [
@@ -32,7 +30,7 @@ class Unit extends \Codeception\Module
                     Keys::ATTR_DEVICE_INFO_TYPE         => 'invalid type error',
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID                 => 1000,
                 Keys::ATTR_NAME               => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
                 Keys::ATTR_DEVICE_INFO        => [
@@ -47,7 +45,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID                 => 2000,
                 Keys::ATTR_NAME               => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
                 Keys::ATTR_DEVICE_INFO        => [
@@ -62,7 +60,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 3000,
                 Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                 Keys::ATTR_DEVICE_INFO => [
@@ -71,7 +69,7 @@ class Unit extends \Codeception\Module
                     Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 4000,
                 Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
                 Keys::ATTR_DEVICE_INFO => [
@@ -80,7 +78,7 @@ class Unit extends \Codeception\Module
                     Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 5000,
                 Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 Keys::ATTR_DEVICE_INFO => [
@@ -92,13 +90,10 @@ class Unit extends \Codeception\Module
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getGroupDataCoapsResponse(): array
     {
         return [
-            1000 => \json_decode(\json_encode([
+            1000 => json_decode(json_encode([
                 Keys::ATTR_NAME              => 'Group 1',
                 Keys::ATTR_CREATED_AT        => 1498340208,
                 Keys::ATTR_ID                => 1000,
@@ -117,7 +112,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            2000 => \json_decode(\json_encode([
+            2000 => json_decode(json_encode([
                 Keys::ATTR_NAME              => 'Group 2',
                 Keys::ATTR_CREATED_AT        => 1498339585,
                 Keys::ATTR_ID                => 2000,
@@ -137,7 +132,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            3000 => \json_decode(\json_encode([
+            3000 => json_decode(json_encode([
                 Keys::ATTR_NAME              => 'Group 3',
                 Keys::ATTR_CREATED_AT        => 1498340478,
                 Keys::ATTR_ID                => 3000,
@@ -153,7 +148,7 @@ class Unit extends \Codeception\Module
                     ],
                 ],
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 5000,
                 Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 Keys::ATTR_DEVICE_INFO => [
@@ -163,10 +158,10 @@ class Unit extends \Codeception\Module
                 ],
             ])),
             'asd invalid',
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_DEVICE_INFO_TYPE => 'invalid type error',
             ])),
-            \json_decode(\json_encode([
+            json_decode(json_encode([
                 Keys::ATTR_ID          => 9999,
                 Keys::ATTR_NAME        => 'invalid',
                 Keys::ATTR_DEVICE_INFO => [

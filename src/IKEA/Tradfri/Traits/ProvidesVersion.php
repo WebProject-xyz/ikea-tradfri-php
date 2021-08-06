@@ -16,8 +16,6 @@ trait ProvidesVersion
 
     /**
      * Get Version.
-     *
-     * @return string
      */
     public function getVersion(): string
     {
@@ -26,8 +24,6 @@ trait ProvidesVersion
 
     /**
      * Set Version.
-     *
-     * @param string $name
      *
      * @return static
      */

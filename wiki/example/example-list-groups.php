@@ -24,7 +24,7 @@ try {
             echo '- GroupName: ' . $group->getName(). PHP_EOL;
             echo '- Manufacturer: ' . $device->getManufacturer(). PHP_EOL;
             echo '- Version: ' . $device->getVersion(). PHP_EOL;
-            if ((new Type())->isLightbulb($device->getType())) {
+            if ((new Type())->isLightBulb($device->getType())) {
                 echo '- State is: ' . $device->getReadableState(). PHP_EOL;
                 echo '- Brightness ' . $device->getBrightness().'%'. PHP_EOL;
             }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Helper;
 
 use IKEA\Tradfri\Exception\RuntimeException;
+use function count;
+use function is_resource;
 
 /**
  * Class Runner.
@@ -24,12 +26,11 @@ class Runner
     /**
      * Execute a command and return it's output. Either wait
      * until the command exits or the timeout has expired.
-     * Found at @link https://stackoverflow.com/a/20992213/3578430.
+     * Found at @see https://stackoverflow.com/a/20992213/3578430.
      *
-     * @param string $cmd                  Command to execute.
-     * @param int    $timeout              Timeout in seconds.
+     * @param string $cmd     command to execute
+     * @param int    $timeout timeout in seconds
      * @param bool   $asArray
-     * @param bool   $skipEmptyBufferError
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
@@ -39,25 +40,25 @@ class Runner
         string $cmd,
         int $timeout,
         bool $asArray = null,
-        bool $skipEmptyBufferError = null
+        bool $skipEmptyBufferError = false
     ) {
         // Start the process.
-        $process = \proc_open('exec '.$cmd, self::DESCRIPTORS, $pipes);
+        $process = proc_open('exec ' . $cmd, self::DESCRIPTORS, $pipes);
 
-        if (!\is_resource($process)) {
+        if (!is_resource($process)) {
             throw new RuntimeException('Could not execute process');
         }
 
         // Set the stdout stream to none-blocking.
-        \stream_set_blocking($pipes[1], false);
+        stream_set_blocking($pipes[1], false);
 
         // Output buffer.
         $buffer = $this->_startProcess($timeout, $pipes, $process, '');
 
         // Check if there were any errors.
-        $errors = \stream_get_contents($pipes[2]);
+        $errors = stream_get_contents($pipes[2]);
 
-        if (!empty($errors) && empty($buffer)) {
+        if (count(explode("\n", $errors)) > 2 && empty($buffer)) {
             $this->_parseErrors($skipEmptyBufferError, $errors);
         }
 
@@ -69,7 +70,7 @@ class Runner
         $this->_closeStreams($pipes, $process);
 
         if (true === $asArray) {
-            return \explode("\n", $buffer);
+            return explode("\n", $buffer);
         }
 
         return $buffer;
@@ -80,23 +81,20 @@ class Runner
      *
      * @param $process
      */
-    private function _killProcess($process)
+    private function _killProcess($process): void
     {
-        if (\proc_terminate($process, 9)) {
+        if (proc_terminate($process, 9)) {
             throw new RuntimeException('timeout expired');
         }
     }
 
     /**
      * Parse errors.
-     *
-     * @param bool   $skipEmptyBufferError
-     * @param string $errors
      */
-    private function _parseErrors(bool $skipEmptyBufferError, string $errors)
+    private function _parseErrors(bool $skipEmptyBufferError, string $errors): void
     {
-        $parts = \explode("\n", $errors);
-        switch (\count($parts)) {
+        $parts = explode("\n", $errors);
+        switch (count($parts)) {
             case 2 && !empty($parts[1]):
             case 3:
                 $errorMessage = $parts[1];
@@ -113,12 +111,7 @@ class Runner
     /**
      * Start process.
      *
-     * @param int    $timeout
-     * @param array  $pipes
-     * @param        $process
-     * @param string $buffer
-     *
-     * @return string
+     * @param $process
      */
     private function _startProcess(
         int $timeout,
@@ -129,23 +122,23 @@ class Runner
         // Turn the timeout into microseconds.
         $timeout *= 1000000;
         while ($timeout > 0) {
-            $start = \microtime(true);
+            $start = microtime(true);
 
             // Wait until we have output or the timer expired.
-            $read = [$pipes[1]];
+            $read  = [$pipes[1]];
             $other = [];
-            \stream_select($read, $other, $other, 0, (int) $timeout);
+            stream_select($read, $other, $other, 0, (int) $timeout);
 
             // Get the status of the process.
             // Do this before we read from the stream,
             // this way we can't lose the last bit
             // of output if the process dies between these functions.
-            $status = \proc_get_status($process);
+            $status = proc_get_status($process);
 
             // Read the contents from the buffer.
             // This function will always return immediately
             // as the stream is none-blocking.
-            $buffer .= \stream_get_contents($pipes[1]);
+            $buffer .= stream_get_contents($pipes[1]);
 
             if (!$status['running']) {
                 // Break from this loop if the process exited
@@ -154,7 +147,7 @@ class Runner
             }
 
             // Subtract the number of microseconds that we waited.
-            $timeout -= (\microtime(true) - $start) * 1000000;
+            $timeout -= (microtime(true) - $start) * 1000000;
         }
 
         return $buffer;
@@ -163,15 +156,14 @@ class Runner
     /**
      * Close all streams.
      *
-     * @param array $pipes
      * @param $process
      */
-    protected function _closeStreams(array $pipes, $process)
+    protected function _closeStreams(array $pipes, $process): void
     {
-        \fclose($pipes[0]);
-        \fclose($pipes[1]);
-        \fclose($pipes[2]);
+        fclose($pipes[0]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
 
-        \proc_close($process);
+        proc_close($process);
     }
 }
