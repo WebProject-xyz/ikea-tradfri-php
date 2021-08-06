@@ -1,4 +1,3 @@
-
 on: [push, pull_request]
 name: Cocdeception
 
@@ -11,10 +10,8 @@ jobs:
             matrix:
                 include:
                     - { php-version: 7.4, dependencies: locked, coverage: none, with_coverage: "" }
-                    - { php-version: 7.4, dependencies: highest, coverage: none, with_coverage: "" }
-
-                    - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: "" }
-                    - { php-version: 8.0, dependencies: locked, coverage: pcov, with_coverage: "yes" }
+                    - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: "" }
+                    - { php-version: 8.0, dependencies: locked, coverage: xdebug, with_coverage: "yes" }
 
         steps:
             - name: "Checkout code"
@@ -34,9 +31,9 @@ jobs:
                   
             - name: "Run Codeception"
               env:
-                  WITH_COVERAEG: "${{ matrix.with_coverage }}"
+                  WITH_COVERAGE: "${{ matrix.with_coverage }}"
               run: |
-                  if [ ! -z "$WITH_COVERAEG" ]; then
+                  if [ ! -z "$WITH_COVERAGE" ]; then
                       vendor/bin/codecept run -c . -vvv --json
                   else:
                       vendor/bin/codecept run -c . -vvv --json --coverage --coverage-xml
