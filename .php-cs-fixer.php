@@ -9,6 +9,7 @@ $finder = \PhpCsFixer\Finder::create()
     ->files()
     ->in(__DIR__ . '/src')
     ->in(__DIR__ . '/tests')
+    ->notPath(['#_generated#'])
     ->append([__FILE__])
     ->name('*.php');
 
