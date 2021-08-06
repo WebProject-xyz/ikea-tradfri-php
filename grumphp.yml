@@ -1,0 +1,10 @@
+grumphp:
+    tasks:
+        composer: null
+        codeception: null
+        phpcsfixer2: null
+        phpstan:
+            autoload_file: ~
+            configuration: phpstan.neon
+            triggered_by: ['php']
+            memory_limit: "-1"

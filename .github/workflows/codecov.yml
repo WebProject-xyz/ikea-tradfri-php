@@ -4,7 +4,7 @@ name: Codecov
 jobs:
     codeception-tests:
         name: "Codeception tests"
-        runs-on: "ubuntu-20.04"
+        runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
         strategy:
             matrix:
