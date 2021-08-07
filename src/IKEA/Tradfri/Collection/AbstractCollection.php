@@ -10,16 +10,8 @@ use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Exception\RuntimeException;
 use JsonSerializable;
 
-/**
- * Class Devices.
- */
 abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
-    /**
-     * Add item to collection.
-     *
-     * @return $this
-     */
     public function addDevice(Device $newItem): self
     {
         $this->set($newItem->getId(), $newItem);
@@ -28,8 +20,6 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     }
 
     /**
-     * Find item by closure.
-     *
      * @throws RuntimeException
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
@@ -45,16 +35,9 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
     }
 
     /**
-     * Specify data which should be serialized to JSON.
-     *
-     * @see  http://php.net/manual/en/jsonserializable.jsonserialize.php
-     *
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     *               which is a value of any type other than a resource
-     *
-     * @since 5.4.0
+     * @return array<int, array<string>>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
         foreach ($this->toArray() as $device) {

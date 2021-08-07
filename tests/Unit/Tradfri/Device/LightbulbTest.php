@@ -98,6 +98,7 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
 
         // Assert
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $result);
+        $this->assertTrue($lamp->isValidType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS));
     }
 
     public function testSetTypeGU10(): void
@@ -123,6 +124,7 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
 
         // Assert
         $this->assertTrue($lamp->isOn());
+        $this->assertFalse($lamp->isOff());
         $this->assertSame('On', $lamp->getReadableState());
     }
 

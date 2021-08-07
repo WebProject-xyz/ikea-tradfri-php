@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Adapter;
 
+use const JSON_THROW_ON_ERROR;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coap\Keys;
@@ -13,38 +14,28 @@ use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Helper\Runner;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
+use JsonException;
 use stdClass;
 use function count;
 use function is_array;
 use function is_object;
 
-/**
- * Class Coap.
- */
 class Coap extends AdapterAbstract
 {
     public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
-    /**
-     * @var Coaps
-     */
-    protected $_commands;
+    protected Coaps $commands;
 
-    /**
-     * Coap constructor.
-     */
     public function __construct(
         Coaps $commands,
         MapperInterface $deviceDataMapper,
         MapperInterface $groupDataMapper
     ) {
-        $this->_commands = $commands;
+        $this->commands = $commands;
         parent::__construct($deviceDataMapper, $groupDataMapper);
     }
 
     /**
-     * Get device type.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getType(int $deviceId): string
@@ -63,21 +54,19 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get data from coaps client.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return array|stdClass|string
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
-        $command = $this->_commands->getCoapsCommandGet($requestType);
+        $command = $this->commands->getCoapsCommandGet($requestType);
 
         if (null !== $deviceId) {
             $command .= '/' . $deviceId;
         }
 
-        $dataRaw = $this->_commands->parseResult(
+        $dataRaw = $this->commands->parseResult(
             (new Runner())->execWithTimeout(
                 $command,
                 1,
@@ -86,15 +75,13 @@ class Coap extends AdapterAbstract
         );
 
         if (false !== $dataRaw) {
-            return $this->_decodeData($dataRaw);
+            return $this->decodeData($dataRaw);
         }
 
         throw new RuntimeException('invalid hub response');
     }
 
     /**
-     * Get Manufacturer by device id.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getManufacturer(int $deviceId): string
@@ -109,8 +96,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Change State of given device.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function changeLightState(int $deviceId, bool $toState): bool
@@ -118,7 +103,7 @@ class Coap extends AdapterAbstract
         // run command
         $data = (new Runner())
             ->execWithTimeout(
-                $this->_commands->getLightSwitchCommand($deviceId, $toState),
+                $this->commands->getLightSwitchCommand($deviceId, $toState),
                 2,
                 true,
                 true
@@ -137,8 +122,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Change state of group.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function changeGroupState(int $groupId, bool $toState): bool
@@ -146,7 +129,7 @@ class Coap extends AdapterAbstract
         // run command
         $data = (new Runner())
             ->execWithTimeout(
-                $this->_commands->getGroupSwitchCommand($groupId, $toState),
+                $this->commands->getGroupSwitchCommand($groupId, $toState),
                 2,
                 true
             );
@@ -161,15 +144,13 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Set Light Brightness.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function setLightBrightness(int $lightId, int $level): bool
     {
         // run command
         $data = (new Runner())->execWithTimeout(
-            $this->_commands->getLightDimmerCommand($lightId, $level),
+            $this->commands->getLightDimmerCommand($lightId, $level),
             2,
             true
         );
@@ -182,15 +163,11 @@ class Coap extends AdapterAbstract
         throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
-    /**
-     * @param $rollerBlindId
-     * @param $level
-     */
-    public function setRollerBlindPosition($rollerBlindId, $level): bool
+    public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
         $data = (new Runner())->execWithTimeout(
-            $this->_commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+            $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
             2,
             true
         );
@@ -200,15 +177,13 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Set Group Brightness.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function setGroupBrightness(int $groupId, int $level): bool
     {
         // run command
         $data = (new Runner())->execWithTimeout(
-            $this->_commands->getGroupDimmerCommand($groupId, $level),
+            $this->commands->getGroupDimmerCommand($groupId, $level),
             2,
             true
         );
@@ -222,8 +197,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get a collection of devices.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getDeviceCollection(ServiceInterface $service): Devices
@@ -249,7 +222,8 @@ class Coap extends AdapterAbstract
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
-            if ((int) COAP_GATEWAY_FLOOD_PROTECTION > 0) {
+            /* @phpstan-ignore-next-line */
+            if ((int) COAP_GATEWAY_FLOOD_PROTECTION >= 100) {
                 usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
             }
         }
@@ -258,8 +232,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get an array with lamp ids from soap client.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getDeviceIds(): array
@@ -268,8 +240,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get Device data.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getDeviceData(int $deviceId): stdClass
@@ -278,8 +248,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get a collection of Groups.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getGroupCollection(ServiceInterface $service): Groups
@@ -305,8 +273,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get Groups from hub.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getGroupsData(): array
@@ -325,8 +291,6 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Get Group data from hub.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function getGroupIds(): array
@@ -335,15 +299,13 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Decode gateway data.
-     *
-     * @param $dataRaw
-     *
      * @return object|string
+     *
+     * @throws JsonException
      */
-    protected function _decodeData(string $dataRaw)
+    protected function decodeData(string $dataRaw)
     {
-        $decoded = json_decode($dataRaw);
+        $decoded = json_decode($dataRaw, false, 512, JSON_THROW_ON_ERROR);
         if (null === $decoded) {
             $decoded = $dataRaw;
         }
@@ -352,11 +314,9 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * Verify result.
-     *
-     * @param $data
+     * @param string|array $data
      */
-    protected function _verifyResult(array $data): bool
+    protected function _verifyResult($data): bool
     {
         return is_array($data) && 4 === count($data);
     }

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Command\Coap;
 
 /**
- * Class Keys.
- *
  * @see Source and Thanks to "ggravlingen"
  * https://github.com/ggravlingen/pytradfri/blob/master/pytradfri/const.py
  */

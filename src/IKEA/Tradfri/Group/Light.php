@@ -36,8 +36,6 @@ class Light extends Device implements SwitchableInterface
      * Switch group on.
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
-     * @return $this
      */
     public function switchOn(): bool
     {
@@ -52,8 +50,6 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Switch group off.
-     *
-     * @return $this
      */
     public function off(): self
     {
@@ -66,8 +62,6 @@ class Light extends Device implements SwitchableInterface
 
     /**
      * Dim group to level.
-     *
-     * @return $this
      */
     public function dim(int $level): self
     {

@@ -9,9 +9,6 @@ use IKEA\Tradfri\Traits\ProvidesBrightness;
 use IKEA\Tradfri\Traits\ProvidesColor;
 use IKEA\Tradfri\Traits\ProvidesState;
 
-/**
- * Class Lamp.
- */
 class LightBulb extends Device implements SwitchableInterface
 {
     use ProvidesBrightness;
@@ -19,8 +16,6 @@ class LightBulb extends Device implements SwitchableInterface
     use ProvidesState;
 
     /**
-     * Switch off.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function switchOff(): bool
@@ -35,8 +30,6 @@ class LightBulb extends Device implements SwitchableInterface
     }
 
     /**
-     * Switch off.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function switchOn(): bool
@@ -51,8 +44,6 @@ class LightBulb extends Device implements SwitchableInterface
     }
 
     /**
-     * Dim Light.
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function dim(int $level): bool

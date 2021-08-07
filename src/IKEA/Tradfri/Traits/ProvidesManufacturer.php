@@ -4,32 +4,18 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-/**
- * Trait ProvidesManufacturer.
- */
 trait ProvidesManufacturer
 {
-    /**
-     * @var string
-     */
-    protected $_manufacturer;
+    protected string $manufacturer;
 
-    /**
-     * Get Manufacturer.
-     */
     public function getManufacturer(): string
     {
-        return $this->_manufacturer;
+        return $this->manufacturer;
     }
 
-    /**
-     * Set Manufacturer.
-     *
-     * @return static
-     */
-    public function setManufacturer(string $manufacturer)
+    public function setManufacturer(string $manufacturer): self
     {
-        $this->_manufacturer = $manufacturer;
+        $this->manufacturer = $manufacturer;
 
         return $this;
     }

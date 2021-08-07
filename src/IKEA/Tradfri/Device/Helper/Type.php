@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Driver;
 use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;

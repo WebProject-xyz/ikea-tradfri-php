@@ -13,14 +13,9 @@ use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
 use stdClass;
 
-/**
- * Class GroupData.
- */
 class GroupData extends Mapper
 {
     /**
-     * Map given data to models.
-     *
      * @param Api|ServiceInterface $service
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -58,8 +53,6 @@ class GroupData extends Mapper
     }
 
     /**
-     * Validate device data from api.
-     *
      * @param stdClass|null $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException

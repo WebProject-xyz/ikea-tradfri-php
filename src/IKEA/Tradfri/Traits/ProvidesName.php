@@ -4,32 +4,18 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-/**
- * Trait ProvidesName.
- */
 trait ProvidesName
 {
-    /**
-     * @var string
-     */
-    protected $_name;
+    protected string $name;
 
-    /**
-     * Get Name.
-     */
     public function getName(): string
     {
-        return $this->_name;
+        return $this->name;
     }
 
-    /**
-     * Set Name.
-     *
-     * @return static
-     */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
-        $this->_name = $name;
+        $this->name = $name;
 
         return $this;
     }

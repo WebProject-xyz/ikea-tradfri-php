@@ -26,7 +26,7 @@ abstract class DeviceTester extends UnitTest
     public function testICanNotGetService(): void
     {
         // Arrange
-        $this->expectException('TypeError');
+        $this->expectException('RuntimeException');
         $lamp = $this->getModel();
 
         // Act
