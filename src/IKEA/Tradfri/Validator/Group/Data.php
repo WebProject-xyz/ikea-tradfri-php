@@ -12,23 +12,18 @@ use stdClass;
 use Throwable;
 use function is_object;
 
-/**
- * Class Data.
- */
 class Data implements ValidatorInterface
 {
     /**
-     * @var array
+     * @var array<string>
      */
-    protected static $_mustHaves = [
+    protected static array $mustHaves = [
         Keys::ATTR_ID,
         Keys::ATTR_NAME,
         Keys::ATTR_GROUP_INFO,
     ];
 
     /**
-     * Is valid.
-     *
      * @param stdClass|null $data
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -71,7 +66,7 @@ class Data implements ValidatorInterface
         if (false === is_object($device)) {
             throw new TypeException('device is no object');
         }
-        foreach (self::$_mustHaves as $mustHave) {
+        foreach (self::$mustHaves as $mustHave) {
             if (!property_exists($device, $mustHave)) {
                 throw new RuntimeException('attribute missing (' . $mustHave . ')');
             }

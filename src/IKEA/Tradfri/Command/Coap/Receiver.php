@@ -10,47 +10,30 @@ namespace IKEA\Tradfri\Command\Coap;
 class Receiver
 {
     public const COAP_COMMAND = '%s invalid %s';
-    /**
-     * @var string
-     */
-    protected $_requestType;
 
-    /**
-     * @var string
-     */
-    protected $_injectCommand;
+    protected string $requestType;
 
-    /**
-     * @var string
-     */
-    protected $_ipAddress;
+    protected string $injectCommand;
 
-    /**
-     * @var string
-     */
-    protected $_username;
+    protected string $ipAddress;
 
-    /**
-     * @var string
-     */
-    protected $_apiKey;
+    protected string $username;
+
+    protected string $apiKey;
 
     /**
      * @var string[]
      */
-    protected $_output = [];
+    protected array $output = [];
 
-    /**
-     * Put constructor.
-     */
     public function __construct(
         string $gatewayAddress,
         string $username,
         string $apiKey
     ) {
-        $this->_ipAddress = $gatewayAddress;
-        $this->_username  = $username;
-        $this->_apiKey    = $apiKey;
+        $this->ipAddress = $gatewayAddress;
+        $this->username  = $username;
+        $this->apiKey    = $apiKey;
     }
 
     /**
@@ -82,7 +65,7 @@ class Receiver
      */
     protected function _getUsername(): string
     {
-        return $this->_username;
+        return $this->username;
     }
 
     /**
@@ -90,7 +73,7 @@ class Receiver
      */
     protected function _getApiKey(): string
     {
-        return $this->_apiKey;
+        return $this->apiKey;
     }
 
     /**
@@ -98,7 +81,7 @@ class Receiver
      */
     protected function _getInjectCommand(): string
     {
-        return $this->_injectCommand;
+        return $this->injectCommand;
     }
 
     /**
@@ -115,7 +98,7 @@ class Receiver
      */
     protected function _getIpAddress(): string
     {
-        return $this->_ipAddress;
+        return $this->ipAddress;
     }
 
     /**
@@ -123,7 +106,7 @@ class Receiver
      */
     protected function _getRequestType(): string
     {
-        return $this->_requestType;
+        return $this->requestType;
     }
 
     /**
@@ -131,7 +114,7 @@ class Receiver
      */
     public function setRequestType(string $requestType): self
     {
-        $this->_requestType = $requestType;
+        $this->requestType = $requestType;
 
         return $this;
     }
@@ -139,6 +122,6 @@ class Receiver
     public function sendRequest(): string
     {
         // send command to gateway
-        return implode("\n", $this->_output);
+        return implode("\n", $this->output);
     }
 }

@@ -1,5 +1,5 @@
 on: [ push, pull_request ]
-name: Cocdeception
+name: CodeStyle
 
 jobs:
     codeception-tests:
@@ -9,11 +9,11 @@ jobs:
         strategy:
             matrix:
                 include:
-                    #  - { php-version: 7.4, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
+                    # - { php-version: 7.4, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
                     - { php-version: 7.4, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
+                    # - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
+                    # - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
                     - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
-                    - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
-                    - { php-version: 8.0, dependencies: locked, coverage: xdebug, with_coverage: true, allow-fail: false }
                     # - { php-version: 8.1, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
 
         steps:
@@ -32,6 +32,7 @@ jobs:
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
-            -   name: "Run Codeception"
+            -   name: "Run Grump checks"
                 run: |
-                    vendor/bin/codecept run -c . -vvv --json
+                    vendor/bin/grumphp run -c .
+

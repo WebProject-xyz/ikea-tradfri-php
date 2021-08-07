@@ -11,9 +11,6 @@ use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
 
-/**
- * Class AdapterAbstract.
- */
 abstract class AdapterAbstract implements AdapterInterface
 {
     /**
@@ -26,9 +23,6 @@ abstract class AdapterAbstract implements AdapterInterface
      */
     protected $_groupDataMapper;
 
-    /**
-     * AdapterAbstract constructor.
-     */
     public function __construct(
         MapperInterface $deviceDataMapper,
         MapperInterface $groupDataMapper
@@ -37,23 +31,11 @@ abstract class AdapterAbstract implements AdapterInterface
         $this->_groupDataMapper  = $groupDataMapper;
     }
 
-    /**
-     * Get a collection of devices.
-     */
-    abstract public function getDeviceCollection(
-        ServiceInterface $service
-    ): Devices;
+    abstract public function getDeviceCollection(ServiceInterface $service): Devices;
+
+    abstract public function getGroupCollection(ServiceInterface $service): Groups;
 
     /**
-     * Get a collection of Groups.
-     */
-    abstract public function getGroupCollection(
-        ServiceInterface $service
-    ): Groups;
-
-    /**
-     * Get DeviceDataMapper.
-     *
      * @return DeviceData|MapperInterface
      */
     public function getDeviceDataMapper()
@@ -62,8 +44,6 @@ abstract class AdapterAbstract implements AdapterInterface
     }
 
     /**
-     * Get GroupDataMapper.
-     *
      * @return GroupData|MapperInterface
      */
     public function getGroupDataMapper()

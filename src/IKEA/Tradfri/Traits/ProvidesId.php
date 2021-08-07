@@ -4,32 +4,18 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-/**
- * Trait ProvidesId.
- */
 trait ProvidesId
 {
-    /**
-     * @var int
-     */
-    protected $_id;
+    protected int $id;
 
-    /**
-     * Get Id.
-     */
     public function getId(): int
     {
-        return $this->_id;
+        return $this->id;
     }
 
-    /**
-     * Set Id.
-     *
-     * @return static
-     */
-    public function setId(int $id)
+    public function setId(int $id): self
     {
-        $this->_id = $id;
+        $this->id = $id;
 
         return $this;
     }

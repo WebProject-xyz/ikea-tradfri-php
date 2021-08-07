@@ -65,6 +65,7 @@ class DeviceDataTest extends UnitTest
         $this->assertSame('UnitTestFactory', $device1->getManufacturer());
         $this->assertSame('v1.33.7', $device1->getVersion());
         $this->assertSame(9.0, $device1->getBrightness());
+        $this->assertSame('', $device1->getColor());
 
         $device2 = $result->get(2000);
         $this->assertInstanceOf(LightBulb::class, $device2);

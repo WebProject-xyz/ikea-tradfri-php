@@ -6,9 +6,6 @@ namespace IKEA\Tradfri\Device;
 
 use IKEA\Tradfri\Traits\ProvidesDarkenedState;
 
-/**
- * Class Remote.
- */
 class RollerBlind extends Device
 {
     use ProvidesDarkenedState;
@@ -36,11 +33,9 @@ class RollerBlind extends Device
     /**
      * Set Roller Blind to specific position.
      *
-     * @param $level
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function setToPosition($level): bool
+    public function setToPosition(int $level): bool
     {
         return $this->getService()->setRollerBlindPosition($this, $level);
     }

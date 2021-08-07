@@ -27,7 +27,9 @@
     "friendsofphp/php-cs-fixer": "^3.0",
     "monolog/monolog": "^2",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^5.1"
+    "symfony/var-dumper": "^5.1",
+    "phpro/grumphp": "^1.4",
+    "phpstan/phpstan": "^0.12.94"
   },
   "autoload": {
     "psr-4": {

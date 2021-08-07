@@ -8,9 +8,6 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use function count;
 use function is_resource;
 
-/**
- * Class Runner.
- */
 class Runner
 {
     /**
@@ -31,8 +28,6 @@ class Runner
      * @param string $cmd     command to execute
      * @param int    $timeout timeout in seconds
      * @param bool   $asArray
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
      * @return array|string
      */
@@ -77,9 +72,7 @@ class Runner
     }
 
     /**
-     * Kill process.
-     *
-     * @param $process
+     * @param resource $process
      */
     private function _killProcess($process): void
     {
@@ -88,15 +81,12 @@ class Runner
         }
     }
 
-    /**
-     * Parse errors.
-     */
     private function _parseErrors(bool $skipEmptyBufferError, string $errors): void
     {
-        $parts = explode("\n", $errors);
-        switch (count($parts)) {
-            case 2 && !empty($parts[1]):
-            case 3:
+        $parts = (array) explode("\n", $errors);
+        switch (true) {
+            case 2 === count($parts) && !empty($parts[1]):
+            case 3 === count($parts):
                 $errorMessage = $parts[1];
 
                 break;
@@ -109,9 +99,7 @@ class Runner
     }
 
     /**
-     * Start process.
-     *
-     * @param $process
+     * @param resource $process
      */
     private function _startProcess(
         int $timeout,
@@ -154,9 +142,7 @@ class Runner
     }
 
     /**
-     * Close all streams.
-     *
-     * @param $process
+     * @param resource $process
      */
     protected function _closeStreams(array $pipes, $process): void
     {

@@ -6,9 +6,6 @@ namespace IKEA\Tradfri\Exception;
 
 use InvalidArgumentException;
 
-/**
- * Class InvalidTypeException.
- */
 class InvalidTypeException extends InvalidArgumentException
 {
 }

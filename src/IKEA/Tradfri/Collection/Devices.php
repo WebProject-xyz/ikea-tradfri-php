@@ -14,14 +14,9 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 
-/**
- * Class Devices.
- */
 class Devices extends AbstractCollection
 {
     /**
-     * Get lightBulbs.
-     *
      * @return LightBulb[]|LightBulbs
      */
     public function getLightBulbs(): LightBulbs
@@ -41,9 +36,7 @@ class Devices extends AbstractCollection
     }
 
     /**
-     * Get items.
-     *
-     * @return array|Dimmer[]|LightBulb[]|MotionSensor[]|Remote[]|Floalt[]|RollerBlind[]|Repeater[]|OpenCloseRemote[]
+     * @return array<Dimmer|LightBulb|MotionSensor|Remote|Floalt|RollerBlind|Repeater|OpenCloseRemote>
      */
     public function getDevices(): array
     {
