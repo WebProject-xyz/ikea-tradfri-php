@@ -14,7 +14,6 @@ grumphp:
             diff: true
             triggered_by: ['php']
         phpstan:
-            autoload_file: ~
             configuration: phpstan.neon
             triggered_by: ['php']
             memory_limit: "-1"

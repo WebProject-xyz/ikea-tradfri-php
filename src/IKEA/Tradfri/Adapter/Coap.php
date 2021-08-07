@@ -75,7 +75,7 @@ class Coap extends AdapterAbstract
         );
 
         if (false !== $dataRaw) {
-            return $this->_decodeData($dataRaw);
+            return $this->decodeData($dataRaw);
         }
 
         throw new RuntimeException('invalid hub response');
@@ -303,7 +303,7 @@ class Coap extends AdapterAbstract
      *
      * @throws JsonException
      */
-    protected function _decodeData(string $dataRaw)
+    protected function decodeData(string $dataRaw)
     {
         $decoded = json_decode($dataRaw, false, 512, JSON_THROW_ON_ERROR);
         if (null === $decoded) {
