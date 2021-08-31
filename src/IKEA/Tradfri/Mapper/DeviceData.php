@@ -8,16 +8,11 @@ use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
-use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
-use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 use stdClass;
@@ -78,56 +73,18 @@ class DeviceData extends Mapper
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @return Device|LightBulb|MotionSensor|Remote
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    protected function getModel(stdClass $device)
+    protected function getModel(stdClass $device): Device
     {
         $typeAttribute    = $this->getDeviceTypeAttribute($device);
         $deviceTypeHelper = new Type();
 
-        switch (true) {
-            case $deviceTypeHelper->isLightBulb($typeAttribute):
-                $modelName = LightBulb::class;
-
-                break;
-            case $deviceTypeHelper->isMotionSensor($typeAttribute):
-                $modelName = MotionSensor::class;
-
-                break;
-            case $deviceTypeHelper->isRemote($typeAttribute):
-                $modelName = Remote::class;
-
-                break;
-            case $deviceTypeHelper->isDimmer($typeAttribute):
-                $modelName = Dimmer::class;
-
-                break;
-            case $deviceTypeHelper->isFloalt($typeAttribute):
-                $modelName = Floalt::class;
-
-                break;
-            case $deviceTypeHelper->isOpenCloseRemote($typeAttribute):
-                $modelName = OpenCloseRemote::class;
-
-                break;
-            case $deviceTypeHelper->isRepeater($typeAttribute):
-                $modelName = Repeater::class;
-
-                break;
-            case $deviceTypeHelper->isRollerBlind($typeAttribute):
-                $modelName = RollerBlind::class;
-
-                break;
-            case false === $deviceTypeHelper->isKnownDeviceType($typeAttribute):
-            default:
-                $modelName = Unknown::class;
-        }
-
-        return new $modelName(
-            $this->getDeviceId($device),
-            $typeAttribute
+        return $deviceTypeHelper->buildFrom(
+            $typeAttribute,
+            $this->getDeviceId($device)
         );
     }
 

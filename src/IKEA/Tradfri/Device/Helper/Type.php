@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device\Helper;
 
+use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Driver;
 use IKEA\Tradfri\Device\Floalt;
@@ -13,6 +14,8 @@ use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Device\Unknown;
+use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
  * Class Type.
@@ -116,11 +119,63 @@ class Type
     public function isKnownDeviceType(string $typeAttribute): bool
     {
         foreach (get_class_methods($this) as $method) {
-            if (__FUNCTION__ !== $method && $this->$method($typeAttribute)) {
+            if (__FUNCTION__ === $method) {
+                continue;
+            }
+            if ('buildFrom' === $method) {
+                continue;
+            }
+            if ($this->$method($typeAttribute)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public function buildFrom(string $typeAttribute, int $deviceId): Device
+    {
+        $model = null;
+
+        if ($this->isLightBulb($typeAttribute)) {
+            $model = new LightBulb($deviceId, $typeAttribute);
+        }
+        if ($this->isMotionSensor($typeAttribute)) {
+            $model = new MotionSensor($deviceId);
+        }
+
+        if ($this->isRemote($typeAttribute)) {
+            $model = new Remote($deviceId);
+        }
+
+        if ($this->isDimmer($typeAttribute)) {
+            $model = new Dimmer($deviceId);
+        }
+
+        if ($this->isFloalt($typeAttribute)) {
+            $model = new Floalt($deviceId, $typeAttribute);
+        }
+
+        if ($this->isOpenCloseRemote($typeAttribute)) {
+            $model = new OpenCloseRemote($deviceId);
+        }
+
+        if ($this->isRepeater($typeAttribute)) {
+            $model = new Repeater($deviceId, $typeAttribute);
+        }
+
+        if ($this->isRollerBlind($typeAttribute)) {
+            $model = new RollerBlind($deviceId, $typeAttribute);
+        }
+
+        if (false === $this->isKnownDeviceType($typeAttribute)) {
+            $model = new Unknown($deviceId, $typeAttribute);
+        }
+
+        if ($model) {
+            return $model;
+        }
+
+        throw new RuntimeException('Unable to detect device type: ' . $typeAttribute);
     }
 }

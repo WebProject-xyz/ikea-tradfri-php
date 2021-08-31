@@ -9,11 +9,11 @@ class Unknown extends Device
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct(int $deviceId)
+    public function __construct(int $deviceId, string $type)
     {
         parent::__construct(
             $deviceId,
-            'TRADFRI unknown'
+            'TRADFRI unknown' . $type
         );
     }
 }
