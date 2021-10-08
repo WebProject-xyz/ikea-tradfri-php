@@ -32,8 +32,8 @@ Inspired by
 
 ## How to use
 
-  - [Example config](wiki/example/init-dist.php)
-  - [wiki/example](wiki/example)
+- [Example config](wiki/example/init-dist.php)
+- [wiki/example](wiki/example)
 
 ## Docker Coap-Client
 
