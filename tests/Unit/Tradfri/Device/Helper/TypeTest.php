@@ -211,4 +211,26 @@ class TypeTest extends \Codeception\Test\Unit
             [Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, false],
         ];
     }
+
+    public function testBuildFrom(): void
+    {
+        // Arrange
+        $helper = new Type();
+
+        // Act
+        $model = $helper->buildFrom(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, 1);
+
+        // Assert
+        $this->assertNotNull($model);
+    }
+
+    public function testBuildFromNoUnknownClassAndSeeError(): void
+    {
+        $this->expectExceptionMessage('Unable to detect device type: blubb');
+        // Arrange
+        $helper = new Type();
+
+        // Act
+        $helper->buildFrom('blubb', 1, false);
+    }
 }

@@ -18,6 +18,7 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use function class_exists;
 use function get_class_methods;
 use function str_replace;
+use function strpos;
 
 /**
  * Class Type.
@@ -138,7 +139,7 @@ class Type
     public function buildFrom(string $typeAttribute, int $deviceId, bool $buildUnknownDevice = true): Device
     {
         foreach (get_class_methods($this) as $method) {
-            if (__FUNCTION__ === $method) {
+            if (0 !== strncmp($method, 'is', 2)) {
                 continue;
             }
 
