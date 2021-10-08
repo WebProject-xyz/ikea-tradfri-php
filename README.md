@@ -2,13 +2,15 @@
 
 > php api to control Ikea smart lights (tradfri)
 
-### Inspired by
+-----
+
+Inspired by
 
 > [hvanderlaan/ikea-smartlight](https://github.com/hvanderlaan/ikea-smartlight) _Python_
 
-### Status
+## Status
 
-#### Main:
+### Main
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b317b3e9521740e59e7dff003a0cbd69)](https://app.codacy.com/app/Fahl-Design/ikea-tradfri-php?utm_source=github.com&utm_medium=referral&utm_content=WebProject-xyz/ikea-tradfri-php&utm_campaign=badger)
 [![Cocdeception](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml/badge.svg?branch=master&style=flat)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml)
@@ -17,14 +19,14 @@
 [![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/master/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
 [![StyleCI](https://styleci.io/repos/115823629/shield?branch=master)](https://styleci.io/repos/115823629)
 
-#### Develop:
+### Develop
 
 [![Cocdeception](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml/badge.svg?branch=develop)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml)
 [![Codacy Security Scan](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/codacy-analysis.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/codacy-analysis.yml)
 [![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/develop/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
 [![StyleCI](https://styleci.io/repos/115823629/shield?branch=develop)](https://styleci.io/repos/115823629)
 
-## Requirements and initial setup
+### Requirements and initial setup
 
 > see [requirements.md](requirements.md)
 
@@ -45,13 +47,13 @@ docker pull webproject/coap-client:latest
 
 ### Run command in Docker
 
-#### Generate API User and <COAP_API_KEY> (Shared Key)
+> Generate API User and <COAP_API_KEY> (Shared Key)
 
 ```bash
 docker run --rm --name coap-client webproject/coap-client -m post -u "Client_identity" -k "<COAP_GATEWAY_SECRET>" -e '{"9090":"php-api-user"}' "coaps://<COAP_GATEWAY_IP>:5684/15011/9063""
 ```
 
-#### Get all api endpoints
+### Get all api endpoints
 
 ```bash
 docker run --rm --name coap-client webproject/coap-client -m get -u "php-api-user"  -k "<COAP_API_KEY>" "coaps://<COAP_GATEWAY_IP>:5684/.well-known/core"
