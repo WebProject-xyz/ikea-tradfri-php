@@ -11,6 +11,7 @@ use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -52,7 +53,7 @@ class DeviceDataTest extends UnitTest
         // Assert
         $this->assertInstanceOf(Devices::class, $result);
         $this->assertFalse($result->isEmpty());
-        $this->assertSame(6, $result->count());
+        $this->assertSame(7, $result->count());
 
         $device1 = $result->get(1000);
         $this->assertInstanceOf(LightBulb::class, $device1);
@@ -97,16 +98,25 @@ class DeviceDataTest extends UnitTest
         $this->assertSame('UnitTestFactory', $device4->getManufacturer());
         $this->assertSame('v1.33.7', $device4->getVersion());
 
-        $device5 = $result->get(5000);
-        $this->assertInstanceOf(MotionSensor::class, $device5);
+        $device5 = $result->get(6000);
+        $this->assertInstanceOf(RollerBlind::class, $device5);
         $this->assertFalse($device5->isLightBulb());
-        $this->assertSame(5000, $device5->getId());
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getName());
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device5->getType());
+        $this->assertSame(6000, $device5->getId());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $device5->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $device5->getType());
         $this->assertSame('UnitTestFactory', $device5->getManufacturer());
         $this->assertSame('v1.33.7', $device5->getVersion());
 
-        $this->assertCount(6, $result->getDevices());
+        $device6 = $result->get(5000);
+        $this->assertInstanceOf(MotionSensor::class, $device6);
+        $this->assertFalse($device6->isLightBulb());
+        $this->assertSame(5000, $device6->getId());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device6->getName());
+        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device6->getType());
+        $this->assertSame('UnitTestFactory', $device6->getManufacturer());
+        $this->assertSame('v1.33.7', $device6->getVersion());
+
+        $this->assertCount(7, $result->getDevices());
         $this->assertCount(2, $result->getLightBulbs());
     }
 }

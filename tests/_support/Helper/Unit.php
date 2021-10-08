@@ -87,6 +87,20 @@ class Unit extends \Codeception\Module
                     Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                 ],
             ])),
+            json_decode(json_encode([
+                Keys::ATTR_ID          => 6000,
+                Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND,
+                Keys::ATTR_DEVICE_INFO => [
+                    Keys::ATTR_DEVICE_INFO_MANUFACTURER => 'UnitTestFactory',
+                    Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
+                    Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND,
+                ],
+                Keys::ATTR_FYRTUR_CONTROL => [
+                   [
+                        Keys::ATTR_FYRTUR_STATE => 100,
+                    ],
+                ],
+            ])),
         ];
     }
 
