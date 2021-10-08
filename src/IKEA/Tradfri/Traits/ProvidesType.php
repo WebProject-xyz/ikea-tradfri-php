@@ -27,6 +27,6 @@ trait ProvidesType
      */
     public function isValidType(string $type): bool
     {
-        return (new Type())->isKnownDeviceType($type);
+        return false === (new Type())->isUnknownDeviceType($type);
     }
 }

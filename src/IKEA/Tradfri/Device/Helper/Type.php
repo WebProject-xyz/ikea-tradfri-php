@@ -14,8 +14,10 @@ use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Device\Unknown;
 use IKEA\Tradfri\Exception\RuntimeException;
+use function class_exists;
+use function get_class_methods;
+use function str_replace;
 
 /**
  * Class Type.
@@ -116,7 +118,7 @@ class Type
     /**
      * Check if given type attribute can be processed.
      */
-    public function isKnownDeviceType(string $typeAttribute): bool
+    public function isUnknownDeviceType(string $typeAttribute): bool
     {
         foreach (get_class_methods($this) as $method) {
             if (__FUNCTION__ === $method) {
@@ -126,54 +128,32 @@ class Type
                 continue;
             }
             if ($this->$method($typeAttribute)) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
-    public function buildFrom(string $typeAttribute, int $deviceId): Device
+    public function buildFrom(string $typeAttribute, int $deviceId, bool $buildUnknownDevice = true): Device
     {
-        $model = null;
+        foreach (get_class_methods($this) as $method) {
+            if (__FUNCTION__ === $method) {
+                continue;
+            }
 
-        if ($this->isLightBulb($typeAttribute)) {
-            $model = new LightBulb($deviceId, $typeAttribute);
-        }
-        if ($this->isMotionSensor($typeAttribute)) {
-            $model = new MotionSensor($deviceId);
-        }
+            if ($this->$method($typeAttribute)) {
+                if ('isUnknownDeviceType' === $method && $buildUnknownDevice) {
+                    $modelClass = 'Unknown';
+                } else {
+                    $modelClass = str_replace('is', '', $method);
+                }
 
-        if ($this->isRemote($typeAttribute)) {
-            $model = new Remote($deviceId);
-        }
-
-        if ($this->isDimmer($typeAttribute)) {
-            $model = new Dimmer($deviceId);
-        }
-
-        if ($this->isFloalt($typeAttribute)) {
-            $model = new Floalt($deviceId, $typeAttribute);
-        }
-
-        if ($this->isOpenCloseRemote($typeAttribute)) {
-            $model = new OpenCloseRemote($deviceId);
-        }
-
-        if ($this->isRepeater($typeAttribute)) {
-            $model = new Repeater($deviceId, $typeAttribute);
-        }
-
-        if ($this->isRollerBlind($typeAttribute)) {
-            $model = new RollerBlind($deviceId, $typeAttribute);
-        }
-
-        if (false === $this->isKnownDeviceType($typeAttribute)) {
-            $model = new Unknown($deviceId, $typeAttribute);
-        }
-
-        if ($model) {
-            return $model;
+                $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;
+                if (class_exists($fqdnClassName)) {
+                    return new $fqdnClassName($deviceId, $typeAttribute);
+                }
+            }
         }
 
         throw new RuntimeException('Unable to detect device type: ' . $typeAttribute);
