@@ -29,7 +29,7 @@
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^5.1",
     "phpro/grumphp": "^1.4",
-    "phpstan/phpstan": "^0.12.94"
+    "phpstan/phpstan": "^0.12.94 || ^1.0.0"
   },
   "autoload": {
     "psr-4": {
