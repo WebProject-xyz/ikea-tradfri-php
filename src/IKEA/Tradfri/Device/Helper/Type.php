@@ -144,10 +144,10 @@ class Type
             }
 
             if ($this->$method($typeAttribute)) {
+                $modelClass = str_replace('is', '', $method);
+
                 if ('isUnknownDeviceType' === $method && $buildUnknownDevice) {
                     $modelClass = 'Unknown';
-                } else {
-                    $modelClass = str_replace('is', '', $method);
                 }
 
                 $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;

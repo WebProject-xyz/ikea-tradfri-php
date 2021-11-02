@@ -6,6 +6,7 @@ namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Device\Unknown;
 
 /**
  * Class TypeTest.
@@ -222,6 +223,19 @@ class TypeTest extends \Codeception\Test\Unit
 
         // Assert
         $this->assertNotNull($model);
+    }
+
+    public function testBuildFromUnknownClass(): void
+    {
+        // Arrange
+        $helper = new Type();
+
+        // Act
+        $model = $helper->buildFrom('blubb', 1, true);
+
+        // Assert
+        $this->assertNotNull($model);
+        $this->assertInstanceOf(Unknown::class, $model);
     }
 
     public function testBuildFromNoUnknownClassAndSeeError(): void
