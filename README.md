@@ -1,6 +1,6 @@
 # ikea-tradfri-api
 
-> php api to control Ikea smart lights (tradfri)
+> PHP api to control Ikea smart lights (tradfri)
 
 -----
 
