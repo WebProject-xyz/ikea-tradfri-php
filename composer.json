@@ -22,7 +22,7 @@
   },
   "require-dev": {
     "codeception/codeception": "^4",
-    "codeception/module-asserts": "^1",
+    "codeception/module-asserts": "^1 || ^2",
     "mockery/mockery": "^1",
     "friendsofphp/php-cs-fixer": "^3.0",
     "monolog/monolog": "^2",
