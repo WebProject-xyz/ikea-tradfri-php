@@ -8,7 +8,10 @@ on:
     types:
       - completed
     workflows:
-      - "Quality check"
+      - "Cocdeception"
+      - "Codacy Security Scan"
+      - "CodeStyle"
+      - "Codecov"
 
 jobs:
   merge-me:
