@@ -18,7 +18,7 @@ jobs:
 
         steps:
             -   name: "Checkout code"
-                uses: "actions/checkout@v2"
+                uses: "actions/checkout@v3"
 
             -   name: "Install PHP"
                 uses: "shivammathur/setup-php@v2"
@@ -32,8 +32,8 @@ jobs:
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
-            -   name: "Run Grump checks"
+            -   name: "Run PHPStan checks"
                 run: |
                     vendor/bin/codecept build -c .
-                    vendor/bin/grumphp run -c .
+                    vendor/bin/phpstan
 
