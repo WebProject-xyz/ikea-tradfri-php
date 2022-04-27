@@ -9,6 +9,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\Runner;
 use InvalidArgumentException;
+use function is_string;
 
 /**
  * @deprecated will be removed in v1.0.0
@@ -63,9 +64,8 @@ class Coaps
         );
 
         // verify result
-        if (isset($result->{Keys::ATTR_PSK})) {
-            /* @phpstan-ignore-next-line */
-            return $result->{Keys::ATTR_PSK};
+        if (is_string($result)) {
+            return $result;
         }
 
         throw new RuntimeException('Could not get api key');

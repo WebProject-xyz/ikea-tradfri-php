@@ -2,8 +2,8 @@ on: [ push, pull_request ]
 name: CodeStyle
 
 jobs:
-    codeception-tests:
-        name: "Codeception tests"
+    code-style-tests:
+        name: "Style Checks"
         runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
         strategy:
@@ -34,5 +34,6 @@ jobs:
 
             -   name: "Run Grump checks"
                 run: |
+                    vendor/bin/codecept build -c .
                     vendor/bin/grumphp run -c .
 
