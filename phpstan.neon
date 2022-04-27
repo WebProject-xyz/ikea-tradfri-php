@@ -4,5 +4,6 @@ parameters:
         - src
     excludePaths:
         - wiki/*
+        - tests/_*
     bootstrapFiles:
         - build/constants.php
