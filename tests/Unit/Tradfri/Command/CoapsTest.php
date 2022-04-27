@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace IKEA\Tests\Unit\Tradfri\Command;
 
 use IKEA\Tradfri\Command\Coaps;
+use IKEA\Tradfri\Helper\Runner;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CoapsTest extends TestCase
@@ -156,6 +158,30 @@ class CoapsTest extends TestCase
         $this->assertSame(
             'coap-client -m post -u "Client_identity" -k "secret" -e \'{"9090":"username"}\' "coaps://127.0.0.1:5684/15011/9063"',
             $commandString
+        );
+    }
+
+    public function testGetSharedKeyFromGateway(): void
+    {
+        // Arrange
+        $runner = Mockery::mock(Runner::class);
+        $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
+
+        $coaps = new Coaps(
+            '127.0.0.1',
+            'secret',
+            'apiKey',
+            'username',
+            $runner
+        );
+
+        // Act
+        $sharedKey = $coaps->getSharedKeyFromGateway();
+
+        // Assert
+        $this->assertSame(
+            'mocked-shared-key',
+            $sharedKey
         );
     }
 }
