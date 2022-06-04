@@ -26,7 +26,7 @@ class ApiTest extends UnitTest
     public function testIGotAnInstanceOfApiService(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
         // Act
         $service = new Api($client);
@@ -37,9 +37,9 @@ class ApiTest extends UnitTest
     public function testICanGetDevicesCollectionFromService(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('getDevices')->andReturn(new Devices());
+        $client->expects('getDevices')->andReturn(new Devices());
         $service = new Api($client);
 
         // Act
@@ -52,9 +52,9 @@ class ApiTest extends UnitTest
     public function testICanGetLightblubsCollectionFromService(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('getDevices')->andReturn(new Devices());
+        $client->expects('getDevices')->andReturn(new Devices());
 
         $service = new Api($client);
 
@@ -69,9 +69,9 @@ class ApiTest extends UnitTest
     public function testICanSwitchLightOff(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOff')->andReturn(true);
+        $client->expects('lightOff')->andReturn(true);
 
         $service = new Api($client);
 
@@ -88,9 +88,9 @@ class ApiTest extends UnitTest
     public function testICanNotSwitchLightOff(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOff')->andReturn(false);
+        $client->expects('lightOff')->andReturn(false);
 
         $service = new Api($client);
 
@@ -108,9 +108,8 @@ class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOff')->andReturn(true);
+        $client->expects('lightOff')->andReturn(true);
         $service = new Api($client);
 
         $this->assertFalse($lightBulb->isOn());
@@ -127,9 +126,8 @@ class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOn')->andReturn(true);
+        $client->expects('lightOn')->andReturn(true);
         $service = new Api($client);
 
         $this->assertFalse($lightBulb->isOn());
@@ -151,9 +149,8 @@ class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOn')->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
+        $client->expects('lightOn')->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
         $service = new Api($client);
 
         $this->assertFalse($lightBulb->isOn());
@@ -168,9 +165,8 @@ class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOn')->andReturn(true);
+        $client->expects('lightOn')->andReturn(true);
         $service = new Api($client);
 
         $this->assertTrue($lightBulb->isOn());
@@ -191,9 +187,8 @@ class ApiTest extends UnitTest
         $lightBulbs->addDevice(clone $lightBulb);
         $lightBulbs->addDevice((clone $lightBulb)->setId(2));
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOff')->andReturn(true);
+        $client->expects('lightOff')->times(2)->andReturn(true);
         $service = new Api($client);
 
         // Act
@@ -207,9 +202,8 @@ class ApiTest extends UnitTest
     {
         // Arrange
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('groupOn')->andReturn(true);
+        $client->expects('groupOn')->andReturn(true);
         $service = new Api($client);
 
         $group = new Group(1, $service);
@@ -233,9 +227,9 @@ class ApiTest extends UnitTest
     public function testICanSwitchGroupOn(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('groupOn')->andReturn(true);
+        $client->expects('groupOn')->andReturn(true);
         $service = new Api($client);
 
         $group = new Group(1, $service);
@@ -254,9 +248,9 @@ class ApiTest extends UnitTest
     public function testICanSwitchGroupOff(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('groupOff')->andReturn(true);
+        $client->expects('groupOff')->andReturn(true);
         $service = new Api($client);
         $group   = new Group(1, $service);
 
@@ -282,7 +276,6 @@ class ApiTest extends UnitTest
         // Arrange
         $dimmer = new Dimmer(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -297,7 +290,6 @@ class ApiTest extends UnitTest
         // Arrange
         $dimmer = new Dimmer(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -312,7 +304,6 @@ class ApiTest extends UnitTest
         // Arrange
         $remote = new Remote(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -327,7 +318,6 @@ class ApiTest extends UnitTest
         // Arrange
         $remote = new Remote(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -337,9 +327,9 @@ class ApiTest extends UnitTest
     public function testICanDimAGroup(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('dimGroup')->andReturn(true);
+        $client->expects('dimGroup')->andReturn(true);
 
         $service = new Api($client);
         $group   = new Group(1, $service);
@@ -354,9 +344,8 @@ class ApiTest extends UnitTest
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('dimLight')->andReturn(true);
+        $client->expects('dimLight')->andReturn(true);
 
         $service = new Api($client);
         // Act
@@ -373,7 +362,6 @@ class ApiTest extends UnitTest
         // Arrange
         $dimmer = new Dimmer(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -388,7 +376,6 @@ class ApiTest extends UnitTest
         // Arrange
         $remote = new Remote(1);
 
-        /** @var Client $client */
         $client  = Mockery::mock(Client::class);
         $service = new Api($client);
         // Act
@@ -398,9 +385,9 @@ class ApiTest extends UnitTest
     public function testICanGetGroupsFromService(): void
     {
         // Arrange
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('getGroups')->andReturn(new Groups());
+        $client->expects('getGroups')->andReturn(new Groups());
         $service = new Api($client);
 
         // Act

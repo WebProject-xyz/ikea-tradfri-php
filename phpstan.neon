@@ -3,7 +3,7 @@ parameters:
     paths:
         - src
     excludePaths:
-        - tests/*
         - wiki/*
+        - tests/_*
     bootstrapFiles:
         - build/constants.php

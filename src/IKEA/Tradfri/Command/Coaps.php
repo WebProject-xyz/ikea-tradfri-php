@@ -9,6 +9,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\Runner;
 use InvalidArgumentException;
+use function is_string;
 
 /**
  * @deprecated will be removed in v1.0.0
@@ -28,6 +29,7 @@ class Coaps
     protected string $ip;
 
     protected string $secret;
+    private Runner $runner;
 
     /**
      * @throws InvalidArgumentException
@@ -37,7 +39,8 @@ class Coaps
         string $gatewayAddress,
         string $secret,
         string $apiKey,
-        string $username
+        string $username,
+        ?Runner $runner = null
     ) {
         $this->setIp($gatewayAddress);
         $this->secret = $secret;
@@ -47,6 +50,8 @@ class Coaps
 
         $this->setApiKey($apiKey);
         $this->setUsername($username);
+
+        $this->runner = $runner ?? new Runner();
     }
 
     /**
@@ -59,13 +64,12 @@ class Coaps
 
         // run command
         $result = $this->parseResult(
-            (new Runner())->execWithTimeout($onCommand, 2)
+            $this->runner->execWithTimeout($onCommand, 2)
         );
 
         // verify result
-        if (isset($result->{Keys::ATTR_PSK})) {
-            /* @phpstan-ignore-next-line */
-            return $result->{Keys::ATTR_PSK};
+        if (is_string($result)) {
+            return $result;
         }
 
         throw new RuntimeException('Could not get api key');

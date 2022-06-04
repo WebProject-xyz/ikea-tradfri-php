@@ -8,3 +8,4 @@ modules:
     enabled:
         - Asserts
         - IKEA\Tests\Helper\Unit
+        - Mockery

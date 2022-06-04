@@ -2,8 +2,8 @@ on: [ push, pull_request ]
 name: CodeStyle
 
 jobs:
-    codeception-tests:
-        name: "Codeception tests"
+    code-style-tests:
+        name: "Style Checks"
         runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
         strategy:
@@ -18,7 +18,7 @@ jobs:
 
         steps:
             -   name: "Checkout code"
-                uses: "actions/checkout@v2"
+                uses: "actions/checkout@v3"
 
             -   name: "Install PHP"
                 uses: "shivammathur/setup-php@v2"
@@ -28,11 +28,12 @@ jobs:
                     php-version: "${{ matrix.php-version }}"
 
             -   name: "Install dependencies with Composer"
-                uses: "ramsey/composer-install@v1"
+                uses: "ramsey/composer-install@v2"
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
-            -   name: "Run Grump checks"
+            -   name: "Run PHPStan checks"
                 run: |
-                    vendor/bin/grumphp run -c .
+                    vendor/bin/codecept build -c .
+                    vendor/bin/phpstan
 

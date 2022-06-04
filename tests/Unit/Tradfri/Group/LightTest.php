@@ -6,7 +6,6 @@ namespace IKEA\Tests\Unit\Tradfri\Group;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
 use Mockery;
@@ -16,10 +15,10 @@ use Mockery;
  */
 class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights(): Light
+    public function testICanInitGroupOfLights(?ServiceInterface $service = null): Light
     {
         // Arrange
-        $service = Mockery::mock(ServiceInterface::class);
+        $service ??= Mockery::mock(ServiceInterface::class);
 
         // Act
         $group = new Light(1, $service);
@@ -54,7 +53,54 @@ class LightTest extends UnitTest
         $result       = $group->getDevices();
         $resultLights = $group->getLights();
         // Assert
-        $this->assertInstanceOf(Devices::class, $result);
-        $this->assertInstanceOf(LightBulbs::class, $resultLights);
+        $this->assertCount(0, $result);
+        $this->assertCount(0, $resultLights);
+    }
+
+    public function testICanSwitchOnGroup(): void
+    {
+        // Arrange
+        $service = Mockery::mock(ServiceInterface::class);
+
+        $group = $this->testICanInitGroupOfLights($service);
+
+        $service->expects('on')->with($group)->andReturnTrue();
+        // Act
+        $group->setDevices(new Devices());
+
+        // Assert
+        $this->assertTrue($group->switchOn());
+    }
+
+    public function testICanSwitchOffGroup(): void
+    {
+        // Arrange
+        $service = Mockery::mock(ServiceInterface::class);
+
+        $group = $this->testICanInitGroupOfLights($service);
+
+        $service->expects('off')->twice()->with($group)->andReturnTrue();
+        // Act
+        $group->setDevices(new Devices());
+
+        // Assert
+        $this->assertTrue($group->switchOff());
+        $this->assertFalse($group->off()->isOn());
+    }
+
+    public function testICanDimOffGroup(): void
+    {
+        // Arrange
+        $service = Mockery::mock(ServiceInterface::class);
+
+        $group = $this->testICanInitGroupOfLights($service);
+
+        $service->expects('dim')->with($group, 42)->andReturnTrue();
+        // Act
+        $group->setDevices(new Devices());
+
+        // Assert
+        $this->assertSame(0.0, $group->getBrightness());
+        $this->assertSame(42.0, $group->dim(42)->getBrightness());
     }
 }

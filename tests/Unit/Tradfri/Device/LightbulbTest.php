@@ -9,7 +9,6 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\Api;
-use IKEA\Tradfri\Service\ServiceInterface;
 use Mockery;
 
 /**
@@ -133,9 +132,8 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        /** @var Client $client */
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOn')->andReturn(true);
+        $client->expects('lightOn')->times(2)->andReturn(true);
 
         $service = new Api($client);
 
@@ -165,9 +163,8 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        /** @var ServiceInterface $service */
         $service = Mockery::mock(Api::class);
-        $service->shouldReceive('on')->andReturn(false);
+        $service->expects('on')->andReturn(false);
 
         $lamp->setService($service);
         $this->assertFalse($lamp->isOn());
@@ -185,9 +182,9 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
     {
         // Arrange
         $lamp = $this->getModel();
-        /** @var Client $client */
+
         $client = Mockery::mock(Client::class);
-        $client->shouldReceive('lightOff')->andReturn(true);
+        $client->expects('lightOff')->times(2)->andReturn(true);
 
         $service = new Api($client);
 
@@ -223,7 +220,7 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         /** var Client $client */
         $client = Mockery::mock(Client::class);
         $client
-            ->shouldReceive('lightOff')
+            ->expects('lightOff')
             ->andThrow(
                 new RuntimeException('unable to change state of lightBulb: 1')
             );
@@ -251,7 +248,7 @@ class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
         // Arrange
         $lamp    = $this->getModel();
         $service = Mockery::mock(Api::class);
-        $service->shouldReceive('off')->andReturn(false);
+        $service->expects('off')->andReturn(false);
 
         $lamp->setService($service);
         $this->assertFalse($lamp->isOn());

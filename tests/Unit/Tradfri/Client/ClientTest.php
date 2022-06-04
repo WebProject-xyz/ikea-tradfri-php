@@ -35,7 +35,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('getDeviceCollection')->andReturn(new Devices());
+        $adapter->expects('getDeviceCollection')->andReturn(new Devices());
 
         $client = new Client($adapter);
         // Act
@@ -50,7 +50,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('getGroupCollection')->andReturn(new Groups());
+        $adapter->expects('getGroupCollection')->andReturn(new Groups());
 
         $client = new Client($adapter);
         // Act
@@ -65,7 +65,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('changeLightState')->andReturn(true);
+        $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
         $light  = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
@@ -79,7 +79,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('changeLightState')->andReturn(true);
+        $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
         $light  = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
@@ -93,7 +93,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('changeGroupState')->andReturn(true);
+        $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
         $group  = new Light(1, Mockery::mock(ServiceInterface::class));
@@ -107,7 +107,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('changeGroupState')->andReturn(true);
+        $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
         $group  = new Light(1, Mockery::mock(ServiceInterface::class));
@@ -121,7 +121,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('setLightBrightness')->andReturn(true);
+        $adapter->expects('setLightBrightness')->andReturn(true);
 
         $client = new Client($adapter);
         $light  = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
@@ -135,7 +135,7 @@ class ClientTest extends \Codeception\Test\Unit
     {
         // Arrange
         $adapter = Mockery::mock(AdapterInterface::class);
-        $adapter->shouldReceive('setGroupBrightness')->andReturn(true);
+        $adapter->expects('setGroupBrightness')->andReturn(true);
 
         $client = new Client($adapter);
         $group  = new Light(1, Mockery::mock(ServiceInterface::class));
