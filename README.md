@@ -12,7 +12,7 @@ Inspired by
 
 ### Main
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b317b3e9521740e59e7dff003a0cbd69)](https://app.codacy.com/app/Fahl-Design/ikea-tradfri-php?utm_source=github.com&utm_medium=referral&utm_content=WebProject-xyz/ikea-tradfri-php&utm_campaign=badger)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a04395190abd4cb1aa4fa9c7c8077810)](https://www.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WebProject-xyz/ikea-tradfri-php&amp;utm_campaign=Badge_Grade)
 [![Cocdeception](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml/badge.svg?branch=master&style=flat)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/maintainability)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/test_coverage)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/test_coverage)
