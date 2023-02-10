@@ -54,9 +54,9 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @return array|stdClass|string
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {

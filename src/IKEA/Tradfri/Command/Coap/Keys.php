@@ -41,7 +41,7 @@ class Keys
     public const ATTR_DEVICE_INFO_MANUFACTURER = '0';
     public const ATTR_DEVICE_INFO_TYPE         = '1';
     public const ATTR_DEVICE_VERSION           = '3';
-    //@todo: add more device types and move types to config
+    // @todo: add more device types and move types to config
     public const ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR
         = 'TRADFRI motion sensor';
     public const ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL

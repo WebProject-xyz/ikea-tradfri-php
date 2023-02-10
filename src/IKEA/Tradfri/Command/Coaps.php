@@ -164,8 +164,6 @@ class Coaps
 
     /**
      * Set ApiKey.
-     *
-     * @return Coaps
      */
     public function setApiKey(string $apiKey): self
     {

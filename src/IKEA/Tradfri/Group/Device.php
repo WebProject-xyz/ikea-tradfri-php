@@ -62,8 +62,6 @@ class Device implements DeviceInterface
      * Set Service.
      *
      * @param Api|ServiceInterface $service
-     *
-     * @return Device
      */
     public function setService(ServiceInterface $service): self
     {
@@ -128,8 +126,6 @@ class Device implements DeviceInterface
      * Set Id.
      *
      * @param int $deviceId
-     *
-     * @return Device
      */
     public function setId($deviceId): self
     {
@@ -148,8 +144,6 @@ class Device implements DeviceInterface
 
     /**
      * Set Name.
-     *
-     * @return Device
      */
     public function setName(string $name): self
     {

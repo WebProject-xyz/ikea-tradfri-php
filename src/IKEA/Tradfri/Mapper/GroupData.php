@@ -18,9 +18,9 @@ class GroupData extends Mapper
     /**
      * @param Api|ServiceInterface $service
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @return AbstractCollection|Groups
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function map(
         ServiceInterface $service,
