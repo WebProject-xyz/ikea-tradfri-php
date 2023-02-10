@@ -34,7 +34,7 @@ jobs:
 
             -   name: "Run Codeception with coverage"
                 run: |
-                    vendor/bin/codecept run -c . -vvv --json --coverage --coverage-xml=coverage.xml
+                    vendor/bin/codecept run -c . -vvv --coverage --coverage-xml=coverage.xml
             -   name: Codecov
                 uses: codecov/codecov-action@v3
                 with:
@@ -42,4 +42,4 @@ jobs:
                     files: ./build/logs/coverage.xml
                     flags: unittests # optional
                     fail_ci_if_error: "${{ matrix.with_coverage }}" # optional (default = false)
-                    verbose: true # optional (default = false)
+                    verbose: false # optional (default = false)

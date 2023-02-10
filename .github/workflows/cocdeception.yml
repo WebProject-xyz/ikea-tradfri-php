@@ -38,4 +38,4 @@ jobs:
 
             -   name: "Run Codeception"
                 run: |
-                    vendor/bin/codecept run -c . -vvv --json
+                    vendor/bin/codecept run -c .
