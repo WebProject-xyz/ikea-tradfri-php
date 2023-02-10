@@ -9,7 +9,7 @@ extensions:
             max_files: 5
 paths:
     tests: tests
-    output: tests/_output
+    output: build/logs
     data: tests/Support/Data
     support: tests/Support
     envs: tests/_envs
