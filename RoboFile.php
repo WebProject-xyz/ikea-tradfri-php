@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Robo\Result;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 /**
  * This is project's console commands configuration for Robo task runner.
