@@ -1,11 +1,10 @@
-# Codeception Test Suite Configuration
-#
-# Suite for unit or integration tests.
-
-actor: UnitTester
 namespace: IKEA\Tests
+support_namespace: Support
+class_name: UnitTester
+actor: UnitTester
 modules:
     enabled:
         - Asserts
-        - IKEA\Tests\Helper\Unit
+        - IKEA\Tests\Support\Helper\Unit
         - Mockery
+    step_decorators: ~

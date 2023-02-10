@@ -1,4 +1,8 @@
 {
+  "name": "webproject-xyz/ikea-tradfri-php-api",
+  "description": "PHP library to control ikea tradfri hub",
+  "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Benjamin Fahl",
@@ -6,6 +10,28 @@
       "role": "developer"
     }
   ],
+  "homepage": "https://www.webproject.xyz",
+  "require": {
+    "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+    "ext-json": "*",
+    "doctrine/collections": "^1.8"
+  },
+  "require-dev": {
+    "codeception/codeception": "^5.0.8",
+    "codeception/mockery-module": "0.5.0",
+    "codeception/module-asserts": "^3.0.0",
+    "consolidation/robo": "^3.0.11",
+    "friendsofphp/php-cs-fixer": "^3.14.4",
+    "mockery/mockery": "^1.5.1",
+    "phpro/grumphp": "^v1.15.0",
+    "phpstan/extension-installer": "^1.2.0",
+    "phpstan/phpstan": "^1.9.17",
+    "phpstan/phpstan-mockery": "^1.1.0",
+    "psr/log": "^2.0.0",
+    "roave/security-advisories": "dev-latest",
+    "symfony/var-dumper": "^5.4 || ^6.0.19 || ^6.1"
+  },
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "IKEA\\": "src/IKEA"
@@ -13,58 +39,26 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "IKEA\\Tests\\Unit\\": "tests/Unit/"
-    },
-    "classmap": [
-      "tests/_support"
-    ]
+      "IKEA\\Tests\\": "tests/"
+    }
   },
   "config": {
-    "optimize-autoloader": true,
     "allow-plugins": {
       "phpro/grumphp": true,
       "phpstan/extension-installer": true
-    }
-  },
-  "description": "PHP library to control ikea tradfri hub",
-  "homepage": "https://www.webproject.xyz",
-  "license": "MIT",
-  "name": "webproject-xyz/ikea-tradfri-php-api",
-  "prefer-stable": true,
-  "require": {
-    "php": "^7.4 || ^8.0 || ^8.1",
-    "ext-json": "*",
-    "doctrine/collections": "^1"
-  },
-  "require-dev": {
-    "codeception/codeception": "^4",
-    "codeception/module-asserts": "^2.0.0 || ^3.0",
-    "codeception/mockery-module": "^0.4.0",
-    "mockery/mockery": "^1",
-    "friendsofphp/php-cs-fixer": "^3.0",
-    "monolog/monolog": "^2 || ^3.0",
-    "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^5.4 || ^6.0",
-    "phpro/grumphp": "^v0.22.0 || ^v1.12.0",
-    "phpstan/phpstan": "^1.7.10",
-    "phpstan/extension-installer": "^1.1.0",
-    "phpstan/phpstan-mockery": "^1.1.0"
+    },
+    "optimize-autoloader": true
   },
   "scripts": {
-    "run-tests": [
-      "./vendor/bin/codecept run --colors"
-    ],
-    "cs-check": [
-      "./vendor/bin/php-cs-fixer fix --dry-run -vv"
-    ],
-    "xDebugOn": [
-      "echo 'Activating xDebug'",
-      "echo 'zend_extension=xdebug.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini || return 0"
-    ],
     "build-coverage": [
       "echo 'Build coverage'",
       "./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
+    ],
+    "php-cs-fixer": "php-cs-fixer fix -vv --path-mode=intersection",
+    "php-cs-fixer-full": "vendor/bin/php-cs-fixer fix -v",
+    "phpstan": "vendor/bin/phpstan analyse --memory-limit=-1 packages --error-format table",
+    "run-tests": [
+      "./vendor/bin/codecept run --colors"
     ]
-  },
-  "type": "library"
+  }
 }

@@ -79,3 +79,5 @@ fabric.properties
 coverage/*
 !coverage/.gitkeep
 composer.phar
+tests/Support/_generated/*
+!tests/Support/_generated/.gitkeep
