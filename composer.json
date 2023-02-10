@@ -20,7 +20,7 @@
     "codeception/codeception": "^5.0.8",
     "codeception/mockery-module": "0.5.0",
     "codeception/module-asserts": "^3.0.0",
-    "consolidation/robo": "^3.0.11",
+    "consolidation/robo": "^4.0.3",
     "friendsofphp/php-cs-fixer": "^3.14.4",
     "mockery/mockery": "^1.5.1",
     "phpro/grumphp": "^v1.15.0",
