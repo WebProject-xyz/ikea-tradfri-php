@@ -22,7 +22,7 @@
     "codeception/module-asserts": "^3.0.0",
     "friendsofphp/php-cs-fixer": "^3.14.4",
     "mockery/mockery": "^1.5.1",
-    "phpro/grumphp": "^v1.15.0",
+    "phpro/grumphp": "^v2.0.0",
     "phpstan/extension-installer": "^1.2.0",
     "phpstan/phpstan": "^1.9.17",
     "phpstan/phpstan-mockery": "^1.1.0",
