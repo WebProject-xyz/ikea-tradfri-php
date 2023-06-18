@@ -65,8 +65,6 @@ class Api implements ServiceInterface
     /**
      * @todo interface switchable
      *
-     * @param mixed $device
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function off($device): bool
@@ -85,8 +83,6 @@ class Api implements ServiceInterface
 
     /**
      * @todo interface switchable
-     *
-     * @param mixed $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */

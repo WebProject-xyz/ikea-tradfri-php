@@ -6,23 +6,20 @@ $finder = \PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/src')
     ->in(__DIR__ . '/tests')
     ->notPath(['#_generated#'])
-    ->append([__FILE__])
+    ->append([__FILE__, 'RoboFile.php'])
     ->name('*.php');
 
 $rules = [
-    /* symfony set @see \PhpCsFixer\RuleSet\Sets\SymfonySet */
-    '@PSR12'                 => true,
-    'array_syntax'           => true,
-    'backtick_to_shell_exec' => true,
-    // 'binary_operator_spaces' => true,
+    /** symfony set @see \PhpCsFixer\RuleSet\Sets\SymfonySet */
+    '@PSR12'                  => true,
+    'align_multiline_comment' => true,
+    'array_syntax'            => true,
+    'backtick_to_shell_exec'  => true,
+//    'binary_operator_spaces' => true,
     'blank_line_before_statement' => [
         'statements' => [
             'return',
         ],
-    ],
-    'braces' => [
-        'allow_single_line_anonymous_class_with_empty_body' => true,
-        'allow_single_line_closure'                         => true,
     ],
     'cast_spaces'                 => true,
     'class_attributes_separation' => [
@@ -33,8 +30,14 @@ $rules = [
     'class_definition' => [
         'single_line' => true,
     ],
-    'clean_namespace' => true,
-    // 'concat_space' => true,
+    'class_reference_name_casing' => true,
+    'clean_namespace'             => true,
+//    'concat_space'                => true,
+    'curly_braces_position'       => [
+        'allow_single_line_anonymous_functions'     => true,
+        'allow_single_line_empty_anonymous_classes' => true,
+    ],
+    'declare_parentheses'          => true,
     'echo_tag_syntax'              => true,
     'empty_loop_body'              => ['style' => 'braces'],
     'empty_loop_condition'         => true,
@@ -45,6 +48,11 @@ $rules = [
             'inheritDocs' => 'inheritDoc',
         ],
     ],
+//    'global_namespace_import' => [
+//        'import_classes' => false,
+//        'import_constants' => false,
+//        'import_functions' => false,
+//    ],
     'include'                     => true,
     'increment_style'             => true,
     'integer_literal_case'        => true,
@@ -66,6 +74,7 @@ $rules = [
     'no_empty_statement'                      => true,
     'no_extra_blank_lines'                    => [
         'tokens' => [
+            'attribute',
             'case',
             'continue',
             'curly_brace_block',
@@ -81,21 +90,21 @@ $rules = [
     'no_leading_namespace_whitespace'             => true,
     'no_mixed_echo_print'                         => true,
     'no_multiline_whitespace_around_double_arrow' => true,
+    'no_null_property_initialization'             => true,
     'no_short_bool_cast'                          => true,
     'no_singleline_whitespace_before_semicolons'  => true,
     'no_spaces_around_offset'                     => true,
     'no_superfluous_phpdoc_tags'                  => [
-        'allow_mixed'         => true,
-        'allow_unused_params' => true,
+        'remove_inheritdoc' => true,
     ],
-    'no_trailing_comma_in_list_call'        => true,
-    'no_trailing_comma_in_singleline_array' => true,
-    'no_unneeded_control_parentheses'       => [
+    'no_trailing_comma_in_singleline' => true,
+    'no_unneeded_control_parentheses' => [
         'statements' => [
             'break',
             'clone',
             'continue',
             'echo_print',
+            'others',
             'return',
             'switch_case',
             'yield',
@@ -105,22 +114,43 @@ $rules = [
     'no_unneeded_curly_braces' => [
         'namespaces' => true,
     ],
-    'no_unset_cast'                       => true,
-    'no_unused_imports'                   => true,
-    'no_whitespace_before_comma_in_array' => true,
-    'normalize_index_brace'               => true,
-    'object_operator_without_whitespace'  => true,
-    // 'ordered_imports' => true,
-    'php_unit_fqcn_annotation'       => true,
-    'php_unit_method_casing'         => true,
-    'phpdoc_align'                   => true,
-    'phpdoc_annotation_without_dot'  => true,
-    'phpdoc_indent'                  => true,
-    'phpdoc_inline_tag_normalizer'   => true,
-    'phpdoc_no_access'               => true,
-    'phpdoc_no_alias_tag'            => true,
-    'phpdoc_no_package'              => true,
-    'phpdoc_no_useless_inheritdoc'   => true,
+    'no_unneeded_import_alias'                         => true,
+    'no_unset_cast'                                    => true,
+    'no_unused_imports'                                => true,
+    'no_useless_concat_operator'                       => true,
+    'no_useless_nullsafe_operator'                     => true,
+    'no_whitespace_before_comma_in_array'              => true,
+    'normalize_index_brace'                            => true,
+    'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => false],
+    'object_operator_without_whitespace'               => true,
+    'operator_linebreak'                               => [
+        'only_booleans' => true,
+    ],
+//    'ordered_imports' => [
+//        'imports_order' => [
+//            'class',
+//            'function',
+//            'const',
+//        ],
+//        'sort_algorithm' => 'alpha',
+//    ],
+    'php_unit_fqcn_annotation'      => true,
+    'php_unit_method_casing'        => true,
+    'phpdoc_align'                  => true,
+    'phpdoc_annotation_without_dot' => true,
+    'phpdoc_indent'                 => true,
+    'phpdoc_inline_tag_normalizer'  => true,
+    'phpdoc_no_access'              => true,
+    'phpdoc_no_alias_tag'           => true,
+    'phpdoc_no_package'             => true,
+    'phpdoc_no_useless_inheritdoc'  => true,
+    'phpdoc_order'                  => [
+        'order' => [
+            'param',
+            'return',
+            'throws',
+        ],
+    ],
     'phpdoc_return_self_reference'   => true,
     'phpdoc_scalar'                  => true,
     'phpdoc_separation'              => true,
@@ -131,7 +161,7 @@ $rules = [
             'inheritDoc' => 'inline',
         ],
     ],
-    // see below! 'phpdoc_to_comment'                             => true,
+//    'phpdoc_to_comment' => true,
     'phpdoc_trim'                                   => true,
     'phpdoc_trim_consecutive_blank_line_separation' => true,
     'phpdoc_types'                                  => true,
@@ -140,18 +170,20 @@ $rules = [
         'sort_algorithm'  => 'none',
     ],
     'phpdoc_var_without_name'            => true,
-    'protected_to_private'               => true,
     'semicolon_after_instruction'        => true,
+    'simple_to_complex_string_variable'  => true,
     'single_class_element_per_statement' => true,
+    'single_import_per_statement'        => true,
+    'single_line_comment_spacing'        => true,
     'single_line_comment_style'          => [
         'comment_types' => [
             'hash',
         ],
     ],
-    'single_line_throw'            => true,
-    'single_quote'                 => true,
-    'single_space_after_construct' => true,
-    'space_after_semicolon'        => [
+    'single_line_throw'             => true,
+    'single_quote'                  => true,
+    'single_space_around_construct' => true,
+    'space_after_semicolon'         => [
         'remove_in_empty_for_expressions' => true,
     ],
     'standardize_increment'           => true,
@@ -164,47 +196,51 @@ $rules = [
     'whitespace_after_comma_in_array' => true,
     'yoda_style'                      => true,
     // END \PhpCsFixer\RuleSet\Sets\SymfonySet
-    'binary_operator_spaces'      => [
+    'binary_operator_spaces'                        => [
         'default'   => 'align',
         'operators' => [
             '??' => 'single_space',
         ],
     ],
-    'concat_space'                       => ['spacing' => 'one'],
-    '@PhpCsFixer:risky'                  => true,
-    'encoding'                           => true,
-    'single_blank_line_before_namespace' => true,
-    'blank_line_after_opening_tag'       => false,
-    'strict_param'                       => true,
-    'no_useless_else'                    => true,
-    'no_useless_return'                  => true,
-    'modernize_types_casting'            => true,
-    'declare_strict_types'               => true,
-    'dir_constant'                       => true,
-    'no_whitespace_in_blank_line'        => true,
+    'concat_space'                                  => ['spacing' => 'one'],
+    '@PhpCsFixer:risky'                             => true,
+    'encoding'                                      => true,
+    'single_blank_line_before_namespace'            => true,
+    'blank_line_after_opening_tag'                  => false,
+    'strict_param'                                  => true,
+    'no_useless_else'                               => true,
+    'no_useless_return'                             => true,
+    'modernize_types_casting'                       => true,
+    'declare_strict_types'                          => true,
+    'dir_constant'                                  => true,
+    'no_whitespace_in_blank_line'                   => true,
 
-    '@Symfony:risky'                         => true,
-    '@PHPUnit75Migration:risky'              => true,
-    'php_unit_dedicate_assert'               => ['target' => 'newest'],
-    'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
-    'fopen_flags'                            => false,
-    'combine_nested_dirname'                 => true,
+    '@Symfony:risky'                                => true,
+    '@PHPUnit75Migration:risky'                     => true,
+    'php_unit_dedicate_assert'                      => ['target' => 'newest'],
+    'php_unit_test_case_static_method_calls'        => ['call_type' => 'this'],
+    'fopen_flags'                                   => false,
+    'combine_nested_dirname'                        => true,
 
-    'ordered_imports' => [
+    'ordered_imports'                               => [
         'sort_algorithm' => 'alpha',
         'imports_order'  => [
-            'const', 'class', 'function',
+            'const',
+            'class',
+            'function',
         ],
     ],
 
-    'global_namespace_import' => [
+    'global_namespace_import'                       => [
         'import_classes'   => true,
         'import_functions' => true,
         'import_constants' => true,
     ],
 
     // if this is true, phpstan checks will fail
-    'phpdoc_to_comment' => false,
+    'phpdoc_to_comment'                             => false,
+    // prevent mega diff
+    'blank_line_between_import_groups'              => false,
 ];
 
 $config = new \PhpCsFixer\Config('default');

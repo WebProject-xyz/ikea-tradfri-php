@@ -21,9 +21,9 @@ use function count;
 class DeviceData extends Mapper
 {
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @return Devices
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     public function map(
         ServiceInterface $service,

@@ -54,9 +54,9 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @return array|stdClass|string
+     *
+     * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
@@ -166,11 +166,12 @@ class Coap extends AdapterAbstract
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
-        $data = (new Runner())->execWithTimeout(
-            $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
-            2,
-            true
-        );
+        (new Runner())
+            ->execWithTimeout(
+                $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+                2,
+                true
+            );
 
         // @todo: fix validation
         return true;

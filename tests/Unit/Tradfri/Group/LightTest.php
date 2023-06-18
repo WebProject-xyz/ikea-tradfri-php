@@ -15,7 +15,7 @@ use Mockery;
  */
 class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights(?ServiceInterface $service = null): Light
+    public function testICanInitGroupOfLights(ServiceInterface $service = null): Light
     {
         // Arrange
         $service ??= Mockery::mock(ServiceInterface::class);

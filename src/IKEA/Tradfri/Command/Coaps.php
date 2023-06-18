@@ -40,7 +40,7 @@ class Coaps
         string $secret,
         string $apiKey,
         string $username,
-        ?Runner $runner = null
+        Runner $runner = null
     ) {
         $this->setIp($gatewayAddress);
         $this->secret = $secret;
@@ -129,8 +129,8 @@ class Coaps
         $parsed = false;
         foreach ($result as $part) {
             if (!empty($part)
-                && false === strpos($part, 'decrypt')
-                && false === strpos($part, 'v:1')) {
+                &&   !str_contains($part, 'decrypt')
+                &&   !str_contains($part, 'v:1')) {
                 $parsed = (string) $part;
 
                 break;
@@ -164,8 +164,6 @@ class Coaps
 
     /**
      * Set ApiKey.
-     *
-     * @return Coaps
      */
     public function setApiKey(string $apiKey): self
     {
