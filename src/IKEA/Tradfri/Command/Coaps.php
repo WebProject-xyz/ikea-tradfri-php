@@ -129,8 +129,8 @@ class Coaps
         $parsed = false;
         foreach ($result as $part) {
             if (!empty($part)
-                && false === strpos($part, 'decrypt')
-                && false === strpos($part, 'v:1')) {
+                &&   !str_contains($part, 'decrypt')
+                &&   !str_contains($part, 'v:1')) {
                 $parsed = (string) $part;
 
                 break;

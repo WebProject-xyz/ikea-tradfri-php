@@ -18,7 +18,6 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use function class_exists;
 use function get_class_methods;
 use function str_replace;
-use function strpos;
 
 /**
  * Class Type.
@@ -49,7 +48,7 @@ class Type
      */
     public function isLightBulb(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::BLUB);
+        return str_starts_with($typeAttribute, self::BLUB);
     }
 
     /**
@@ -57,7 +56,7 @@ class Type
      */
     public function isRemote(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::REMOTE);
+        return str_starts_with($typeAttribute, self::REMOTE);
     }
 
     /**
@@ -65,7 +64,7 @@ class Type
      */
     public function isDimmer(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::DIMMER);
+        return str_starts_with($typeAttribute, self::DIMMER);
     }
 
     /**
@@ -73,7 +72,7 @@ class Type
      */
     public function isDriver(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::DRIVER);
+        return str_starts_with($typeAttribute, self::DRIVER);
     }
 
     /**
@@ -81,7 +80,7 @@ class Type
      */
     public function isMotionSensor(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::MOTION_SENSOR);
+        return str_starts_with($typeAttribute, self::MOTION_SENSOR);
     }
 
     /**
@@ -89,7 +88,7 @@ class Type
      */
     public function isFloalt(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::FLOALT);
+        return str_starts_with($typeAttribute, self::FLOALT);
     }
 
     /**
@@ -97,7 +96,7 @@ class Type
      */
     public function isRepeater(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::REPEATER);
+        return str_starts_with($typeAttribute, self::REPEATER);
     }
 
     /**
@@ -105,7 +104,7 @@ class Type
      */
     public function isOpenCloseRemote(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::REMOTE_OPEN_CLOSE);
+        return str_starts_with($typeAttribute, self::REMOTE_OPEN_CLOSE);
     }
 
     /**
@@ -113,7 +112,7 @@ class Type
      */
     public function isRollerBlind(string $typeAttribute): bool
     {
-        return 0 === strpos($typeAttribute, self::ROLLER_BLIND);
+        return str_starts_with($typeAttribute, self::ROLLER_BLIND);
     }
 
     /**
