@@ -40,7 +40,7 @@ class Coaps
         string $secret,
         string $apiKey,
         string $username,
-        ?Runner $runner = null
+        Runner $runner = null
     ) {
         $this->setIp($gatewayAddress);
         $this->secret = $secret;

@@ -6,8 +6,5 @@ namespace IKEA\Tradfri\Validator;
 
 interface ValidatorInterface
 {
-    /**
-     * @param mixed $data
-     */
     public function isValid($data): bool;
 }

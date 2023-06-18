@@ -120,8 +120,6 @@ class Data implements ValidatorInterface
 
     /**
      * Get Data.
-     *
-     * @return mixed
      */
     protected function _getData(stdClass $device)
     {
