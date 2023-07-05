@@ -14,10 +14,9 @@ try {
     if (false ===$lights->isEmpty()) {
         /** @var LightBulb $light */
         $light = $lights->find(
-            function ($light) {
+            fn($light) =>
                 /** @var LightBulb $light */
-                return $light->getName() === 'Wohnzimmer - Schreibtisch';
-            }
+                $light->getName() === 'Wohnzimmer - Schreibtisch'
         );
         echo '---------- Light Information'.PHP_EOL;
         echo ' '.PHP_EOL;

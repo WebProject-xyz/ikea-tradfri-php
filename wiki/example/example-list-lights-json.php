@@ -7,7 +7,7 @@ try {
     $lights = $api->getLights();
     $lights->sortByState();
     header('Content-Type: application/json');
-    echo json_encode($lights->jsonSerialize());
+    echo json_encode($lights->jsonSerialize(), JSON_THROW_ON_ERROR);
 } catch (\Exception $e) {
     echo $e->getMessage().PHP_EOL.PHP_EOL;
     echo $e->getTraceAsString();

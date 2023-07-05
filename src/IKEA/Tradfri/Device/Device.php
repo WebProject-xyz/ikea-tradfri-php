@@ -44,7 +44,7 @@ abstract class Device implements JsonSerializable, DeviceInterface
         $data = [];
 
         foreach (get_class_methods(static::class) as $method) {
-            if ('getService' !== $method && 0 === strncmp($method, 'get', 3)) {
+            if ('getService' !== $method && str_starts_with($method, 'get')) {
                 $key        = strtolower(substr($method, 3));
                 $data[$key] = $this->$method();
             }

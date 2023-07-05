@@ -9,31 +9,19 @@ namespace IKEA\Tradfri\Command\Coap;
  */
 class Receiver
 {
-    public const COAP_COMMAND = '%s invalid %s';
+    final public const COAP_COMMAND = '%s invalid %s';
 
     protected string $requestType;
 
     protected string $injectCommand;
-
-    protected string $ipAddress;
-
-    protected string $username;
-
-    protected string $apiKey;
 
     /**
      * @var string[]
      */
     protected array $output = [];
 
-    public function __construct(
-        string $gatewayAddress,
-        string $username,
-        string $apiKey
-    ) {
-        $this->ipAddress = $gatewayAddress;
-        $this->username  = $username;
-        $this->apiKey    = $apiKey;
+    public function __construct(protected string $ipAddress, protected string $username, protected string $apiKey)
+    {
     }
 
     /**

@@ -24,12 +24,10 @@ class LightBulbs extends Devices
 
         usort(
             $items,
-            function (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) {
-                return strcmp(
-                    $lightBulbOne->getReadableState(),
-                    $lightBulbTwo->getReadableState()
-                );
-            }
+            fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => strcmp(
+                $lightBulbOne->getReadableState(),
+                $lightBulbTwo->getReadableState()
+            )
         );
 
         return $this->createFrom($items);

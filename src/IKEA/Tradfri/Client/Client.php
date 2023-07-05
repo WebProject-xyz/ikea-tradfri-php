@@ -14,11 +14,8 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 class Client
 {
-    protected AdapterInterface $adapter;
-
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(protected AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
     }
 
     public function getDevices(ServiceInterface $service): Devices

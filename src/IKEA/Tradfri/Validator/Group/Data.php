@@ -47,7 +47,7 @@ class Data implements ValidatorInterface
             if (!isset($lightData->{Keys::ATTR_ID})) {
                 throw new RuntimeException('attribute group data is not an array (' . Keys::ATTR_GROUP_INFO . '->' . Keys::ATTR_GROUP_LIGHTS . '->' . Keys::ATTR_ID . ')');
             }
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             $isValid = false;
         }
 
