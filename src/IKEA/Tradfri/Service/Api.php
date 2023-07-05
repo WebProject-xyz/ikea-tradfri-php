@@ -17,13 +17,10 @@ use IKEA\Tradfri\Group\Light;
 
 class Api implements ServiceInterface
 {
-    public const INVALID_DEVICE_TYPE = 'invalid device type: ';
+    final public const INVALID_DEVICE_TYPE = 'invalid device type: ';
 
-    protected Client $client;
-
-    public function __construct(Client $client)
+    public function __construct(protected Client $client)
     {
-        $this->client = $client;
     }
 
     public function getLights(): LightBulbs

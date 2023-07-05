@@ -16,20 +16,18 @@ use function is_string;
  */
 class Coaps
 {
-    public const PAYLOAD_START = ' -e \'{ "';
-    public const PAYLOAD_OPEN  = '": [{ "';
-    public const PAYLOAD_END   = ' }] }\' ';
+    final public const PAYLOAD_START = ' -e \'{ "';
+    final public const PAYLOAD_OPEN  = '": [{ "';
+    final public const PAYLOAD_END   = ' }] }\' ';
 
-    public const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
+    final public const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
 
     protected string $username;
 
     protected string $apiKey;
 
     protected string $ip;
-
-    protected string $secret;
-    private Runner $runner;
+    private readonly Runner $runner;
 
     /**
      * @throws InvalidArgumentException
@@ -37,13 +35,12 @@ class Coaps
      */
     public function __construct(
         string $gatewayAddress,
-        string $secret,
+        protected string $secret,
         string $apiKey,
         string $username,
         Runner $runner = null
     ) {
         $this->setIp($gatewayAddress);
-        $this->secret = $secret;
         if (empty($apiKey)) {
             throw new RuntimeException('$apiKey can not be empty');
         }
@@ -129,8 +126,8 @@ class Coaps
         $parsed = false;
         foreach ($result as $part) {
             if (!empty($part)
-                &&   !str_contains($part, 'decrypt')
-                &&   !str_contains($part, 'v:1')) {
+                &&   !str_contains((string) $part, 'decrypt')
+                &&   !str_contains((string) $part, 'v:1')) {
                 $parsed = (string) $part;
 
                 break;
@@ -268,22 +265,12 @@ class Coaps
             . '": %s, "'
             . Keys::ATTR_LIGHT_COLOR_Y
             . '": %s }] }\' ';
-        switch ($color) {
-            case 'warm':
-                $payload = sprintf($payload, '33135', '27211');
-
-                break;
-            case 'normal':
-                $payload = sprintf($payload, '30140', '26909');
-
-                break;
-            case 'cold':
-                $payload = sprintf($payload, '24930', '24684');
-
-                break;
-            default:
-                throw new RuntimeException('unknown color');
-        }
+        $payload = match ($color) {
+            'warm'   => sprintf($payload, '33135', '27211'),
+            'normal' => sprintf($payload, '30140', '26909'),
+            'cold'   => sprintf($payload, '24930', '24684'),
+            default  => throw new RuntimeException('unknown color'),
+        };
 
         return $this->getCoapsCommandPut(
             Keys::ROOT_DEVICES . '/' . $groupId,

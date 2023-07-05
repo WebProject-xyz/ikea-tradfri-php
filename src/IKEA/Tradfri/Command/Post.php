@@ -6,5 +6,5 @@ namespace IKEA\Tradfri\Command;
 
 class Post extends AbstractCommand
 {
-    public const COAP_COMMAND = 'coap-client -m post -u "%s" -k "%s"';
+    final public const COAP_COMMAND = 'coap-client -m post -u "%s" -k "%s"';
 }

@@ -22,16 +22,13 @@ use function is_object;
 
 class Coap extends AdapterAbstract
 {
-    public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
-
-    protected Coaps $commands;
+    final public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     public function __construct(
-        Coaps $commands,
+        protected Coaps $commands,
         MapperInterface $deviceDataMapper,
         MapperInterface $groupDataMapper
     ) {
-        $this->commands = $commands;
         parent::__construct($deviceDataMapper, $groupDataMapper);
     }
 

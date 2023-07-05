@@ -39,9 +39,7 @@ class Data implements ValidatorInterface
             $this->_hasDataManufacturer($data);
 
             $this->_hasDataVersion($data);
-        } catch (RuntimeException $exception) {
-            $isValid = false;
-        } catch (Throwable $exception) {
+        } catch (RuntimeException|Throwable) {
             $isValid = false;
         }
 

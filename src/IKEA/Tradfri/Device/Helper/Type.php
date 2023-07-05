@@ -24,24 +24,24 @@ use function str_replace;
  */
 class Type
 {
-    public const BLUB                    = 'TRADFRI bulb';
-    public const BLUB_CLASS              = LightBulb::class;
-    public const MOTION_SENSOR           = 'TRADFRI motion sensor';
-    public const MOTION_SENSOR_CLASS     = MotionSensor::class;
-    public const REMOTE                  = 'TRADFRI remote control';
-    public const REMOTE_CLASS            = Remote::class;
-    public const DIMMER                  = 'TRADFRI dimmer';
-    public const DIMMER_CLASS            = Dimmer::class;
-    public const DRIVER                  = 'TRADFRI Driver ';
-    public const DRIVER_CLASS            = Driver::class;
-    public const FLOALT                  = 'FLOALT panel ';
-    public const FLOALT_CLASS            = Floalt::class;
-    public const REPEATER                = 'TRADFRI Signal Repeater';
-    public const REPEATER_CLASS          = Repeater::class;
-    public const REMOTE_OPEN_CLOSE       = 'TRADFRI open/close remote';
-    public const REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
-    public const ROLLER_BLIND            = 'FYRTUR block-out roller blind';
-    public const ROLLER_BLIND_CLASS      = RollerBlind::class;
+    final public const BLUB                    = 'TRADFRI bulb';
+    final public const BLUB_CLASS              = LightBulb::class;
+    final public const MOTION_SENSOR           = 'TRADFRI motion sensor';
+    final public const MOTION_SENSOR_CLASS     = MotionSensor::class;
+    final public const REMOTE                  = 'TRADFRI remote control';
+    final public const REMOTE_CLASS            = Remote::class;
+    final public const DIMMER                  = 'TRADFRI dimmer';
+    final public const DIMMER_CLASS            = Dimmer::class;
+    final public const DRIVER                  = 'TRADFRI Driver ';
+    final public const DRIVER_CLASS            = Driver::class;
+    final public const FLOALT                  = 'FLOALT panel ';
+    final public const FLOALT_CLASS            = Floalt::class;
+    final public const REPEATER                = 'TRADFRI Signal Repeater';
+    final public const REPEATER_CLASS          = Repeater::class;
+    final public const REMOTE_OPEN_CLOSE       = 'TRADFRI open/close remote';
+    final public const REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
+    final public const ROLLER_BLIND            = 'FYRTUR block-out roller blind';
+    final public const ROLLER_BLIND_CLASS      = RollerBlind::class;
 
     /**
      * Check if given type attribute is from a light blub.
@@ -138,7 +138,7 @@ class Type
     public function buildFrom(string $typeAttribute, int $deviceId, bool $buildUnknownDevice = true): Device
     {
         foreach (get_class_methods($this) as $method) {
-            if (0 !== strncmp($method, 'is', 2)) {
+            if (!str_starts_with($method, 'is')) {
                 continue;
             }
 

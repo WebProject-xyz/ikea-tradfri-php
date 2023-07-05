@@ -37,7 +37,7 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => 'invalid type error',
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID                 => 1000,
                                         Keys::ATTR_NAME               => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W,
@@ -52,7 +52,7 @@ class Unit extends \Codeception\Module
                                                 Keys::ATTR_LIGHT_STATE  => 1,
                                             ],
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID                 => 2000,
                                         Keys::ATTR_NAME               => Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS,
@@ -67,7 +67,7 @@ class Unit extends \Codeception\Module
                                                 Keys::ATTR_LIGHT_STATE  => 0,
                                             ],
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 3000,
                                         Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
@@ -76,7 +76,7 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_DIMMER,
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 4000,
                                         Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
@@ -85,7 +85,7 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL,
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 5000,
                                         Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
@@ -94,7 +94,7 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 6000,
                                         Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND,
@@ -108,7 +108,7 @@ class Unit extends \Codeception\Module
                                                 Keys::ATTR_FYRTUR_STATE => 100,
                                             ],
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
         ];
     }
 
@@ -117,7 +117,7 @@ class Unit extends \Codeception\Module
         return [
             1000 => json_decode(json_encode([
                                                 Keys::ATTR_NAME              => 'Group 1',
-                                                Keys::ATTR_CREATED_AT        => 1498340208,
+                                                Keys::ATTR_CREATED_AT        => 1_498_340_208,
                                                 Keys::ATTR_ID                => 1000,
                                                 Keys::ATTR_LIGHT_STATE       => 1,
                                                 Keys::ATTR_LIGHT_DIMMER      => 38,
@@ -133,10 +133,10 @@ class Unit extends \Codeception\Module
                                                         ],
                                                     ],
                                                 ],
-                                            ])),
+                                            ], JSON_THROW_ON_ERROR), null, 512, JSON_THROW_ON_ERROR),
             2000 => json_decode(json_encode([
                                                 Keys::ATTR_NAME              => 'Group 2',
-                                                Keys::ATTR_CREATED_AT        => 1498339585,
+                                                Keys::ATTR_CREATED_AT        => 1_498_339_585,
                                                 Keys::ATTR_ID                => 2000,
                                                 Keys::ATTR_LIGHT_STATE       => 1,
                                                 Keys::ATTR_LIGHT_DIMMER      => 0,
@@ -153,10 +153,10 @@ class Unit extends \Codeception\Module
                                                         ],
                                                     ],
                                                 ],
-                                            ])),
+                                            ], JSON_THROW_ON_ERROR), null, 512, JSON_THROW_ON_ERROR),
             3000 => json_decode(json_encode([
                                                 Keys::ATTR_NAME              => 'Group 3',
-                                                Keys::ATTR_CREATED_AT        => 1498340478,
+                                                Keys::ATTR_CREATED_AT        => 1_498_340_478,
                                                 Keys::ATTR_ID                => 3000,
                                                 Keys::ATTR_LIGHT_STATE       => 1,
                                                 Keys::ATTR_LIGHT_DIMMER      => 0,
@@ -169,7 +169,7 @@ class Unit extends \Codeception\Module
                                                         ],
                                                     ],
                                                 ],
-                                            ])),
+                                            ], JSON_THROW_ON_ERROR), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 5000,
                                         Keys::ATTR_NAME        => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
@@ -178,11 +178,11 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR,
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             'asd invalid',
             json_decode(json_encode([
                                         Keys::ATTR_DEVICE_INFO_TYPE => 'invalid type error',
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
             json_decode(json_encode([
                                         Keys::ATTR_ID          => 9999,
                                         Keys::ATTR_NAME        => 'invalid',
@@ -191,7 +191,7 @@ class Unit extends \Codeception\Module
                                             Keys::ATTR_DEVICE_VERSION           => 'v1.33.7',
                                             Keys::ATTR_DEVICE_INFO_TYPE         => 'invalid type error',
                                         ],
-                                    ])),
+                                    ]), null, 512, JSON_THROW_ON_ERROR),
         ];
     }
 }

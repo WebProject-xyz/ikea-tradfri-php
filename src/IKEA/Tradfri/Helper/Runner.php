@@ -13,7 +13,7 @@ class Runner
     /**
      * File descriptors passed to the process.
      */
-    public const DESCRIPTORS
+    final public const DESCRIPTORS
         = [
             0 => ['pipe', 'r'],  // stdin
             1 => ['pipe', 'w'],  // stdout
@@ -27,7 +27,6 @@ class Runner
      *
      * @param string $cmd     command to execute
      * @param int    $timeout timeout in seconds
-     * @param bool   $asArray
      *
      * @return array|string
      */
@@ -83,16 +82,11 @@ class Runner
 
     private function _parseErrors(bool $skipEmptyBufferError, string $errors): void
     {
-        $parts = (array) explode("\n", $errors);
-        switch (true) {
-            case 2 === count($parts) && !empty($parts[1]):
-            case 3 === count($parts):
-                $errorMessage = $parts[1];
-
-                break;
-            default:
-                $errorMessage = 'Unknown error';
-        }
+        $parts        = (array) explode("\n", $errors);
+        $errorMessage = match (true) {
+            2 === count($parts) && !empty($parts[1]), 3 === count($parts) => $parts[1],
+            default => 'Unknown error',
+        };
         if (false === $skipEmptyBufferError) {
             throw new RuntimeException($errorMessage);
         }
@@ -108,7 +102,7 @@ class Runner
         string $buffer
     ): string {
         // Turn the timeout into microseconds.
-        $timeout *= 1000000;
+        $timeout *= 1_000_000;
         while ($timeout > 0) {
             $start = microtime(true);
 
@@ -135,7 +129,7 @@ class Runner
             }
 
             // Subtract the number of microseconds that we waited.
-            $timeout -= (microtime(true) - $start) * 1000000;
+            $timeout -= (microtime(true) - $start) * 1_000_000;
         }
 
         return $buffer;
