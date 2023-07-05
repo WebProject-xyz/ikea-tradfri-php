@@ -13,7 +13,8 @@ jobs:
                     # - { php-version: 7.4, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
                     # - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
                     # - { php-version: 8.0, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
-                    - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
+                    # - { php-version: 8.0, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
+                    - { php-version: 8.1, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
                     # - { php-version: 8.1, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
 
         steps:

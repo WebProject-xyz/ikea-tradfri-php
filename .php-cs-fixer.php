@@ -205,7 +205,7 @@ $rules = [
     'concat_space'                                  => ['spacing' => 'one'],
     '@PhpCsFixer:risky'                             => true,
     'encoding'                                      => true,
-    'single_blank_line_before_namespace'            => true,
+    'blank_lines_before_namespace'                  => true,
     'blank_line_after_opening_tag'                  => false,
     'strict_param'                                  => true,
     'no_useless_else'                               => true,
