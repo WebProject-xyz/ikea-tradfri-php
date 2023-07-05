@@ -14,7 +14,7 @@ use IKEA\Tradfri\Device\Unknown;
 class TypeTest extends \Codeception\Test\Unit
 {
     /**
-     * @dataProvider isLightBulbData
+     * @dataProvider provideIsLightBulbCases
      */
     public function testIsLightBulb(
         string $typeAttribute,
@@ -39,7 +39,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function isLightBulbData(): array
+    public function provideIsLightBulbCases(): array
     {
         return [
             ['invalidStringValue', false],
@@ -54,7 +54,7 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @dataProvider isDimmerData
+     * @dataProvider provideIsDimmerCases
      */
     public function testIsDimmer(
         string $typeAttribute,
@@ -79,7 +79,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function isDimmerData(): array
+    public function provideIsDimmerCases(): array
     {
         return [
             ['invalidStringValue', false],
@@ -94,7 +94,7 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @dataProvider isRemoteData
+     * @dataProvider provideIsRemoteCases
      */
     public function testIsRemote(
         string $typeAttribute,
@@ -119,7 +119,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function isRemoteData(): array
+    public function provideIsRemoteCases(): array
     {
         return [
             ['invalidStringValue', false],
@@ -134,7 +134,7 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @dataProvider isMotionSensorData
+     * @dataProvider provideIsMotionSensorCases
      */
     public function testIsMotionSensor(
         string $typeAttribute,
@@ -159,7 +159,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function isMotionSensorData(): array
+    public function provideIsMotionSensorCases(): array
     {
         return [
             ['invalidStringValue', false],
@@ -174,7 +174,7 @@ class TypeTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @dataProvider isUnknownDeviceTypeData
+     * @dataProvider provideKnownDeviceTypeCases
      */
     public function testKnownDeviceType(
         string $typeAttribute,
@@ -199,7 +199,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function isUnknownDeviceTypeData(): array
+    public function provideKnownDeviceTypeCases(): array
     {
         return [
             ['invalidStringValue', true],
