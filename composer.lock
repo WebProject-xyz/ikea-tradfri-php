@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c84336eb35653508bb8cf1504d56d644",
+    "content-hash": "8b8678159d130b2c837bb9cc733f551c",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -1642,16 +1642,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.26.0",
+            "version": "v3.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "5fcf0c699d8f053bb6b5bfe62b4b5c6c2a88bc55"
+                "reference": "d023ba6684055f6ea1da1352d8a02baca0426983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/5fcf0c699d8f053bb6b5bfe62b4b5c6c2a88bc55",
-                "reference": "5fcf0c699d8f053bb6b5bfe62b4b5c6c2a88bc55",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/d023ba6684055f6ea1da1352d8a02baca0426983",
+                "reference": "d023ba6684055f6ea1da1352d8a02baca0426983",
                 "shasum": ""
             },
             "require": {
@@ -1725,7 +1725,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.26.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.26.1"
             },
             "funding": [
                 {
@@ -1733,7 +1733,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-08T09:26:05+00:00"
+            "time": "2023-09-08T19:09:07+00:00"
         },
         {
             "name": "gitonomy/gitlib",
