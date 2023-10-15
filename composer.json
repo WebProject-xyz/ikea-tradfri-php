@@ -17,7 +17,7 @@
     "doctrine/collections": "^2.1.4"
   },
   "require-dev": {
-    "codeception/codeception": "^5.0.11",
+    "codeception/codeception": "^5.0.12",
     "codeception/mockery-module": "^0.5.0",
     "codeception/module-asserts": "^3.0.0",
     "friendsofphp/php-cs-fixer": "^3.35.1",
