@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64936b18e8a247aa7e5b3cfa43329fd1",
+    "content-hash": "6b8e6ae74e9175078fba17183f403cd3",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -2643,16 +2643,16 @@
         },
         {
             "name": "phpro/grumphp",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpro/grumphp.git",
-                "reference": "b190443f9c004b88f57878e216682d72fbb4124e"
+                "reference": "afaf2ecd1def53403dd4989465cab62557c9bd22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpro/grumphp/zipball/b190443f9c004b88f57878e216682d72fbb4124e",
-                "reference": "b190443f9c004b88f57878e216682d72fbb4124e",
+                "url": "https://api.github.com/repos/phpro/grumphp/zipball/afaf2ecd1def53403dd4989465cab62557c9bd22",
+                "reference": "afaf2ecd1def53403dd4989465cab62557c9bd22",
                 "shasum": ""
             },
             "require": {
@@ -2753,9 +2753,9 @@
             "description": "A composer plugin that enables source code quality checks.",
             "support": {
                 "issues": "https://github.com/phpro/grumphp/issues",
-                "source": "https://github.com/phpro/grumphp/tree/v2.1.0"
+                "source": "https://github.com/phpro/grumphp/tree/v2.2.0"
             },
-            "time": "2023-09-29T08:40:13+00:00"
+            "time": "2023-10-27T05:19:45+00:00"
         },
         {
             "name": "phpstan/extension-installer",
