@@ -1646,12 +1646,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "45a453070b124fa3eed296b6d451a079420f21c9"
+                "reference": "27d2b3265b5d550ec411b4319967ae7cfddfb2e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/45a453070b124fa3eed296b6d451a079420f21c9",
-                "reference": "45a453070b124fa3eed296b6d451a079420f21c9",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/27d2b3265b5d550ec411b4319967ae7cfddfb2e0",
+                "reference": "27d2b3265b5d550ec411b4319967ae7cfddfb2e0",
                 "shasum": ""
             },
             "require": {
@@ -1731,7 +1731,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-26T07:28:10+00:00"
+            "time": "2023-11-26T09:25:53+00:00"
         },
         {
             "name": "gitonomy/gitlib",
