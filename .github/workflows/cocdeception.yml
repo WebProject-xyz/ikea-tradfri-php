@@ -1,5 +1,5 @@
 on: [ push, pull_request ]
-name: Cocdeception
+name: "Unit Tests"
 
 jobs:
     codeception-tests:
@@ -17,20 +17,39 @@ jobs:
                     - { php-version: 8.3, dependencies: locked, coverage: none, with_coverage: false, allow-fail: true }
                     - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
         steps:
-            -   name: "Checkout code"
-                uses: "actions/checkout@v4"
+            -   name: "Checkout"
+                uses: "actions/checkout@v4.1.1"
 
             -   name: "Install PHP"
-                uses: "shivammathur/setup-php@v2"
+                uses: "shivammathur/setup-php@2.26.0"
                 with:
                     coverage: "${{ matrix.coverage }}"
                     ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
                     php-version: "${{ matrix.php-version }}"
 
-            -   name: "Install dependencies with Composer"
-                uses: "ramsey/composer-install@2.2.0"
+            -   name: "Set up problem matchers for PHP"
+                run: "echo \"::add-matcher::${{ runner.tool_cache }}/php.json\""
+
+            -   name: "Set up problem matchers for phpunit/phpunit"
+                run: "echo \"::add-matcher::${{ runner.tool_cache }}/phpunit.json\""
+
+            -   name: "Validate composer.json and composer.lock"
+                run: "composer validate --ansi --strict"
+
+            -   name: "Determine composer cache directory"
+                uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.8.0"
+
+            -   name: "Cache dependencies installed with composer"
+                uses: "actions/cache@v3.3.2"
                 with:
-                    dependency-versions: "${{ matrix.dependencies }}"
+                    path: "${{ env.COMPOSER_CACHE_DIR }}"
+                    key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('composer.lock') }}"
+                    restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
+
+            -   name: "Install ${{ matrix.dependencies }} dependencies with composer"
+                uses: "ergebnis/.github/actions/composer/install@1.8.0"
+                with:
+                    dependencies: "${{ matrix.dependencies }}"
 
             -   name: "Run Codeception"
                 run: |
