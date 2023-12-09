@@ -9,12 +9,13 @@ jobs:
         strategy:
             matrix:
                 include:
+                    - { php-version: 8.1, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
+
                     - { php-version: 8.2, dependencies: locked, coverage: none, with_coverage: true, allow-fail: false }
-                    - { php-version: 8.2, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
                     - { php-version: 8.2, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
 
                     - { php-version: 8.3, dependencies: locked, coverage: none, with_coverage: false, allow-fail: true }
-                    - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
+                    - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
         steps:
             -   name: "Checkout code"
                 uses: "actions/checkout@v4"
