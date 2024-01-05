@@ -23,10 +23,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 class DeviceDataTest extends UnitTest
 {
-    /**
-     * @var \IKEA\Tests\UnitTester
-     */
-    protected $tester;
+    protected \IKEA\Tests\Support\UnitTester $tester;
 
     public function testMapDataErrorNoData(): void
     {

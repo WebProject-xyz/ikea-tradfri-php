@@ -16,10 +16,7 @@ use Mockery;
  */
 class GroupDataTest extends UnitTest
 {
-    /**
-     * @var \IKEA\Tests\UnitTester
-     */
-    protected $tester;
+    protected \IKEA\Tests\Support\UnitTester $tester;
 
     public function testICanMapEmptyDataWithNoError(): void
     {
@@ -31,7 +28,7 @@ class GroupDataTest extends UnitTest
         // Act
         $result = $mapper->map($serviceMock, $devices);
         // Assert
-        $this->tester->assertInstanceOf(\IKEA\Tradfri\Collection\Groups::class, $result);
+        $this->tester->assertInstanceOf(Groups::class, $result);
     }
 
     public function testICanMapDataToCollectionWithNoError(): void

@@ -33,7 +33,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getType(int $deviceId): string
     {
@@ -53,7 +53,7 @@ class Coap extends AdapterAbstract
     /**
      * @return array|stdClass|string
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function _getData(string $requestType, int $deviceId = null)
     {
@@ -79,7 +79,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getManufacturer(int $deviceId): string
     {
@@ -93,7 +93,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function changeLightState(int $deviceId, bool $toState): bool
     {
@@ -119,7 +119,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function changeGroupState(int $groupId, bool $toState): bool
     {
@@ -141,7 +141,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function setLightBrightness(int $lightId, int $level): bool
     {
@@ -175,7 +175,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function setGroupBrightness(int $groupId, int $level): bool
     {
@@ -195,7 +195,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getDeviceCollection(ServiceInterface $service): Devices
     {
@@ -207,7 +207,7 @@ class Coap extends AdapterAbstract
     /**
      * Get devices.
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getDevicesData(array $deviceIds = null): array
     {
@@ -230,7 +230,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getDeviceIds(): array
     {
@@ -238,7 +238,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getDeviceData(int $deviceId): stdClass
     {
@@ -246,7 +246,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getGroupCollection(ServiceInterface $service): Groups
     {
@@ -271,7 +271,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getGroupsData(): array
     {
@@ -289,7 +289,7 @@ class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getGroupIds(): array
     {

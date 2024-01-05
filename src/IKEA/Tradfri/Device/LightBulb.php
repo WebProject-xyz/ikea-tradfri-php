@@ -16,7 +16,7 @@ class LightBulb extends Device implements SwitchableInterface
     use ProvidesState;
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function switchOff(): bool
     {
@@ -30,7 +30,7 @@ class LightBulb extends Device implements SwitchableInterface
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function switchOn(): bool
     {
@@ -44,7 +44,7 @@ class LightBulb extends Device implements SwitchableInterface
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function dim(int $level): bool
     {

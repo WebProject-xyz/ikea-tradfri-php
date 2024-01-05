@@ -39,7 +39,7 @@ class Api implements ServiceInterface
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
@@ -62,7 +62,7 @@ class Api implements ServiceInterface
     /**
      * @todo interface switchable
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function off($device): bool
     {
@@ -81,7 +81,7 @@ class Api implements ServiceInterface
     /**
      * @todo interface switchable
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function on($device): bool
     {
@@ -99,7 +99,7 @@ class Api implements ServiceInterface
     /**
      * @param Device|Light $device
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function dim(DeviceInterface $device, int $level): bool
     {

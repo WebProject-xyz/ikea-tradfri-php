@@ -31,7 +31,7 @@ class Coaps
 
     /**
      * @throws InvalidArgumentException
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function __construct(
         string $gatewayAddress,
@@ -52,7 +52,7 @@ class Coaps
     }
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getSharedKeyFromGateway(): string
     {
@@ -254,7 +254,7 @@ class Coaps
     /**
      * @param string $color (warm|normal|cold)
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function getLightColorCommand(int $groupId, string $color): string
     {

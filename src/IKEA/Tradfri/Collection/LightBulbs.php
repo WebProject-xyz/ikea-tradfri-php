@@ -24,7 +24,7 @@ class LightBulbs extends Devices
 
         usort(
             $items,
-            fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => strcmp(
+            static fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => strcmp(
                 $lightBulbOne->getReadableState(),
                 $lightBulbTwo->getReadableState()
             )
@@ -55,7 +55,7 @@ class LightBulbs extends Devices
     {
         $elements = [];
         $this->forAll(
-            function ($deviceId, Device $device) use (&$elements) {
+            static function ($deviceId, Device $device) use (&$elements) {
                 $elements[$device->getName() . '_' . $deviceId] = $device;
 
                 return true;
