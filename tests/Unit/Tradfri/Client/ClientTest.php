@@ -16,10 +16,7 @@ use Mockery;
 
 class ClientTest extends \Codeception\Test\Unit
 {
-    /**
-     * @var \IKEA\Tests\UnitTester
-     */
-    protected $tester;
+    protected \IKEA\Tests\Support\UnitTester $tester;
 
     public function testICanGetAnInstanceOfClient(): void
     {

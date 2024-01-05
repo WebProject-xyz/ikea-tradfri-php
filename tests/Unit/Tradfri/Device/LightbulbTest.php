@@ -14,7 +14,7 @@ use Mockery;
 /**
  * Class LightBulbTest.
  */
-class LightbulbTest extends \IKEA\Tests\Unit\Tradfri\Device\DeviceTester
+class LightbulbTest extends DeviceTester
 {
     public function testGetAnInstance(): void
     {

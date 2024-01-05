@@ -17,3 +17,8 @@ grumphp:
             configuration: phpstan.neon
             triggered_by: ['php']
             memory_limit: "-1"
+            autoload_file: ~
+            level: null
+            force_patterns: []
+            ignore_patterns: []
+            use_grumphp_paths: true

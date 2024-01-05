@@ -39,7 +39,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function provideIsLightBulbCases(): array
+    public function provideIsLightBulbCases(): iterable
     {
         return [
             ['invalidStringValue', false],
@@ -79,7 +79,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function provideIsDimmerCases(): array
+    public function provideIsDimmerCases(): iterable
     {
         return [
             ['invalidStringValue', false],
@@ -119,7 +119,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function provideIsRemoteCases(): array
+    public function provideIsRemoteCases(): iterable
     {
         return [
             ['invalidStringValue', false],
@@ -159,7 +159,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function provideIsMotionSensorCases(): array
+    public function provideIsMotionSensorCases(): iterable
     {
         return [
             ['invalidStringValue', false],
@@ -199,7 +199,7 @@ class TypeTest extends \Codeception\Test\Unit
         }
     }
 
-    public function provideKnownDeviceTypeCases(): array
+    public function provideKnownDeviceTypeCases(): iterable
     {
         return [
             ['invalidStringValue', true],

@@ -26,7 +26,7 @@ class Data implements ValidatorInterface
     /**
      * @param stdClass|null $data
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function isValid($data): bool
     {
@@ -59,7 +59,7 @@ class Data implements ValidatorInterface
      *
      * @param stdClass|null $device
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function _validateDeviceMustHaves($device): bool
     {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-$finder = \PhpCsFixer\Finder::create()
+$finder = PhpCsFixer\Finder::create()
     ->files()
     ->in(__DIR__ . '/src')
     ->in(__DIR__ . '/tests')
@@ -33,7 +33,7 @@ $rules = [
     'class_reference_name_casing' => true,
     'clean_namespace'             => true,
 //    'concat_space'                => true,
-    'curly_braces_position'       => [
+    'braces_position'       => [
         'allow_single_line_anonymous_functions'     => true,
         'allow_single_line_empty_anonymous_classes' => true,
     ],
@@ -42,7 +42,7 @@ $rules = [
     'empty_loop_body'              => ['style' => 'braces'],
     'empty_loop_condition'         => true,
     'fully_qualified_strict_types' => true,
-    'function_typehint_space'      => true,
+    'type_declaration_spaces'      => true,
     'general_phpdoc_tag_rename'    => [
         'replacements' => [
             'inheritDocs' => 'inheritDoc',
@@ -64,7 +64,7 @@ $rules = [
         'on_multiline' => 'ignore',
     ],
     'native_function_casing'                  => true,
-    'native_function_type_declaration_casing' => true,
+    'native_type_declaration_casing'          => true,
     'no_alias_language_construct_call'        => true,
     'no_alternative_syntax'                   => true,
     'no_binary_string'                        => true,
@@ -111,7 +111,7 @@ $rules = [
             'yield_from',
         ],
     ],
-    'no_unneeded_curly_braces' => [
+    'no_unneeded_braces' => [
         'namespaces' => true,
     ],
     'no_unneeded_import_alias'                         => true,
@@ -243,7 +243,7 @@ $rules = [
     'blank_line_between_import_groups'              => false,
 ];
 
-$config = new \PhpCsFixer\Config('default');
+$config = new PhpCsFixer\Config('default');
 $config->setRules($rules);
 $config->setRiskyAllowed(true);
 $config->setUsingCache(true);

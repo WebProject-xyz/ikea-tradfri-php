@@ -21,7 +21,7 @@ abstract class AbstractCollection extends ArrayCollection implements JsonSeriali
 
     /**
      * @throws RuntimeException
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function find(Closure $closure): ?Device
     {

@@ -23,7 +23,7 @@ class DeviceData extends Mapper
     /**
      * @return Devices
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function map(
         ServiceInterface $service,
@@ -63,7 +63,7 @@ class DeviceData extends Mapper
     /**
      * @param stdClass|null $device
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function isValidData($device): bool
     {
@@ -75,7 +75,7 @@ class DeviceData extends Mapper
     /**
      * @return Device|LightBulb|MotionSensor|Remote
      *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function getModel(stdClass $device): Device
     {
