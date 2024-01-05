@@ -127,9 +127,11 @@ class Type
             if ('buildFrom' === $method) {
                 continue;
             }
-            if ($this->$method($typeAttribute)) {
-                return false;
+            if (!$this->$method($typeAttribute)) {
+                continue;
             }
+
+            return false;
         }
 
         return true;
@@ -150,9 +152,11 @@ class Type
                 }
 
                 $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;
-                if (class_exists($fqdnClassName)) {
-                    return new $fqdnClassName($deviceId, $typeAttribute);
+                if (!class_exists($fqdnClassName)) {
+                    continue;
                 }
+
+                return new $fqdnClassName($deviceId, $typeAttribute);
             }
         }
 

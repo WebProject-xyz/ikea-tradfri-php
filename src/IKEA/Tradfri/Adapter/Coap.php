@@ -11,7 +11,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Command\Coaps;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
-use IKEA\Tradfri\Helper\Runner;
+use IKEA\Tradfri\Helper\CommandRunner;
 use IKEA\Tradfri\Mapper\MapperInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
 use JsonException;
@@ -64,7 +64,7 @@ class Coap extends AdapterAbstract
         }
 
         $dataRaw = $this->commands->parseResult(
-            (new Runner())->execWithTimeout(
+            (new CommandRunner())->execWithTimeout(
                 $command,
                 1,
                 true
@@ -98,7 +98,7 @@ class Coap extends AdapterAbstract
     public function changeLightState(int $deviceId, bool $toState): bool
     {
         // run command
-        $data = (new Runner())
+        $data = (new CommandRunner())
             ->execWithTimeout(
                 $this->commands->getLightSwitchCommand($deviceId, $toState),
                 2,
@@ -124,7 +124,7 @@ class Coap extends AdapterAbstract
     public function changeGroupState(int $groupId, bool $toState): bool
     {
         // run command
-        $data = (new Runner())
+        $data = (new CommandRunner())
             ->execWithTimeout(
                 $this->commands->getGroupSwitchCommand($groupId, $toState),
                 2,
@@ -146,7 +146,7 @@ class Coap extends AdapterAbstract
     public function setLightBrightness(int $lightId, int $level): bool
     {
         // run command
-        $data = (new Runner())->execWithTimeout(
+        $data = (new CommandRunner())->execWithTimeout(
             $this->commands->getLightDimmerCommand($lightId, $level),
             2,
             true
@@ -163,7 +163,7 @@ class Coap extends AdapterAbstract
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
-        (new Runner())
+        (new CommandRunner())
             ->execWithTimeout(
                 $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
                 2,
@@ -180,7 +180,7 @@ class Coap extends AdapterAbstract
     public function setGroupBrightness(int $groupId, int $level): bool
     {
         // run command
-        $data = (new Runner())->execWithTimeout(
+        $data = (new CommandRunner())->execWithTimeout(
             $this->commands->getGroupDimmerCommand($groupId, $level),
             2,
             true
