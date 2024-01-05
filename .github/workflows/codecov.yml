@@ -58,7 +58,7 @@ jobs:
             -   name: "Upload Coverage coverage"
                 run: |
                     export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
-                    bash <(curl -Ls https://coverage.codacy.com/get.sh)
+                    bash <(curl -Ls https://coverage.codacy.com/get.sh) report ./build/logs/coverage.xml
             -   name: Codecov
                 uses: codecov/codecov-action@v3
                 with:
