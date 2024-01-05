@@ -7,7 +7,7 @@ namespace IKEA\Tradfri\Command;
 use const FILTER_VALIDATE_IP;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Helper\Runner;
+use IKEA\Tradfri\Helper\CommandRunner;
 use InvalidArgumentException;
 use function is_string;
 
@@ -27,7 +27,7 @@ class Coaps
     protected string $apiKey;
 
     protected string $ip;
-    private readonly Runner $runner;
+    private readonly CommandRunner $runner;
 
     /**
      * @throws InvalidArgumentException
@@ -38,7 +38,7 @@ class Coaps
         protected string $secret,
         string $apiKey,
         string $username,
-        Runner $runner = null
+        CommandRunner $runner = null
     ) {
         $this->setIp($gatewayAddress);
         if (empty($apiKey)) {
@@ -48,7 +48,7 @@ class Coaps
         $this->setApiKey($apiKey);
         $this->setUsername($username);
 
-        $this->runner = $runner ?? new Runner();
+        $this->runner = $runner ?? new CommandRunner();
     }
 
     /**
