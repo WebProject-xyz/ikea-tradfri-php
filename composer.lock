@@ -3801,12 +3801,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "3759df5c6ceda3dc7bd04228b2d5190b0d827663"
+                "reference": "c8682d0318353f7979a429981e902463e4879cf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3759df5c6ceda3dc7bd04228b2d5190b0d827663",
-                "reference": "3759df5c6ceda3dc7bd04228b2d5190b0d827663",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c8682d0318353f7979a429981e902463e4879cf0",
+                "reference": "c8682d0318353f7979a429981e902463e4879cf0",
                 "shasum": ""
             },
             "conflict": {
@@ -3968,8 +3968,8 @@
                 "firebase/php-jwt": "<6",
                 "fixpunkt/fp-masterquiz": "<2.2.1|>=3,<3.5.2",
                 "fixpunkt/fp-newsletter": "<1.1.1|>=2,<2.1.2|>=2.2,<3.2.6",
-                "flarum/core": "<1.8",
-                "flarum/framework": "<1.8",
+                "flarum/core": "<1.8.5",
+                "flarum/framework": "<1.8.5",
                 "flarum/mentions": "<1.6.3",
                 "flarum/sticky": ">=0.1.0.0-beta14,<=0.1.0.0-beta15",
                 "flarum/tags": "<=0.1.0.0-beta13",
@@ -4517,7 +4517,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-05T18:04:32+00:00"
+            "time": "2024-01-05T21:04:02+00:00"
         },
         {
             "name": "sebastian/cli-parser",
