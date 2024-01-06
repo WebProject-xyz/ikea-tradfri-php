@@ -36,7 +36,7 @@ abstract class AbstractCollection extends ArrayCollection implements \JsonSerial
      * @throws RuntimeException
      * @throws RuntimeException
      *
-     * @phpstan-return TDevice
+     * @phpstan-return DeviceInterface
      */
     final public function find(\Closure $closure): ?DeviceInterface
     {

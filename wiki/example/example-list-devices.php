@@ -11,8 +11,6 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-use IKEA\Tradfri\Device\Helper\Type as TypeHelper;
-
 require __DIR__ . '/init.php';
 
 try {
@@ -27,8 +25,8 @@ try {
         echo '- Name: ' . $device->getName() . \PHP_EOL;
         echo '- Manufacturer: ' . $device->getManufacturer() . \PHP_EOL;
         echo '- Version: ' . $device->getVersion() . \PHP_EOL;
-        if ((new TypeHelper())->isLightBulb($device->getType())) {
-            echo '- State is: ' . $device->getState() . \PHP_EOL;
+        if ($device instanceof IKEA\Tradfri\Device\LightBulb) {
+            echo '- State is: ' . $device->getReadableState() . \PHP_EOL;
             echo '- Brightness ' . $device->getBrightness() . '%' . \PHP_EOL;
             echo '- Color HEX #' . $device->getColor() . '' . \PHP_EOL;
         }
@@ -37,6 +35,8 @@ try {
 
         return true;
     });
+
+    echo \var_export(\json_encode($devices->jsonSerialize(), \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT), true);
 } catch (Exception $e) {
     echo $e->getMessage() . \PHP_EOL . \PHP_EOL;
     echo $e->getTraceAsString();

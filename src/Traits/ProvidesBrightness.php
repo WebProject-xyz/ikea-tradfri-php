@@ -17,6 +17,11 @@ trait ProvidesBrightness
 {
     protected float $brightness = 0;
 
+    public function setBrightnessLevel(float|int $levelInPercent): void
+    {
+        $this->brightness = (int) \round($levelInPercent);
+    }
+
     public function getBrightness(): float
     {
         return $this->brightness;

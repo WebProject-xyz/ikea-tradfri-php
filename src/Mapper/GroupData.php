@@ -30,9 +30,9 @@ final class GroupData implements MapperInterface
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      *
-     * @phpstan-param T $collection
+     * @phpstan-param Groups $collection
      *
-     * @phpstan-return T
+     * @phpstan-return Groups
      */
     public function map(
         ServiceInterface $service,

@@ -65,6 +65,8 @@ final class Client implements ClientInterface
      */
     public function dimLight(LightBulb $lightBulb, int $level): bool
     {
+        $lightBulb->setBrightnessLevel($level);
+
         return $this->adapter->setLightBrightness($lightBulb->getId(), $level);
     }
 
@@ -73,6 +75,8 @@ final class Client implements ClientInterface
      */
     public function dimGroup(Group $group, int $level): bool
     {
+        $group->setBrightness($level);
+
         return $this->adapter->setGroupBrightness($group->getId(), $level);
     }
 
@@ -81,6 +85,8 @@ final class Client implements ClientInterface
      */
     public function setRollerBlindPosition(RollerBlind $blind, int $level): bool
     {
+        $blind->setDarkenedState($level);
+
         return $this->adapter->setRollerBlindPosition($blind->getId(), $level);
     }
 }

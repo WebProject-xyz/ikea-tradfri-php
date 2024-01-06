@@ -35,9 +35,9 @@ final class DeviceData implements MapperInterface
     /**
      * @throws RuntimeException
      *
-     * @phpstan-param T $collection
+     * @phpstan-param Devices $collection
      *
-     * @phpstan-return T
+     * @phpstan-return Devices
      */
     public function map(
         ServiceInterface $service,
@@ -120,7 +120,6 @@ final class DeviceData implements MapperInterface
         object $device,
     ): void {
         if ($device instanceof DeviceDto) {
-            $device->getLightControl();
             $brightness = 0;
             $color      = '';
             $state      = true;

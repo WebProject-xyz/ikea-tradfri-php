@@ -22,9 +22,9 @@ use IKEA\Tradfri\Service\ServiceInterface;
 interface MapperInterface
 {
     /**
-     * @phpstan-param T $collection
+     * @phpstan-param AbstractCollection $collection
      *
-     * @phpstan-return T
+     * @phpstan-return AbstractCollection
      */
     public function map(
         ServiceInterface $service,

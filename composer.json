@@ -44,7 +44,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "IKEA\\": "src/IKEA"
+      "IKEA\\Tradfri\\": "src/"
     }
   },
   "autoload-dev": {

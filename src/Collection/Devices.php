@@ -51,9 +51,6 @@ class Devices extends AbstractCollection
         return $lightBulbs->sortByName();
     }
 
-    /**
-     * @return list<Device|Dimmer|Floalt|LightBulb|MotionSensor|OpenCloseRemote|Remote|Repeater|RollerBlind|TDevice>
-     */
     public function getDevices(): array
     {
         return $this->toArray();

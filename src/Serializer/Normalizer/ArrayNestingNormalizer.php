@@ -16,8 +16,6 @@ namespace IKEA\Tradfri\Serializer\Normalizer;
 use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use function array_key_exists;
-use function is_array;
 
 final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAwareInterface, NormalizerInterface
 {

@@ -16,11 +16,8 @@ namespace IKEA\Tests\Support\Helper;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-use IKEA\Tradfri\Command\Coap\Keys;
 use const JSON_THROW_ON_ERROR;
 use function codecept_data_dir;
-use function json_decode;
-use function json_encode;
 
 /**
  * Class Unit.

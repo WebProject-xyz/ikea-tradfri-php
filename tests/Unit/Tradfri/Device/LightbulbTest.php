@@ -207,6 +207,38 @@ final class LightbulbTest extends DeviceTester
         $this->assertSame('Off', $lamp->getReadableState());
     }
 
+    public function testICanSwitchDim(): void
+    {
+        // Arrange
+        $lamp = $this->getModel();
+
+        $service = mock(Api::class);
+        $service->expects()->dim($lamp, 10)->andReturn(true);
+        $service->expects()->dim($lamp, 0)->andReturn(true);
+        $service->expects()->off($lamp)->times(2)->andReturn(true);
+
+        $lamp->setService($service);
+        $this->assertFalse($lamp->isOn());
+
+        // Act
+        $result = $lamp->switchOff();
+
+        // Assert
+        $this->assertTrue($result);
+        $this->assertTrue($lamp->dim(10));
+        $this->assertSame('On', $lamp->getReadableState());
+        $this->assertSame(10.0, $lamp->getBrightness());
+
+        // Act
+        $result = $lamp->switchOff();
+
+        // Assert
+        $this->assertTrue($result);
+        $this->assertTrue($lamp->dim(0));
+        $this->assertSame('Off', $lamp->getReadableState());
+        $this->assertSame(0.0, $lamp->getBrightness());
+    }
+
     public function testICanSwitchOffFails(): void
     {
         // Assert
