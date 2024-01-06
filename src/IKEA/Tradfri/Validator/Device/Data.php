@@ -12,6 +12,9 @@ use stdClass;
 use Throwable;
 use function is_object;
 
+/**
+ * @deprecated will be gone in v1.0.0
+ */
 class Data implements ValidatorInterface
 {
     /**

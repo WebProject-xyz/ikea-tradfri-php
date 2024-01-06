@@ -9,26 +9,38 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Command\Coaps;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Helper\CommandRunner;
-use IKEA\Tradfri\Mapper\MapperInterface;
+use IKEA\Tradfri\Mapper\DeviceData;
+use IKEA\Tradfri\Mapper\GroupData;
+use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use JsonException;
 use stdClass;
 use function count;
 use function is_array;
 use function is_object;
+use function substr;
 
 class Coap extends AdapterAbstract
 {
     final public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
+    private readonly CommandRunner $runner;
+    private readonly JsonDeviceDataSerializer $deviceSerializer;
+
     public function __construct(
         protected Coaps $commands,
-        MapperInterface $deviceDataMapper,
-        MapperInterface $groupDataMapper
+        DeviceData $deviceDataMapper,
+        GroupData $groupDataMapper,
+        CommandRunner $runner = null
     ) {
+        $this->commands         = $commands;
+        $this->runner           = $runner ??= new CommandRunner();
+        $this->deviceSerializer = new JsonDeviceDataSerializer();
         parent::__construct($deviceDataMapper, $groupDataMapper);
     }
 
@@ -55,16 +67,16 @@ class Coap extends AdapterAbstract
      *
      * @throws RuntimeException
      */
-    protected function _getData(string $requestType, int $deviceId = null)
+    protected function _getData(string $requestType, int $deviceId = null, bool $returnRawData = false)
     {
         $command = $this->commands->getCoapsCommandGet($requestType);
 
         if (null !== $deviceId) {
-            $command .= '/' . $deviceId;
+            $command = substr($command, 0, -1) . '/' . $deviceId . '"';
         }
 
         $dataRaw = $this->commands->parseResult(
-            (new CommandRunner())->execWithTimeout(
+            $this->runner->execWithTimeout(
                 $command,
                 1,
                 true
@@ -72,6 +84,10 @@ class Coap extends AdapterAbstract
         );
 
         if (false !== $dataRaw) {
+            if ($returnRawData) {
+                return $dataRaw;
+            }
+
             return $this->decodeData($dataRaw);
         }
 
@@ -98,7 +114,7 @@ class Coap extends AdapterAbstract
     public function changeLightState(int $deviceId, bool $toState): bool
     {
         // run command
-        $data = (new CommandRunner())
+        $data = $this->runner
             ->execWithTimeout(
                 $this->commands->getLightSwitchCommand($deviceId, $toState),
                 2,
@@ -124,7 +140,7 @@ class Coap extends AdapterAbstract
     public function changeGroupState(int $groupId, bool $toState): bool
     {
         // run command
-        $data = (new CommandRunner())
+        $data = $this->runner
             ->execWithTimeout(
                 $this->commands->getGroupSwitchCommand($groupId, $toState),
                 2,
@@ -146,7 +162,7 @@ class Coap extends AdapterAbstract
     public function setLightBrightness(int $lightId, int $level): bool
     {
         // run command
-        $data = (new CommandRunner())->execWithTimeout(
+        $data = $this->runner->execWithTimeout(
             $this->commands->getLightDimmerCommand($lightId, $level),
             2,
             true
@@ -163,12 +179,11 @@ class Coap extends AdapterAbstract
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
-        (new CommandRunner())
-            ->execWithTimeout(
-                $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
-                2,
-                true
-            );
+        $this->runner->execWithTimeout(
+            $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+            2,
+            true
+        );
 
         // @todo: fix validation
         return true;
@@ -180,7 +195,7 @@ class Coap extends AdapterAbstract
     public function setGroupBrightness(int $groupId, int $level): bool
     {
         // run command
-        $data = (new CommandRunner())->execWithTimeout(
+        $data = $this->runner->execWithTimeout(
             $this->commands->getGroupDimmerCommand($groupId, $level),
             2,
             true
@@ -200,7 +215,7 @@ class Coap extends AdapterAbstract
     public function getDeviceCollection(ServiceInterface $service): Devices
     {
         return $this
-            ->getDeviceDataMapper()
+            ->_deviceDataMapper
             ->map($service, $this->getDevicesData());
     }
 
@@ -220,7 +235,6 @@ class Coap extends AdapterAbstract
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
-            /* @phpstan-ignore-next-line */
             if ((int) COAP_GATEWAY_FLOOD_PROTECTION >= 100) {
                 usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
             }
@@ -240,9 +254,14 @@ class Coap extends AdapterAbstract
     /**
      * @throws RuntimeException
      */
-    public function getDeviceData(int $deviceId): stdClass
+    public function getDeviceData(int $deviceId): DeviceDto
     {
-        return $this->_getData(Keys::ROOT_DEVICES, $deviceId);
+        $rawJson = (new JsonIntTypeNormalizer())(
+            $this->_getData(Keys::ROOT_DEVICES, $deviceId, true),
+            DeviceDto::class
+        );
+
+        return $this->deviceSerializer->deserialize($rawJson);
     }
 
     /**
@@ -251,7 +270,7 @@ class Coap extends AdapterAbstract
     public function getGroupCollection(ServiceInterface $service): Groups
     {
         $groups = $this
-            ->getGroupDataMapper()
+            ->_groupDataMapper
             ->map($service, $this->getGroupsData());
 
         if (false === $groups->isEmpty()) {

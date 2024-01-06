@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Mapper;
 
-use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys as AttributeKeys;
 use IKEA\Tradfri\Device\Device;
@@ -13,6 +12,7 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 use stdClass;
@@ -21,14 +21,14 @@ use function count;
 class DeviceData extends Mapper
 {
     /**
-     * @return Devices
-     *
      * @throws RuntimeException
+     *
+     * @psalm-return Devices<int, \IKEA\Tradfri\Device\DeviceInterface>
      */
     public function map(
         ServiceInterface $service,
         array $devices
-    ): AbstractCollection {
+    ): Devices {
         if (count($devices) > 0) {
             $collection = new Devices();
             foreach ($devices as $device) {
@@ -67,9 +67,12 @@ class DeviceData extends Mapper
      */
     protected function isValidData($device): bool
     {
-        $validator = new \IKEA\Tradfri\Validator\Device\Data();
+        if ($device instanceof DeviceDto) {
+            return true;
+        }
 
-        return $validator->isValid($device);
+        return (new \IKEA\Tradfri\Validator\Device\Data())
+            ->isValid($device);
     }
 
     /**
@@ -77,15 +80,22 @@ class DeviceData extends Mapper
      *
      * @throws RuntimeException
      */
-    protected function getModel(stdClass $device): Device
+    protected function getModel(object $device): Device
     {
-        $typeAttribute    = $this->getDeviceTypeAttribute($device);
-        $deviceTypeHelper = new Type();
+        if ($device instanceof DeviceDto) {
+            $idAttribute   = $device->getId();
+            $typeAttribute = $device->getDeviceInfo()->getType();
+        } else {
+            // fallback
+            $idAttribute   = $this->getDeviceId($device);
+            $typeAttribute = $this->getDeviceTypeAttribute($device);
+        }
 
-        return $deviceTypeHelper->buildFrom(
-            $typeAttribute,
-            $this->getDeviceId($device)
-        );
+        return (new Type())
+            ->buildFrom(
+                $typeAttribute,
+                $idAttribute
+            );
     }
 
     protected function getDeviceId(stdClass $device): int
@@ -95,25 +105,30 @@ class DeviceData extends Mapper
 
     protected function setLightBlubAttributes(
         LightBulb $model,
-        stdClass $device
+        object $device
     ): void {
-        $model->setBrightness(
-            $device
+        if ($device instanceof DeviceDto) {
+            $device->getLightControl();
+            $brightness = 0;
+            $color      = '';
+            $state      = true;
+        } else {
+            $brightness = $device
                 ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
-                ->{AttributeKeys::ATTR_LIGHT_DIMMER}
-        );
+                ->{AttributeKeys::ATTR_LIGHT_DIMMER};
 
-        $model->setColor(
-            $device
-                ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
-                ->{AttributeKeys::ATTR_LIGHT_COLOR_HEX} ?? ''
-        );
+            $color = $device
+                    ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
+                    ->{AttributeKeys::ATTR_LIGHT_COLOR_HEX} ?? '';
 
-        $model->setState(
-            (bool) $device
+            $state = (bool) $device
                 ->{AttributeKeys::ATTR_LIGHT_CONTROL}[0]
-                ->{AttributeKeys::ATTR_LIGHT_STATE}
-        );
+                ->{AttributeKeys::ATTR_LIGHT_STATE};
+        }
+
+        $model->setColor($color);
+        $model->setBrightness($brightness);
+        $model->setState($state);
     }
 
     protected function _setLightRollerBlindAttributes(
@@ -127,23 +142,30 @@ class DeviceData extends Mapper
         );
     }
 
-    protected function setDeviceAttributes(Device $model, stdClass $device): void
+    protected function setDeviceAttributes(Device $model, object $device): void
     {
-        $model->setName($device->{AttributeKeys::ATTR_NAME});
-
-        $model->setManufacturer(
-            $device
+        if ($device instanceof DeviceDto) {
+            $name         = $device->getName();
+            $manufacturer = $device->getDeviceInfo()->getManufacturer();
+            $version      = $device->getDeviceInfo()->getVersion();
+        } else {
+            $name         = $device->{AttributeKeys::ATTR_NAME};
+            $manufacturer = $device
                 ->{AttributeKeys::ATTR_DEVICE_INFO}
-                ->{AttributeKeys::ATTR_DEVICE_INFO_MANUFACTURER}
-        );
-
-        $model->setVersion(
-            $device
+                ->{AttributeKeys::ATTR_DEVICE_INFO_MANUFACTURER};
+            $version = $device
                 ->{AttributeKeys::ATTR_DEVICE_INFO}
-                ->{AttributeKeys::ATTR_DEVICE_VERSION}
-        );
+                ->{AttributeKeys::ATTR_DEVICE_VERSION};
+        }
+
+        $model->setName($name);
+        $model->setManufacturer($manufacturer);
+        $model->setVersion($version);
     }
 
+    /**
+     * @deprecated
+     */
     protected function getDeviceTypeAttribute(stdClass $device): string
     {
         return $device

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
@@ -14,6 +15,9 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 
+/**
+ * @extends AbstractCollection<string, Device>
+ */
 class Devices extends AbstractCollection
 {
     /**

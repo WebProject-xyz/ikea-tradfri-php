@@ -6,15 +6,24 @@ namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Service\ServiceInterface;
-use stdClass;
 
 interface AdapterInterface
 {
-    public function getDeviceData(int $deviceId): stdClass;
+    public const STATE_ON  = false;
+    public const STATE_OFF = false;
 
+    public function getDeviceData(int $deviceId): DeviceDto;
+
+    /**
+     * @psalm-return array<non-empty-string>
+     */
     public function getDeviceIds(): array;
 
+    /**
+     * @psalm-return array<non-empty-string>
+     */
     public function getGroupIds(): array;
 
     public function getGroupsData(): array;

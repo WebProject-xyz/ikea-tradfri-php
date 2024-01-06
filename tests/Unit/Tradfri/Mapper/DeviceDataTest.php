@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
-use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\LightBulb;
@@ -48,7 +47,6 @@ class DeviceDataTest extends UnitTest
         // Act
         $result = $mapper->map($serviceMock, $this->tester->getDevices());
         // Assert
-        $this->assertInstanceOf(Devices::class, $result);
         $this->assertFalse($result->isEmpty());
         $this->assertSame(7, $result->count());
 

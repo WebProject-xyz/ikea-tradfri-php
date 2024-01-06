@@ -12,6 +12,9 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\ServiceInterface;
 
+/**
+ * @psalm-type LevelType = int<0,100>
+ */
 class Client
 {
     public function __construct(protected AdapterInterface $adapter)
@@ -20,60 +23,55 @@ class Client
 
     public function getDevices(ServiceInterface $service): Devices
     {
-        return $this->getAdapter()->getDeviceCollection($service);
-    }
-
-    private function getAdapter(): AdapterInterface
-    {
-        return $this->adapter;
+        return $this->adapter->getDeviceCollection($service);
     }
 
     public function getGroups(ServiceInterface $service): Groups
     {
-        return $this->getAdapter()->getGroupCollection($service);
+        return $this->adapter->getGroupCollection($service);
     }
 
     public function lightOn(LightBulb $lightBulb): bool
     {
-        return $this->getAdapter()->changeLightState($lightBulb->getId(), true);
+        return $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_ON);
     }
 
     public function lightOff(LightBulb $lightBulb): bool
     {
-        return $this->getAdapter()->changeLightState(
-            $lightBulb->getId(),
-            false
-        );
+        return $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_OFF);
     }
 
     public function groupOn(Group $group): bool
     {
-        return $this->getAdapter()->changeGroupState(
-            $group->getId(),
-            true
-        );
+        return $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
     }
 
     public function groupOff(Group $group): bool
     {
-        return $this->getAdapter()->changeGroupState($group->getId(), false);
+        return $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
     }
 
+    /**
+     * @psalm-param LevelType $level
+     */
     public function dimLight(LightBulb $lightBulb, int $level): bool
     {
-        return $this->getAdapter()->setLightBrightness(
-            $lightBulb->getId(),
-            $level
-        );
+        return $this->adapter->setLightBrightness($lightBulb->getId(), $level);
     }
 
+    /**
+     * @psalm-param LevelType $level
+     */
     public function dimGroup(Group $group, int $level): bool
     {
-        return $this->getAdapter()->setGroupBrightness($group->getId(), $level);
+        return $this->adapter->setGroupBrightness($group->getId(), $level);
     }
 
+    /**
+     * @psalm-param LevelType $level
+     */
     public function setRollerBlindPosition(RollerBlind $blind, int $level): bool
     {
-        return $this->getAdapter()->setRollerBlindPosition($blind->getId(), $level);
+        return $this->adapter->setRollerBlindPosition($blind->getId(), $level);
     }
 }

@@ -10,6 +10,9 @@ use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Exception\RuntimeException;
 use JsonSerializable;
 
+/**
+ * @extends ArrayCollection<string, Device>
+ */
 abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
     public function addDevice(Device $newItem): self

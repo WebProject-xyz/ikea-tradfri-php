@@ -13,6 +13,8 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/wiki',
     ]);
 
+    $rectorConfig->phpstanConfig('phpstan.neon');
+
     // register a single rule
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
 

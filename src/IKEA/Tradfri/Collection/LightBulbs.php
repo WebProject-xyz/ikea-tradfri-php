@@ -10,6 +10,8 @@ use IKEA\Tradfri\Device\LightBulb;
 
 /**
  * @method self createFrom(array $elements)
+ *
+ * @extends Devices<string, Device>
  */
 class LightBulbs extends Devices
 {

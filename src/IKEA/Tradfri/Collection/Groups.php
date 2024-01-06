@@ -7,6 +7,9 @@ namespace IKEA\Tradfri\Collection;
 use IKEA\Tradfri\Group\Device;
 use IKEA\Tradfri\Group\Light;
 
+/**
+ * @extends AbstractCollection<string, \IKEA\Tradfri\Device\Device>
+ */
 class Groups extends AbstractCollection
 {
     public function first(): Light
