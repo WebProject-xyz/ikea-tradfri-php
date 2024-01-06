@@ -20,8 +20,8 @@ class JsonDeviceDataSerializerTest extends TestCase
     "ATTR_NAME": "name",
     "ATTR_DEVICE_INFO": {
         "ATTR_DEVICE_MANUFACTURER": "man",
-        "ATTR_DEVICE_FIRMWARE_VERSION": "version",
-        "ATTR_DEVICE_MODEL_NUMBER": "type"
+        "ATTR_DEVICE_MODEL_NUMBER": "type",
+        "ATTR_DEVICE_FIRMWARE_VERSION": "version"
     }
 }
 JSON;
@@ -54,8 +54,8 @@ JSON;
     "ATTR_NAME": "TRADFRI bulb E27 W opal 1000lm",
     "ATTR_DEVICE_INFO": {
         "ATTR_DEVICE_MANUFACTURER": "UnitTestFactory",
-        "ATTR_DEVICE_FIRMWARE_VERSION": "v1.33.7",
-        "ATTR_DEVICE_MODEL_NUMBER": "TRADFRI bulb E27 W opal 1000lm"
+        "ATTR_DEVICE_MODEL_NUMBER": "TRADFRI bulb E27 W opal 1000lm",
+        "ATTR_DEVICE_FIRMWARE_VERSION": "v1.33.7"
     },
     "ATTR_LIGHT_CONTROL": {
         "ATTR_DEVICE_STATE": 1,
@@ -99,8 +99,8 @@ JSON;
     "ATTR_NAME": "TRADFRI bulb E27 W opal 1000lm",
     "ATTR_DEVICE_INFO": {
         "ATTR_DEVICE_MANUFACTURER": "UnitTestFactory",
-        "ATTR_DEVICE_FIRMWARE_VERSION": "v1.33.7",
-        "ATTR_DEVICE_MODEL_NUMBER": "TRADFRI bulb E27 W opal 1000lm"
+        "ATTR_DEVICE_MODEL_NUMBER": "TRADFRI bulb E27 W opal 1000lm",
+        "ATTR_DEVICE_FIRMWARE_VERSION": "v1.33.7"
     },
     "ATTR_LIGHT_CONTROL": {
         "ATTR_DEVICE_STATE": 1,

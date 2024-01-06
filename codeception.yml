@@ -10,7 +10,7 @@ extensions:
 paths:
     tests: tests
     output: build/logs
-    data: tests/Support/Data
+    data: tests/_data
     support: tests/Support
     envs: tests/_envs
 settings:

@@ -24,7 +24,7 @@ class Unit extends \Codeception\Module
      */
     public function getDevicesRawJson(): string
     {
-        return file_get_contents(codecept_data_dir('/hubResponses/getDevices.json')) ?: '';
+        return file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
     }
 
     public function getDevices(): array
