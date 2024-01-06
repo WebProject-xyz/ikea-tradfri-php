@@ -26,31 +26,21 @@ final class DeviceDto
     ];
 
     public function __construct(
-        /**
-         * @SerializedName(serializedName="ATTR_ID")
-         *
-         * @Assert\NotBlank
-         */
+        #[SerializedName(serializedName: 'ATTR_ID')]
+        #[Assert\NotBlank]
         private int $id,
-        /**
-         * @SerializedName(serializedName="ATTR_NAME")
-         *
-         * @Assert\NotBlank
-         */
+
+        #[SerializedName(serializedName: 'ATTR_NAME')]
+        #[Assert\NotBlank]
         private ?string $name,
-        /**
-         * @SerializedName(serializedName="ATTR_DEVICE_INFO")
-         *
-         * @Assert\Valid()
-         *
-         * @Assert\NotBlank()
-         */
+
+        #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
+        #[Assert\Valid]
+        #[Assert\NotBlank]
         private DeviceInfoDto $deviceInfo,
-        /**
-         * @SerializedName(serializedName="ATTR_LIGHT_CONTROL")
-         *
-         * @Assert\Valid()
-         */
+
+        #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
+        #[Assert\Valid]
         private readonly ?LightControlDto $lightControl = null
     ) {
     }

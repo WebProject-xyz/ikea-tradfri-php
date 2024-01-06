@@ -6,21 +6,15 @@ namespace IKEA\Tradfri\Dto\CoapResponse;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-final class LightControlDto
+final readonly class LightControlDto
 {
     public function __construct(
-        /**
-         * @SerializedName(serializedName="ATTR_DEVICE_STATE")
-         */
-        private readonly int $state = 0,
-        /**
-         * @SerializedName(serializedName="ATTR_LIGHT_DIMMER")
-         */
-        private readonly int $brightness = 0,
-        /**
-         * @SerializedName(serializedName="ATTR_LIGHT_COLOR_HEX")
-         */
-        private readonly ?string $colorHex = null
+        #[SerializedName(serializedName: 'ATTR_DEVICE_STATE')]
+        private int $state = 0,
+        #[SerializedName(serializedName: 'ATTR_LIGHT_DIMMER')]
+        private int $brightness = 0,
+        #[SerializedName(serializedName: 'ATTR_LIGHT_COLOR_HEX')]
+        private ?string $colorHex = null
     ) {
     }
 

@@ -9,17 +9,11 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 final class DeviceInfoDto
 {
     public function __construct(
-        /**
-         * @SerializedName(serializedName="ATTR_DEVICE_MANUFACTURER")
-         */
+        #[SerializedName(serializedName: 'ATTR_DEVICE_MANUFACTURER')]
         private string $manufacturer,
-        /**
-         * @SerializedName(serializedName="ATTR_DEVICE_MODEL_NUMBER")
-         */
+        #[SerializedName(serializedName: 'ATTR_DEVICE_MODEL_NUMBER')]
         private string $type,
-        /**
-         * @SerializedName(serializedName="ATTR_DEVICE_FIRMWARE_VERSION")
-         */
+        #[SerializedName(serializedName: 'ATTR_DEVICE_FIRMWARE_VERSION')]
         private string $version
     ) {
     }
