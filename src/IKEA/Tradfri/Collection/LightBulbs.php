@@ -2,34 +2,39 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Collection;
 
-use const SORT_NATURAL;
-use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
+use const SORT_NATURAL;
 
 /**
  * @method self createFrom(array $elements)
  *
- * @extends Devices<string, Device>
+ * @extends Devices<LightBulb>
  */
-class LightBulbs extends Devices
+final class LightBulbs extends Devices
 {
-    public function first(): ?LightBulb
-    {
-        return parent::first();
-    }
-
     public function sortByState(): self
     {
         $items = $this->toArray();
 
-        usort(
+        \usort(
             $items,
-            static fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => strcmp(
+            /** @phpstan-ignore-next-line */
+            static fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => \strcmp(
                 $lightBulbOne->getReadableState(),
-                $lightBulbTwo->getReadableState()
-            )
+                $lightBulbTwo->getReadableState(),
+            ),
         );
 
         return $this->createFrom($items);
@@ -39,7 +44,10 @@ class LightBulbs extends Devices
     {
         $newItems = [];
         foreach ($this->toArray() as $key => $light) {
-            /** @var LightBulb $light */
+            if (!$light instanceof LightBulb) {
+                continue;
+            }
+
             if ($light->isOn()) {
                 $newItems[$key] = $light;
             }
@@ -57,13 +65,13 @@ class LightBulbs extends Devices
     {
         $elements = [];
         $this->forAll(
-            static function ($deviceId, Device $device) use (&$elements) {
+            static function ($deviceId, DeviceInterface $device) use (&$elements): bool {
                 $elements[$device->getName() . '_' . $deviceId] = $device;
 
                 return true;
-            }
+            },
         );
-        ksort($elements, SORT_NATURAL);
+        \ksort($elements, SORT_NATURAL);
 
         return $elements;
     }

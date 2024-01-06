@@ -2,29 +2,38 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Command\Coap;
 
 /**
  * @see Source and Thanks to "ggravlingen"
  * https://github.com/ggravlingen/pytradfri/blob/master/pytradfri/const.py
  */
-class Keys
+final class Keys
 {
     final public const ROOT_DEVICES = '15001';
     final public const ROOT_GATEWAY = '15011';
     final public const ROOT_GROUPS  = '15004';
     final public const ROOT_MOODS   = '15005';
+
     // speculative name
     final public const ROOT_NOTIFICATION = '15006';
     final public const ROOT_SMART_TASKS  = '15010';
+
     // found under ATTR_START_ACTION
-    final public const ROOT_START_ACTION = '15013';
-    final public const ROOT_SWITCH       = '15009';
-
-    final public const ATTR_ALEXA_PAIR_STATUS = '9093';
-    final public const ATTR_AUTH              = '9063';
-    final public const ATTR_APPLICATION_TYPE  = '5750';
-
+    final public const ROOT_START_ACTION             = '15013';
+    final public const ROOT_SWITCH                   = '15009';
+    final public const ATTR_ALEXA_PAIR_STATUS        = '9093';
+    final public const ATTR_AUTH                     = '9063';
+    final public const ATTR_APPLICATION_TYPE         = '5750';
     final public const ATTR_CERTIFICATE_PEM          = '9096';
     final public const ATTR_CERTIFICATE_PROV         = '9092';
     final public const ATTR_CLIENT_IDENTITY_PROPOSED = '9090';
@@ -33,14 +42,13 @@ class Keys
     final public const ATTR_COMMISSIONING_MODE       = '9061';
     final public const ATTR_CURRENT_TIME_UNIX        = '9059';
     final public const ATTR_CURRENT_TIME_ISO8601     = '9060';
-
-    final public const ATTR_GROUP_INFO   = '9018';
-    final public const ATTR_GROUP_LIGHTS = '15002';
-
+    final public const ATTR_GROUP_INFO               = '9018';
+    final public const ATTR_GROUP_LIGHTS             = '15002';
     final public const ATTR_DEVICE_INFO              = '3';
     final public const ATTR_DEVICE_INFO_MANUFACTURER = '0';
     final public const ATTR_DEVICE_INFO_TYPE         = '1';
     final public const ATTR_DEVICE_VERSION           = '3';
+
     // @todo: add more device types and move types to config
     final public const ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR
         = 'TRADFRI motion sensor';
@@ -75,68 +83,63 @@ class Keys
     final public const ATTR_DEVICE_INFO_TYPE_OPEN_CLOSE_REMOTE
         = 'TRADFRI open/close remote';
     final public const ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND
-        = 'FYRTUR block-out roller blind';
-
+                                                    = 'FYRTUR block-out roller blind';
     final public const ATTR_GATEWAY_TIME_SOURCE     = '9071';
     final public const ATTR_GATEWAY_UPDATE_PROGRESS = '9055';
+    final public const ATTR_HOMEKIT_ID              = '9083';
+    final public const ATTR_HS_LINK                 = '15002';
+    final public const ATTR_ID                      = '9003';
+    final public const ATTR_IDENTITY                = '9090';
+    final public const ATTR_IOT_ENDPOINT            = '9103';
+    final public const ATTR_KEY_PAIR                = '9097';
+    final public const ATTR_LAST_SEEN               = '9020';
 
-    final public const ATTR_HOMEKIT_ID = '9083';
-    final public const ATTR_HS_LINK    = '15002';
-
-    final public const ATTR_ID           = '9003';
-    final public const ATTR_IDENTITY     = '9090';
-    final public const ATTR_IOT_ENDPOINT = '9103';
-
-    final public const ATTR_KEY_PAIR = '9097';
-
-    final public const ATTR_LAST_SEEN = '9020';
     // array
-    final public const ATTR_LIGHT_CONTROL = '3311';
-
+    final public const ATTR_LIGHT_CONTROL    = '3311';
     final public const ATTR_MASTER_TOKEN_TAG = '9036';
-
     final public const ATTR_NAME             = '9001';
     final public const ATTR_NTP              = '9023';
     final public const ATTR_FIRMWARE_VERSION = '9029';
-    // ??? unix epoch value when gateway first setup
-    final public const ATTR_FIRST_SETUP = '9069';
 
+    // ??? unix epoch value when gateway first setup
+    final public const ATTR_FIRST_SETUP  = '9069';
     final public const ATTR_GATEWAY_INFO = '15012';
+
     // ??? id of the gateway
     final public const ATTR_GATEWAY_ID = '9081';
+
     // gw reboot
     final public const ATTR_GATEWAY_REBOOT = '9030';
+
     // gw to factory defaults
     final public const ATTR_GATEWAY_FACTORY_DEFAULTS             = '9031';
     final public const ATTR_GATEWAY_FACTORY_DEFAULTS_MIN_MAX_MSR = '5605';
     final public const ATTR_GOOGLE_HOME_PAIR_STATUS              = '9105';
+
     // 0 / 1
     final public const ATTR_LIGHT_STATE = '5850';
+
     // Dimmer, not following spec: 0..255
     final public const ATTR_LIGHT_DIMMER = '5851';
+
     // string representing a value in hex
-    final public const ATTR_LIGHT_COLOR_HEX        = '5706';
-    final public const ATTR_LIGHT_COLOR_X          = '5709';
-    final public const ATTR_LIGHT_COLOR_Y          = '5710';
-    final public const ATTR_LIGHT_COLOR_HUE        = '5707';
-    final public const ATTR_LIGHT_COLOR_SATURATION = '5708';
-    final public const ATTR_LIGHT_MIREDS           = '5711';
-
-    final public const ATTR_NOTIFICATION_EVENT  = '9015';
-    final public const ATTR_NOTIFICATION_NVPAIR = '9017';
-    final public const ATTR_NOTIFICATION_STATE  = '9014';
-
-    final public const ATTR_OTA_TYPE         = '9066';
-    final public const ATTR_OTA_UPDATE_STATE = '9054';
-    final public const ATTR_OTA_UPDATE       = '9037';
-
-    final public const ATTR_PUBLIC_KEY  = '9098';
-    final public const ATTR_PRIVATE_KEY = '9099';
-    final public const ATTR_PSK         = '9091';
-
-    final public const ATTR_REACHABLE_STATE = '9019';
-    final public const ATTR_REPEAT_DAYS     = '9041';
-
+    final public const ATTR_LIGHT_COLOR_HEX               = '5706';
+    final public const ATTR_LIGHT_COLOR_X                 = '5709';
+    final public const ATTR_LIGHT_COLOR_Y                 = '5710';
+    final public const ATTR_LIGHT_COLOR_HUE               = '5707';
+    final public const ATTR_LIGHT_COLOR_SATURATION        = '5708';
+    final public const ATTR_LIGHT_MIREDS                  = '5711';
+    final public const ATTR_NOTIFICATION_EVENT            = '9015';
+    final public const ATTR_NOTIFICATION_NVPAIR           = '9017';
+    final public const ATTR_NOTIFICATION_STATE            = '9014';
+    final public const ATTR_OTA_TYPE                      = '9066';
+    final public const ATTR_OTA_UPDATE_STATE              = '9054';
+    final public const ATTR_OTA_UPDATE                    = '9037';
+    final public const ATTR_PUBLIC_KEY                    = '9098';
+    final public const ATTR_PRIVATE_KEY                   = '9099';
+    final public const ATTR_PSK                           = '9091';
+    final public const ATTR_REACHABLE_STATE               = '9019';
+    final public const ATTR_REPEAT_DAYS                   = '9041';
     final public const ATTR_SEND_CERT_TO_GATEWAY          = '9094';
     final public const ATTR_SEND_COGNITO_ID_TO_GATEWAY    = '9095';
     final public const ATTR_SEND_GH_COGNITO_ID_TO_GATEWAY = '9104';
@@ -148,8 +151,10 @@ class Keys
     final public const ATTR_SENSOR_TYPE                   = '5751';
     final public const ATTR_SENSOR_UNIT                   = '5701';
     final public const ATTR_SENSOR_VALUE                  = '5700';
+
     // array
     final public const ATTR_START_ACTION = '9042';
+
     // 4 = transition | 1 = not home | 2 = on/off
     final public const ATTR_SMART_TASK_TYPE                    = '9040';
     final public const ATTR_SMART_TASK_NOT_AT_HOME             = 1;
@@ -158,18 +163,14 @@ class Keys
     final public const ATTR_SMART_TASK_TRIGGER_TIME_INTERVAL   = '9044';
     final public const ATTR_SMART_TASK_TRIGGER_TIME_START_HOUR = '9046';
     final public const ATTR_SMART_TASK_TRIGGER_TIME_START_MIN  = '9047';
-
-    final public const ATTR_SWITCH_CUM_ACTIVE_POWER = '5805';
-    final public const ATTR_SWITCH_ON_TIME          = '5852';
-    final public const ATTR_SWITCH_PLUG             = '3312';
-    final public const ATTR_SWITCH_POWER_FACTOR     = '5820';
-
-    final public const ATTR_TRANSITION_TIME = '5712';
-
-    final public const ATTR_USE_CURRENT_LIGHT_SETTINGS = '9070';
-
-    final public const ATTR_FYRTUR_CONTROL = '15015';
-    final public const ATTR_FYRTUR_STATE   = '5536';
+    final public const ATTR_SWITCH_CUM_ACTIVE_POWER            = '5805';
+    final public const ATTR_SWITCH_ON_TIME                     = '5852';
+    final public const ATTR_SWITCH_PLUG                        = '3312';
+    final public const ATTR_SWITCH_POWER_FACTOR                = '5820';
+    final public const ATTR_TRANSITION_TIME                    = '5712';
+    final public const ATTR_USE_CURRENT_LIGHT_SETTINGS         = '9070';
+    final public const ATTR_FYRTUR_CONTROL                     = '15015';
+    final public const ATTR_FYRTUR_STATE                       = '5536';
 
     // URL to json-file containing links to all firmware updates
     final public const URL_OTA_FW
@@ -180,9 +181,11 @@ class Keys
 
     // Hue of a RGB bulb
     final public const RANGE_HUE = ['min' => 0, 'max' => 65535];
+
     // Effective saturation range of a RGB bulb. The bulb will accept
     // slightly higher values, but it won't produce any light.
     final public const RANGE_SATURATION = ['min' => 0, 'max' => 65279];
+
     // Brightness range of all bulbs. 0 will turn off the lamp
     final public const RANGE_BRIGHTNESS = ['min' => 0, 'max' => 254];
 

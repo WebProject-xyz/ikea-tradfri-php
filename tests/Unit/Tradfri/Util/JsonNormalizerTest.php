@@ -2,24 +2,30 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Util;
 
 use Codeception\Test\Unit;
-use IKEA\Tests\UnitTester;
+use IKEA\Tests\Support\UnitTester;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 
 final class JsonNormalizerTest extends Unit
 {
-    /**
-     * @var UnitTester
-     */
-    protected $tester;
+    protected UnitTester $tester;
 
     public function testAllKnownIntTypesAreReplacesWithUsefulStringValues(): void
     {
         // Arrange
-        $rawJson = /** @lang JSON */ <<<DEVICE_JSON
+        $rawJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "9003": 5000,
     "9001": "TRADFRI motion sensor",
@@ -30,7 +36,7 @@ final class JsonNormalizerTest extends Unit
     }
 }
 DEVICE_JSON;
-        $expectedJson = /** @lang JSON */ <<<DEVICE_JSON
+        $expectedJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "ATTR_ID": 5000,
     "ATTR_NAME": "TRADFRI motion sensor",

@@ -2,9 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\Device;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
@@ -16,13 +26,14 @@ use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 
 /**
- * @extends AbstractCollection<string, Device>
+ * @final
+ *
+ * @template TDevice of DeviceInterface
+ *
+ * @extends AbstractCollection<Dimmer|Floalt|LightBulb|MotionSensor|OpenCloseRemote|Remote|Repeater|RollerBlind|Device|TDevice>
  */
 class Devices extends AbstractCollection
 {
-    /**
-     * @return LightBulb[]|LightBulbs
-     */
     public function getLightBulbs(): LightBulbs
     {
         $lightBulbs = new LightBulbs();
@@ -31,6 +42,7 @@ class Devices extends AbstractCollection
             if ($typeHelper->isLightBulb($device->getType())) {
                 $lightBulbs->addDevice($device);
             }
+
             if ($typeHelper->isFloalt($device->getType())) {
                 $lightBulbs->addDevice($device);
             }
@@ -40,7 +52,7 @@ class Devices extends AbstractCollection
     }
 
     /**
-     * @return array<Dimmer|LightBulb|MotionSensor|Remote|Floalt|RollerBlind|Repeater|OpenCloseRemote>
+     * @return list<Device|Dimmer|Floalt|LightBulb|MotionSensor|OpenCloseRemote|Remote|Repeater|RollerBlind|TDevice>
      */
     public function getDevices(): array
     {

@@ -2,32 +2,39 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Command\Coap;
 
 /**
  * Receiver is specific service with its own contract and can be only concrete.
  */
-class Receiver
+final class Receiver
 {
     final public const COAP_COMMAND = '%s invalid %s';
-
-    protected string $requestType;
-
-    protected string $injectCommand;
+    private string $requestType;
+    private string $injectCommand;
 
     /**
-     * @var string[]
+     * @var list<string>
      */
-    protected array $output = [];
+    private array $output = [];
 
-    public function __construct(protected string $ipAddress, protected string $username, protected string $apiKey)
-    {
+    public function __construct(
+        protected string $ipAddress,
+        protected string $username,
+        protected string $apiKey,
+    ) {
     }
 
-    /**
-     * Get command.
-     */
-    final public function getCommand(): string
+    public function getCommand(): string
     {
         return $this->_getUri()
             . $this->_getInjectCommand()
@@ -36,70 +43,6 @@ class Receiver
             . '"';
     }
 
-    /**
-     * Get command uri.
-     */
-    protected function _getUri(): string
-    {
-        return sprintf(
-            self::COAP_COMMAND,
-            $this->_getUsername(),
-            $this->_getApiKey()
-        );
-    }
-
-    /**
-     * Get Username.
-     */
-    protected function _getUsername(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * Get ApiKey.
-     */
-    protected function _getApiKey(): string
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * Get InjectCommand.
-     */
-    protected function _getInjectCommand(): string
-    {
-        return $this->injectCommand;
-    }
-
-    /**
-     * Get coap client uri.
-     */
-    protected function _getClientUri(): string
-    {
-        return 'coaps://' . $this->_getIpAddress() . ':5684/'
-            . $this->_getRequestType();
-    }
-
-    /**
-     * Get IpAddress.
-     */
-    protected function _getIpAddress(): string
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * Get Request type.
-     */
-    protected function _getRequestType(): string
-    {
-        return $this->requestType;
-    }
-
-    /**
-     * Set RequestType.
-     */
     public function setRequestType(string $requestType): self
     {
         $this->requestType = $requestType;
@@ -110,6 +53,51 @@ class Receiver
     public function sendRequest(): string
     {
         // send command to gateway
-        return implode("\n", $this->output);
+        return \implode("\n", $this->output);
+    }
+
+    public function setInjectCommand(string $injectCommand): void
+    {
+        $this->injectCommand = $injectCommand;
+    }
+
+    private function _getUri(): string
+    {
+        return \sprintf(
+            self::COAP_COMMAND,
+            $this->_getUsername(),
+            $this->_getApiKey(),
+        );
+    }
+
+    private function _getUsername(): string
+    {
+        return $this->username;
+    }
+
+    private function _getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    private function _getInjectCommand(): string
+    {
+        return $this->injectCommand;
+    }
+
+    private function _getClientUri(): string
+    {
+        return 'coaps://' . $this->_getIpAddress() . ':5684/'
+            . $this->_getRequestType();
+    }
+
+    private function _getIpAddress(): string
+    {
+        return $this->ipAddress;
+    }
+
+    private function _getRequestType(): string
+    {
+        return $this->requestType;
     }
 }

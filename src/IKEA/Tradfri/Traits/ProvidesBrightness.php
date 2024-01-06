@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Traits;
 
 trait ProvidesBrightness
@@ -15,11 +24,11 @@ trait ProvidesBrightness
 
     public function setBrightness(int $brightness): self
     {
-        if ($brightness < 0) {
+        if (0 > $brightness) {
             $brightness = 1;
         }
 
-        $this->brightness = round($brightness / 2.54);
+        $this->brightness = \round($brightness / 2.54);
 
         return $this;
     }

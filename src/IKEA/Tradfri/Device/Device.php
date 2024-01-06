@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Device;
 
 use IKEA\Tradfri\Device\Helper\Type;
@@ -11,9 +20,8 @@ use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesService;
 use IKEA\Tradfri\Traits\ProvidesType;
 use IKEA\Tradfri\Traits\ProvidesVersion;
-use JsonSerializable;
 
-abstract class Device implements JsonSerializable, DeviceInterface
+abstract class Device implements \JsonSerializable, DeviceInterface
 {
     use ProvidesId;
     use ProvidesManufacturer;
@@ -34,19 +42,19 @@ abstract class Device implements JsonSerializable, DeviceInterface
     /**
      * @deprecated
      */
-    public function isLightBulb(): bool
+    final public function isLightBulb(): bool
     {
         return (new Type())->isLightBulb($this->getType());
     }
 
-    public function jsonSerialize(): array
+    final public function jsonSerialize(): array
     {
         $data = [];
 
-        foreach (get_class_methods(static::class) as $method) {
-            if ('getService' !== $method && str_starts_with($method, 'get')) {
-                $key        = strtolower(substr($method, 3));
-                $data[$key] = $this->$method();
+        foreach (\get_class_methods(static::class) as $method) {
+            if ('getService' !== $method && \str_starts_with($method, 'get')) {
+                $key        = \mb_strtolower(\mb_substr($method, 3));
+                $data[$key] = $this->{$method}();
             }
         }
 

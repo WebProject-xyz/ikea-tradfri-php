@@ -2,9 +2,17 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Serializer;
 
-use const JSON_PRETTY_PRINT;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -14,6 +22,7 @@ use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use const JSON_PRETTY_PRINT;
 
 final class JsonDeviceDataSerializer
 {
@@ -33,7 +42,7 @@ final class JsonDeviceDataSerializer
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
-            ]
+            ],
         );
     }
 
@@ -45,7 +54,7 @@ final class JsonDeviceDataSerializer
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
-            ]
+            ],
         );
     }
 
@@ -54,10 +63,11 @@ final class JsonDeviceDataSerializer
         if (null !== ($this->serializer ?? null)) {
             return;
         }
+
         $classMetadataFactory = new ClassMetadataFactory(new AttributeLoader());
         $denormalizer         = new PropertyNormalizer(
             $classMetadataFactory,
-            new MetadataAwareNameConverter($classMetadataFactory)
+            new MetadataAwareNameConverter($classMetadataFactory),
         );
         $serializer = new Serializer([$denormalizer, new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer()]);
         $denormalizer->setSerializer($serializer);
@@ -68,7 +78,7 @@ final class JsonDeviceDataSerializer
             [
                 $denormalizer,
             ],
-            ['json' => new JsonEncoder()]
+            ['json' => new JsonEncoder()],
         );
         $this->serializer = $serializer;
     }

@@ -2,38 +2,46 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Support\Helper;
 
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-use const JSON_THROW_ON_ERROR;
 use IKEA\Tradfri\Command\Coap\Keys;
+use const JSON_THROW_ON_ERROR;
 use function codecept_data_dir;
-use function file_get_contents;
 use function json_decode;
 use function json_encode;
 
 /**
  * Class Unit.
  */
-class Unit extends \Codeception\Module
+final class Unit extends \Codeception\Module
 {
     /**
      * @psalm-return non-empty-string
      */
     public function getDevicesRawJson(): string
     {
-        return file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
+        return \file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
     }
 
     public function getDevices(): array
     {
-        return (array) json_decode(
+        return (array) \json_decode(
             $this->getDevicesRawJson(),
             false,
             512,
-            JSON_THROW_ON_ERROR
+            JSON_THROW_ON_ERROR,
         );
         /*
         return [
@@ -122,16 +130,16 @@ class Unit extends \Codeception\Module
                 ],
             ])),
         ];
-        */
+         */
     }
 
     public function getGroupDataCoapsResponse(): array
     {
-        return (array) json_decode(
-            file_get_contents(codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
+        return (array) \json_decode(
+            \file_get_contents(codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
             false,
             512,
-            JSON_THROW_ON_ERROR
+            JSON_THROW_ON_ERROR,
         );
 
         /*
@@ -214,6 +222,6 @@ class Unit extends \Codeception\Module
                 ],
             ])),
         ];
-        */
+         */
     }
 }

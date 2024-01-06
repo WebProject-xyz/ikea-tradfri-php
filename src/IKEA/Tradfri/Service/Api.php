@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Service;
 
-use IKEA\Tradfri\Client\Client;
+use IKEA\Tradfri\Client\ClientInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
@@ -15,11 +24,11 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light;
 
-class Api implements ServiceInterface
+final class Api implements ServiceInterface
 {
     final public const INVALID_DEVICE_TYPE = 'invalid device type: ';
 
-    public function __construct(protected Client $client)
+    public function __construct(protected ClientInterface $client)
     {
     }
 
@@ -47,13 +56,14 @@ class Api implements ServiceInterface
         $lightBulbsCollection->forAll(
             static function ($lightBulbKey, $lightBulb) use ($service) {
                 /** @var LightBulb $lightBulb */
-                if ($lightBulbKey === $lightBulb->getId()) {
+                if ($lightBulb->getId() === $lightBulbKey) {
                     // this is ok but who cares can't make var unused
                 }
+
                 $service->off($lightBulb);
 
                 return true;
-            }
+            },
         );
 
         return true;
@@ -61,6 +71,8 @@ class Api implements ServiceInterface
 
     /**
      * @todo interface switchable
+     *
+     * @param mixed $device
      *
      * @throws RuntimeException
      */
@@ -80,6 +92,8 @@ class Api implements ServiceInterface
 
     /**
      * @todo interface switchable
+     *
+     * @param mixed $device
      *
      * @throws RuntimeException
      */

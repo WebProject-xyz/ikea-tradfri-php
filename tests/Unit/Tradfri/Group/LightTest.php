@@ -2,23 +2,31 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Group;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
-use Mockery;
 
 /**
  * Class LightTest.
  */
-class LightTest extends UnitTest
+final class LightTest extends UnitTest
 {
-    public function testICanInitGroupOfLights(ServiceInterface $service = null): Light
+    public function testICanInitGroupOfLights(?ServiceInterface $service = null): Light
     {
         // Arrange
-        $service ??= Mockery::mock(ServiceInterface::class);
+        $service ??= \Mockery::mock(ServiceInterface::class);
 
         // Act
         $group = new Light(1, $service);
@@ -60,7 +68,7 @@ class LightTest extends UnitTest
     public function testICanSwitchOnGroup(): void
     {
         // Arrange
-        $service = Mockery::mock(ServiceInterface::class);
+        $service = \Mockery::mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 
@@ -75,7 +83,7 @@ class LightTest extends UnitTest
     public function testICanSwitchOffGroup(): void
     {
         // Arrange
-        $service = Mockery::mock(ServiceInterface::class);
+        $service = \Mockery::mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 
@@ -91,7 +99,7 @@ class LightTest extends UnitTest
     public function testICanDimOffGroup(): void
     {
         // Arrange
-        $service = Mockery::mock(ServiceInterface::class);
+        $service = \Mockery::mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 

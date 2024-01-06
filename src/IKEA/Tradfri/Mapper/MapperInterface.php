@@ -2,23 +2,35 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
-use IKEA\Tradfri\Collection\Devices;
-use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Service\Api;
 use IKEA\Tradfri\Service\ServiceInterface;
 
+/**
+ * @template T of AbstractCollection
+ */
 interface MapperInterface
 {
     /**
-     * @param Api|ServiceInterface $service
+     * @phpstan-param T $collection
      *
-     * @phpstan-return Devices|Groups
+     * @phpstan-return T
      */
     public function map(
         ServiceInterface $service,
-        array $dataItems
+        array $dataItems,
+        AbstractCollection $collection,
     ): AbstractCollection;
+
+    public function isValidData($device): bool;
 }

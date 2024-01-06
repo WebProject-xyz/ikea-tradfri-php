@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Serializer;
 
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
@@ -9,12 +18,12 @@ use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
 use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
 use PHPUnit\Framework\TestCase;
 
-class JsonDeviceDataSerializerTest extends TestCase
+final class JsonDeviceDataSerializerTest extends TestCase
 {
     public function testSerializeAndDeserialize(): void
     {
         // Arrange
-        $expectedJson = /** @lang JSON */ <<<JSON
+        $expectedJson = /** @lang JSON */ <<<'JSON'
 {
     "ATTR_ID": 12,
     "ATTR_NAME": "name",
@@ -48,7 +57,7 @@ JSON;
     public function testSerializeAndDeserializeWithLightControl(): void
     {
         // Arrange
-        $expectedJson = /** @lang JSON */ <<<JSON
+        $expectedJson = /** @lang JSON */ <<<'JSON'
 {
     "ATTR_ID": 1000,
     "ATTR_NAME": "TRADFRI bulb E27 W opal 1000lm",
@@ -93,7 +102,7 @@ JSON;
     public function testSerializeAndDeserializeWithLightControlAndColor(): void
     {
         // Arrange
-        $expectedJson = /** @lang JSON */ <<<JSON
+        $expectedJson = /** @lang JSON */ <<<'JSON'
 {
     "ATTR_ID": 1000,
     "ATTR_NAME": "TRADFRI bulb E27 W opal 1000lm",

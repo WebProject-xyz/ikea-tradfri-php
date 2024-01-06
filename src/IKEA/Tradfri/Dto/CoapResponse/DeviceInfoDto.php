@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -14,7 +23,7 @@ final class DeviceInfoDto
         #[SerializedName(serializedName: 'ATTR_DEVICE_MODEL_NUMBER')]
         private string $type,
         #[SerializedName(serializedName: 'ATTR_DEVICE_FIRMWARE_VERSION')]
-        private string $version
+        private string $version,
     ) {
     }
 

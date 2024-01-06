@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\Devices;
@@ -15,29 +24,34 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
-use stdClass;
-use function count;
 
-class DeviceData extends Mapper
+/**
+ * @template T of Devices
+ *
+ * @template-implements MapperInterface<Devices>
+ */
+final class DeviceData implements MapperInterface
 {
     /**
      * @throws RuntimeException
      *
-     * @psalm-return Devices<int, \IKEA\Tradfri\Device\DeviceInterface>
+     * @phpstan-param T $collection
+     *
+     * @phpstan-return T
      */
     public function map(
         ServiceInterface $service,
-        array $devices
-    ): Devices {
-        if (count($devices) > 0) {
-            $collection = new Devices();
-            foreach ($devices as $device) {
+        array $dataItems,
+        \IKEA\Tradfri\Collection\AbstractCollection $collection = new Devices(),
+    ): \IKEA\Tradfri\Collection\AbstractCollection {
+        if (\count($dataItems) > 0) {
+            foreach ($dataItems as $device) {
                 if (false === $this->isValidData($device)) {
                     continue;
                 }
 
                 $model = $this->getModel(
-                    $device
+                    $device,
                 );
                 $model->setService($service);
 
@@ -61,11 +75,9 @@ class DeviceData extends Mapper
     }
 
     /**
-     * @param stdClass|null $device
-     *
      * @throws RuntimeException
      */
-    protected function isValidData($device): bool
+    public function isValidData(mixed $device): bool
     {
         if ($device instanceof DeviceDto) {
             return true;
@@ -76,11 +88,11 @@ class DeviceData extends Mapper
     }
 
     /**
-     * @return Device|LightBulb|MotionSensor|Remote
-     *
      * @throws RuntimeException
+     *
+     * @return Device|LightBulb|MotionSensor|Remote
      */
-    protected function getModel(object $device): Device
+    private function getModel(object $device): Device
     {
         if ($device instanceof DeviceDto) {
             $idAttribute   = $device->getId();
@@ -94,18 +106,18 @@ class DeviceData extends Mapper
         return (new Type())
             ->buildFrom(
                 $typeAttribute,
-                $idAttribute
+                $idAttribute,
             );
     }
 
-    protected function getDeviceId(stdClass $device): int
+    private function getDeviceId(\stdClass $device): int
     {
         return (int) $device->{AttributeKeys::ATTR_ID};
     }
 
-    protected function setLightBlubAttributes(
+    private function setLightBlubAttributes(
         LightBulb $model,
-        object $device
+        object $device,
     ): void {
         if ($device instanceof DeviceDto) {
             $device->getLightControl();
@@ -131,18 +143,18 @@ class DeviceData extends Mapper
         $model->setState($state);
     }
 
-    protected function _setLightRollerBlindAttributes(
+    private function _setLightRollerBlindAttributes(
         RollerBlind $model,
-        stdClass $device
+        \stdClass $device,
     ): void {
         $model->setDarkenedState(
             (int) $device
                 ->{AttributeKeys::ATTR_FYRTUR_CONTROL}[0]
-                ->{AttributeKeys::ATTR_FYRTUR_STATE}
+                ->{AttributeKeys::ATTR_FYRTUR_STATE},
         );
     }
 
-    protected function setDeviceAttributes(Device $model, object $device): void
+    private function setDeviceAttributes(Device $model, object $device): void
     {
         if ($device instanceof DeviceDto) {
             $name         = $device->getName();
@@ -166,7 +178,7 @@ class DeviceData extends Mapper
     /**
      * @deprecated
      */
-    protected function getDeviceTypeAttribute(stdClass $device): string
+    private function getDeviceTypeAttribute(\stdClass $device): string
     {
         return $device
             ->{AttributeKeys::ATTR_DEVICE_INFO}

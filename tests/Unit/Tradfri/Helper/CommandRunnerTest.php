@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Helper;
 
-class CommandRunnerTest extends \Codeception\Test\Unit
+final class CommandRunnerTest extends \Codeception\Test\Unit
 {
     public function testExecWithTimeout(): void
     {

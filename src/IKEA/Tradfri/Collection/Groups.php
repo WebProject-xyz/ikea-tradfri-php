@@ -2,21 +2,24 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Group\Device;
-use IKEA\Tradfri\Group\Light;
 
 /**
- * @extends AbstractCollection<string, \IKEA\Tradfri\Device\Device>
+ * @extends AbstractCollection<\IKEA\Tradfri\Group\Device>
  */
-class Groups extends AbstractCollection
+final class Groups extends AbstractCollection
 {
-    public function first(): Light
-    {
-        return parent::first();
-    }
-
     public function addGroup(Device $group): self
     {
         $this->set($group->getId(), $group);

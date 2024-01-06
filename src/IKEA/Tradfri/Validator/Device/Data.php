@@ -2,32 +2,38 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Validator\Device;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Validator\ValidatorInterface;
-use stdClass;
-use Throwable;
-use function is_object;
 
 /**
  * @deprecated will be gone in v1.0.0
  */
-class Data implements ValidatorInterface
+final class Data implements ValidatorInterface
 {
     /**
-     * @param stdClass|mixed|null $device
+     * @param null|mixed|\stdClass $device
      *
      * @throws RuntimeException
      */
-    public function isValid($device): bool
+    public function isValid(mixed $device): bool
     {
         $isValid = true;
 
         try {
-            if (false === is_object($device)) {
+            if (false === \is_object($device)) {
                 throw new TypeException('device is no object');
             }
 
@@ -42,7 +48,7 @@ class Data implements ValidatorInterface
             $this->_hasDataManufacturer($data);
 
             $this->_hasDataVersion($data);
-        } catch (RuntimeException|Throwable) {
+        } catch (RuntimeException|\Throwable) {
             $isValid = false;
         }
 
@@ -54,9 +60,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasIdField(stdClass $device): bool
+    private function _hasIdField(\stdClass $device): bool
     {
-        if (!property_exists($device, Keys::ATTR_ID)) {
+        if (!\property_exists($device, Keys::ATTR_ID)) {
             throw new RuntimeException('attribute missing (' . Keys::ATTR_ID . ')');
         }
 
@@ -68,9 +74,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataField(stdClass $device): bool
+    private function _hasDataField(\stdClass $device): bool
     {
-        if (!property_exists($device, Keys::ATTR_DEVICE_INFO)) {
+        if (!\property_exists($device, Keys::ATTR_DEVICE_INFO)) {
             throw new RuntimeException('attribute missing (' . Keys::ATTR_DEVICE_INFO . ')');
         }
 
@@ -82,9 +88,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataType(stdClass $data): bool
+    private function _hasDataType(\stdClass $data): bool
     {
-        if (false === property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
+        if (false === \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
             throw new RuntimeException('attribute missing type key');
         }
 
@@ -96,9 +102,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataManufacturer(stdClass $data): bool
+    private function _hasDataManufacturer(\stdClass $data): bool
     {
-        if (!property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
             throw new RuntimeException('attribute missing type manufacturer');
         }
 
@@ -110,9 +116,9 @@ class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    protected function _hasDataVersion(stdClass $data): bool
+    private function _hasDataVersion(\stdClass $data): bool
     {
-        if (!property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
             throw new RuntimeException('attribute missing type version');
         }
 
@@ -122,7 +128,7 @@ class Data implements ValidatorInterface
     /**
      * Get Data.
      */
-    protected function _getData(stdClass $device)
+    private function _getData(\stdClass $device)
     {
         return $device->{Keys::ATTR_DEVICE_INFO};
     }

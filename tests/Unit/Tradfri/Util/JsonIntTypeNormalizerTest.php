@@ -2,18 +2,27 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Util;
 
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class JsonIntTypeNormalizerTest extends TestCase
+final class JsonIntTypeNormalizerTest extends TestCase
 {
     public function testFinalJsonIsNotChangedForSimpleDevice(): void
     {
         // Arrange
-        $inputJson = /** @lang JSON */ <<<JSON
+        $inputJson = /** @lang JSON */ <<<'JSON'
 {
     "9003": 5000,
     "9001": "TRADFRI motion sensor",
@@ -24,7 +33,7 @@ class JsonIntTypeNormalizerTest extends TestCase
     }
 }
 JSON;
-        $deviceJson = /** @lang JSON */ <<<DEVICE_JSON
+        $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "ATTR_ID": 5000,
     "ATTR_NAME": "TRADFRI motion sensor",
@@ -48,7 +57,7 @@ DEVICE_JSON;
     public function testFinalJsonIsNotChangedForLights(): void
     {
         // Arrange
-        $inputJson = /** @lang JSON */ <<<JSON
+        $inputJson = /** @lang JSON */ <<<'JSON'
 {
     "9003": 1000,
     "9001": "TRADFRI bulb E27 W opal 1000lm",
@@ -65,7 +74,7 @@ DEVICE_JSON;
     ]
 }
 JSON;
-        $deviceJson = /** @lang JSON */ <<<DEVICE_JSON
+        $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "ATTR_ID": 1000,
     "ATTR_NAME": "TRADFRI bulb E27 W opal 1000lm",

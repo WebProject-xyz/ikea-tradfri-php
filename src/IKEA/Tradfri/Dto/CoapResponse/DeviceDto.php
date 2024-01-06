@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -27,21 +36,18 @@ final class DeviceDto
 
     public function __construct(
         #[SerializedName(serializedName: 'ATTR_ID')]
-        #[Assert\NotBlank]
+        #[Assert\NotBlank()]
         private int $id,
-
         #[SerializedName(serializedName: 'ATTR_NAME')]
-        #[Assert\NotBlank]
+        #[Assert\NotBlank()]
         private ?string $name,
-
         #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
-        #[Assert\Valid]
-        #[Assert\NotBlank]
+        #[Assert\Valid()]
+        #[Assert\NotBlank()]
         private DeviceInfoDto $deviceInfo,
-
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
-        #[Assert\Valid]
-        private readonly ?LightControlDto $lightControl = null
+        #[Assert\Valid()]
+        private readonly ?LightControlDto $lightControl = null,
     ) {
     }
 

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Device\Device;
@@ -15,14 +24,11 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
-use function class_exists;
-use function get_class_methods;
-use function str_replace;
 
 /**
  * Class Type.
  */
-class Type
+final class Type
 {
     final public const BLUB                    = 'TRADFRI bulb';
     final public const BLUB_CLASS              = LightBulb::class;
@@ -48,7 +54,7 @@ class Type
      */
     public function isLightBulb(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::BLUB);
+        return \str_starts_with($typeAttribute, self::BLUB);
     }
 
     /**
@@ -56,7 +62,7 @@ class Type
      */
     public function isRemote(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::REMOTE);
+        return \str_starts_with($typeAttribute, self::REMOTE);
     }
 
     /**
@@ -64,7 +70,7 @@ class Type
      */
     public function isDimmer(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::DIMMER);
+        return \str_starts_with($typeAttribute, self::DIMMER);
     }
 
     /**
@@ -72,7 +78,7 @@ class Type
      */
     public function isDriver(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::DRIVER);
+        return \str_starts_with($typeAttribute, self::DRIVER);
     }
 
     /**
@@ -80,7 +86,7 @@ class Type
      */
     public function isMotionSensor(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::MOTION_SENSOR);
+        return \str_starts_with($typeAttribute, self::MOTION_SENSOR);
     }
 
     /**
@@ -88,7 +94,7 @@ class Type
      */
     public function isFloalt(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::FLOALT);
+        return \str_starts_with($typeAttribute, self::FLOALT);
     }
 
     /**
@@ -96,7 +102,7 @@ class Type
      */
     public function isRepeater(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::REPEATER);
+        return \str_starts_with($typeAttribute, self::REPEATER);
     }
 
     /**
@@ -104,7 +110,7 @@ class Type
      */
     public function isOpenCloseRemote(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::REMOTE_OPEN_CLOSE);
+        return \str_starts_with($typeAttribute, self::REMOTE_OPEN_CLOSE);
     }
 
     /**
@@ -112,7 +118,7 @@ class Type
      */
     public function isRollerBlind(string $typeAttribute): bool
     {
-        return str_starts_with($typeAttribute, self::ROLLER_BLIND);
+        return \str_starts_with($typeAttribute, self::ROLLER_BLIND);
     }
 
     /**
@@ -120,14 +126,16 @@ class Type
      */
     public function isUnknownDeviceType(string $typeAttribute): bool
     {
-        foreach (get_class_methods($this) as $method) {
+        foreach (\get_class_methods($this) as $method) {
             if (__FUNCTION__ === $method) {
                 continue;
             }
+
             if ('buildFrom' === $method) {
                 continue;
             }
-            if (!$this->$method($typeAttribute)) {
+
+            if (!$this->{$method}($typeAttribute)) {
                 continue;
             }
 
@@ -139,20 +147,20 @@ class Type
 
     public function buildFrom(string $typeAttribute, int $deviceId, bool $buildUnknownDevice = true): Device
     {
-        foreach (get_class_methods($this) as $method) {
-            if (!str_starts_with($method, 'is')) {
+        foreach (\get_class_methods($this) as $method) {
+            if (!\str_starts_with($method, 'is')) {
                 continue;
             }
 
-            if ($this->$method($typeAttribute)) {
-                $modelClass = str_replace('is', '', $method);
+            if ($this->{$method}($typeAttribute)) {
+                $modelClass = \str_replace('is', '', $method);
 
                 if ('isUnknownDeviceType' === $method && $buildUnknownDevice) {
                     $modelClass = 'Unknown';
                 }
 
                 $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;
-                if (!class_exists($fqdnClassName)) {
+                if (!\class_exists($fqdnClassName)) {
                     continue;
                 }
 

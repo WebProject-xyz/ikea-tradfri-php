@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Adapter;
 
 use IKEA\Tradfri\Adapter\Coap;
@@ -11,16 +20,14 @@ use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
 use IKEA\Tradfri\Helper\CommandRunner as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
-use Mockery;
 use PHPUnit\Framework\TestCase;
-use function current;
 
-class CoapTest extends TestCase
+final class CoapTest extends TestCase
 {
     public function testGetDevicesDataCanHandleEmptyDeviceIdsResponse(): void
     {
         // Arrange
-        $runner = Mockery::mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner->expects('execWithTimeout')
             ->andReturn(['[]']);
 
@@ -28,7 +35,7 @@ class CoapTest extends TestCase
             new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
             new DeviceData(),
             new GroupData(),
-            $runner
+            $runner,
         );
 
         // Act
@@ -40,7 +47,7 @@ class CoapTest extends TestCase
     public function testGetDevicesDataWithRawJson(): void
     {
         // Arrange
-        $deviceJson = /** @lang JSON */ <<<DEVICE_JSON
+        $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "9003": 5000,
     "9001": "TRADFRI motion sensor",
@@ -52,7 +59,7 @@ class CoapTest extends TestCase
 }
 DEVICE_JSON;
 
-        $runner = Mockery::mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
@@ -67,7 +74,7 @@ DEVICE_JSON;
             new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
             new DeviceData(),
             new GroupData(),
-            $runner
+            $runner,
         );
 
         $deviceData  = new DeviceInfoDto('UnitTestFactory', 'TRADFRI motion sensor', 'v1.33.7');
@@ -78,7 +85,7 @@ DEVICE_JSON;
         // Assert
         $this->assertIsArray($deviceData);
         $this->assertCount(1, $deviceData);
-        $device = current($deviceData);
+        $device = \current($deviceData);
         $this->assertInstanceOf(DeviceDto::class, $device);
         $this->assertSame($deviceDto->getId(), $device->getId());
         $this->assertSame($deviceDto->getName(), $device->getName());
@@ -90,7 +97,7 @@ DEVICE_JSON;
     public function testGetDevicesDataWithValidJson(): void
     {
         // Arrange
-        $deviceJson = /** @lang JSON */ <<<DEVICE_JSON
+        $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
 {
     "ATTR_ID": 12,
     "ATTR_NAME": "name",
@@ -102,7 +109,7 @@ DEVICE_JSON;
 }
 DEVICE_JSON;
 
-        $runner = Mockery::mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
@@ -117,7 +124,7 @@ DEVICE_JSON;
             new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
             new DeviceData(),
             new GroupData(),
-            $runner
+            $runner,
         );
 
         $deviceData  = new DeviceInfoDto('manufacturer', 'type', 'version');
@@ -128,7 +135,7 @@ DEVICE_JSON;
         // Assert
         $this->assertIsArray($deviceData);
         $this->assertCount(1, $deviceData);
-        $device = current($deviceData);
+        $device = \current($deviceData);
         $this->assertInstanceOf(DeviceDto::class, $device);
         $this->assertSame($deviceDto->getId(), $device->getId());
         $this->assertSame($deviceDto->getName(), $device->getName());
@@ -141,7 +148,7 @@ DEVICE_JSON;
     {
         // Arrange
         $sensorDeviceId   = 5000;
-        $sensorDeviceJson = /** @lang JSON */ <<<SENSOR_DEVICE_JSON
+        $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
 {
     "9003": 5000,
     "9001": "TRADFRI motion sensor",
@@ -154,7 +161,7 @@ DEVICE_JSON;
 SENSOR_DEVICE_JSON;
 
         $lightDeviceId   = 1000;
-        $lightDeviceJson = /** @lang JSON */ <<<BULB_DEVICE_JSON
+        $lightDeviceJson = /** @lang JSON */ <<<'BULB_DEVICE_JSON'
 {
         "9003": 1000,
         "9001": "TRADFRI bulb E27 W opal 1000lm",
@@ -172,7 +179,7 @@ SENSOR_DEVICE_JSON;
     }
 BULB_DEVICE_JSON;
 
-        $runner = Mockery::mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
@@ -192,7 +199,7 @@ BULB_DEVICE_JSON;
             new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
             new DeviceData(),
             new GroupData(),
-            $runner
+            $runner,
         );
 
         $sensorDeviceData  = new DeviceInfoDto('UnitTestFactory', 'TRADFRI motion sensor', 'v1.33.7');

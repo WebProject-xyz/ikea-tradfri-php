@@ -2,11 +2,18 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Util;
 
 use Roave\BetterReflection\BetterReflection;
-use function array_keys;
-use function preg_replace;
 
 /**
  * @internal
@@ -23,7 +30,7 @@ final class JsonIntTypeNormalizer
     {
         $patternMap = $this->extractPatterns($targetClass);
 
-        return preg_replace($patternMap, array_keys($patternMap), $jsonString, 1);
+        return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1);
     }
 
     /**

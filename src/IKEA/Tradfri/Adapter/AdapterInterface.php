@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
@@ -28,7 +37,7 @@ interface AdapterInterface
 
     public function getGroupsData(): array;
 
-    public function getDevicesData(array $deviceIds = null): array;
+    public function getDevicesData(?array $deviceIds = null): array;
 
     public function changeLightState(int $deviceId, bool $toState): bool;
 
