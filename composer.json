@@ -28,7 +28,7 @@
     "phpstan/phpstan-mockery": "^1.1.1",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^6.4 || ^7.0",
-    "rector/rector": "^0.18.13"
+    "rector/rector": "^0.19.0"
   },
   "prefer-stable": true,
   "autoload": {
