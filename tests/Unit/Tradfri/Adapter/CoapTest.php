@@ -18,7 +18,7 @@ use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
 use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
-use IKEA\Tradfri\Helper\CommandRunner as Runner;
+use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
 use PHPUnit\Framework\TestCase;

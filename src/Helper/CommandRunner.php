@@ -19,7 +19,7 @@ use Symfony\Component\Process\Process;
 /**
  * @final
  */
-class CommandRunner
+class CommandRunner implements CommandRunnerInterface
 {
     /**
      * Execute a command and return it's output. Either wait
@@ -54,10 +54,13 @@ class CommandRunner
         $parts        = \explode("\n", $errors);
 
         $errorMessage = match (true) {
-            2 === \count($parts) && !empty($parts[1]), 3 === \count($parts) => $parts[1],
-            default => 'Unknown error',
+            2 === \count($parts) && !empty($parts[1]),
+            3 === \count($parts) => $parts[1],
+            default              => 'Unknown error',
         };
 
-        return $throw ? throw new RuntimeException($errorMessage) : $errorMessage;
+        return $throw
+            ? throw new RuntimeException($errorMessage)
+            : $errorMessage;
     }
 }

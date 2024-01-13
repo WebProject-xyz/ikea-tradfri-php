@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace IKEA\Tests\Unit\Tradfri\Command;
 
 use IKEA\Tradfri\Command\Coaps;
-use IKEA\Tradfri\Helper\CommandRunner;
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class CoapsTest extends TestCase
@@ -172,7 +172,7 @@ final class CoapsTest extends TestCase
     public function testGetSharedKeyFromGateway(): void
     {
         // Arrange
-        $runner = mock(CommandRunner::class);
+        $runner = mock(CommandRunnerInterface::class);
         $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
 
         $coaps = new Coaps(

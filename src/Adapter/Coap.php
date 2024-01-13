@@ -20,6 +20,7 @@ use IKEA\Tradfri\Command\Coaps;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CommandRunner;
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
@@ -35,7 +36,7 @@ final class Coap implements AdapterInterface
         protected Coaps $commands,
         private readonly DeviceData $deviceDataMapper,
         private readonly GroupData $groupDataMapper,
-        private readonly CommandRunner $runner = new CommandRunner(),
+        private readonly CommandRunnerInterface $runner = new CommandRunner(),
         private readonly JsonDeviceDataSerializer $deviceSerializer = new JsonDeviceDataSerializer(),
     ) {
     }
