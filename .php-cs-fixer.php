@@ -1,253 +1,94 @@
 <?php
+
 declare(strict_types=1);
 
-$finder = PhpCsFixer\Finder::create()
-    ->files()
-    ->in(__DIR__ . '/src')
-    ->in(__DIR__ . '/tests')
-    ->notPath(['#_generated#'])
-    ->append([__FILE__, 'RoboFile.php'])
-    ->name('*.php');
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
 
-$rules = [
-    /** symfony set @see \PhpCsFixer\RuleSet\Sets\SymfonySet */
-    '@PSR12'                  => true,
-    'align_multiline_comment' => true,
-    'array_syntax'            => true,
-    'backtick_to_shell_exec'  => true,
-//    'binary_operator_spaces' => true,
-    'blank_line_before_statement' => [
-        'statements' => [
-            'return',
-        ],
-    ],
-    'cast_spaces'                 => true,
-    'class_attributes_separation' => [
-        'elements' => [
-            'method' => 'one',
-        ],
-    ],
-    'class_definition' => [
-        'single_line' => true,
-    ],
-    'class_reference_name_casing' => true,
-    'clean_namespace'             => true,
-//    'concat_space'                => true,
-    'braces_position'       => [
-        'allow_single_line_anonymous_functions'     => true,
-        'allow_single_line_empty_anonymous_classes' => true,
-    ],
-    'declare_parentheses'          => true,
-    'echo_tag_syntax'              => true,
-    'empty_loop_body'              => ['style' => 'braces'],
-    'empty_loop_condition'         => true,
-    'fully_qualified_strict_types' => true,
-    'type_declaration_spaces'      => true,
-    'general_phpdoc_tag_rename'    => [
-        'replacements' => [
-            'inheritDocs' => 'inheritDoc',
-        ],
-    ],
-//    'global_namespace_import' => [
-//        'import_classes' => false,
-//        'import_constants' => false,
-//        'import_functions' => false,
-//    ],
-    'include'                     => true,
-    'increment_style'             => true,
-    'integer_literal_case'        => true,
-    'lambda_not_used_import'      => true,
-    'linebreak_after_opening_tag' => true,
-    'magic_constant_casing'       => true,
-    'magic_method_casing'         => true,
-    'method_argument_space'       => [
-        'on_multiline' => 'ignore',
-    ],
-    'native_function_casing'                  => true,
-    'native_type_declaration_casing'          => true,
-    'no_alias_language_construct_call'        => true,
-    'no_alternative_syntax'                   => true,
-    'no_binary_string'                        => true,
-    'no_blank_lines_after_phpdoc'             => true,
-    'no_empty_comment'                        => true,
-    'no_empty_phpdoc'                         => true,
-    'no_empty_statement'                      => true,
-    'no_extra_blank_lines'                    => [
-        'tokens' => [
-            'attribute',
-            'case',
-            'continue',
-            'curly_brace_block',
-            'default',
-            'extra',
-            'parenthesis_brace_block',
-            'square_brace_block',
-            'switch',
-            'throw',
-            'use',
-        ],
-    ],
-    'no_leading_namespace_whitespace'             => true,
-    'no_mixed_echo_print'                         => true,
-    'no_multiline_whitespace_around_double_arrow' => true,
-    'no_null_property_initialization'             => true,
-    'no_short_bool_cast'                          => true,
-    'no_singleline_whitespace_before_semicolons'  => true,
-    'no_spaces_around_offset'                     => true,
-    'no_superfluous_phpdoc_tags'                  => [
-        'remove_inheritdoc' => true,
-    ],
-    'no_trailing_comma_in_singleline' => true,
-    'no_unneeded_control_parentheses' => [
-        'statements' => [
-            'break',
-            'clone',
-            'continue',
-            'echo_print',
-            'others',
-            'return',
-            'switch_case',
-            'yield',
-            'yield_from',
-        ],
-    ],
-    'no_unneeded_braces' => [
-        'namespaces' => true,
-    ],
-    'no_unneeded_import_alias'                         => true,
-    'no_unset_cast'                                    => true,
-    'no_unused_imports'                                => true,
-    'no_useless_concat_operator'                       => true,
-    'no_useless_nullsafe_operator'                     => true,
-    'no_whitespace_before_comma_in_array'              => true,
-    'normalize_index_brace'                            => true,
-    'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => false],
-    'object_operator_without_whitespace'               => true,
-    'operator_linebreak'                               => [
-        'only_booleans' => true,
-    ],
-//    'ordered_imports' => [
-//        'imports_order' => [
-//            'class',
-//            'function',
-//            'const',
-//        ],
-//        'sort_algorithm' => 'alpha',
-//    ],
-    'php_unit_fqcn_annotation'      => true,
-    'php_unit_method_casing'        => true,
-    'phpdoc_align'                  => true,
-    'phpdoc_annotation_without_dot' => true,
-    'phpdoc_indent'                 => true,
-    'phpdoc_inline_tag_normalizer'  => true,
-    'phpdoc_no_access'              => true,
-    'phpdoc_no_alias_tag'           => true,
-    'phpdoc_no_package'             => true,
-    'phpdoc_no_useless_inheritdoc'  => true,
-    'phpdoc_order'                  => [
-        'order' => [
-            'param',
-            'return',
-            'throws',
-        ],
-    ],
-    'phpdoc_return_self_reference'   => true,
-    'phpdoc_scalar'                  => true,
-    'phpdoc_separation'              => true,
-    'phpdoc_single_line_var_spacing' => true,
-    'phpdoc_summary'                 => true,
-    'phpdoc_tag_type'                => [
-        'tags' => [
-            'inheritDoc' => 'inline',
-        ],
-    ],
-//    'phpdoc_to_comment' => true,
-    'phpdoc_trim'                                   => true,
-    'phpdoc_trim_consecutive_blank_line_separation' => true,
-    'phpdoc_types'                                  => true,
-    'phpdoc_types_order'                            => [
-        'null_adjustment' => 'always_last',
-        'sort_algorithm'  => 'none',
-    ],
-    'phpdoc_var_without_name'            => true,
-    'semicolon_after_instruction'        => true,
-    'simple_to_complex_string_variable'  => true,
-    'single_class_element_per_statement' => true,
-    'single_import_per_statement'        => true,
-    'single_line_comment_spacing'        => true,
-    'single_line_comment_style'          => [
-        'comment_types' => [
-            'hash',
-        ],
-    ],
-    'single_line_throw'             => true,
-    'single_quote'                  => true,
-    'single_space_around_construct' => true,
-    'space_after_semicolon'         => [
-        'remove_in_empty_for_expressions' => true,
-    ],
-    'standardize_increment'           => true,
-    'standardize_not_equals'          => true,
-    'switch_continue_to_break'        => true,
-    'trailing_comma_in_multiline'     => true,
-    'trim_array_spaces'               => true,
-    'types_spaces'                    => true,
-    'unary_operator_spaces'           => true,
-    'whitespace_after_comma_in_array' => true,
-    'yoda_style'                      => true,
-    // END \PhpCsFixer\RuleSet\Sets\SymfonySet
-    'binary_operator_spaces'                        => [
-        'default'   => 'align',
-        'operators' => [
-            '??' => 'single_space',
-        ],
-    ],
-    'concat_space'                                  => ['spacing' => 'one'],
-    '@PhpCsFixer:risky'                             => true,
-    'encoding'                                      => true,
-    'blank_lines_before_namespace'                  => true,
-    'blank_line_after_opening_tag'                  => false,
-    'strict_param'                                  => true,
-    'no_useless_else'                               => true,
-    'no_useless_return'                             => true,
-    'modernize_types_casting'                       => true,
-    'declare_strict_types'                          => true,
-    'dir_constant'                                  => true,
-    'no_whitespace_in_blank_line'                   => true,
+use Ergebnis\License;
+use Ergebnis\PhpCsFixer;
 
-    '@Symfony:risky'                                => true,
-    '@PHPUnit75Migration:risky'                     => true,
-    'php_unit_dedicate_assert'                      => ['target' => 'newest'],
-    'php_unit_test_case_static_method_calls'        => ['call_type' => 'this'],
-    'fopen_flags'                                   => false,
-    'combine_nested_dirname'                        => true,
+require_once __DIR__ . '/vendor/autoload.php';
 
-    'ordered_imports'                               => [
-        'sort_algorithm' => 'alpha',
-        'imports_order'  => [
-            'const',
-            'class',
-            'function',
+$license = License\Type\MIT::markdown(
+    __DIR__ . '/LICENSE.md',
+    License\Range::since(
+        License\Year::fromString('2024'),
+        new DateTimeZone('Europe/Berlin'),
+    ),
+    License\Holder::fromString('Benjamin Fahl'),
+    License\Url::fromString('https://github.com/WebProject-xyz/ikea-tradfri-php'),
+);
+
+$license->save();
+
+$ruleSet = PhpCsFixer\Config\RuleSet\Php82::create()
+    ->withHeader($license->header())
+    ->withRules(Ergebnis\PhpCsFixer\Config\Rules::fromArray(
+        [
+            'binary_operator_spaces' => [
+                'default'   => 'align',
+                'operators' => [
+                    '??' => 'single_space',
+                ],
+            ],
+            'blank_line_before_statement' => [
+                'statements' => [
+                    'return',
+                ],
+            ],
+            'php_unit_construct' => [
+                'assertions' => [
+                    'assertEquals',
+                    'assertNotEquals',
+                    'assertNotSame',
+                    'assertSame',
+                ],
+            ],
+            'php_unit_data_provider_name'        => true,
+            'php_unit_data_provider_return_type' => true,
+            'php_unit_data_provider_static'      => [
+                'force' => true,
+            ],
+            'php_unit_fqcn_annotation' => true,
+            'php_unit_internal_class'  => false,
+            'php_unit_method_casing'   => [
+                'case' => 'camel_case',
+            ],
+            'php_unit_mock_short_will_return'      => true,
+            'php_unit_set_up_tear_down_visibility' => true,
+            'php_unit_test_annotation'             => [
+                'style' => 'prefix',
+            ],
+            'php_unit_test_case_static_method_calls' => [
+                'call_type' => 'this',
+            ],
         ],
-    ],
+    ));
 
-    'global_namespace_import'                       => [
-        'import_classes'   => true,
-        'import_functions' => true,
-        'import_constants' => true,
-    ],
+$config = PhpCsFixer\Config\Factory::fromRuleSet($ruleSet);
+$config->getFinder()
+    ->exclude([
+        'build/',
+        '.github/',
+        'var/',
+    ])
+    ->ignoreDotFiles(false)
+    ->in(__DIR__)
+    ->name([
+        '.php-cs-fixer.php',
+        'console',
+    ])
+    ->notName([
+        '.env.local.php',
+    ]);
 
-    // if this is true, phpstan checks will fail
-    'phpdoc_to_comment'                             => false,
-    // prevent mega diff
-    'blank_line_between_import_groups'              => false,
-];
-
-$config = new PhpCsFixer\Config('default');
-$config->setRules($rules);
-$config->setRiskyAllowed(true);
-$config->setUsingCache(true);
-$config->setLineEnding("\n");
-$config->setFinder($finder);
+$config->setCacheFile(__DIR__ . '/.php-cs-fixer.cache');
 
 return $config;

@@ -1,0 +1,86 @@
+[
+    "asd invalid",
+    {
+        "1": "invalid type error"
+    },
+    {
+        "9003": 9999,
+        "9001": "invalid",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "invalid type error"
+        }
+    },
+    {
+        "9003": 1000,
+        "9001": "TRADFRI bulb E27 W opal 1000lm",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "TRADFRI bulb E27 W opal 1000lm"
+        },
+        "3311": [
+            {
+                "5851": 22,
+                "5850": 1
+            }
+        ]
+    },
+    {
+        "9003": 2000,
+        "9001": "TRADFRI bulb E27 WS opal 980lm",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "TRADFRI bulb E27 WS opal 980lm"
+        },
+        "3311": [
+            {
+                "5851": 22,
+                "5850": 0
+            }
+        ]
+    },
+    {
+        "9003": 3000,
+        "9001": "TRADFRI dimmer",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "TRADFRI dimmer"
+        }
+    },
+    {
+        "9003": 4000,
+        "9001": "TRADFRI remote control",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "TRADFRI remote control"
+        }
+    },
+    {
+        "9003": 5000,
+        "9001": "TRADFRI motion sensor",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "TRADFRI motion sensor"
+        }
+    },
+    {
+        "9003": 6000,
+        "9001": "FYRTUR block-out roller blind",
+        "3": {
+            "0": "UnitTestFactory",
+            "3": "v1.33.7",
+            "1": "FYRTUR block-out roller blind"
+        },
+        "15015": [
+            {
+                "5536": 100
+            }
+        ]
+    }
+]

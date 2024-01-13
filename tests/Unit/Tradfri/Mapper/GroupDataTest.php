@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
@@ -9,63 +18,62 @@ use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
-use Mockery;
 
 /**
  * Class DeviceDataTest.
  */
-class GroupDataTest extends UnitTest
+final class GroupDataTest extends UnitTest
 {
     protected \IKEA\Tests\Support\UnitTester $tester;
 
     public function testICanMapEmptyDataWithNoError(): void
     {
         // Arrange
-        $serviceMock = Mockery::mock(ServiceInterface::class);
+        $serviceMock = mock(ServiceInterface::class);
         $devices     = [];
 
         $mapper = new GroupData();
+        $groups = new Groups();
         // Act
-        $result = $mapper->map($serviceMock, $devices);
+        $result = $mapper->map($serviceMock, $devices, $groups);
         // Assert
-        $this->tester->assertInstanceOf(Groups::class, $result);
+        $this->assertInstanceOf(Groups::class, $result);
+        $this->assertSame($groups, $result);
     }
 
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
-        $serviceMock = Mockery::mock(ServiceInterface::class);
+        $serviceMock = mock(ServiceInterface::class);
 
         $mapper = new GroupData();
+        $groups = new Groups();
         // Act
-        $result = $mapper->map($serviceMock, $this->tester->getGroupDataCoapsResponse());
+        $result = $mapper->map($serviceMock, $this->tester->getGroupDataCoapsResponse(), $groups);
         // Assert
-        $this->tester->assertInstanceOf(Groups::class, $result);
-        $this->tester->assertFalse($result->isEmpty());
-        $this->tester->assertSame(3, $result->count());
+        $this->assertInstanceOf(Groups::class, $result);
+        $this->assertFalse($result->isEmpty());
+        $this->assertSame(3, $result->count());
 
-        /** @var Group $group1 */
         $group1 = $result->get(1000);
-        $this->tester->assertInstanceOf(Group::class, $group1);
-        $this->tester->assertSame(1000, $group1->getId());
-        $this->tester->assertFalse($group1->isOn());
-        $this->tester->assertSame('Group 1', $group1->getName());
-        $this->tester->assertSame(38.0, $group1->getBrightness());
+        $this->assertInstanceOf(Group::class, $group1);
+        $this->assertSame(1000, $group1->getId());
+        $this->assertFalse($group1->isOn());
+        $this->assertSame('Group 1', $group1->getName());
+        $this->assertSame(38.0, $group1->getBrightness());
 
-        /** @var Group $group1 */
         $group2 = $result->get(2000);
-        $this->tester->assertInstanceOf(Group::class, $group2);
-        $this->tester->assertSame(2000, $group2->getId());
-        $this->tester->assertFalse($group2->isOn());
-        $this->tester->assertSame('Group 2', $group2->getName());
-        $this->tester->assertSame(0.0, $group2->getBrightness());
+        $this->assertInstanceOf(Group::class, $group2);
+        $this->assertSame(2000, $group2->getId());
+        $this->assertFalse($group2->isOn());
+        $this->assertSame('Group 2', $group2->getName());
+        $this->assertSame(0.0, $group2->getBrightness());
 
-        /** @var Group $group3 */
         $group3 = $result->get(3000);
-        $this->tester->assertInstanceOf(Group::class, $group3);
-        $this->tester->assertSame(3000, $group3->getId());
-        $this->tester->assertFalse($group3->isOn());
-        $this->tester->assertSame('Group 3', $group3->getName());
-        $this->tester->assertSame(0.0, $group3->getBrightness());
+        $this->assertInstanceOf(Group::class, $group3);
+        $this->assertSame(3000, $group3->getId());
+        $this->assertFalse($group3->isOn());
+        $this->assertSame('Group 3', $group3->getName());
+        $this->assertSame(0.0, $group3->getBrightness());
     }
 }

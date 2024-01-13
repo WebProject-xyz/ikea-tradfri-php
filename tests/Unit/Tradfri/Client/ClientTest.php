@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Client;
 
 use IKEA\Tradfri\Adapter\AdapterInterface;
@@ -12,56 +21,55 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Group\Light;
 use IKEA\Tradfri\Service\ServiceInterface;
-use Mockery;
 
-class ClientTest extends \Codeception\Test\Unit
+final class ClientTest extends \Codeception\Test\Unit
 {
     protected \IKEA\Tests\Support\UnitTester $tester;
 
     public function testICanGetAnInstanceOfClient(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         // Act
         $client = new Client($adapter);
         // Assert
-        $this->tester->assertInstanceOf(Client::class, $client);
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     public function testICanGetDevicesFromClient(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('getDeviceCollection')->andReturn(new Devices());
 
         $client = new Client($adapter);
         // Act
-        $devices = $client->getDevices(Mockery::mock(ServiceInterface::class));
+        $devices = $client->getDevices(mock(ServiceInterface::class));
         // Assert
-        $this->tester->assertInstanceOf(Devices::class, $devices);
-        $this->tester->assertTrue($devices->isEmpty());
-        $this->tester->assertCount(0, $devices->toArray());
+        $this->assertInstanceOf(Devices::class, $devices);
+        $this->assertTrue($devices->isEmpty());
+        $this->assertCount(0, $devices->toArray());
     }
 
     public function testICanGetGroupFromClient(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('getGroupCollection')->andReturn(new Groups());
 
         $client = new Client($adapter);
         // Act
-        $groups = $client->getGroups(Mockery::mock(ServiceInterface::class));
+        $groups = $client->getGroups(mock(ServiceInterface::class));
         // Assert
-        $this->tester->assertInstanceOf(Groups::class, $groups);
-        $this->tester->assertTrue($groups->isEmpty());
-        $this->tester->assertCount(0, $groups->toArray());
+        $this->assertInstanceOf(Groups::class, $groups);
+        $this->assertTrue($groups->isEmpty());
+        $this->assertCount(0, $groups->toArray());
     }
 
     public function testICanTurnLightOn(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
@@ -69,13 +77,13 @@ class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->lightOn($light);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testICanTurnLightOff(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
@@ -83,41 +91,41 @@ class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->lightOff($light);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testICanTurnGroupOn(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, mock(ServiceInterface::class));
         // Act
         $result = $client->groupOn($group);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testICanTurnGroupOff(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, mock(ServiceInterface::class));
         // Act
         $result = $client->groupOff($group);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testICanDimLight(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('setLightBrightness')->andReturn(true);
 
         $client = new Client($adapter);
@@ -125,20 +133,20 @@ class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->dimLight($light, 50);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 
     public function testICanDimGroup(): void
     {
         // Arrange
-        $adapter = Mockery::mock(AdapterInterface::class);
+        $adapter = mock(AdapterInterface::class);
         $adapter->expects('setGroupBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, Mockery::mock(ServiceInterface::class));
+        $group  = new Light(1, mock(ServiceInterface::class));
         // Act
         $result = $client->dimGroup($group, 50);
         // Assert
-        $this->tester->assertTrue($result);
+        $this->assertTrue($result);
     }
 }

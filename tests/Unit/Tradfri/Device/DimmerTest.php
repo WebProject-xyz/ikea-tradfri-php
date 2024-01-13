@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use IKEA\Tradfri\Device\Device;
@@ -11,7 +20,7 @@ use IKEA\Tradfri\Device\Helper\Type;
 /**
  * Class DimmerTest.
  */
-class DimmerTest extends DeviceTester
+final class DimmerTest extends DeviceTester
 {
     public function testGetAnInstance(): void
     {

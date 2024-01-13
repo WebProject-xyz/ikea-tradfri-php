@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use Codeception\Test\Unit as UnitTest;
@@ -16,14 +25,11 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 abstract class DeviceTester extends UnitTest
 {
-    /**
-     * @var int
-     */
-    protected $_id = 1;
+    protected int $_id = 1;
 
     abstract public function testGetAnInstance(): void;
 
-    public function testICanNotGetService(): void
+    final public function testICanNotGetService(): void
     {
         // Arrange
         $this->expectException('RuntimeException');
@@ -35,12 +41,7 @@ abstract class DeviceTester extends UnitTest
         // Assert
     }
 
-    /**
-     * @return Device
-     */
-    abstract protected function getModel(): DeviceInterface;
-
-    public function testICanGetService(): void
+    final public function testICanGetService(): void
     {
         // Arrange
         $device = $this->getModel();
@@ -54,7 +55,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertInstanceOf(ServiceInterface::class, $service);
     }
 
-    public function testGetSetName(): void
+    final public function testGetSetName(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -66,7 +67,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetManufacturer(): void
+    final public function testGetSetManufacturer(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -78,7 +79,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame('UnitTest', $result);
     }
 
-    public function testGetSetId(): void
+    final public function testGetSetId(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -90,7 +91,7 @@ abstract class DeviceTester extends UnitTest
         $this->assertSame(2, $result);
     }
 
-    public function testGetSetVersion(): void
+    final public function testGetSetVersion(): void
     {
         // Arrange
         $lamp = $this->getModel();
@@ -101,4 +102,9 @@ abstract class DeviceTester extends UnitTest
         // Assert
         $this->assertSame('V123', $result);
     }
+
+    /**
+     * @return Device
+     */
+    abstract protected function getModel(): DeviceInterface;
 }
