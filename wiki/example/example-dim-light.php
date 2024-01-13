@@ -11,6 +11,8 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
+use IKEA\Tradfri\Device\LightBulb;
+
 require __DIR__ . '/init.php';
 
 try {
@@ -21,6 +23,7 @@ try {
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
         $light = $lights->first();
+        \assert($light instanceof LightBulb);
         echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
         echo '---------- Light Information' . \PHP_EOL;
         echo ' ' . \PHP_EOL;
@@ -49,6 +52,11 @@ try {
         \sleep(2);
         if ($light->dim(15)) {
             echo 'was set to 15%' . \PHP_EOL;
+        }
+
+        \sleep(2);
+        if ($light->switchOff()) {
+            echo 'was set to off' . \PHP_EOL;
         }
 
         return true;

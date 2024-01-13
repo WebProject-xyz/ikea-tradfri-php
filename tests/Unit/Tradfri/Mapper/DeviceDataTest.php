@@ -111,6 +111,16 @@ final class DeviceDataTest extends UnitTest
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device6->getType());
         $this->assertSame('IKEA of Sweden', $device6->getManufacturer());
         $this->assertSame('24.4.5', $device6->getVersion());
+        $this->assertSame(
+            [
+                'id'           => 5000,
+                'manufacturer' => 'IKEA of Sweden',
+                'name'         => 'TRADFRI motion sensor',
+                'type'         => 'TRADFRI motion sensor',
+                'version'      => '24.4.5',
+            ],
+            $device6->jsonSerialize(),
+        );
 
         $this->assertCount(7, $result->getDevices());
         $this->assertCount(2, $result->getLightBulbs());

@@ -87,11 +87,7 @@ final class Coap implements AdapterInterface
             );
 
         // verify result
-        if (\is_array($data) && empty($data[0])) {
-            /*
-             * @example data response is now empty since hub update
-             * so we only check if there is no error message inside
-             */
+        if ($this->_verifyResult($data)) {
             return true;
         }
 
@@ -143,14 +139,18 @@ final class Coap implements AdapterInterface
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
-        $this->runner->execWithTimeout(
+        $data = $this->runner->execWithTimeout(
             $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
             2,
             true,
         );
 
-        // @todo: fix validation
-        return true;
+        // verify result
+        if ($this->_verifyResult($data)) {
+            return true;
+        }
+
+        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     /**
@@ -322,11 +322,9 @@ final class Coap implements AdapterInterface
         return $decoded;
     }
 
-    /**
-     * @param array|string $data
-     */
-    private function _verifyResult($data): bool
+    private function _verifyResult(mixed $data): bool
     {
-        return \is_array($data) && 4 === \count($data);
+        return \is_array($data)
+            && (4 === \count($data) || '' === ($data[0] ?? null));
     }
 }

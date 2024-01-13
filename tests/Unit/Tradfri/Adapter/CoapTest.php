@@ -306,6 +306,121 @@ GROUPS_JSON;
         $this->assertContains(4321, $groupIds);
     }
 
+    public function testChangeLightState(): void
+    {
+        // Arrange
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true, true)
+            ->andReturn(['']);
+
+        $adapter = new Coap(
+            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Act
+        $changeLightState = $adapter->changeLightState(123, true);
+
+        // Assert
+        $this->assertTrue($changeLightState);
+    }
+
+    public function testChangeGroupState(): void
+    {
+        // Arrange
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\'  "coaps://127.0.0.1:5684/15004/123"', 2, true)
+            ->andReturn(['']);
+
+        $adapter = new Coap(
+            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Act
+        $changeLightState = $adapter->changeGroupState(123, true);
+
+        // Assert
+        $this->assertTrue($changeLightState);
+    }
+
+    public function testSetLightBrightness(): void
+    {
+        // Arrange
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 59 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true)
+            ->andReturn(['']);
+
+        $adapter = new Coap(
+            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Act
+        $changeLightState = $adapter->setLightBrightness(123, 23);
+
+        // Assert
+        $this->assertTrue($changeLightState);
+    }
+
+    public function testSetGroupBrightness(): void
+    {
+        // Arrange
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 59 }\'  "coaps://127.0.0.1:5684/15004/123"', 2, true)
+            ->andReturn(['']);
+
+        $adapter = new Coap(
+            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Act
+        $changeLightState = $adapter->setGroupBrightness(123, 23);
+
+        // Assert
+        $this->assertTrue($changeLightState);
+    }
+
+    public function testSetRollerBlindPosition(): void
+    {
+        // Arrange
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 23 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true)
+            ->andReturn(['']);
+
+        $adapter = new Coap(
+            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Act
+        $changeLightState = $adapter->setRollerBlindPosition(123, 23);
+
+        // Assert
+        $this->assertTrue($changeLightState);
+    }
+
     public function testGetManufacturer(): void
     {
         // Arrange
