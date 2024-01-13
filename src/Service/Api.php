@@ -52,15 +52,13 @@ final class Api implements ServiceInterface
      */
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
-        $service = $this;
         $lightBulbsCollection->forAll(
-            static function ($lightBulbKey, $lightBulb) use ($service) {
-                /** @var LightBulb $lightBulb */
+            function (int $lightBulbKey, DeviceInterface $lightBulb): bool {
                 if ($lightBulb->getId() === $lightBulbKey) {
                     // this is ok but who cares can't make var unused
                 }
 
-                $service->off($lightBulb);
+                $this->off($lightBulb);
 
                 return true;
             },

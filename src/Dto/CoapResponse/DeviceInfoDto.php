@@ -32,28 +32,13 @@ final class DeviceInfoDto
         return $this->manufacturer;
     }
 
-    public function setManufacturer(string $manufacturer): void
-    {
-        $this->manufacturer = $manufacturer;
-    }
-
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    public function setVersion(string $version): void
-    {
-        $this->version = $version;
-    }
-
     public function getType(): string
     {
         return $this->type;
-    }
-
-    public function setType(string $type): void
-    {
-        $this->type = $type;
     }
 }

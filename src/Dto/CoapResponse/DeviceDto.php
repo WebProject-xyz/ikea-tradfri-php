@@ -60,29 +60,14 @@ final class DeviceDto
         return $this->id;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function getDeviceInfo(): DeviceInfoDto
     {
         return $this->deviceInfo;
-    }
-
-    public function setDeviceInfo(DeviceInfoDto $deviceInfo): void
-    {
-        $this->deviceInfo = $deviceInfo;
     }
 
     public function getLightControl(): ?LightControlDto

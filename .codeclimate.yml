@@ -54,6 +54,14 @@ plugins:
         enabled: false
       Generic Files LineLength TooLong:
         enabled: false
+      Generic Files LineLength MaxExceeded:
+        enabled: false
+      Generic WhiteSpace ScopeIndent IncorrectExact:
+        enabled: false
+      PSR2 Methods FunctionCallSignature Indent:
+        enabled: false
+      PSR2 Methods FunctionCallSignature SpaceBeforeOpenBracket:
+        enabled: false
   sonar-php:
     enabled: true
     config:
