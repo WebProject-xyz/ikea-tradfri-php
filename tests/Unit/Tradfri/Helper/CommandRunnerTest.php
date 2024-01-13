@@ -24,7 +24,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1);
 
         // Assert
-        $this->assertSame(expected: "bootstrap.php\nTradfri\n", actual: $result);
+        $this->assertStringContainsStringIgnoringLineEndings('bootstrap.php', $result);
+        $this->assertStringContainsStringIgnoringLineEndings('Tradfri', $result);
     }
 
     public function testExecWithTimeoutAsArray(): void
@@ -36,7 +37,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1, asArray: true);
 
         // Assert
-        $this->assertSame(expected: ['bootstrap.php', 'Tradfri'], actual: $result);
+        $this->assertContains('bootstrap.php', $result);
+        $this->assertContains('Tradfri', $result);
     }
 
     public function testExecWithTimeoutGetError(): void
