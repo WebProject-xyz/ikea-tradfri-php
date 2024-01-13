@@ -29,7 +29,7 @@ use const JSON_THROW_ON_ERROR;
 
 final class Coap implements AdapterInterface
 {
-    final public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
+    private const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     public function __construct(
         protected Coaps $commands,
