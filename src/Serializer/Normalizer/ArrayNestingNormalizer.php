@@ -23,35 +23,19 @@ final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAware
     final public const ATTR_LIGHT_CONTROL = 'ATTR_LIGHT_CONTROL';
     final public const ATTR_DEVICE_STATE  = 'ATTR_DEVICE_STATE';
 
-    /**
-     * @phpstan-var DenormalizerInterface&NormalizerInterface
-     */
-    protected $normalizer;
-
-    public function __construct(NormalizerInterface $normalizer)
-    {
-        if (!$normalizer instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException('The normalizer must implement the DenormalizerInterface');
-        }
-
-        $this->normalizer = $normalizer;
+    public function __construct(
+        private readonly DenormalizerInterface&NormalizerInterface $normalizer,
+    ) {
     }
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
     {
         return $this->normalizer->normalize($object, $format, $context);
-        //        if (is_array($data)
-        //            && array_key_exists(self::ATTR_LIGHT_CONTROL, $data)
-        //            && is_array($data[self::ATTR_LIGHT_CONTROL])
-        //            && array_key_exists(self::ATTR_DEVICE_STATE, $data[self::ATTR_LIGHT_CONTROL])
-        //        ) {
-        //            $data[self::ATTR_LIGHT_CONTROL][self::ATTR_DEVICE_STATE] = (int) $data[self::ATTR_LIGHT_CONTROL][self::ATTR_DEVICE_STATE];
-        //        }
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return $this->normalizer->supportsNormalization($data, $format);
+        return $this->normalizer->supportsNormalization($data, $format, $context);
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
@@ -87,7 +71,7 @@ final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAware
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $this->normalizer->supportsDenormalization($data, $type, $format);
+        return $this->normalizer->supportsDenormalization($data, $type, $format, $context);
     }
 
     public function getSupportedTypes(?string $format): array

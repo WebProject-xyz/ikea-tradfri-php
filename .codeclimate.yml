@@ -42,7 +42,7 @@ plugins:
     enabled: true
     config:
       file_extensions: "php"
-      standard: "PSR2,PSR1,Zend"
+      standard: "PSR2,PSR1"
     checks:
       Generic Functions OpeningFunctionBraceBsdAllman BraceOnSameLine:
         enabled: false
@@ -64,6 +64,12 @@ plugins:
         enabled: false
       Squiz Functions GlobalFunction Found:
         enabled: false
+      Squiz Functions MultiLineFunctionDeclaration FirstParamSpacing:
+        enabled: false
+      PEAR Functions FunctionCallSignature SpaceBeforeOpenBracket:
+        enabled: false
+      PEAR Functions ValidDefaultValue NotAtEnd:
+        enabled: false
   sonar-php:
     enabled: true
     config:
@@ -77,3 +83,4 @@ exclude_patterns:
 - vendor/**/*
 - tests/**/*
 - wiki/**/*
+- .php-cs-fixer.php
