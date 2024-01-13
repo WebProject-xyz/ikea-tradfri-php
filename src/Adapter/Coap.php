@@ -48,7 +48,7 @@ final class Coap implements AdapterInterface
         $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
-            && \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)
+            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_INFO_TYPE)
         ) {
             return $data
                 ->{Keys::ATTR_DEVICE_INFO}

@@ -164,7 +164,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = mock(Api::class);
         $service->expects('on')->andReturn(false);
 
         $lamp->setService($service);
@@ -271,7 +271,7 @@ final class LightbulbTest extends DeviceTester
 
         // Arrange
         $lamp    = $this->getModel();
-        $service = \Mockery::mock(Api::class);
+        $service = mock(Api::class);
         $service->expects('off')->andReturn(false);
 
         $lamp->setService($service);

@@ -26,7 +26,7 @@ final class LightTest extends UnitTest
     public function testICanInitGroupOfLights(?ServiceInterface $service = null): Light
     {
         // Arrange
-        $service ??= \Mockery::mock(ServiceInterface::class);
+        $service ??= mock(ServiceInterface::class);
 
         // Act
         $group = new Light(1, $service);
@@ -68,7 +68,7 @@ final class LightTest extends UnitTest
     public function testICanSwitchOnGroup(): void
     {
         // Arrange
-        $service = \Mockery::mock(ServiceInterface::class);
+        $service = mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 
@@ -83,7 +83,7 @@ final class LightTest extends UnitTest
     public function testICanSwitchOffGroup(): void
     {
         // Arrange
-        $service = \Mockery::mock(ServiceInterface::class);
+        $service = mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 
@@ -99,7 +99,7 @@ final class LightTest extends UnitTest
     public function testICanDimOffGroup(): void
     {
         // Arrange
-        $service = \Mockery::mock(ServiceInterface::class);
+        $service = mock(ServiceInterface::class);
 
         $group = $this->testICanInitGroupOfLights($service);
 
