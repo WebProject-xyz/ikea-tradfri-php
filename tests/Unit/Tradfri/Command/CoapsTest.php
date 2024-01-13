@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Command;
 
 use IKEA\Tradfri\Command\Coaps;
-use IKEA\Tradfri\Helper\CommandRunner;
-use Mockery;
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use PHPUnit\Framework\TestCase;
 
-class CoapsTest extends TestCase
+final class CoapsTest extends TestCase
 {
     public function testGetRollerBlindDarkenedStateCommand(): void
     {
@@ -22,7 +30,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "15015": [{ "5536": 100 }] }\'  "coaps://127.0.0.1:5684/15001/1"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -37,7 +45,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "5851": 255 }\'  "coaps://127.0.0.1:5684/15004/1"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -52,7 +60,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m get -u "username" -k "apiKey" "coaps://127.0.0.1:5684/15001"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -67,7 +75,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "3311": [{ "5709": 30140, "5710": 26909 }] }\'  "coaps://127.0.0.1:5684/15001/1"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -82,7 +90,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "5850": 1 }\'  "coaps://127.0.0.1:5684/15004/2"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -97,7 +105,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m post -u "username" -k "apiKey"injected "coaps://127.0.0.1:5684/15001"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -112,7 +120,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "3311": [{ "5850": 1 }] }\'  "coaps://127.0.0.1:5684/15001/111"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -127,7 +135,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey" -e \'{ "3311": [{ "5851": 128 }] }\'  "coaps://127.0.0.1:5684/15001/111"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -142,7 +150,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m put -u "username" -k "apiKey"injected "coaps://127.0.0.1:5684/15001"',
-            $commandString
+            $commandString,
         );
     }
 
@@ -157,14 +165,14 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'coap-client -m post -u "Client_identity" -k "secret" -e \'{"9090":"username"}\' "coaps://127.0.0.1:5684/15011/9063"',
-            $commandString
+            $commandString,
         );
     }
 
     public function testGetSharedKeyFromGateway(): void
     {
         // Arrange
-        $runner = Mockery::mock(CommandRunner::class);
+        $runner = mock(CommandRunnerInterface::class);
         $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
 
         $coaps = new Coaps(
@@ -172,7 +180,7 @@ class CoapsTest extends TestCase
             'secret',
             'apiKey',
             'username',
-            $runner
+            $runner,
         );
 
         // Act
@@ -181,7 +189,7 @@ class CoapsTest extends TestCase
         // Assert
         $this->assertSame(
             'mocked-shared-key',
-            $sharedKey
+            $sharedKey,
         );
     }
 }

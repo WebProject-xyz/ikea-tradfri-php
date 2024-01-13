@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Helper;
 
-class CommandRunnerTest extends \Codeception\Test\Unit
+final class CommandRunnerTest extends \Codeception\Test\Unit
 {
     public function testExecWithTimeout(): void
     {
@@ -15,7 +24,8 @@ class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1);
 
         // Assert
-        $this->assertSame(expected: "Tradfri\n", actual: $result);
+        $this->assertStringContainsStringIgnoringLineEndings('bootstrap.php', $result);
+        $this->assertStringContainsStringIgnoringLineEndings('Tradfri', $result);
     }
 
     public function testExecWithTimeoutAsArray(): void
@@ -27,7 +37,8 @@ class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1, asArray: true);
 
         // Assert
-        $this->assertSame(expected: ['Tradfri'], actual: $result);
+        $this->assertContains('bootstrap.php', $result);
+        $this->assertContains('Tradfri', $result);
     }
 
     public function testExecWithTimeoutGetError(): void

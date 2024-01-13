@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * Copyright (c) 2024 Benjamin Fahl
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE.md file that was distributed with this source code.
+ *
+ * @see https://github.com/WebProject-xyz/ikea-tradfri-php
+ */
+
 namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Command\Coap\Keys;
@@ -11,14 +20,14 @@ use IKEA\Tradfri\Device\Unknown;
 /**
  * Class TypeTest.
  */
-class TypeTest extends \Codeception\Test\Unit
+final class TypeTest extends \Codeception\Test\Unit
 {
     /**
      * @dataProvider provideIsLightBulbCases
      */
     public function testIsLightBulb(
         string $typeAttribute,
-        bool $assertTrue
+        bool $assertTrue,
     ): void {
         // Arrange
         $helper = new Type();
@@ -29,19 +38,19 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         }
     }
 
-    public function provideIsLightBulbCases(): iterable
+    public static function provideIsLightBulbCases(): iterable
     {
-        return [
+        yield from [
             ['invalidStringValue', false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, true],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, true],
@@ -58,7 +67,7 @@ class TypeTest extends \Codeception\Test\Unit
      */
     public function testIsDimmer(
         string $typeAttribute,
-        bool $assertTrue
+        bool $assertTrue,
     ): void {
         // Arrange
         $helper = new Type();
@@ -69,19 +78,19 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         }
     }
 
-    public function provideIsDimmerCases(): iterable
+    public static function provideIsDimmerCases(): iterable
     {
-        return [
+        yield from [
             ['invalidStringValue', false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, false],
@@ -98,7 +107,7 @@ class TypeTest extends \Codeception\Test\Unit
      */
     public function testIsRemote(
         string $typeAttribute,
-        bool $assertTrue
+        bool $assertTrue,
     ): void {
         // Arrange
         $helper = new Type();
@@ -109,19 +118,19 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         }
     }
 
-    public function provideIsRemoteCases(): iterable
+    public static function provideIsRemoteCases(): iterable
     {
-        return [
+        yield from [
             ['invalidStringValue', false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, false],
@@ -138,7 +147,7 @@ class TypeTest extends \Codeception\Test\Unit
      */
     public function testIsMotionSensor(
         string $typeAttribute,
-        bool $assertTrue
+        bool $assertTrue,
     ): void {
         // Arrange
         $helper = new Type();
@@ -149,19 +158,19 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         }
     }
 
-    public function provideIsMotionSensorCases(): iterable
+    public static function provideIsMotionSensorCases(): iterable
     {
-        return [
+        yield from [
             ['invalidStringValue', false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, false],
@@ -178,7 +187,7 @@ class TypeTest extends \Codeception\Test\Unit
      */
     public function testKnownDeviceType(
         string $typeAttribute,
-        bool $assertTrue
+        bool $assertTrue,
     ): void {
         // Arrange
         $helper = new Type();
@@ -189,19 +198,19 @@ class TypeTest extends \Codeception\Test\Unit
         if ($assertTrue) {
             $this->assertTrue(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         } else {
             $this->assertFalse(
                 $condition,
-                'Type: ' . $typeAttribute
+                'Type: ' . $typeAttribute,
             );
         }
     }
 
-    public function provideKnownDeviceTypeCases(): iterable
+    public static function provideKnownDeviceTypeCases(): iterable
     {
-        return [
+        yield from [
             ['invalidStringValue', true],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, false],
             [Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, false],
