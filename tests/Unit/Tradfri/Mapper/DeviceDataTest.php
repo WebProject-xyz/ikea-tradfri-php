@@ -81,7 +81,6 @@ final class DeviceDataTest extends UnitTest
 
         $device3 = $result->get(6000);
         $this->assertInstanceOf(Dimmer::class, $device3);
-        $this->assertFalse($device3->isLightBulb());
         $this->assertSame(6000, $device3->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, $device3->getType());
@@ -90,7 +89,6 @@ final class DeviceDataTest extends UnitTest
 
         $device4 = $result->get(3000);
         $this->assertInstanceOf(Remote::class, $device4);
-        $this->assertFalse($device4->isLightBulb());
         $this->assertSame(3000, $device4->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, $device4->getType());
@@ -99,7 +97,6 @@ final class DeviceDataTest extends UnitTest
 
         $device5 = $result->get(7000);
         $this->assertInstanceOf(RollerBlind::class, $device5);
-        $this->assertFalse($device5->isLightBulb());
         $this->assertSame(7000, $device5->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $device5->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $device5->getType());

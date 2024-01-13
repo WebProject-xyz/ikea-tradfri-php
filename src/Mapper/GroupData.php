@@ -28,8 +28,6 @@ use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
 final class GroupData implements MapperInterface
 {
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     *
      * @phpstan-param Groups $collection
      *
      * @phpstan-return Groups
@@ -64,12 +62,7 @@ final class GroupData implements MapperInterface
         return $collection;
     }
 
-    /**
-     * @param null|\stdClass $device
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     */
-    public function isValidData($device): bool
+    public function isValidData(mixed $device): bool
     {
         return (new GroupDataValidator())->isValid($device);
     }

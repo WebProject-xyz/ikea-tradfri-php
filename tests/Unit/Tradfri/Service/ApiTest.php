@@ -22,6 +22,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\Api;
@@ -388,6 +389,42 @@ final class ApiTest extends UnitTest
         $service = new Api($client);
         // Act
         $result = $service->dim($remote, 20);
+    }
+
+    public function testICanNotSetBlindPositionOfRemote(): void
+    {
+        // Assert
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('invalid device type: TRADFRI remote control');
+        // Arrange
+        $remote = new Remote(1);
+
+        $client  = \Mockery::mock(Client::class);
+        $service = new Api($client);
+        // Act
+        $result = $service->setRollerBlindPosition($remote, 20);
+    }
+
+    public function testICanNotSetBlindPosition(): void
+    {
+        // Arrange
+        $rollerBlind = new RollerBlind(1, Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND);
+
+        $client  = \Mockery::mock(Client::class);
+        $client->expects()->setRollerBlindPosition($rollerBlind, 20)->andReturnUsing(static function () use ($rollerBlind) {
+            $rollerBlind->setDarkenedState(20);
+
+            return true;
+        });
+        $service = new Api($client);
+        // Act
+        $result = $service->setRollerBlindPosition($rollerBlind, 20);
+
+        // Assert
+        $this->assertTrue($result);
+        $this->assertFalse($rollerBlind->isFullyClosed());
+        $this->assertFalse($rollerBlind->isFullyOpened());
+        $this->assertSame(20, $rollerBlind->getDarkenedState());
     }
 
     public function testICanGetGroupsFromService(): void

@@ -64,7 +64,7 @@ final class Data implements ValidatorInterface
      *
      * @throws RuntimeException
      */
-    private function _validateDeviceMustHaves(?\stdClass $device): bool
+    private function _validateDeviceMustHaves(?\stdClass $device): void
     {
         if (false === \is_object($device)) {
             throw new TypeException('device is no object');
@@ -75,7 +75,5 @@ final class Data implements ValidatorInterface
                 throw new RuntimeException('attribute missing (' . $mustHave . ')');
             }
         }
-
-        return true;
     }
 }

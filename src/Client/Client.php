@@ -42,22 +42,42 @@ final class Client implements ClientInterface
 
     public function lightOn(LightBulb $lightBulb): bool
     {
-        return $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_ON);
+        $wasSet = $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_ON);
+        if ($wasSet) {
+            $lightBulb->setState(true);
+        }
+
+        return $wasSet;
     }
 
     public function lightOff(LightBulb $lightBulb): bool
     {
-        return $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_OFF);
+        $wasSet = $this->adapter->changeLightState($lightBulb->getId(), AdapterInterface::STATE_OFF);
+        if ($wasSet) {
+            $lightBulb->setState(false);
+        }
+
+        return $wasSet;
     }
 
     public function groupOn(Group $group): bool
     {
-        return $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
+        $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
+        if ($wasSet) {
+            $group->setState(true);
+        }
+
+        return $wasSet;
     }
 
     public function groupOff(Group $group): bool
     {
-        return $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
+        $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
+        if ($wasSet) {
+            $group->setState(false);
+        }
+
+        return $wasSet;
     }
 
     /**
@@ -65,9 +85,12 @@ final class Client implements ClientInterface
      */
     public function dimLight(LightBulb $lightBulb, int $level): bool
     {
-        $lightBulb->setBrightnessLevel($level);
+        $wasSet = $this->adapter->setLightBrightness($lightBulb->getId(), $level);
+        if ($wasSet) {
+            $lightBulb->setBrightnessLevel($level);
+        }
 
-        return $this->adapter->setLightBrightness($lightBulb->getId(), $level);
+        return $wasSet;
     }
 
     /**
@@ -75,9 +98,12 @@ final class Client implements ClientInterface
      */
     public function dimGroup(Group $group, int $level): bool
     {
-        $group->setBrightness($level);
+        $wasSet = $this->adapter->setGroupBrightness($group->getId(), $level);
+        if ($wasSet) {
+            $group->setBrightness($level);
+        }
 
-        return $this->adapter->setGroupBrightness($group->getId(), $level);
+        return $wasSet;
     }
 
     /**
@@ -85,8 +111,11 @@ final class Client implements ClientInterface
      */
     public function setRollerBlindPosition(RollerBlind $blind, int $level): bool
     {
-        $blind->setDarkenedState($level);
+        $wasSet = $this->adapter->setRollerBlindPosition($blind->getId(), $level);
+        if ($wasSet) {
+            $blind->setDarkenedState($level);
+        }
 
-        return $this->adapter->setRollerBlindPosition($blind->getId(), $level);
+        return $wasSet;
     }
 }

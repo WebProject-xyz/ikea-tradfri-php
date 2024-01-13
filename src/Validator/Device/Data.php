@@ -18,15 +18,10 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Validator\ValidatorInterface;
 
-/**
- * @deprecated will be gone in v1.0.0
- */
 final class Data implements ValidatorInterface
 {
     /**
      * @param null|mixed|\stdClass $device
-     *
-     * @throws RuntimeException
      */
     public function isValid(mixed $device): bool
     {
@@ -48,7 +43,7 @@ final class Data implements ValidatorInterface
             $this->_hasDataManufacturer($data);
 
             $this->_hasDataVersion($data);
-        } catch (RuntimeException|\Throwable) {
+        } catch (\Throwable) {
             $isValid = false;
         }
 
@@ -56,79 +51,56 @@ final class Data implements ValidatorInterface
     }
 
     /**
-     * Check id attribute.
-     *
      * @throws RuntimeException
      */
-    private function _hasIdField(\stdClass $device): bool
+    private function _hasIdField(\stdClass $device): void
     {
         if (!\property_exists($device, Keys::ATTR_ID)) {
             throw new RuntimeException('attribute missing (' . Keys::ATTR_ID . ')');
         }
-
-        return true;
     }
 
     /**
-     * Check data attribute.
-     *
      * @throws RuntimeException
      */
-    private function _hasDataField(\stdClass $device): bool
+    private function _hasDataField(\stdClass $device): void
     {
         if (!\property_exists($device, Keys::ATTR_DEVICE_INFO)) {
             throw new RuntimeException('attribute missing (' . Keys::ATTR_DEVICE_INFO . ')');
         }
-
-        return true;
     }
 
     /**
-     * Check data type attribute.
-     *
      * @throws RuntimeException
      */
-    private function _hasDataType(\stdClass $data): bool
+    private function _hasDataType(\stdClass $data): void
     {
         if (false === \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
             throw new RuntimeException('attribute missing type key');
         }
-
-        return true;
     }
 
     /**
-     * Check manufacturer attribute.
-     *
      * @throws RuntimeException
      */
-    private function _hasDataManufacturer(\stdClass $data): bool
+    private function _hasDataManufacturer(\stdClass $data): void
     {
         if (!\property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
             throw new RuntimeException('attribute missing type manufacturer');
         }
-
-        return true;
     }
 
     /**
-     * Check version attribute.
-     *
      * @throws RuntimeException
      */
-    private function _hasDataVersion(\stdClass $data): bool
+    private function _hasDataVersion(\stdClass $data): void
     {
         if (!\property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
             throw new RuntimeException('attribute missing type version');
         }
-
-        return true;
     }
 
-    /**
-     * Get Data.
-     */
-    private function _getData(\stdClass $device)
+    private function _getData(\stdClass $device): \stdClass
     {
         return $device->{Keys::ATTR_DEVICE_INFO};
     }
