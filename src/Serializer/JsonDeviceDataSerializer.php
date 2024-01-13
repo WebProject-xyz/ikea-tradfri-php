@@ -43,7 +43,7 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
-            ],
+            ] + $context,
         );
     }
 
@@ -55,7 +55,7 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
-            ],
+            ] + $context,
         );
     }
 
@@ -73,11 +73,9 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
         $serializer = new Serializer([$denormalizer, new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer()]);
         $denormalizer->setSerializer($serializer);
 
-        $denormalizer = new Normalizer\ArrayNestingNormalizer($denormalizer);
-
         $serializer = new Serializer(
             [
-                $denormalizer,
+                new Normalizer\ArrayNestingNormalizer($denormalizer),
             ],
             ['json' => new JsonEncoder()],
         );

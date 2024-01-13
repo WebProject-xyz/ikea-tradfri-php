@@ -16,6 +16,7 @@ namespace IKEA\Tradfri\Adapter;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 interface AdapterInterface
@@ -52,4 +53,11 @@ interface AdapterInterface
     public function getDeviceCollection(ServiceInterface $service): Devices;
 
     public function getGroupCollection(ServiceInterface $service): Groups;
+
+    /**
+     * @throws RuntimeException
+     */
+    public function getType(int $deviceId): string;
+
+    public function getManufacturer(int $deviceId): string;
 }

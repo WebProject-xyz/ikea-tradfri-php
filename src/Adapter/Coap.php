@@ -27,29 +27,25 @@ use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use const JSON_THROW_ON_ERROR;
 
-final class Coap extends AdapterAbstract
+final class Coap implements AdapterInterface
 {
     final public const COULD_NOT_SWITCH_STATE = 'Could not switch state';
-    private readonly JsonDeviceDataSerializer $deviceSerializer;
 
     public function __construct(
         protected Coaps $commands,
-        DeviceData $deviceDataMapper,
-        GroupData $groupDataMapper,
-        private readonly ?CommandRunner $runner = new CommandRunner(),
-        ?JsonDeviceDataSerializer $deviceSerialize = null,
+        private readonly DeviceData $deviceDataMapper,
+        private readonly GroupData $groupDataMapper,
+        private readonly CommandRunner $runner = new CommandRunner(),
+        private readonly JsonDeviceDataSerializer $deviceSerializer = new JsonDeviceDataSerializer(),
     ) {
-        $this->deviceSerializer = $deviceSerialize ?? new JsonDeviceDataSerializer();
-
-        parent::__construct($deviceDataMapper, $groupDataMapper);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getType(int $deviceId): string
     {
-        $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
+        $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)
@@ -63,13 +59,13 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getManufacturer(int $deviceId): string
     {
-        $data = $this->_getData(Keys::ROOT_DEVICES, $deviceId);
+        $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
 
-        if (isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
+        if (\is_object($data) && isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
             return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
         }
 
@@ -178,19 +174,19 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getDeviceCollection(ServiceInterface $service): Devices
     {
         return $this
-            ->_deviceDataMapper
+            ->deviceDataMapper
             ->map($service, $this->getDevicesData());
     }
 
     /**
      * Get devices.
      *
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getDevicesData(?array $deviceIds = null): array
     {
@@ -213,19 +209,19 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getDeviceIds(): array
     {
-        return $this->_getData(Keys::ROOT_DEVICES);
+        return $this->requestDataFromHub(Keys::ROOT_DEVICES);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
-        $jsonStringRaw = $this->_getData(Keys::ROOT_DEVICES, $deviceId, true);
+        $jsonStringRaw = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId, true);
         $rawJson       = (new JsonIntTypeNormalizer())(
             $jsonStringRaw,
             DeviceDto::class
@@ -235,19 +231,19 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getGroupCollection(ServiceInterface $service): Groups
     {
         /** @var Groups $groups */
         $groups = $this
-            ->_groupDataMapper
+            ->groupDataMapper
             ->map($service, $this->getGroupsData(), new Groups());
 
         if (false === $groups->isEmpty()) {
             foreach ($groups->toArray() as $group) {
                 $groupDevices = $this
-                    ->_deviceDataMapper
+                    ->deviceDataMapper
                     ->map(
                         $service,
                         $this->getDevicesData($group->getDeviceIds()),
@@ -261,7 +257,7 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getGroupsData(): array
     {
@@ -269,7 +265,7 @@ final class Coap extends AdapterAbstract
         foreach ($this->getGroupIds() as $groupId) {
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
-            $groupData[$groupId] = $this->_getData(
+            $groupData[$groupId] = $this->requestDataFromHub(
                 Keys::ROOT_GROUPS,
                 (int) $groupId,
             );
@@ -279,19 +275,18 @@ final class Coap extends AdapterAbstract
     }
 
     /**
-     * @throws RuntimeException
+     * @throws \JsonException|RuntimeException
      */
     public function getGroupIds(): array
     {
-        return $this->_getData(Keys::ROOT_GROUPS);
+        return $this->requestDataFromHub(Keys::ROOT_GROUPS);
     }
 
     /**
+     * @throws \JsonException
      * @throws RuntimeException
-     *
-     * @return array|\stdClass|string
      */
-    protected function _getData(string $requestType, ?int $deviceId = null, bool $returnRawData = false)
+    private function requestDataFromHub(string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
     {
         $command = $this->commands->getCoapsCommandGet($requestType);
 
@@ -305,25 +300,19 @@ final class Coap extends AdapterAbstract
                 1,
                 true,
             ),
-        );
+        ) ?: throw new RuntimeException('invalid hub response');
 
-        if (false !== $dataRaw) {
-            if ($returnRawData) {
-                return $dataRaw;
-            }
-
-            return $this->decodeData($dataRaw);
+        if ($returnRawData) {
+            return $dataRaw;
         }
 
-        throw new RuntimeException('invalid hub response');
+        return $this->decodeData($dataRaw);
     }
 
     /**
      * @throws \JsonException
-     *
-     * @return object|string
      */
-    protected function decodeData(string $dataRaw)
+    private function decodeData(string $dataRaw): array|object|string
     {
         $decoded = \json_decode($dataRaw, false, 512, JSON_THROW_ON_ERROR);
         if (null === $decoded) {
@@ -336,7 +325,7 @@ final class Coap extends AdapterAbstract
     /**
      * @param array|string $data
      */
-    protected function _verifyResult($data): bool
+    private function _verifyResult($data): bool
     {
         return \is_array($data) && 4 === \count($data);
     }

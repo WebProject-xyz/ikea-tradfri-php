@@ -61,12 +61,7 @@ class LightBulb extends Device implements SwitchableInterface
     public function dim(int $levelInPercent): bool
     {
         if ($this->getService()->dim($this, $levelInPercent)) {
-            if (0 < $levelInPercent) {
-                $this->setState(true);
-            } else {
-                $this->setState(false);
-            }
-
+            $this->setState(0 < $levelInPercent);
             $this->setBrightnessLevel($levelInPercent);
 
             return true;
