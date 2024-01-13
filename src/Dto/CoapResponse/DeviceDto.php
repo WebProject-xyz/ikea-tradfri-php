@@ -48,6 +48,10 @@ final class DeviceDto
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         #[Assert\Valid()]
         private readonly ?LightControlDto $lightControl = null,
+        /** @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto> */
+        #[SerializedName(serializedName: 'ATTR_FYRTUR_CONTROL')]
+        #[Assert\Valid()]
+        private readonly ?array $blindControlDto = null,
     ) {
     }
 
@@ -84,5 +88,10 @@ final class DeviceDto
     public function getLightControl(): ?LightControlDto
     {
         return $this->lightControl;
+    }
+
+    public function getBlindControlDto(): ?array
+    {
+        return $this->blindControlDto;
     }
 }

@@ -28,9 +28,7 @@ interface MapperInterface
      */
     public function map(
         ServiceInterface $service,
-        array $dataItems,
+        iterable $dataItems,
         AbstractCollection $collection,
     ): AbstractCollection;
-
-    public function isValidData($device): bool;
 }

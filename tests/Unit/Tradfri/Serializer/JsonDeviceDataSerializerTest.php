@@ -41,10 +41,10 @@ JSON;
         $deviceDto    = new DeviceDto(12, 'name', $deviceData);
 
         // Act
-        $json         = $serializer->serialize($deviceDto);
+        $json         = $serializer->serialize($deviceDto, $serializer::FORMAT);
         $this->assertSame($expectedJson, $json);
 
-        $backToObject = $serializer->deserialize($json);
+        $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
         // Assert
         $this->assertSame($backToObject->getName(), $deviceDto->getName());
         $this->assertSame($backToObject->getId(), $deviceDto->getId());
@@ -80,10 +80,10 @@ JSON;
         $deviceDto       = new DeviceDto(1000, 'TRADFRI bulb E27 W opal 1000lm', $deviceData, $lightControlDto);
 
         // Act
-        $json         = $serializer->serialize($deviceDto);
+        $json         = $serializer->serialize($deviceDto, $serializer::FORMAT);
         $this->assertSame($expectedJson, $json);
 
-        $backToObject = $serializer->deserialize($json);
+        $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
 
         // Assert
         $this->assertSame($backToObject->getName(), $deviceDto->getName());
@@ -126,10 +126,10 @@ JSON;
         $deviceDto       = new DeviceDto(1000, 'TRADFRI bulb E27 W opal 1000lm', $deviceData, $lightControlDto);
 
         // Act
-        $json         = $serializer->serialize($deviceDto);
+        $json         = $serializer->serialize($deviceDto, $serializer::FORMAT);
         $this->assertSame($expectedJson, $json);
 
-        $backToObject = $serializer->deserialize($json);
+        $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
 
         // Assert
         $this->assertSame($backToObject->getName(), $deviceDto->getName());

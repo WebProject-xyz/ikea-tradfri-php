@@ -36,7 +36,7 @@ final class GroupData implements MapperInterface
      */
     public function map(
         ServiceInterface $service,
-        array $dataItems,
+        iterable $dataItems,
         AbstractCollection $collection,
     ): AbstractCollection {
         foreach ($dataItems as $device) {

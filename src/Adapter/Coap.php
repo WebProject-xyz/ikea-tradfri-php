@@ -225,12 +225,13 @@ final class Coap extends AdapterAbstract
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
-        $rawJson = (new JsonIntTypeNormalizer())(
-            $this->_getData(Keys::ROOT_DEVICES, $deviceId, true),
+        $jsonStringRaw = $this->_getData(Keys::ROOT_DEVICES, $deviceId, true);
+        $rawJson       = (new JsonIntTypeNormalizer())(
+            $jsonStringRaw,
             DeviceDto::class
         );
 
-        return $this->deviceSerializer->deserialize($rawJson);
+        return $this->deviceSerializer->deserialize($rawJson, DeviceDto::class, $this->deviceSerializer::FORMAT);
     }
 
     /**

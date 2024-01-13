@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Command\Coap;
 
 /**
+ * @todo: enum
+ *
  * @see Source and Thanks to "ggravlingen"
  * https://github.com/ggravlingen/pytradfri/blob/master/pytradfri/const.py
  */
@@ -52,6 +54,8 @@ final class Keys
     // @todo: add more device types and move types to config
     final public const ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR
         = 'TRADFRI motion sensor';
+    final public const ATTR_DEVICE_INFO_TYPE_CONTROL_OUTLET
+        = 'TRADFRI control outlet';
     final public const ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL
         = 'TRADFRI remote control';
     final public const ATTR_DEVICE_INFO_TYPE_DIMMER
@@ -66,6 +70,8 @@ final class Keys
         = 'TRADFRI bulb E27 WS opal 980lm';
     final public const ATTR_DEVICE_INFO_TYPE_BLUB_E27_W
         = 'TRADFRI bulb E27 W opal 1000lm';
+    final public const ATTR_DEVICE_INFO_TYPE_BLUB_E27_CWS_PAL_600_LM
+        = 'TRADFRI bulb E27 CWS opal 600lm';
     final public const ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS
         = 'TRADFRI bulb GU10 WS 400lm';
     final public const ATTR_DEVICE_INFO_TYPE_BLUB_GU10_W

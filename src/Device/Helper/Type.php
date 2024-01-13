@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device\Helper;
 
+use IKEA\Tradfri\Device\ControlOutlet;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Driver;
@@ -26,7 +27,7 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
- * Class Type.
+ * todo: enum.
  */
 final class Type
 {
@@ -48,6 +49,8 @@ final class Type
     final public const REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
     final public const ROLLER_BLIND            = 'FYRTUR block-out roller blind';
     final public const ROLLER_BLIND_CLASS      = RollerBlind::class;
+    final public const CONTROL_OUTLET          = 'TRADFRI control outlet';
+    final public const CONTROL_OUTLET_CLASS    = ControlOutlet::class;
 
     /**
      * Check if given type attribute is from a light blub.
@@ -87,6 +90,11 @@ final class Type
     public function isMotionSensor(string $typeAttribute): bool
     {
         return \str_starts_with($typeAttribute, self::MOTION_SENSOR);
+    }
+
+    public function isControlOutlet(string $typeAttribute): bool
+    {
+        return \str_starts_with($typeAttribute, self::CONTROL_OUTLET);
     }
 
     /**

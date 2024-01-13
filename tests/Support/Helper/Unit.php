@@ -16,6 +16,10 @@ namespace IKEA\Tests\Support\Helper;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
+use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
+use Symfony\Component\Finder\Finder;
 use const JSON_THROW_ON_ERROR;
 use function codecept_data_dir;
 
@@ -30,6 +34,26 @@ final class Unit extends \Codeception\Module
     public function getDevicesRawJson(): string
     {
         return \file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
+    }
+
+    /**
+     * @phpstan-return iterable<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
+     */
+    public function getDevicesDTOs(): iterable
+    {
+        $jsonDeviceDataSerializer = new JsonDeviceDataSerializer();
+        $normalizer               = (new JsonIntTypeNormalizer());
+        $finder                   = (new Finder())
+            ->in(codecept_data_dir('hubResponses/devices/'))
+            ->name('/.*_raw\.json/');
+
+        foreach ($finder->files() as $file) {
+            yield $jsonDeviceDataSerializer->deserialize(
+                $normalizer($file->getContents(), DeviceDto::class),
+                DeviceDto::class,
+                $jsonDeviceDataSerializer::FORMAT,
+            );
+        }
     }
 
     public function getDevices(): array

@@ -24,8 +24,9 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use const JSON_PRETTY_PRINT;
 
-final class JsonDeviceDataSerializer
+final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\SerializerInterface
 {
+    final public const FORMAT = JsonEncoder::FORMAT;
     private Serializer $serializer;
 
     public function __construct()
@@ -33,12 +34,12 @@ final class JsonDeviceDataSerializer
         $this->initSerializer();
     }
 
-    public function deserialize(string $json): DeviceDto
+    public function deserialize(mixed $data, string $type, string $format, array $context = []): array|DeviceDto
     {
         return $this->serializer->deserialize(
-            $json,
-            DeviceDto::class,
-            JsonEncoder::FORMAT,
+            $data,
+            $type,
+            $format,
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
@@ -46,11 +47,11 @@ final class JsonDeviceDataSerializer
         );
     }
 
-    public function serialize(DeviceDto $deviceDto): string
+    public function serialize(mixed $data, string $format, array $context = []): string
     {
         return $this->serializer->serialize(
-            $deviceDto,
-            JsonEncoder::FORMAT,
+            $data,
+            $format,
             [
                 JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
