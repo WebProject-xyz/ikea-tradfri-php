@@ -22,7 +22,7 @@ use IKEA\Tradfri\Group\Light as Group;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
- * @psalm-type LevelType = int<0,100>
+ * @phpstan-type LevelType = int<0,100>
  */
 final class Client implements ClientInterface
 {
@@ -81,7 +81,7 @@ final class Client implements ClientInterface
     }
 
     /**
-     * @psalm-param LevelType $level
+     * @phpstan-param LevelType $level
      */
     public function dimLight(LightBulb $lightBulb, int $level): bool
     {
@@ -94,7 +94,7 @@ final class Client implements ClientInterface
     }
 
     /**
-     * @psalm-param LevelType $level
+     * @phpstan-param LevelType $level
      */
     public function dimGroup(Group $group, int $level): bool
     {
@@ -107,7 +107,7 @@ final class Client implements ClientInterface
     }
 
     /**
-     * @psalm-param LevelType $level
+     * @phpstan-param LevelType $level
      */
     public function setRollerBlindPosition(RollerBlind $blind, int $level): bool
     {
