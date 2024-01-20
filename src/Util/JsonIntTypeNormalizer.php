@@ -21,10 +21,10 @@ use Roave\BetterReflection\BetterReflection;
 final class JsonIntTypeNormalizer
 {
     /**
-     * @psalm-param non-empty-string $jsonString
-     * @psalm-param class-string     $targetClass
+     * @phpstan-param non-empty-string $jsonString
+     * @phpstan-param class-string     $targetClass
      *
-     * @psalm-return non-empty-string
+     * @phpstan-return non-empty-string
      */
     public function __invoke(string $jsonString, string $targetClass): string
     {
@@ -34,9 +34,9 @@ final class JsonIntTypeNormalizer
     }
 
     /**
-     * @psalm-param class-string $targetClass
+     * @phpstan-param class-string $targetClass
      *
-     * @psalm-return array<string, string>
+     * @phpstan-return array<string, string>
      */
     private function extractPatterns(string $targetClass): array
     {

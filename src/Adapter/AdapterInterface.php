@@ -27,12 +27,12 @@ interface AdapterInterface
     public function getDeviceData(int $deviceId): DeviceDto;
 
     /**
-     * @psalm-return array<non-empty-string>
+     * @phpstan-return array<non-empty-string>
      */
     public function getDeviceIds(): array;
 
     /**
-     * @psalm-return array<non-empty-string>
+     * @phpstan-return array<non-empty-string>
      */
     public function getGroupIds(): array;
 
