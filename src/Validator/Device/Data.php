@@ -75,7 +75,7 @@ final class Data implements ValidatorInterface
      */
     private function _hasDataType(\stdClass $data): void
     {
-        if (false === \property_exists($data, Keys::ATTR_DEVICE_INFO_TYPE)) {
+        if (false === \property_exists($data, Keys::ATTR_DEVICE_MODEL_NUMBER)) {
             throw new RuntimeException('attribute missing type key');
         }
     }
@@ -85,7 +85,7 @@ final class Data implements ValidatorInterface
      */
     private function _hasDataManufacturer(\stdClass $data): void
     {
-        if (!\property_exists($data, Keys::ATTR_DEVICE_INFO_MANUFACTURER)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_MANUFACTURER)) {
             throw new RuntimeException('attribute missing type manufacturer');
         }
     }
@@ -95,7 +95,7 @@ final class Data implements ValidatorInterface
      */
     private function _hasDataVersion(\stdClass $data): void
     {
-        if (!\property_exists($data, Keys::ATTR_DEVICE_VERSION)) {
+        if (!\property_exists($data, Keys::ATTR_DEVICE_FIRMWARE_VERSION)) {
             throw new RuntimeException('attribute missing type version');
         }
     }

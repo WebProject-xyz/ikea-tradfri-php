@@ -49,7 +49,7 @@ final class DeviceDto
         #[Assert\Valid()]
         private readonly ?LightControlDto $lightControl = null,
         /** @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto> */
-        #[SerializedName(serializedName: 'ATTR_FYRTUR_CONTROL')]
+        #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
         #[Assert\Valid()]
         private readonly ?array $blindControlDto = null,
     ) {

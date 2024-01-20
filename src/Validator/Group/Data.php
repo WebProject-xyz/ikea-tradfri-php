@@ -26,7 +26,7 @@ final class Data implements ValidatorInterface
     private static array $mustHaves = [
         Keys::ATTR_ID,
         Keys::ATTR_NAME,
-        Keys::ATTR_GROUP_INFO,
+        Keys::ATTR_GROUP_MEMBERS,
     ];
 
     /**
@@ -39,7 +39,7 @@ final class Data implements ValidatorInterface
 
             $isValid = true;
 
-            $groupData = $data->{Keys::ATTR_GROUP_INFO};
+            $groupData = $data->{Keys::ATTR_GROUP_MEMBERS};
             if (!\property_exists(
                 $groupData,
                 Keys::ATTR_GROUP_LIGHTS,
@@ -50,7 +50,7 @@ final class Data implements ValidatorInterface
             $lightData = $groupData->{Keys::ATTR_GROUP_LIGHTS};
 
             if (!isset($lightData->{Keys::ATTR_ID})) {
-                throw new RuntimeException('attribute group data is not an array (' . Keys::ATTR_GROUP_INFO . '->' . Keys::ATTR_GROUP_LIGHTS . '->' . Keys::ATTR_ID . ')');
+                throw new RuntimeException('attribute group data is not an array (' . Keys::ATTR_GROUP_MEMBERS . '->' . Keys::ATTR_GROUP_LIGHTS . '->' . Keys::ATTR_ID . ')');
             }
         } catch (\Throwable) {
             $isValid = false;

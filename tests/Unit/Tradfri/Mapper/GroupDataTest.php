@@ -51,9 +51,10 @@ final class GroupDataTest extends UnitTest
         // Act
         $result = $mapper->map($serviceMock, $this->tester->getGroupDataCoapsResponse(), $groups);
         // Assert
+        \Mockery::close();
         $this->assertInstanceOf(Groups::class, $result);
         $this->assertFalse($result->isEmpty());
-        $this->assertSame(3, $result->count());
+        $this->assertCount(3, $result);
 
         $group1 = $result->get(1000);
         $this->assertInstanceOf(Group::class, $group1);

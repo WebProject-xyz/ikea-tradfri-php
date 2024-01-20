@@ -22,6 +22,7 @@ use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
 use PHPUnit\Framework\TestCase;
+use WMDE\PsrLogTestDoubles\LoggerSpy;
 
 final class CoapTest extends TestCase
 {
@@ -539,7 +540,7 @@ GROUP2_JSON;
         $this->assertSame($compareDto->getName(), $group->{\IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME});
     }
 
-    public function testGtGroupCollection(): void
+    public function testGetGroupCollection(): void
     {
         // Arrange
         $groupIdsJson = /** @lang JSON */ <<<'GROUPS_JSON'
@@ -619,12 +620,18 @@ DEVICE_JSON;
             $runner,
         );
 
+        $logger = new LoggerSpy();
+        $adapter->setLogger($logger);
+
         $compareDto   = new \IKEA\Tradfri\Dto\CoapResponse\GroupDto(1234, 'Group 1');
 
         $service = mock(\IKEA\Tradfri\Service\ServiceInterface::class);
         // Act
         $groupCollection = $adapter->getGroupCollection($service);
+
         // Assert
+        \Mockery::close();
+        $this->assertCount(0, $logger->getLogCalls());
         $this->assertCount(2, $groupCollection);
         $group = $groupCollection->first();
 
