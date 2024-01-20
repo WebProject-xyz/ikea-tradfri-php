@@ -28,8 +28,14 @@ final class Coaps
     final public const PAYLOAD_OPEN     = '": [{ "';
     final public const PAYLOAD_END      = ' }] }\' ';
     final public const COAP_COMMAND_PUT = 'coap-client -m put -u "%s" -k "%s"';
-    private string $username;
-    private string $apiKey;
+    private const COLOR_WARM            = 'warm';
+    private const COLOR_NORMAL          = 'normal';
+    private const COLOR_COLD            = 'cold';
+    private const COLORS                = [
+        self::COLOR_COLD,
+        self::COLOR_NORMAL,
+        self::COLOR_WARM,
+    ];
     private string $ip;
 
     /**
@@ -37,19 +43,25 @@ final class Coaps
      * @throws RuntimeException
      */
     public function __construct(
+        /**
+         * @phpstan-param non-empty-string $gatewayAddress
+         */
         string $gatewayAddress,
+        /**
+         * @phpstan-var non-empty-string
+         */
         protected string $secret,
-        string $apiKey,
-        string $username,
+        /**
+         * @phpstan-var non-empty-string
+         */
+        private readonly string $apiKey,
+        /**
+         * @phpstan-var non-empty-string
+         */
+        private readonly string $username,
         private readonly CommandRunnerInterface $runner = new CommandRunner(),
     ) {
         $this->setIp($gatewayAddress);
-        if (empty($apiKey)) {
-            throw new RuntimeException('$apiKey can not be empty');
-        }
-
-        $this->setApiKey($apiKey);
-        $this->setUsername($username);
     }
 
     /**
@@ -80,49 +92,13 @@ final class Coaps
             'Client_identity',
             $this->secret,
         )
-        . ' -e \'{"9090":"' . $this->getUsername() . '"}\''
+        . ' -e \'{"9090":"' . $this->username . '"}\''
         . $this->_getRequestTypeCoapsUrl(
             Keys::ROOT_GATEWAY . '/' . Keys::ATTR_AUTH,
         );
     }
 
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getIp(): string
-    {
-        return $this->ip;
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     */
-    public function setIp(string $gatewayAddress): self
-    {
-        if (\filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
-            $this->ip = $gatewayAddress;
-
-            return $this;
-        }
-
-        throw new \InvalidArgumentException('Invalid ip');
-    }
-
-    /**
-     * Parse result.
-     *
-     * @return false|string
-     */
-    public function parseResult(array $result)
+    public function parseResult(array $result): false|string
     {
         $parsed = false;
         foreach ($result as $part) {
@@ -138,47 +114,21 @@ final class Coaps
         return $parsed;
     }
 
-    /**
-     * Get CoapsCommand GET string.
-     *
-     * @param int|string $requestType
-     */
-    public function getCoapsCommandGet($requestType): string
+    public function getCoapsCommandGet(int|string $requestType): string
     {
         return \sprintf(
             Get::COAP_COMMAND,
-            $this->getUsername(),
-            $this->getApiKey(),
+            $this->username,
+            $this->apiKey,
         ) . $this->_getRequestTypeCoapsUrl($requestType);
     }
 
-    /**
-     * Get ApiKey.
-     */
-    public function getApiKey(): string
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * Set ApiKey.
-     */
-    public function setApiKey(string $apiKey): self
-    {
-        $this->apiKey = $apiKey;
-
-        return $this;
-    }
-
-    /**
-     * @param int|string $requestType
-     */
-    public function getCoapsCommandPost($requestType, string $inject): string
+    public function getCoapsCommandPost(int|string $requestType, string $inject): string
     {
         return \sprintf(
             Post::COAP_COMMAND,
-            $this->getUsername(),
-            $this->getApiKey(),
+            $this->username,
+            $this->apiKey,
         )
         . $inject . $this->_getRequestTypeCoapsUrl($requestType);
     }
@@ -190,20 +140,17 @@ final class Coaps
             self::PAYLOAD_START
             . Keys::ATTR_LIGHT_CONTROL
             . self::PAYLOAD_OPEN
-            . Keys::ATTR_LIGHT_STATE . '": ' . ($state ? '1' : '0')
+            . Keys::ATTR_DEVICE_STATE . '": ' . ($state ? '1' : '0')
             . self::PAYLOAD_END,
         );
     }
 
-    /**
-     * @param int|string $requestType
-     */
-    public function getCoapsCommandPut($requestType, string $inject): string
+    public function getCoapsCommandPut(int|string $requestType, string $inject): string
     {
         return \sprintf(
             Put::COAP_COMMAND,
-            $this->getUsername(),
-            $this->getApiKey(),
+            $this->username,
+            $this->apiKey,
         )
         . $inject
         . $this->_getRequestTypeCoapsUrl($requestType);
@@ -213,7 +160,7 @@ final class Coaps
     {
         return $this->getCoapsCommandPut(
             Keys::ROOT_GROUPS . '/' . $groupId,
-            self::PAYLOAD_START . Keys::ATTR_LIGHT_STATE . '": ' . ($state ? '1'
+            self::PAYLOAD_START . Keys::ATTR_DEVICE_STATE . '": ' . ($state ? '1'
                 : '0') . ' }\' ',
         );
     }
@@ -245,15 +192,15 @@ final class Coaps
         return $this->getCoapsCommandPut(
             Keys::ROOT_DEVICES . '/' . $deviceId,
             self::PAYLOAD_START
-            . Keys::ATTR_FYRTUR_CONTROL
+            . Keys::ATTR_START_BLINDS
             . self::PAYLOAD_OPEN
-            . Keys::ATTR_FYRTUR_STATE . '": ' . (float) $value
+            . Keys::ATTR_BLIND_CURRENT_POSITION . '": ' . (float) $value
             . self::PAYLOAD_END,
         );
     }
 
     /**
-     * @param string $color (warm|normal|cold)
+     * @phpstan-param value-of<\IKEA\Tradfri\Command\Coaps::COLORS>|string $color
      *
      * @throws RuntimeException
      */
@@ -266,11 +213,15 @@ final class Coaps
             . '": %s, "'
             . Keys::ATTR_LIGHT_COLOR_Y
             . '": %s }] }\' ';
+
+        if (!\in_array($color, self::COLORS, true)) {
+            throw new RuntimeException('unknown color');
+        }
+
         $payload = match ($color) {
-            'warm'   => \sprintf($payload, '33135', '27211'),
-            'normal' => \sprintf($payload, '30140', '26909'),
-            'cold'   => \sprintf($payload, '24930', '24684'),
-            default  => throw new RuntimeException('unknown color'),
+            self::COLOR_WARM   => \sprintf($payload, '33135', '27211'),
+            self::COLOR_NORMAL => \sprintf($payload, '30140', '26909'),
+            self::COLOR_COLD   => \sprintf($payload, '24930', '24684'),
         };
 
         return $this->getCoapsCommandPut(
@@ -280,10 +231,21 @@ final class Coaps
     }
 
     /**
-     * @param int|string $requestType
+     * @throws \InvalidArgumentException
      */
-    private function _getRequestTypeCoapsUrl($requestType): string
+    private function setIp(string $gatewayAddress): void
     {
-        return ' "coaps://' . $this->getIp() . ':5684/' . $requestType . '"';
+        if (\filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
+            $this->ip = $gatewayAddress;
+
+            return;
+        }
+
+        throw new \InvalidArgumentException('Invalid ip');
+    }
+
+    private function _getRequestTypeCoapsUrl(int|string $requestType): string
+    {
+        return ' "coaps://' . $this->ip . ':5684/' . $requestType . '"';
     }
 }

@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 final readonly class BlindControlDto
 {
     public function __construct(
-        #[SerializedName(serializedName: 'ATTR_FYRTUR_STATE')]
+        #[SerializedName(serializedName: 'ATTR_BLIND_CURRENT_POSITION')]
         private int $state = 0,
     ) {
     }

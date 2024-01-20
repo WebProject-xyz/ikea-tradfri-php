@@ -50,7 +50,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
     ): \IKEA\Tradfri\Collection\AbstractCollection {
         foreach ($dataItems as $device) {
             if (!$device instanceof DeviceDto) {
-                $this->logger?->warning('Invalid device in dataItems ' . \get_debug_type($device));
+                $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($device), 'type' => \get_debug_type($device)]);
                 continue;
             }
 

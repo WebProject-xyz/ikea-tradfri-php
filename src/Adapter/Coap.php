@@ -26,10 +26,13 @@ use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use const JSON_THROW_ON_ERROR;
 
-final class Coap implements AdapterInterface
+final class Coap implements AdapterInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
     private const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     public function __construct(
@@ -49,11 +52,11 @@ final class Coap implements AdapterInterface
         $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
-            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_INFO_TYPE)
+            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
         ) {
             return $data
                 ->{Keys::ATTR_DEVICE_INFO}
-                ->{Keys::ATTR_DEVICE_INFO_TYPE};
+                ->{Keys::ATTR_DEVICE_MODEL_NUMBER};
         }
 
         throw new RuntimeException('invalid coap response');
