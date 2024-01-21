@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
-use IKEA\Tradfri\Group\Device;
+use IKEA\Tradfri\Group\DeviceGroup;
 
 /**
- * @extends AbstractCollection<\IKEA\Tradfri\Group\Device>
+ * @extends AbstractCollection<\IKEA\Tradfri\Group\DeviceGroup>
  */
 final class Groups extends AbstractCollection
 {
-    public function addGroup(Device $group): self
+    public function addGroup(DeviceGroup $group): self
     {
         $this->set($group->getId(), $group);
 

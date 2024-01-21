@@ -18,7 +18,7 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Group\Light as Group;
+use IKEA\Tradfri\Group\LightGroup as Group;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**

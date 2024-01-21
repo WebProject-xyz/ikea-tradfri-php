@@ -27,14 +27,12 @@ trait ProvidesBrightness
         return $this->brightness;
     }
 
-    public function setBrightness(int $brightness): self
+    public function setBrightness(int $brightness): void
     {
         if (0 > $brightness) {
             $brightness = 1;
         }
 
         $this->brightness = \round($brightness / 2.54);
-
-        return $this;
     }
 }

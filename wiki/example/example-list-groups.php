@@ -20,7 +20,7 @@ try {
 
     echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
     $lights->forAll(static function ($key, $group) {
-        /** @var IKEA\Tradfri\Group\Light $group */
+        /** @var IKEA\Tradfri\Group\LightGroup $group */
         echo '---------- Group Information' . \PHP_EOL;
         echo '- ID: ' . $group->getId() . \PHP_EOL;
         echo '- Name: ' . $group->getName() . \PHP_EOL;

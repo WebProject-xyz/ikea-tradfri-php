@@ -15,8 +15,16 @@ namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Command\Coap\Blinds\BlindsGetCurrentPositionCommand;
+use IKEA\Tradfri\Command\Coap\Group\GroupDimmerCommand;
+use IKEA\Tradfri\Command\Coap\Group\GroupSwitchStateCommand;
 use IKEA\Tradfri\Command\Coap\Keys;
-use IKEA\Tradfri\Command\Coaps;
+use IKEA\Tradfri\Command\Coap\Light\LightDimmerCommand;
+use IKEA\Tradfri\Command\Coap\Light\LightSwitchStateCommand;
+use IKEA\Tradfri\Command\GatewayHelperCommands;
+use IKEA\Tradfri\Command\Get;
+use IKEA\Tradfri\Command\Request;
+use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CommandRunner;
@@ -36,7 +44,8 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
     private const COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     public function __construct(
-        protected Coaps $commands,
+        private readonly CoapGatewayAuthConfigDto $authConfig,
+        private readonly GatewayHelperCommands $commands,
         private readonly DeviceData $deviceDataMapper,
         private readonly GroupData $groupDataMapper,
         private readonly CommandRunnerInterface $runner = new CommandRunner(),
@@ -49,7 +58,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     public function getType(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
+        $data = $this->requestDataFromHub(Request::RootDevices->value, $deviceId);
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
             && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
@@ -67,7 +76,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     public function getManufacturer(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId);
+        $data = $this->requestDataFromHub(Request::RootDevices->value, $deviceId);
 
         if (\is_object($data) && isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
             return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
@@ -84,7 +93,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
         // run command
         $data = $this->runner
             ->execWithTimeout(
-                $this->commands->getLightSwitchCommand($deviceId, $toState),
+                (string) new LightSwitchStateCommand($this->authConfig, $deviceId, $toState),
                 2,
                 true,
                 true,
@@ -106,7 +115,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
         // run command
         $data = $this->runner
             ->execWithTimeout(
-                $this->commands->getGroupSwitchCommand($groupId, $toState),
+                (string) new GroupSwitchStateCommand($this->authConfig, $groupId, $toState),
                 2,
                 true,
             );
@@ -127,7 +136,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
     {
         // run command
         $data = $this->runner->execWithTimeout(
-            $this->commands->getLightDimmerCommand($lightId, $level),
+            (string) new LightDimmerCommand($this->authConfig, $lightId, $level),
             2,
             true,
         );
@@ -144,7 +153,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
     {
         // run command
         $data = $this->runner->execWithTimeout(
-            $this->commands->getRollerBlindDarkenedStateCommand($rollerBlindId, $level),
+            (string) new BlindsGetCurrentPositionCommand($this->authConfig, $rollerBlindId, $level),
             2,
             true,
         );
@@ -164,7 +173,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
     {
         // run command
         $data = $this->runner->execWithTimeout(
-            $this->commands->getGroupDimmerCommand($groupId, $level),
+            (string) new GroupDimmerCommand($this->authConfig, $groupId, $level),
             2,
             true,
         );
@@ -217,7 +226,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     public function getDeviceIds(): array
     {
-        return $this->requestDataFromHub(Keys::ROOT_DEVICES);
+        return $this->requestDataFromHub(Request::RootDevices->value);
     }
 
     /**
@@ -225,7 +234,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
-        $jsonStringRaw = $this->requestDataFromHub(Keys::ROOT_DEVICES, $deviceId, true);
+        $jsonStringRaw = $this->requestDataFromHub(Request::RootDevices->value, $deviceId, true);
         $rawJson       = (new JsonIntTypeNormalizer())(
             $jsonStringRaw,
             DeviceDto::class
@@ -270,7 +279,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $groupData[$groupId] = $this->requestDataFromHub(
-                Keys::ROOT_GROUPS,
+                Request::RootGroups->value,
                 (int) $groupId,
             );
         }
@@ -283,7 +292,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     public function getGroupIds(): array
     {
-        return $this->requestDataFromHub(Keys::ROOT_GROUPS);
+        return $this->requestDataFromHub(Request::RootGroups->value);
     }
 
     /**
@@ -292,15 +301,9 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
      */
     private function requestDataFromHub(string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
     {
-        $command = $this->commands->getCoapsCommandGet($requestType);
-
-        if (null !== $deviceId) {
-            $command = \mb_substr($command, 0, -1) . '/' . $deviceId . '"';
-        }
-
         $dataRaw = $this->commands->parseResult(
             $this->runner->execWithTimeout(
-                $command,
+                (new Get($this->authConfig))->requestCommand($requestType, $deviceId),
                 1,
                 true,
             ),
@@ -323,6 +326,7 @@ final class Coap implements AdapterInterface, LoggerAwareInterface
             $decoded = $dataRaw;
         }
 
+        // todo: maybe full dto normalize
         return $decoded;
     }
 

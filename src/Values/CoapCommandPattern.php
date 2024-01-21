@@ -11,10 +11,11 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-namespace IKEA\Tradfri\Command\Coap\Light;
+namespace IKEA\Tradfri\Values;
 
-use IKEA\Tradfri\Command\Put;
-
-final class ChangeState extends Put
+enum CoapCommandPattern: string
 {
+    case PUT  = 'coap-client -m put -u "%s" -k "%s"';
+    case GET  = 'coap-client -m get -u "%s" -k "%s"';
+    case POST = 'coap-client -m post -u "%s" -k "%s"';
 }

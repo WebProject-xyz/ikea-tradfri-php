@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
-interface DeviceInterface extends \JsonSerializable
+interface DeviceInterface
 {
     public function getId(): int;
+
+    public function getType(): string;
 }

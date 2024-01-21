@@ -15,4 +15,19 @@ namespace IKEA\Tradfri\Command;
 
 abstract class AbstractCommand implements CommandInterface
 {
+    public function __construct(
+        protected readonly \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,
+        protected \IKEA\Tradfri\Values\CoapCommandPattern $commandPattern,
+    ) {
+    }
+
+    public function __toString(): string
+    {
+        return $this->command();
+    }
+
+    final public function command(): string
+    {
+        return $this->authConfig->injectToCommand($this->commandPattern);
+    }
 }

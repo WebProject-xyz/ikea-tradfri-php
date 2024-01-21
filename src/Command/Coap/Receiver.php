@@ -65,19 +65,9 @@ final class Receiver
     {
         return \sprintf(
             self::COAP_COMMAND,
-            $this->_getUsername(),
-            $this->_getApiKey(),
+            $this->username,
+            $this->apiKey,
         );
-    }
-
-    private function _getUsername(): string
-    {
-        return $this->username;
-    }
-
-    private function _getApiKey(): string
-    {
-        return $this->apiKey;
     }
 
     private function _getInjectCommand(): string
@@ -88,16 +78,11 @@ final class Receiver
     private function _getClientUri(): string
     {
         return 'coaps://' . $this->_getIpAddress() . ':5684/'
-            . $this->_getRequestType();
+            . $this->requestType;
     }
 
     private function _getIpAddress(): string
     {
         return $this->ipAddress;
-    }
-
-    private function _getRequestType(): string
-    {
-        return $this->requestType;
     }
 }

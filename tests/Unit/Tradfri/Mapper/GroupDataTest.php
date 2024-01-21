@@ -15,7 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Group\Light as Group;
+use IKEA\Tradfri\Group\LightGroup as Group;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
 

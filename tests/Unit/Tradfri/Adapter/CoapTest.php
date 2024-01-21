@@ -15,6 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Adapter;
 
 use IKEA\Tradfri\Adapter\Coap;
 use IKEA\Tradfri\Device\MotionSensor;
+use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
 use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
@@ -34,7 +35,8 @@ final class CoapTest extends TestCase
             ->andReturn(['[]']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -73,7 +75,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -123,7 +126,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -198,7 +202,8 @@ BULB_DEVICE_JSON;
             ->andReturn([$lightDeviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -265,7 +270,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -292,7 +298,8 @@ GROUPS_JSON;
             ->andReturn([$groupIdsJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -313,11 +320,12 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true, true)
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true, true)
             ->andReturn(['']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -336,11 +344,12 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\'  "coaps://127.0.0.1:5684/15004/123"', 2, true)
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
             ->andReturn(['']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -359,11 +368,12 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 59 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true)
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 59 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
             ->andReturn(['']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -382,11 +392,12 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 59 }\'  "coaps://127.0.0.1:5684/15004/123"', 2, true)
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 59 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
             ->andReturn(['']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -405,11 +416,12 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 23 }] }\'  "coaps://127.0.0.1:5684/15001/123"', 2, true)
+            ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 23 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
             ->andReturn(['']);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -445,7 +457,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -518,7 +531,8 @@ GROUP2_JSON;
             ->andReturn([$group2Json]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -614,7 +628,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new Coap(
-            new \IKEA\Tradfri\Command\Coaps('127.0.0.1', 'mocked-secret', 'mocked-api-key', 'mocked-user'),
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -635,12 +650,29 @@ DEVICE_JSON;
         $this->assertCount(2, $groupCollection);
         $group = $groupCollection->first();
 
-        $this->assertInstanceOf(\IKEA\Tradfri\Group\Device::class, $group);
+        $this->assertInstanceOf(\IKEA\Tradfri\Group\DeviceGroup::class, $group);
         $this->assertSame($compareDto->getId(), $group->getId());
         $this->assertSame($compareDto->getName(), $group->getName());
         $this->assertSame([5000], $group->getDeviceIds());
         $this->assertInstanceOf(MotionSensor::class, $group->getDevices()->first());
         $this->assertSame(5000, $group->getDevices()->first()->getId());
         $this->assertSame('TRADFRI motion sensor', $group->getDevices()->first()->getType());
+    }
+
+    private function buildCoapsCommandsWrapper(): \IKEA\Tradfri\Command\GatewayHelperCommands
+    {
+        return new \IKEA\Tradfri\Command\GatewayHelperCommands(
+            $this->getGatewayAuthConfigDto(),
+        );
+    }
+
+    private function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto
+    {
+        return new CoapGatewayAuthConfigDto(
+            username: 'mocked-user',
+            apiKey: 'mocked-api-key',
+            gatewaySecret: 'mocked-secret',
+            gatewayIp: '127.0.0.1',
+        );
     }
 }

@@ -21,7 +21,7 @@ use IKEA\Tradfri\Traits\ProvidesState;
 /**
  * @final
  */
-class LightBulb extends Device implements SwitchableInterface
+class LightBulb extends Device implements BrightnessStateInterface, SwitchableInterface
 {
     use ProvidesBrightness;
     use ProvidesColor;

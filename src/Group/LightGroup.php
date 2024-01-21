@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Group;
 
 use IKEA\Tradfri\Collection\LightBulbs;
+use IKEA\Tradfri\Device\BrightnessStateInterface;
 use IKEA\Tradfri\Device\SwitchableInterface;
 
-/**
- * Class Light.
- */
-final class Light extends Device implements SwitchableInterface
+final class LightGroup extends DeviceGroup implements BrightnessStateInterface, SwitchableInterface
 {
+    use \IKEA\Tradfri\Traits\ProvidesBrightness;
+
     public function isOn(): bool
     {
         if (false === $this->getLights()->isEmpty()) {
@@ -65,15 +65,17 @@ final class Light extends Device implements SwitchableInterface
     }
 
     /**
-     * @phpstan-param int<0, 100> $level
+     * @phpstan-param int<0, 100> $levelInPercent
      */
-    public function dim(int $level): self
+    public function dim(int $levelInPercent): bool
     {
-        if ($this->_service->dim($this, $level)) {
-            $this->setBrightness((float) $level);
+        if ($this->_service->dim($this, $levelInPercent)) {
+            $this->setBrightnessLevel((float) $levelInPercent);
+
+            return true;
         }
 
-        return $this;
+        return false;
     }
 
     public function switchOff(): bool
