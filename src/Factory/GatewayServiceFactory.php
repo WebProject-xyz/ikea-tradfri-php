@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Factory;
 
-use IKEA\Tradfri\Adapter\Coap as Adapter;
+use IKEA\Tradfri\Adapter\CoapAdapter as Adapter;
 use IKEA\Tradfri\Command\GatewayHelperCommands;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Service\ServiceInterface;
