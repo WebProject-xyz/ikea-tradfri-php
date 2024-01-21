@@ -17,14 +17,16 @@ use IKEA\Tradfri\Client\ClientInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
+use IKEA\Tradfri\Device\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Device\SwitchableInterface;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Group\Light;
+use IKEA\Tradfri\Group\LightGroup;
 
-final class Api implements ServiceInterface
+final class GatewayApiService implements ServiceInterface
 {
     final public const INVALID_DEVICE_TYPE = 'invalid device type: ';
 
@@ -58,6 +60,8 @@ final class Api implements ServiceInterface
                     // this is ok but who cares can't make var unused
                 }
 
+                \assert($lightBulb instanceof SwitchableInterface);
+
                 $this->off($lightBulb);
 
                 return true;
@@ -68,16 +72,11 @@ final class Api implements ServiceInterface
     }
 
     /**
-     * @todo interface switchable
-     *
-     * @param mixed $device
-     *
      * @throws RuntimeException
      */
-    public function off($device): bool
+    public function off(DeviceInterface&SwitchableInterface $device): bool
     {
-        // @todo interface for "switch" on
-        if ($device instanceof Light) {
+        if ($device instanceof LightGroup) {
             return $this->client->groupOff($device);
         }
 
@@ -89,15 +88,11 @@ final class Api implements ServiceInterface
     }
 
     /**
-     * @todo interface switchable
-     *
-     * @param mixed $device
-     *
      * @throws RuntimeException
      */
-    public function on($device): bool
+    public function on(DeviceInterface&SwitchableInterface $device): bool
     {
-        if ($device instanceof Light) {
+        if ($device instanceof LightGroup) {
             return $this->client->groupOn($device);
         }
 
@@ -109,13 +104,11 @@ final class Api implements ServiceInterface
     }
 
     /**
-     * @param Device|Light $device
-     *
      * @throws RuntimeException
      */
-    public function dim(DeviceInterface $device, int $level): bool
+    public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool
     {
-        if ($device instanceof Light) {
+        if ($device instanceof LightGroup) {
             return $this->client->dimGroup($device, $level);
         }
 

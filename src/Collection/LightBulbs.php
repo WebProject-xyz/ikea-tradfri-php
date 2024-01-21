@@ -15,12 +15,13 @@ namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
+use IKEA\Tradfri\Device\SwitchableInterface;
 use const SORT_NATURAL;
 
 /**
  * @method self createFrom(array $elements)
  *
- * @extends Devices<LightBulb>
+ * @extends Devices<DeviceInterface&SwitchableInterface&\JsonSerializable>
  */
 final class LightBulbs extends Devices
 {

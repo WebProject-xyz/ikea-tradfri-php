@@ -19,7 +19,8 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Group\Light;
+use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Group\LightGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 final class ClientTest extends \Codeception\Test\Unit
@@ -101,7 +102,7 @@ final class ClientTest extends \Codeception\Test\Unit
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, mock(ServiceInterface::class));
+        $group  = new LightGroup(1, mock(ServiceInterface::class));
         // Act
         $result = $client->groupOn($group);
         // Assert
@@ -115,7 +116,7 @@ final class ClientTest extends \Codeception\Test\Unit
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, mock(ServiceInterface::class));
+        $group  = new LightGroup(1, mock(ServiceInterface::class));
         // Act
         $result = $client->groupOff($group);
         // Assert
@@ -143,9 +144,23 @@ final class ClientTest extends \Codeception\Test\Unit
         $adapter->expects('setGroupBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new Light(1, mock(ServiceInterface::class));
+        $group  = new LightGroup(1, mock(ServiceInterface::class));
         // Act
         $result = $client->dimGroup($group, 50);
+        // Assert
+        $this->assertTrue($result);
+    }
+
+    public function testICanSetRollerBlindPosition(): void
+    {
+        // Arrange
+        $adapter = mock(AdapterInterface::class);
+        $adapter->expects('setRollerBlindPosition')->andReturn(true);
+
+        $client       = new Client($adapter);
+        $rollerBlind  = new RollerBlind(1, Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND);
+        // Act
+        $result = $client->setRollerBlindPosition($rollerBlind, 50);
         // Assert
         $this->assertTrue($result);
     }

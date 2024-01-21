@@ -13,7 +13,14 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
-interface CommandInterface extends \Stringable
+enum Request: string
 {
-    public function command(): string;
+    case RootDevices = Coap\Keys::ROOT_DEVICES;
+    case RootGroups  = Coap\Keys::ROOT_GROUPS;
+    case RootGateway = Coap\Keys::ROOT_GATEWAY;
+
+    public function withTargetId(int|string $deviceId): string
+    {
+        return $this->value . '/' . $deviceId;
+    }
 }

@@ -17,7 +17,7 @@ try {
     $groups = $api->getGroups();
 
     if ($groups->isEmpty() === false) {
-        /** @var IKEA\Tradfri\Group\Light $group */
+        /** @var IKEA\Tradfri\Group\LightGroup $group */
         $group= $groups->first();
         echo '---------- Group Information' . \PHP_EOL;
         echo '- ID: ' . $group->getId() . \PHP_EOL;

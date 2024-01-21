@@ -15,9 +15,11 @@ namespace IKEA\Tradfri\Service;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\LightBulbs;
+use IKEA\Tradfri\Device\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\DeviceInterface;
-use IKEA\Tradfri\Group\Light;
+use IKEA\Tradfri\Device\SwitchableInterface;
+use IKEA\Tradfri\Group\LightGroup;
 
 interface ServiceInterface
 {
@@ -31,28 +33,22 @@ interface ServiceInterface
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool;
 
     /**
-     * @param Device|Light $device
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function on(DeviceInterface $device): bool;
+    public function on(DeviceInterface&SwitchableInterface $device): bool;
 
     /**
-     * @param Device|Light $device
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function off(DeviceInterface $device): bool;
+    public function off(DeviceInterface&SwitchableInterface $device): bool;
 
     /**
-     * @param Device|Light $device
-     *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function dim(DeviceInterface $device, int $level): bool;
+    public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool;
 
     /**
-     * @param Device|Light $device
+     * @param Device|LightGroup $device
      *
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */

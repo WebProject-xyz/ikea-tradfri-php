@@ -13,10 +13,27 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
+use IKEA\Tradfri\Values\CoapCommandPattern;
+
 /**
  * @final
  */
 class Put extends AbstractCommand
 {
-    final public const COAP_COMMAND = 'coap-client -m put -u "%s" -k "%s"';
+    final public const COAP_COMMAND   = 'coap-client -m put -u "%s" -k "%s"';
+    private const COAP_COMMAND_FORMAT = '%s %s "%s/%s"';
+
+    public function __construct(\IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig)
+    {
+        parent::__construct($authConfig, CoapCommandPattern::PUT);
+    }
+
+    public function requestCommand(Request|string $request, string $payload): string
+    {
+        if ($request instanceof Request) {
+            $request = $request->value;
+        }
+
+        return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $payload, $this->authConfig->getGatewayUrl(), $request);
+    }
 }

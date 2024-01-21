@@ -16,7 +16,7 @@ namespace IKEA\Tradfri\Mapper;
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Command\Coap\Keys;
-use IKEA\Tradfri\Group\Light;
+use IKEA\Tradfri\Group\LightGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
 use Psr\Log\LoggerAwareInterface;
@@ -47,7 +47,7 @@ final class GroupData implements LoggerAwareInterface, MapperInterface
                 continue;
             }
 
-            $group = new Light(
+            $group = new LightGroup(
                 (int) $device->{Keys::ATTR_ID},
                 $service,
             );
@@ -58,7 +58,7 @@ final class GroupData implements LoggerAwareInterface, MapperInterface
                     ->{Keys::ATTR_GROUP_LIGHTS}
                     ->{Keys::ATTR_ID},
             );
-            $group->setBrightness($device->{Keys::ATTR_LIGHT_DIMMER});
+            $group->setBrightnessLevel($device->{Keys::ATTR_LIGHT_DIMMER});
             $group->setState((bool) $device->{Keys::ATTR_DEVICE_STATE});
 
             $collection->addGroup($group);

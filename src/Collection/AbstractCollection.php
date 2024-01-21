@@ -19,7 +19,7 @@ use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
- * @template TDevice of DeviceInterface
+ * @template TDevice of DeviceInterface&\JsonSerializable
  *
  * @extends ArrayCollection<int, TDevice>
  */

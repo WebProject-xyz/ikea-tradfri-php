@@ -28,7 +28,7 @@ use IKEA\Tradfri\Device\RollerBlind;
 /**
  * @final
  *
- * @template TDevice of DeviceInterface
+ * @template TDevice of DeviceInterface&\JsonSerializable
  *
  * @extends AbstractCollection<Dimmer|Floalt|LightBulb|MotionSensor|OpenCloseRemote|Remote|Repeater|RollerBlind|Device|TDevice>
  */
