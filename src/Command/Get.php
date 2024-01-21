@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use IKEA\Tradfri\Values\CoapCommandPattern;
 
 final class Get extends AbstractCommand
@@ -37,5 +38,18 @@ final class Get extends AbstractCommand
         }
 
         return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $this->authConfig->getGatewayUrl(), $request);
+    }
+
+    public function run(CommandRunnerInterface $runner, Request|string $request = '', ?int $deviceId = null): array
+    {
+        if ('' === $request) {
+            throw new \InvalidArgumentException('missing target');
+        }
+
+        return $runner->execWithTimeout(
+            $this->requestCommand($request, $deviceId),
+            1,
+            true,
+        );
     }
 }

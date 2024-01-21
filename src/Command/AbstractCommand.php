@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
+
 abstract class AbstractCommand implements CommandInterface
 {
     public function __construct(
@@ -29,5 +31,13 @@ abstract class AbstractCommand implements CommandInterface
     final public function command(): string
     {
         return $this->authConfig->injectToCommand($this->commandPattern);
+    }
+
+    abstract public function run(CommandRunnerInterface $runner): array|bool;
+
+    protected function verifyResult(mixed $data): bool
+    {
+        return \is_array($data)
+            && (4 === \count($data) || '' === ($data[0] ?? null));
     }
 }

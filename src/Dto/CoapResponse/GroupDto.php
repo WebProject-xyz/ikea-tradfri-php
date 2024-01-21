@@ -16,7 +16,7 @@ namespace IKEA\Tradfri\Dto\CoapResponse;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class GroupDto
+final readonly class GroupDto
 {
     public function __construct(
         #[SerializedName(serializedName: 'ATTR_ID')]
