@@ -6,9 +6,11 @@
 
 ### coap with dTLS
 
-at this moment there is no coap libs with dTLS, the ikea smart lights are using dTLS with coap for security. the only
-option is to build a new libcoap with dTLS included. libcoap requires cunit, a2x, doxygen and dot you need to install
-these requirements first.
+> at this moment there is no coap libs with dTLS, 
+> the ikea smart lights are using dTLS with coap for security. 
+> the only option is to build a new libcoap with dTLS included.
+> libcoap requires cunit, a2x, doxygen and dot you need to install
+> these requirements first.
 
 ```bash
 sudo apt-get install automake libtool git clone --depth 1 --recursive -b
