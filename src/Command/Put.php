@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Command;
 
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use IKEA\Tradfri\Values\CoapCommandPattern;
 
 /**
@@ -35,5 +36,16 @@ class Put extends AbstractCommand
         }
 
         return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $payload, $this->authConfig->getGatewayUrl(), $request);
+    }
+
+    public function run(CommandRunnerInterface $runner): bool
+    {
+        $result= $runner->execWithTimeout(
+            (string) $this,
+            2,
+            true,
+        );
+
+        return $this->verifyResult($result);
     }
 }

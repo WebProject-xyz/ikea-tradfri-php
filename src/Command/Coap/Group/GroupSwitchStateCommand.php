@@ -18,6 +18,7 @@ use IKEA\Tradfri\Command\Put;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
+use IKEA\Tradfri\Helper\CommandRunnerInterface;
 
 final class GroupSwitchStateCommand extends Put
 {
@@ -39,5 +40,16 @@ final class GroupSwitchStateCommand extends Put
                 (int) $this->state,
             )->toGroupFormat(),
         );
+    }
+
+    public function run(CommandRunnerInterface $runner): bool
+    {
+        $result = $runner->execWithTimeout(
+            (string) $this,
+            2,
+            true,
+        );
+
+        return $this->verifyResult($result);
     }
 }

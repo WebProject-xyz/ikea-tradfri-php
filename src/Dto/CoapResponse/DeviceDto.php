@@ -37,14 +37,14 @@ final class DeviceDto
     public function __construct(
         #[SerializedName(serializedName: 'ATTR_ID')]
         #[Assert\NotBlank()]
-        private int $id,
+        private readonly int $id,
         #[SerializedName(serializedName: 'ATTR_NAME')]
         #[Assert\NotBlank()]
-        private ?string $name,
+        private readonly ?string $name,
         #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
         #[Assert\Valid()]
         #[Assert\NotBlank()]
-        private DeviceInfoDto $deviceInfo,
+        private readonly DeviceInfoDto $deviceInfo,
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         #[Assert\Valid()]
         private readonly ?LightControlDto $lightControl = null,

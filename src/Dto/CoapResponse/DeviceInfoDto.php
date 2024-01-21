@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Dto\CoapResponse;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-final class DeviceInfoDto
+final readonly class DeviceInfoDto
 {
     public function __construct(
         #[SerializedName(serializedName: 'ATTR_DEVICE_MANUFACTURER')]

@@ -58,7 +58,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getType(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Request::RootDevices->value, $deviceId);
+        $data = $this->requestDataFromHub(Request::RootDevices, $deviceId);
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
             && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
@@ -76,7 +76,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getManufacturer(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Request::RootDevices->value, $deviceId);
+        $data = $this->requestDataFromHub(Request::RootDevices, $deviceId);
 
         if (\is_object($data) && isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
             return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
@@ -91,20 +91,11 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     public function changeLightState(int $deviceId, bool $toState): bool
     {
         // run command
-        $data = $this->runner
-            ->execWithTimeout(
-                (string) new LightSwitchStateCommand($this->authConfig, $deviceId, $toState),
-                2,
-                true,
-                true,
-            );
+        $command = new LightSwitchStateCommand($this->authConfig, $deviceId, $toState);
 
         // verify result
-        if ($this->_verifyResult($data)) {
-            return true;
-        }
-
-        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+        return $command->run($this->runner)
+            ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     /**
@@ -113,20 +104,11 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     public function changeGroupState(int $groupId, bool $toState): bool
     {
         // run command
-        $data = $this->runner
-            ->execWithTimeout(
-                (string) new GroupSwitchStateCommand($this->authConfig, $groupId, $toState),
-                2,
-                true,
-            );
+        $command = new GroupSwitchStateCommand($this->authConfig, $groupId, $toState);
 
         // verify result
-
-        if ($this->_verifyResult($data)) {
-            return true;
-        }
-
-        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+        return $command->run($this->runner)
+            ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     /**
@@ -135,35 +117,21 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     public function setLightBrightness(int $lightId, int $level): bool
     {
         // run command
-        $data = $this->runner->execWithTimeout(
-            (string) new LightDimmerCommand($this->authConfig, $lightId, $level),
-            2,
-            true,
-        );
+        $command = new LightDimmerCommand($this->authConfig, $lightId, $level);
 
         // verify result
-        if ($this->_verifyResult($data)) {
-            return true;
-        }
-
-        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+        return $command->run($this->runner)
+            ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         // run command
-        $data = $this->runner->execWithTimeout(
-            (string) new BlindsGetCurrentPositionCommand($this->authConfig, $rollerBlindId, $level),
-            2,
-            true,
-        );
+        $command = new BlindsGetCurrentPositionCommand($this->authConfig, $rollerBlindId, $level);
 
         // verify result
-        if ($this->_verifyResult($data)) {
-            return true;
-        }
-
-        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+        return $command->run($this->runner)
+            ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     /**
@@ -172,18 +140,11 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     public function setGroupBrightness(int $groupId, int $level): bool
     {
         // run command
-        $data = $this->runner->execWithTimeout(
-            (string) new GroupDimmerCommand($this->authConfig, $groupId, $level),
-            2,
-            true,
-        );
+        $command = new GroupDimmerCommand($this->authConfig, $groupId, $level);
 
         // verify result
-        if ($this->_verifyResult($data)) {
-            return true;
-        }
-
-        throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
+        return $command->run($this->runner)
+            ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     /**
@@ -226,7 +187,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getDeviceIds(): array
     {
-        return $this->requestDataFromHub(Request::RootDevices->value);
+        return $this->requestDataFromHub(Request::RootDevices);
     }
 
     /**
@@ -234,7 +195,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
-        $jsonStringRaw = $this->requestDataFromHub(Request::RootDevices->value, $deviceId, true);
+        $jsonStringRaw = $this->requestDataFromHub(Request::RootDevices, $deviceId, true);
         $rawJson       = (new JsonIntTypeNormalizer())(
             $jsonStringRaw,
             DeviceDto::class
@@ -279,7 +240,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $groupData[$groupId] = $this->requestDataFromHub(
-                Request::RootGroups->value,
+                Request::RootGroups,
                 (int) $groupId,
             );
         }
@@ -292,21 +253,19 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getGroupIds(): array
     {
-        return $this->requestDataFromHub(Request::RootGroups->value);
+        return $this->requestDataFromHub(Request::RootGroups);
     }
 
     /**
      * @throws \JsonException
      * @throws RuntimeException
      */
-    private function requestDataFromHub(string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
+    private function requestDataFromHub(Request|string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
     {
+        $requestCommand = new Get($this->authConfig);
+
         $dataRaw = $this->commands->parseResult(
-            $this->runner->execWithTimeout(
-                (new Get($this->authConfig))->requestCommand($requestType, $deviceId),
-                1,
-                true,
-            ),
+            $requestCommand->run($this->runner, $requestType, $deviceId),
         ) ?: throw new RuntimeException('invalid hub response');
 
         if ($returnRawData) {
@@ -328,11 +287,5 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
         // todo: maybe full dto normalize
         return $decoded;
-    }
-
-    private function _verifyResult(mixed $data): bool
-    {
-        return \is_array($data)
-            && (4 === \count($data) || '' === ($data[0] ?? null));
     }
 }
