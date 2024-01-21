@@ -38,7 +38,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use const JSON_THROW_ON_ERROR;
 
-final class Coap implements AdapterInterface, LoggerAwareInterface
+final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
     private const COULD_NOT_SWITCH_STATE = 'Could not switch state';

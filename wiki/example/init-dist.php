@@ -11,9 +11,6 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-use IKEA\Tradfri\Adapter\Coap as Adapter;
-use IKEA\Tradfri\Command\GatewayHelperCommands;
-
 if (!\is_file(__DIR__ . '/../../vendor/autoload.php')) {
     exit('run composer up!');
 }
@@ -34,14 +31,13 @@ const COAP_API_USER = 'php-api-user';
 // default: no flood protection (time in microseconds)
 \defined('COAP_GATEWAY_FLOOD_PROTECTION') ?: \define('COAP_GATEWAY_FLOOD_PROTECTION', 50);
 
-$deviceMapper = new IKEA\Tradfri\Mapper\DeviceData();
-$groupMapper  = new IKEA\Tradfri\Mapper\GroupData();
-$commands     = new GatewayHelperCommands(
-    COAP_GATEWAY_IP,
-    COAP_GATEWAY_SECRET,
-    COAP_API_KEY,
-    COAP_API_USER,
-);
-$adapter = new Adapter($commands, $deviceMapper, $groupMapper);
-$client  = new IKEA\Tradfri\Client\Client($adapter);
-$api     = new IKEA\Tradfri\Service\GatewayApiService($client);
+use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
+
+$api = (new IKEA\Tradfri\Factory\GatewayServiceFactory(
+    new CoapGatewayAuthConfigDto(
+        COAP_API_USER,
+        COAP_API_KEY,
+        COAP_GATEWAY_IP,
+        COAP_GATEWAY_SECRET,
+    ),
+))();
