@@ -30,7 +30,7 @@ $license->save();
 
 $ruleSet = PhpCsFixer\Config\RuleSet\Php82::create()
     ->withHeader($license->header())
-    ->withRules(Ergebnis\PhpCsFixer\Config\Rules::fromArray(
+    ->withRules(PhpCsFixer\Config\Rules::fromArray(
         [
             'binary_operator_spaces' => [
                 'default'   => 'align',
