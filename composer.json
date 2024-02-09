@@ -33,7 +33,7 @@
     "ergebnis/php-cs-fixer-config": "^6.22.0",
     "friendsofphp/php-cs-fixer": "^3.49.0",
     "mockery/mockery": "^1.6.7",
-    "phpro/grumphp": "^2.4.0",
+    "phpro/grumphp": "^2.5.0",
     "phpstan/extension-installer": "^1.3.1",
     "phpstan/phpstan": "^1.10.57",
     "phpstan/phpstan-mockery": "^1.1.2",
