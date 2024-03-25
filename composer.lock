@@ -2224,16 +2224,16 @@
         },
         {
             "name": "amphp/parallel",
-            "version": "v2.2.8",
+            "version": "v2.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/parallel.git",
-                "reference": "efd71b342b64c2e46d904e4eb057ed5ab20f8e2d"
+                "reference": "73d293f1fc4df1bebc3c4fce1432e82dd7032238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/parallel/zipball/efd71b342b64c2e46d904e4eb057ed5ab20f8e2d",
-                "reference": "efd71b342b64c2e46d904e4eb057ed5ab20f8e2d",
+                "url": "https://api.github.com/repos/amphp/parallel/zipball/73d293f1fc4df1bebc3c4fce1432e82dd7032238",
+                "reference": "73d293f1fc4df1bebc3c4fce1432e82dd7032238",
                 "shasum": ""
             },
             "require": {
@@ -2296,7 +2296,7 @@
             ],
             "support": {
                 "issues": "https://github.com/amphp/parallel/issues",
-                "source": "https://github.com/amphp/parallel/tree/v2.2.8"
+                "source": "https://github.com/amphp/parallel/tree/v2.2.9"
             },
             "funding": [
                 {
@@ -2304,7 +2304,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-19T16:09:34+00:00"
+            "time": "2024-03-24T18:27:44+00:00"
         },
         {
             "name": "amphp/parser",
