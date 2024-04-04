@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aae94f1af2be3232e43c20ef628cc18",
+    "content-hash": "bb18fc3eb2c099afd0c4524fa8d8b1ad",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -717,16 +717,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.32.0",
+            "version": "6.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "21f41bb8ce247f40d5dcb7115a504d2cf3102840"
+                "reference": "6c2b05232a4642afa741f85481a4d13f4af253be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/21f41bb8ce247f40d5dcb7115a504d2cf3102840",
-                "reference": "21f41bb8ce247f40d5dcb7115a504d2cf3102840",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/6c2b05232a4642afa741f85481a4d13f4af253be",
+                "reference": "6c2b05232a4642afa741f85481a4d13f4af253be",
                 "shasum": ""
             },
             "require": {
@@ -740,7 +740,7 @@
             },
             "require-dev": {
                 "phpbench/phpbench": "^1.2.15",
-                "phpunit/phpunit": "^11.0.8"
+                "phpunit/phpunit": "^11.0.9"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -780,9 +780,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.32.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.33.0"
             },
-            "time": "2024-03-27T15:54:44+00:00"
+            "time": "2024-04-04T02:09:00+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
