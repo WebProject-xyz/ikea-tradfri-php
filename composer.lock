@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbc41849fb6a63b932977a9f7486b567",
+    "content-hash": "9adad1257d59174a98eb6fcefa771081",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5723,12 +5723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2532eb94204b2928805d303aeb1d7baad3d59fb9"
+                "reference": "d9e79ae0ea2417658122bcf1d83baa85528d68f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2532eb94204b2928805d303aeb1d7baad3d59fb9",
-                "reference": "2532eb94204b2928805d303aeb1d7baad3d59fb9",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d9e79ae0ea2417658122bcf1d83baa85528d68f1",
+                "reference": "d9e79ae0ea2417658122bcf1d83baa85528d68f1",
                 "shasum": ""
             },
             "conflict": {
@@ -6034,7 +6034,7 @@
                 "mantisbt/mantisbt": "<2.26.1",
                 "marcwillmann/turn": "<0.3.3",
                 "matyhtf/framework": "<3.0.6",
-                "mautic/core": "<4.4.12",
+                "mautic/core": "<4.4.12|>=5.0.0.0-alpha,<5.0.4",
                 "mediawiki/core": "<1.36.2",
                 "mediawiki/matomo": "<2.4.3",
                 "mediawiki/semantic-media-wiki": "<4.0.2",
@@ -6307,6 +6307,7 @@
                 "thinkcmf/thinkcmf": "<=5.1.7",
                 "thorsten/phpmyfaq": "<3.2.2",
                 "tikiwiki/tiki-manager": "<=17.1",
+                "timber/timber": "<=2",
                 "tinymce/tinymce": "<7",
                 "tinymighty/wiki-seo": "<1.2.2",
                 "titon/framework": "<9.9.99",
@@ -6461,7 +6462,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-11T22:04:23+00:00"
+            "time": "2024-04-12T18:04:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",
