@@ -16,7 +16,7 @@ namespace IKEA\Tradfri\Dto\CoapResponse;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class DeviceDto
+final readonly class DeviceDto
 {
     public const ATTR_MAP = [
         // - root node
@@ -37,21 +37,21 @@ final class DeviceDto
     public function __construct(
         #[SerializedName(serializedName: 'ATTR_ID')]
         #[Assert\NotBlank()]
-        private readonly int $id,
+        private int $id,
         #[SerializedName(serializedName: 'ATTR_NAME')]
         #[Assert\NotBlank()]
-        private readonly ?string $name,
+        private ?string $name,
         #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
         #[Assert\Valid()]
         #[Assert\NotBlank()]
-        private readonly DeviceInfoDto $deviceInfo,
+        private DeviceInfoDto $deviceInfo,
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         #[Assert\Valid()]
-        private readonly ?LightControlDto $lightControl = null,
+        private ?LightControlDto $lightControl = null,
         /** @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto> */
         #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
         #[Assert\Valid()]
-        private readonly ?array $blindControlDto = null,
+        private ?array $blindControlDto = null,
     ) {
     }
 

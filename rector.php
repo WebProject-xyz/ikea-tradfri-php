@@ -11,25 +11,27 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
+return RectorConfig::configure()
+    ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
         __DIR__ . '/wiki',
+    ])
+    // uncomment to reach your current PHP version
+    ->withPhpSets(
+        php82: true,
+    )
+    ->withSets([
+        Rector\Symfony\Set\SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+        Rector\Symfony\Set\SymfonySetList::SYMFONY_64,
+        Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY,
+        Rector\Symfony\Set\SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+
+        Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_CODE_QUALITY,
+    ])
+    ->withRules([
+        AddVoidReturnTypeWhereNoReturnRector::class,
     ]);
-
-    $rectorConfig->phpstanConfig('phpstan.neon');
-
-    // register a single rule
-    $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-
-    // define sets of rules
-    $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_82,
-        Rector\Symfony\Set\SymfonyLevelSetList::UP_TO_SYMFONY_64,
-    ]);
-};

@@ -20,8 +20,6 @@ use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use Symfony\Component\Finder\Finder;
-use const JSON_THROW_ON_ERROR;
-use function codecept_data_dir;
 
 /**
  * Class Unit.
@@ -33,7 +31,7 @@ final class Unit extends \Codeception\Module
      */
     public function getDevicesRawJson(): string
     {
-        return \file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
+        return \file_get_contents(\codecept_data_dir('hubResponses/getDevices.json')) ?: '';
     }
 
     /**
@@ -44,7 +42,7 @@ final class Unit extends \Codeception\Module
         $jsonDeviceDataSerializer = new JsonDeviceDataSerializer();
         $normalizer               = (new JsonIntTypeNormalizer());
         $finder                   = (new Finder())
-            ->in(codecept_data_dir('hubResponses/devices/'))
+            ->in(\codecept_data_dir('hubResponses/devices/'))
             ->name('/.*_raw\.json/');
 
         foreach ($finder->files() as $file) {
@@ -62,7 +60,7 @@ final class Unit extends \Codeception\Module
             $this->getDevicesRawJson(),
             false,
             512,
-            JSON_THROW_ON_ERROR,
+            \JSON_THROW_ON_ERROR,
         );
         /*
         return [
@@ -157,10 +155,10 @@ final class Unit extends \Codeception\Module
     public function getGroupDataCoapsResponse(): array
     {
         return (array) \json_decode(
-            \file_get_contents(codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
+            \file_get_contents(\codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
             false,
             512,
-            JSON_THROW_ON_ERROR,
+            \JSON_THROW_ON_ERROR,
         );
 
         /*

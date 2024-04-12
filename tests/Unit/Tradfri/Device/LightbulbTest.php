@@ -17,7 +17,6 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface as Api;
-use function mock;
 
 /**
  * Class LightBulbTest.
@@ -135,7 +134,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects()->on($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
@@ -164,7 +163,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects('on')->andReturn(false);
 
         $lamp->setService($service);
@@ -184,7 +183,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects()->off($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
@@ -212,7 +211,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(true);
         $service->expects()->dim($lamp, 0)->andReturn(true);
         $service->expects()->off($lamp)->times(2)->andReturn(true);
@@ -244,7 +243,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(false);
 
         $lamp->setService($service);
@@ -264,7 +263,7 @@ final class LightbulbTest extends DeviceTester
         $lamp = $this->getModel();
         $lamp->setState(true);
 
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects()->off($lamp)->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
 
         $lamp->setService($service);
@@ -287,7 +286,7 @@ final class LightbulbTest extends DeviceTester
 
         // Arrange
         $lamp    = $this->getModel();
-        $service = mock(Api::class);
+        $service = \mock(Api::class);
         $service->expects('off')->andReturn(false);
 
         $lamp->setService($service);

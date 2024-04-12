@@ -16,7 +16,7 @@ namespace IKEA\Tradfri\Dto;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 
-final class CoapGatewayRequestPayloadDto implements \Stringable
+final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 {
     public const COLOR_WARM             = 'warm';
     public const COLOR_NORMAL           = 'normal';
@@ -31,9 +31,9 @@ final class CoapGatewayRequestPayloadDto implements \Stringable
     private const FORMAT_LIGHT_COLOR = '-e \'{ "' . Keys::ATTR_LIGHT_CONTROL . '": [{ "' . Keys::ATTR_LIGHT_COLOR_X . '": %s, "' . Keys::ATTR_LIGHT_COLOR_Y . '": %s }] }\'';
 
     public function __construct(
-        private readonly string $target,
-        private readonly string $endpoint,
-        private readonly float|int|string $value,
+        private string $target,
+        private string $endpoint,
+        private float|int|string $value,
     ) {
     }
 

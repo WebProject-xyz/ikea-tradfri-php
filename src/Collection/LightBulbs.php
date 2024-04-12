@@ -16,7 +16,6 @@ namespace IKEA\Tradfri\Collection;
 use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\SwitchableInterface;
-use const SORT_NATURAL;
 
 /**
  * @method self createFrom(array $elements)
@@ -72,7 +71,7 @@ final class LightBulbs extends Devices
                 return true;
             },
         );
-        \ksort($elements, SORT_NATURAL);
+        \ksort($elements, \SORT_NATURAL);
 
         return $elements;
     }

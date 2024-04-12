@@ -22,7 +22,6 @@ use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use const JSON_PRETTY_PRINT;
 
 final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\SerializerInterface
 {
@@ -41,7 +40,7 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
             $type,
             $format,
             [
-                JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
+                JsonEncode::OPTIONS                        => \JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ] + $context,
         );
@@ -53,7 +52,7 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
             $data,
             $format,
             [
-                JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
+                JsonEncode::OPTIONS                        => \JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ] + $context,
         );

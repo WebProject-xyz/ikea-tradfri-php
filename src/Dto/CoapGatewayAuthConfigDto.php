@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto;
 
-use const FILTER_VALIDATE_IP;
-
 final readonly class CoapGatewayAuthConfigDto
 {
     public function __construct(
@@ -62,7 +60,7 @@ final readonly class CoapGatewayAuthConfigDto
      */
     private function checkIp(string $gatewayAddress): void
     {
-        if (\filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
+        if (\filter_var($gatewayAddress, \FILTER_VALIDATE_IP)) {
             return;
         }
 

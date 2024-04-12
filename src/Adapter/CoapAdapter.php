@@ -36,7 +36,6 @@ use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use const JSON_THROW_ON_ERROR;
 
 final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 {
@@ -280,7 +279,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     private function decodeData(string $dataRaw): array|object|string
     {
-        $decoded = \json_decode($dataRaw, false, 512, JSON_THROW_ON_ERROR);
+        $decoded = \json_decode($dataRaw, false, 512, \JSON_THROW_ON_ERROR);
         if (null === $decoded) {
             $decoded = $dataRaw;
         }
