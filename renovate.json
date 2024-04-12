@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>Ocramius/.github:renovate-config"
+    "local>WebProject-xyz/.github:renovate-config"
   ]
 }
