@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae19d4c8bf1f392b997ed38989bb8b5c",
+    "content-hash": "09124214636617dd68f09e3f99f5b681",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -723,16 +723,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.34.0",
+            "version": "6.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "3a6f27b020d7f144b2c2e86cfed60ef5df6e55d8"
+                "reference": "ae3b4fbbb5d4859066b472345c3a1d89f18d4fd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/3a6f27b020d7f144b2c2e86cfed60ef5df6e55d8",
-                "reference": "3a6f27b020d7f144b2c2e86cfed60ef5df6e55d8",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/ae3b4fbbb5d4859066b472345c3a1d89f18d4fd6",
+                "reference": "ae3b4fbbb5d4859066b472345c3a1d89f18d4fd6",
                 "shasum": ""
             },
             "require": {
@@ -786,9 +786,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.34.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.35.0"
             },
-            "time": "2024-04-20T07:46:36+00:00"
+            "time": "2024-04-21T18:25:22+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
