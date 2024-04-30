@@ -17,6 +17,7 @@ use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\SwitchableInterface;
 
+
 /**
  * @method self createFrom(array $elements)
  *
