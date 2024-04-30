@@ -164,7 +164,7 @@ final class Type
                 $modelClass = \str_replace('is', '', $method);
 
                 if ('isUnknownDeviceType' === $method && $buildUnknownDevice) {
-                    $modelClass = 'Unknown';
+                    $modelClass = 'UnknownDevice';
                 }
 
                 $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;

@@ -46,6 +46,11 @@ final class RollerBlind extends Device
      */
     public function setToPosition(int $level): bool
     {
-        return $this->getService()->setRollerBlindPosition($this, $level);
+        $wasSet = $this->getService()->setRollerBlindPosition($this, $level);
+        if ($wasSet) {
+            $this->setDarkenedState($level);
+        }
+
+        return $wasSet;
     }
 }

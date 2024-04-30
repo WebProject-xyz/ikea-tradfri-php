@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
-final class Unknown extends Device
+final class UnknownDevice extends Device
 {
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
@@ -22,7 +22,7 @@ final class Unknown extends Device
     {
         parent::__construct(
             $deviceId,
-            'TRADFRI unknown' . $type,
+            'unknown' . $type,
         );
     }
 }

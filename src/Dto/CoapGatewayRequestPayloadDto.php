@@ -34,7 +34,6 @@ final readonly class CoapGatewayRequestPayloadDto implements \Stringable
         private string $target,
         private string $endpoint,
         private float|int|string $value,
-
     ) {
     }
 

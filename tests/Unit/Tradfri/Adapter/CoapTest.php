@@ -15,6 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Adapter;
 
 use IKEA\Tradfri\Adapter\CoapAdapter;
 use IKEA\Tradfri\Device\MotionSensor;
+use IKEA\Tradfri\Device\UnknownDevice;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
@@ -22,6 +23,7 @@ use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
+use IKEA\Tradfri\Service\ServiceInterface;
 use PHPUnit\Framework\TestCase;
 use WMDE\PsrLogTestDoubles\LoggerSpy;
 
@@ -245,6 +247,58 @@ BULB_DEVICE_JSON;
         $this->assertSame($blubDeviceDto->getLightControl()->getState(), $lightDevice->getLightControl()->getState());
         $this->assertSame($blubDeviceDto->getLightControl()->getBrightness(), $lightDevice->getLightControl()->getBrightness());
         $this->assertSame($blubDeviceDto->getLightControl()->getColorHex(), $lightDevice->getLightControl()->getColorHex());
+    }
+
+    public function testGetDevicesCollectionWithValidJson(): void
+    {
+        // Arrange
+        $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
+{
+    "ATTR_ID": 12,
+    "ATTR_NAME": "name",
+    "ATTR_DEVICE_INFO": {
+        "ATTR_DEVICE_MANUFACTURER": "manufacturer",
+        "ATTR_DEVICE_FIRMWARE_VERSION": "version",
+        "ATTR_DEVICE_MODEL_NUMBER": "type"
+    }
+}
+DEVICE_JSON;
+
+        $runner = mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
+            ->andReturn(['[5000]']);
+
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true)
+            ->andReturn([$deviceJson]);
+
+        $adapter = new CoapAdapter(
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        $deviceData  = new DeviceInfoDto('manufacturer', 'unknowntype', 'version');
+        $deviceDto   = new DeviceDto(12, 'name', $deviceData, null);
+
+        $service = mock(ServiceInterface::class);
+        // Act
+        $deviceCollection = $adapter->getDeviceCollection($service);
+        // Assert
+        $this->assertCount(1, $deviceCollection);
+        $device = $deviceCollection->first();
+
+        $this->assertInstanceOf(UnknownDevice::class, $device);
+        $this->assertSame($deviceDto->getId(), $device->getId());
+        $this->assertSame($deviceDto->getName(), $device->getName());
+        $this->assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getManufacturer());
+        $this->assertSame($deviceDto->getDeviceInfo()->getType(), $device->getType());
+        $this->assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getVersion());
     }
 
     public function testGetType(): void

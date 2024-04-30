@@ -15,7 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;
-use IKEA\Tradfri\Device\Unknown;
+use IKEA\Tradfri\Device\UnknownDevice;
 
 /**
  * Class TypeTest.
@@ -244,7 +244,7 @@ final class TypeTest extends \Codeception\Test\Unit
 
         // Assert
         $this->assertNotNull($model);
-        $this->assertInstanceOf(Unknown::class, $model);
+        $this->assertInstanceOf(UnknownDevice::class, $model);
     }
 
     public function testBuildFromNoUnknownClassAndSeeError(): void

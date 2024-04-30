@@ -27,14 +27,17 @@ final readonly class GatewayServiceFactory
 
     public function __invoke(): ServiceInterface
     {
-        $deviceMapper = new \IKEA\Tradfri\Mapper\DeviceData();
-        $groupMapper  = new \IKEA\Tradfri\Mapper\GroupData();
-        $commands     = new GatewayHelperCommands(
-            $this->authConfig,
+        return new \IKEA\Tradfri\Service\GatewayApiService(
+            client: new \IKEA\Tradfri\Client\Client(
+                adapter: new Adapter(
+                    authConfig: $this->authConfig,
+                    commands: new GatewayHelperCommands(
+                        authConfig: $this->authConfig,
+                    ),
+                    deviceDataMapper: new \IKEA\Tradfri\Mapper\DeviceData(),
+                    groupDataMapper: new \IKEA\Tradfri\Mapper\GroupData(),
+                ),
+            ),
         );
-        $adapter = new Adapter(authConfig: $this->authConfig, commands: $commands, deviceDataMapper: $deviceMapper, groupDataMapper: $groupMapper);
-        $client  = new \IKEA\Tradfri\Client\Client($adapter);
-
-        return new \IKEA\Tradfri\Service\GatewayApiService($client);
     }
 }
