@@ -22,7 +22,7 @@
     "symfony/property-access": "^7.0.7",
     "symfony/property-info": "^7.0.7",
     "symfony/serializer": "^7.0.7",
-    "symfony/service-contracts": "^3.4.2",
+    "symfony/service-contracts": "^3.5.0",
     "symfony/validator": "^7.0.7"
   },
   "require-dev": {
