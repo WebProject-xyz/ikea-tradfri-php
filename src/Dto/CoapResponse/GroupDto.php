@@ -19,11 +19,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class GroupDto
 {
     public function __construct(
+        #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_ID')]
-        #[Assert\NotBlank()]
         private int $id,
-        #[SerializedName(serializedName: 'ATTR_NAME')]
         #[Assert\NotBlank()]
+        #[SerializedName(serializedName: 'ATTR_NAME')]
         private ?string $name,
     ) {
     }

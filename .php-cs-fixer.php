@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 use Ergebnis\License;
 use Ergebnis\PhpCsFixer;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -90,5 +91,6 @@ $config->getFinder()
     ]);
 
 $config->setCacheFile(__DIR__ . '/.php-cs-fixer.cache');
+$config->setParallelConfig(ParallelConfigFactory::detect());
 
 return $config;
