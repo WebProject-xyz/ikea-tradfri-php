@@ -3,8 +3,8 @@ grumphp:
         enabled: true
         fix_by_default: true
     tasks:
-        composer: null
-        codeception: null
+        composer: ~
+        codeception: ~
         phpcsfixer:
             cache_file: ~
             config: .php-cs-fixer.php
@@ -22,3 +22,5 @@ grumphp:
             force_patterns: []
             ignore_patterns: []
             use_grumphp_paths: true
+        securitychecker_roave: ~
+        securitychecker_composeraudit: ~
