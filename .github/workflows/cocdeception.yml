@@ -16,7 +16,7 @@ jobs:
                     - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
         steps:
             -   name: "Checkout"
-                uses: "actions/checkout@v4.1.6"
+                uses: "actions/checkout@v4.1.7"
 
             -   name: "Install PHP"
                 uses: "shivammathur/setup-php@2.30.5"
