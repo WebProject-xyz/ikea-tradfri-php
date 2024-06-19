@@ -723,16 +723,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.38.0",
+            "version": "6.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "1e01cdb53fcbb221321b35a831ce94e77fec8c86"
+                "reference": "39856ecc149809b9a681dfda0f768ba56b8b9a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/1e01cdb53fcbb221321b35a831ce94e77fec8c86",
-                "reference": "1e01cdb53fcbb221321b35a831ce94e77fec8c86",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/39856ecc149809b9a681dfda0f768ba56b8b9a10",
+                "reference": "39856ecc149809b9a681dfda0f768ba56b8b9a10",
                 "shasum": ""
             },
             "require": {
@@ -786,9 +786,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.38.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.39.0"
             },
-            "time": "2024-06-17T13:54:16+00:00"
+            "time": "2024-06-18T15:26:37+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6590,12 +6590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a36c08c63614a0da558615424f8b37b3216416b6"
+                "reference": "22f9af2d843383f1c25638b07d8cbcf18482527e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a36c08c63614a0da558615424f8b37b3216416b6",
-                "reference": "a36c08c63614a0da558615424f8b37b3216416b6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/22f9af2d843383f1c25638b07d8cbcf18482527e",
+                "reference": "22f9af2d843383f1c25638b07d8cbcf18482527e",
                 "shasum": ""
             },
             "conflict": {
@@ -6948,7 +6948,7 @@
                 "mojo42/jirafeau": "<4.4",
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<4.3.4",
+                "moodle/moodle": "<4.3.5|>=4.4.0.0-beta,<4.4.1",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
                 "movingbytes/social-network": "<=1.2.1",
@@ -7385,7 +7385,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-17T23:04:35+00:00"
+            "time": "2024-06-18T22:04:21+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7825,16 +7825,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "6.0.3",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "1d978d75456094ec0c67692bca1d4662d5ce9c9f"
+                "reference": "507d2333cbc4e6ea248fbda2d45ee1511e03da13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/1d978d75456094ec0c67692bca1d4662d5ce9c9f",
-                "reference": "1d978d75456094ec0c67692bca1d4662d5ce9c9f",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/507d2333cbc4e6ea248fbda2d45ee1511e03da13",
+                "reference": "507d2333cbc4e6ea248fbda2d45ee1511e03da13",
                 "shasum": ""
             },
             "require": {
@@ -7891,7 +7891,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/6.0.3"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/6.1.2"
             },
             "funding": [
                 {
@@ -7899,7 +7899,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-17T07:48:18+00:00"
+            "time": "2024-06-18T11:19:56+00:00"
         },
         {
             "name": "sebastian/global-state",
