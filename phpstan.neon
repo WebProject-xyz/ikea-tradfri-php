@@ -6,8 +6,7 @@ parameters:
         - tests
     excludePaths:
         - wiki/*
-        - tests/_*
-        - tests/Support/_generated
+        - tests/
     bootstrapFiles:
         - build/constants.php
     ignoreErrors:

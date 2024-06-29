@@ -16,10 +16,10 @@ jobs:
                     - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
         steps:
             -   name: "Checkout"
-                uses: "actions/checkout@v4.1.4"
+                uses: "actions/checkout@v4.1.7"
 
             -   name: "Install PHP"
-                uses: "shivammathur/setup-php@2.30.4"
+                uses: "shivammathur/setup-php@2.31.0"
                 with:
                     coverage: "${{ matrix.coverage }}"
                     ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
@@ -35,7 +35,7 @@ jobs:
                 run: "composer validate --ansi --strict"
 
             -   name: "Determine composer cache directory"
-                uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.0"
+                uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.2"
 
             -   name: "Cache dependencies installed with composer"
                 uses: "actions/cache@v4.0.2"
@@ -45,7 +45,7 @@ jobs:
                     restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
             -   name: "Install ${{ matrix.dependencies }} dependencies with composer"
-                uses: "ergebnis/.github/actions/composer/install@1.9.0"
+                uses: "ergebnis/.github/actions/composer/install@1.9.2"
                 with:
                     dependencies: "${{ matrix.dependencies }}"
 

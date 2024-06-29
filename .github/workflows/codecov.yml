@@ -13,7 +13,7 @@ jobs:
 
         steps:
             -   name: "Checkout"
-                uses: "actions/checkout@v4.1.4"
+                uses: "actions/checkout@v4.1.7"
 
             -   name: "Install PHP"
                 uses: "shivammathur/setup-php@v2"
@@ -32,7 +32,7 @@ jobs:
                 run: "composer validate --ansi --strict"
 
             -   name: "Determine composer cache directory"
-                uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.0"
+                uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.2"
 
             -   name: "Cache dependencies installed with composer"
                 uses: "actions/cache@v4.0.2"
@@ -42,7 +42,7 @@ jobs:
                     restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
             -   name: "Install ${{ matrix.dependencies }} dependencies with composer"
-                uses: "ergebnis/.github/actions/composer/install@1.9.0"
+                uses: "ergebnis/.github/actions/composer/install@1.9.2"
                 with:
                     dependencies: "${{ matrix.dependencies }}"
 

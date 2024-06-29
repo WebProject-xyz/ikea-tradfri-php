@@ -35,22 +35,22 @@ final readonly class DeviceDto
     ];
 
     public function __construct(
+        #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_ID')]
-        #[Assert\NotBlank()]
         private int $id,
+        #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_NAME')]
-        #[Assert\NotBlank()]
         private ?string $name,
-        #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
-        #[Assert\Valid()]
         #[Assert\NotBlank()]
-        private DeviceInfoDto $deviceInfo,
-        #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         #[Assert\Valid()]
+        #[SerializedName(serializedName: 'ATTR_DEVICE_INFO')]
+        private DeviceInfoDto $deviceInfo,
+        #[Assert\Valid()]
+        #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         private ?LightControlDto $lightControl = null,
         /** @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto> */
-        #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
         #[Assert\Valid()]
+        #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
         private ?array $blindControlDto = null,
     ) {
     }
