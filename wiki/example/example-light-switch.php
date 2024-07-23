@@ -23,10 +23,10 @@ try {
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
         /** @var LightBulb $light */
-        $light = $lights->find(
+        $light = $lights->findFirst(
             static fn ($light) =>
                 /** @var LightBulb $light */
-                $light->getName() === 'Wohnzimmer - Schreibtisch',
+                'Wohnzimmer - Schreibtisch' === $light->getName(),
         );
         echo '---------- Light Information' . \PHP_EOL;
         echo ' ' . \PHP_EOL;

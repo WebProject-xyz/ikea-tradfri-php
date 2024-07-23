@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Serializer;
 
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -33,7 +35,7 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
         $this->initSerializer();
     }
 
-    public function deserialize(mixed $data, string $type, string $format, array $context = []): array|DeviceDto
+    public function deserialize(mixed $data, string $type, string $format, array $context = []): array|DeviceDto|GroupDto
     {
         return $this->serializer->deserialize(
             $data,
@@ -69,15 +71,26 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
             $classMetadataFactory,
             new MetadataAwareNameConverter($classMetadataFactory),
         );
-        $serializer = new Serializer([$denormalizer, new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer()]);
-        $denormalizer->setSerializer($serializer);
-
         $serializer = new Serializer(
             [
-                new Normalizer\ArrayNestingNormalizer($denormalizer),
+                $denormalizer,
+                new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(),
+                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => 'c']),
+            ],
+        );
+        $denormalizer->setSerializer($serializer);
+
+        $this->serializer = new Serializer(
+            [
+                new Normalizer\ArrayNestingNormalizer(
+                    new \IKEA\Tradfri\Serializer\Normalizer\CratedAtNormalizer(
+                        new \IKEA\Tradfri\Serializer\Normalizer\GroupMembersNormalizer(
+                            $denormalizer,
+                        ),
+                    ),
+                ),
             ],
             ['json' => new JsonEncoder()],
         );
-        $this->serializer = $serializer;
     }
 }

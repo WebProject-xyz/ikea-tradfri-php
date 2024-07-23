@@ -70,7 +70,33 @@ final class CoapsTest extends TestCase
         );
     }
 
-    public function testGetLightColorCommand(): void
+    public function testGetLightColorCommandWarm(): void
+    {
+        // Arrange
+        // Act
+        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLOR_WARM);
+
+        // Assert
+        $this->assertSame(
+            'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5709": 33135, "5710": 27211 }] }\' "coaps://127.0.0.1:5684/15001/1"',
+            (string) $commandString,
+        );
+    }
+
+    public function testGetLightColorCommandCold(): void
+    {
+        // Arrange
+        // Act
+        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLOR_COLD);
+
+        // Assert
+        $this->assertSame(
+            'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5709": 24930, "5710": 24684 }] }\' "coaps://127.0.0.1:5684/15001/1"',
+            (string) $commandString,
+        );
+    }
+
+    public function testGetLightColorCommandNormal(): void
     {
         // Arrange
         // Act

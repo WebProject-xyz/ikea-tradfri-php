@@ -40,16 +40,17 @@ final class Get extends AbstractCommand
         return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $this->authConfig->getGatewayUrl(), $request);
     }
 
-    public function run(CommandRunnerInterface $runner, Request|string $request = '', ?int $deviceId = null): array
+    public function run(CommandRunnerInterface $runner, Request|string $request = '', ?int $deviceId = null, bool $throw = false): array
     {
         if ('' === $request) {
-            throw new \InvalidArgumentException('missing target');
+            throw new \InvalidArgumentException(message: 'missing target');
         }
 
         return $runner->execWithTimeout(
-            $this->requestCommand($request, $deviceId),
-            1,
-            true,
+            cmd: $this->requestCommand(request: $request, deviceId: $deviceId),
+            timeout: 1,
+            asArray: true,
+            throw: $throw,
         );
     }
 }

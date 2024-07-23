@@ -33,7 +33,7 @@ final class LightGroup extends DeviceGroup implements BrightnessStateInterface, 
     public function isOff(): bool
     {
         if (false === $this->getLights()->isEmpty()) {
-            return $this->getLights()->getActive()->count() === 0;
+            return 0 === $this->getLights()->getActive()->count();
         }
 
         return false;

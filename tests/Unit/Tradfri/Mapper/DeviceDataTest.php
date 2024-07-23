@@ -124,5 +124,28 @@ final class DeviceDataTest extends UnitTest
 
         $this->assertCount(7, $result->getDevices());
         $this->assertCount(2, $result->getLightBulbs());
+        $this->assertCount(2, $result->getLightBulbs()->sortByState());
+        $this->assertSame([
+            1000 => [
+                'id'            => 1000,
+                'manufacturer'  => 'IKEA of Sweden',
+                'name'          => 'TRADFRI bulb E27 CWS opal 600lm',
+                'type'          => 'TRADFRI bulb E27 CWS opal 600lm',
+                'version'       => '2.3.093',
+                'brightness'    => 100.0,
+                'color'         => 'F1E0B5',
+                'readablestate' => 'Off',
+            ],
+            4000 => [
+                'id'             => 4000,
+                'manufacturer'   => 'IKEA of Sweden',
+                'name'           => 'Wohnzimmer - Fenster 1',
+                'type'           => 'TRADFRI bulb E27 WS opal 980lm',
+                'version'        => '2.3.095',
+                'brightness'     => 100.0,
+                'color'          => 'FF9834',
+                'readablestate'  => 'Off',
+            ],
+        ], $result->getLightBulbs()->sortByState()->jsonSerialize());
     }
 }

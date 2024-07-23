@@ -19,6 +19,7 @@ use IKEA\Tradfri\Device\UnknownDevice;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
@@ -68,12 +69,12 @@ DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
             ->andReturn(['[5000]']);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true, true)
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
@@ -119,12 +120,12 @@ DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
             ->andReturn(['[5000]']);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true, true)
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
@@ -190,17 +191,17 @@ BULB_DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
             ->andReturn(['[' . $sensorDeviceId . ', ' . $lightDeviceId . ']']);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
             ->andReturn([$sensorDeviceJson]);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $lightDeviceId . '"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $lightDeviceId . '"', 1, true, true)
             ->andReturn([$lightDeviceJson]);
 
         $adapter = new CoapAdapter(
@@ -267,12 +268,12 @@ DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
             ->andReturn(['[5000]']);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true, true)
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
@@ -320,7 +321,7 @@ SENSOR_DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
@@ -348,7 +349,7 @@ GROUPS_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
             ->andReturn([$groupIdsJson]);
 
         $adapter = new CoapAdapter(
@@ -507,7 +508,7 @@ SENSOR_DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
@@ -571,17 +572,17 @@ GROUP2_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
             ->andReturn([$groupIdsJson]);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/1234"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/1234"', 1, true, true)
             ->andReturn([$group1Json]);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/4321"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/4321"', 1, true, true)
             ->andReturn([$group2Json]);
 
         $adapter = new CoapAdapter(
@@ -592,8 +593,6 @@ GROUP2_JSON;
             $runner,
         );
 
-        $compareDto   = new \IKEA\Tradfri\Dto\CoapResponse\GroupDto(1234, 'Group 1');
-
         // Act
         $groupData = $adapter->getGroupsData();
         // Assert
@@ -602,10 +601,9 @@ GROUP2_JSON;
         $group = \current($groupData);
 
         $this->assertIsObject($group);
-        $this->assertObjectHasProperty(\IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID, $group);
-        $this->assertSame($compareDto->getId(), $group->{\IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID});
-        $this->assertObjectHasProperty(\IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME, $group);
-        $this->assertSame($compareDto->getName(), $group->{\IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME});
+        $this->assertInstanceOf(GroupDto::class, $group);
+        $this->assertSame(1234, $group->getId());
+        $this->assertSame('Group 1', $group->getName());
     }
 
     public function testGetGroupCollection(): void
@@ -662,23 +660,23 @@ DEVICE_JSON;
         $runner = mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
             ->andReturn([$groupIdsJson]);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/1234"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/1234"', 1, true, true)
             ->andReturn([$group1Json]);
 
         $runner
             ->expects('execWithTimeout')
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/4321"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004/4321"', 1, true, true)
             ->andReturn([$group2Json]);
 
         $runner
             ->expects('execWithTimeout')
             ->times(2)
-            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true)
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/5000"', 1, true, true)
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
@@ -692,8 +690,6 @@ DEVICE_JSON;
         $logger = new LoggerSpy();
         $adapter->setLogger($logger);
 
-        $compareDto   = new \IKEA\Tradfri\Dto\CoapResponse\GroupDto(1234, 'Group 1');
-
         $service = mock(\IKEA\Tradfri\Service\ServiceInterface::class);
         // Act
         $groupCollection = $adapter->getGroupCollection($service);
@@ -705,8 +701,8 @@ DEVICE_JSON;
         $group = $groupCollection->first();
 
         $this->assertInstanceOf(\IKEA\Tradfri\Group\DeviceGroup::class, $group);
-        $this->assertSame($compareDto->getId(), $group->getId());
-        $this->assertSame($compareDto->getName(), $group->getName());
+        $this->assertSame(1234, $group->getId());
+        $this->assertSame('Group 1', $group->getName());
         $this->assertSame([5000], $group->getDeviceIds());
         $this->assertInstanceOf(MotionSensor::class, $group->getDevices()->first());
         $this->assertSame(5000, $group->getDevices()->first()->getId());

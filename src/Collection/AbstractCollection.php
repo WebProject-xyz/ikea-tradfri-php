@@ -16,7 +16,6 @@ namespace IKEA\Tradfri\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\DeviceInterface;
-use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
  * @template TDevice of DeviceInterface&\JsonSerializable
@@ -30,23 +29,6 @@ abstract class AbstractCollection extends ArrayCollection implements \JsonSerial
         $this->set($newItem->getId(), $newItem);
 
         return $this;
-    }
-
-    /**
-     * @throws RuntimeException
-     * @throws RuntimeException
-     *
-     * @phpstan-return DeviceInterface
-     */
-    final public function find(\Closure $closure): ?DeviceInterface
-    {
-        foreach ($this->toArray() as $item) {
-            if (true === $closure($item)) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 
     /**
