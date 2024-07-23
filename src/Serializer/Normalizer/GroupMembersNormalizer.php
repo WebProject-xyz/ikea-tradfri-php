@@ -41,11 +41,11 @@ final class GroupMembersNormalizer implements DenormalizerInterface, LoggerAware
     {
         if ($data[GroupDto::KEY_ATTR_GROUP_MEMBERS] ?? null) {
             $groupMemberIds = $data[GroupDto::KEY_ATTR_GROUP_MEMBERS][GroupDto::KEY_ATTR_GROUP_LIGHTS][9003/* ATTR_GROUP_LIGHTS */] ?? null;
-            if (\is_array($groupMemberIds)) {
-                $data[GroupDto::KEY_ATTR_GROUP_MEMBERS] = $groupMemberIds;
-            } else {
-                $data[GroupDto::KEY_ATTR_GROUP_MEMBERS] = [];
+            if (!\is_array($groupMemberIds)) {
+                $groupMemberIds = [];
             }
+
+            $data[GroupDto::KEY_ATTR_GROUP_MEMBERS] = $groupMemberIds;
         }
 
         return $this->normalizer->denormalize($data, $type, $format, $context);
