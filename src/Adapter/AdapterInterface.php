@@ -15,29 +15,44 @@ namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
 
+/**
+ * @phpstan-type DeviceIdType = positive-int
+ * @phpstan-type DeviceIdsType = array<DeviceIdType>
+ */
 interface AdapterInterface
 {
     public const STATE_ON  = false;
     public const STATE_OFF = false;
 
+    /**
+     * @phpstan-param DeviceIdType $deviceId
+     */
     public function getDeviceData(int $deviceId): DeviceDto;
 
     /**
-     * @phpstan-return array<non-empty-string>
+     * @phpstan-return DeviceIdsType
      */
     public function getDeviceIds(): array;
 
     /**
-     * @phpstan-return array<non-empty-string>
+     * @phpstan-return DeviceIdsType
      */
     public function getGroupIds(): array;
 
+    /**
+     * @phpstan-return GroupDto[]
+     */
     public function getGroupsData(): array;
 
+    /**
+     * @phpstan-param DeviceIdsType|null $deviceIds
+     */
     public function getDevicesData(?array $deviceIds = null): array;
 
     public function changeLightState(int $deviceId, bool $toState): bool;
@@ -48,8 +63,11 @@ interface AdapterInterface
 
     public function setGroupBrightness(int $groupId, int $level): bool;
 
-    public function setRollerBlindPosition(int $rollerBlindId, int $level);
+    public function setRollerBlindPosition(int $rollerBlindId, int $level): bool;
 
+    /**
+     * @phpstan-return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDeviceCollection(ServiceInterface $service): Devices;
 
     public function getGroupCollection(ServiceInterface $service): Groups;

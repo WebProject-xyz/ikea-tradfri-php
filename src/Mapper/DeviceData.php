@@ -27,7 +27,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- * @template T of Devices
+ * @template T of Devices|\IKEA\Tradfri\Collection\LightBulbs
  *
  * @template-implements MapperInterface<Devices>
  */
@@ -38,10 +38,10 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
     /**
      * @throws RuntimeException
      *
-     * @phpstan-param Devices $collection
+     * @phpstan-param T $collection
      * @phpstan-param DeviceDto[] $dataItems
      *
-     * @phpstan-return Devices
+     * @phpstan-return T
      */
     public function map(
         ServiceInterface $service,

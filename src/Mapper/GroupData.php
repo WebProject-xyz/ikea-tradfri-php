@@ -15,10 +15,8 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Group\LightGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
-use IKEA\Tradfri\Validator\Group\Data as GroupDataValidator;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
@@ -41,34 +39,24 @@ final class GroupData implements LoggerAwareInterface, MapperInterface
         iterable $dataItems,
         AbstractCollection $collection,
     ): AbstractCollection {
-        foreach ($dataItems as $device) {
-            if (false === $this->isValidData($device)) {
-                $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($device), 'type' => \get_debug_type($device)]);
+        foreach ($dataItems as $groupDto) {
+            if (!$groupDto instanceof \IKEA\Tradfri\Dto\CoapResponse\GroupDto) {
+                $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($groupDto), 'type' => \get_debug_type($groupDto)]);
                 continue;
             }
 
             $group = new LightGroup(
-                (int) $device->{Keys::ATTR_ID},
+                $groupDto->getId(),
                 $service,
             );
-            $group->setName($device->{Keys::ATTR_NAME});
-            $group->setDeviceIds(
-                $device
-                    ->{Keys::ATTR_GROUP_MEMBERS}
-                    ->{Keys::ATTR_GROUP_LIGHTS}
-                    ->{Keys::ATTR_ID},
-            );
-            $group->setBrightnessLevel($device->{Keys::ATTR_LIGHT_DIMMER});
-            $group->setState((bool) $device->{Keys::ATTR_DEVICE_STATE});
+            $group->setName($groupDto->getName());
+            $group->setDeviceIds($groupDto->getMembers());
+            $group->setBrightnessLevel($groupDto->getDimmerLevel());
+            $group->setState($groupDto->getState());
 
             $collection->addGroup($group);
         }
 
         return $collection;
-    }
-
-    public function isValidData(mixed $device): bool
-    {
-        return (new GroupDataValidator())->isValid($device);
     }
 }

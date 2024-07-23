@@ -15,9 +15,12 @@ namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Group\LightGroup as Group;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
+use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
 /**
  * Class DeviceDataTest.
@@ -49,7 +52,26 @@ final class GroupDataTest extends UnitTest
         $mapper = new GroupData();
         $groups = new Groups();
         // Act
-        $result = $mapper->map($serviceMock, $this->tester->getGroupDataCoapsResponse(), $groups);
+        $groupsItems              =[];
+        $jsonDeviceDataSerializer = new \IKEA\Tradfri\Serializer\JsonDeviceDataSerializer();
+        foreach ($this->tester->getGroupDataCoapsResponse() as $item) {
+            try {
+                $groupsItems[] = $jsonDeviceDataSerializer->deserialize(
+                    (new JsonIntTypeNormalizer())(
+                        jsonString: \json_encode($item),
+                        targetClass: GroupDto::class
+                    ),
+                    GroupDto::class,
+                    $jsonDeviceDataSerializer::FORMAT,
+                );
+            } catch (MissingConstructorArgumentsException $exception) {
+                \codecept_debug('VALID CASE: ' . $exception->getMessage());
+                continue;
+            }
+        }
+
+        $result = $mapper->map($serviceMock, $groupsItems, $groups);
+
         // Assert
         \Mockery::close();
         $this->assertInstanceOf(Groups::class, $result);
@@ -60,6 +82,7 @@ final class GroupDataTest extends UnitTest
         $this->assertInstanceOf(Group::class, $group1);
         $this->assertSame(1000, $group1->getId());
         $this->assertFalse($group1->isOn());
+        $this->assertFalse($group1->isOff());
         $this->assertSame('Group 1', $group1->getName());
         $this->assertSame(38.0, $group1->getBrightness());
 

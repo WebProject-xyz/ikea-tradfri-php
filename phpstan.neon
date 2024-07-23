@@ -3,7 +3,6 @@ parameters:
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     paths:
         - src
-        - tests
     excludePaths:
         - wiki/*
         - tests/

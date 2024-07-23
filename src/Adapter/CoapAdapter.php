@@ -26,6 +26,7 @@ use IKEA\Tradfri\Command\Get;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CommandRunner;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
@@ -238,10 +239,16 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         foreach ($this->getGroupIds() as $groupId) {
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
-            $groupData[$groupId] = $this->requestDataFromHub(
-                Request::RootGroups,
-                (int) $groupId,
+            $rawJson       = (new JsonIntTypeNormalizer())(
+                jsonString: $this->requestDataFromHub(
+                    requestType: Request::RootGroups,
+                    deviceId: (int) $groupId,
+                    returnRawData: true,
+                ),
+                targetClass: GroupDto::class
             );
+
+            $groupData[$groupId] = $this->deviceSerializer->deserialize($rawJson, GroupDto::class, $this->deviceSerializer::FORMAT);
         }
 
         return $groupData;
@@ -264,7 +271,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         $requestCommand = new Get($this->authConfig);
 
         $dataRaw = $this->commands->parseResult(
-            $requestCommand->run($this->runner, $requestType, $deviceId),
+            $requestCommand->run(runner: $this->runner, request: $requestType, deviceId: $deviceId, throw: true),
         ) ?: throw new RuntimeException('invalid hub response');
 
         if ($returnRawData) {

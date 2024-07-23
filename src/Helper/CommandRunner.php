@@ -52,11 +52,17 @@ class CommandRunner implements CommandRunnerInterface
     private function _parseErrors(bool $throw, string $errors): string
     {
         $parts        = \explode("\n", $errors);
+        $countOfLines = \count($parts);
+        $line2IsEmpty = empty($parts[1]);
 
         $errorMessage = match (true) {
-            2 === \count($parts) && !empty($parts[1]),
-            3 === \count($parts) => $parts[1],
-            default              => 'Unknown error',
+            2 === $countOfLines && !$line2IsEmpty,
+            3 === $countOfLines => $parts[1],
+
+            2 === $countOfLines && $line2IsEmpty,
+            2 === $countOfLines => $parts[0],
+
+            default             => 'Unknown error',
         };
 
         return $throw
