@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
-use IKEA\Tradfri\Device\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Device\SwitchableInterface;
 
 /**
  * @method self createFrom(array $elements)

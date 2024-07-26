@@ -60,7 +60,7 @@ final class DeviceDataTest extends UnitTest
 
         $device1 = $result->get(1000);
         $this->assertInstanceOf(LightBulb::class, $device1);
-        $this->assertInstanceOf(\IKEA\Tradfri\Device\SwitchableInterface::class, $device1);
+        $this->assertInstanceOf(\IKEA\Tradfri\Device\Feature\SwitchableInterface::class, $device1);
         $this->assertSame(1000, $device1->getId());
         $this->assertFalse($device1->isOn());
         $this->assertSame('Off', $device1->getReadableState());

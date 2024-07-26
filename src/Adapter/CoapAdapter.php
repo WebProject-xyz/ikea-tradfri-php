@@ -209,7 +209,6 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function getGroupCollection(ServiceInterface $service): Groups
     {
-        /** @var Groups $groups */
         $groups = $this
             ->groupDataMapper
             ->map($service, $this->getGroupsData(), new Groups());

@@ -15,7 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**

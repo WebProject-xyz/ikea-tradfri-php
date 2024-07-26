@@ -15,10 +15,10 @@ namespace IKEA\Tradfri\Service;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\LightBulbs;
-use IKEA\Tradfri\Device\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\DeviceInterface;
-use IKEA\Tradfri\Device\SwitchableInterface;
+use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Group\LightGroup;
 
 interface ServiceInterface

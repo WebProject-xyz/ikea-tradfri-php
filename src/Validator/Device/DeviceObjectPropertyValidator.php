@@ -18,7 +18,7 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Exception\TypeException;
 use IKEA\Tradfri\Validator\ValidatorInterface;
 
-final class Data implements ValidatorInterface
+final class DeviceObjectPropertyValidator implements ValidatorInterface
 {
     /**
      * @param null|mixed|\stdClass $device

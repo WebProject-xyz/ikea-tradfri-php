@@ -11,11 +11,11 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-namespace IKEA\Tradfri\Device;
+namespace IKEA\Tradfri\Device\Feature;
 
-interface DeviceInterface
+interface BooleanStateInterface
 {
-    public function getId(): int;
+    public function isOn(): bool;
 
-    public function getType(): string;
+    public function isOff(): bool;
 }

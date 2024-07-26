@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-namespace IKEA\Tradfri\Device;
+namespace IKEA\Tradfri\Device\Feature;
 
 use IKEA\Tradfri\Exception\RuntimeException;
 

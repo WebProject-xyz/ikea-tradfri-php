@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 
 /**
  * @template TDevice of DeviceInterface&\JsonSerializable

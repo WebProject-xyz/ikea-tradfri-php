@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Group\LightGroup;
+use IKEA\Tradfri\Group\DeviceGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -45,7 +45,7 @@ final class GroupData implements LoggerAwareInterface, MapperInterface
                 continue;
             }
 
-            $group = new LightGroup(
+            $group = new DeviceGroup(
                 $groupDto->getId(),
                 $service,
             );

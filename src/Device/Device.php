@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesManufacturer;

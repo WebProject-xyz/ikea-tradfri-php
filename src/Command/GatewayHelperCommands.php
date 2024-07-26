@@ -59,7 +59,7 @@ final readonly class GatewayHelperCommands
             $this->authConfig->getGatewaySecret(),
         )
         . ' -e \'{"' . Keys::ATTR_CLIENT_IDENTITY_PROPOSED . '":"' . $this->authConfig->getUsername() . '"}\' '
-        . $this->_getRequestTypeCoapsUrl(
+        . $this->getRequestTypeCoapsUrl(
             Request::RootGateway->withTargetId(Keys::ATTR_AUTH),
         );
     }
@@ -80,13 +80,8 @@ final readonly class GatewayHelperCommands
         return $parsed;
     }
 
-    private function _getRequestTypeCoapsUrl(int|string $requestType): string
+    private function getRequestTypeCoapsUrl(int|string $requestType): string
     {
-        return \sprintf('"%s/%s"', $this->getUrl(), $requestType);
-    }
-
-    private function getUrl(): string
-    {
-        return $this->authConfig->getGatewayUrl();
+        return \sprintf('"%s/%s"', $this->authConfig->getGatewayUrl(), $requestType);
     }
 }

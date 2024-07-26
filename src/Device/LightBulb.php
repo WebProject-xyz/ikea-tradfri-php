@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Traits\ProvidesBrightness;
 use IKEA\Tradfri\Traits\ProvidesColor;

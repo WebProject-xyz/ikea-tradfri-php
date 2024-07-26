@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Adapter;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
-use IKEA\Tradfri\Device\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Exception\RuntimeException;

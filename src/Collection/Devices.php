@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\DeviceInterface;
 use IKEA\Tradfri\Device\Dimmer;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Floalt;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\LightBulb;

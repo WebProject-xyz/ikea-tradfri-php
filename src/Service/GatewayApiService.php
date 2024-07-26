@@ -17,12 +17,12 @@ use IKEA\Tradfri\Client\ClientInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
-use IKEA\Tradfri\Device\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Device\SwitchableInterface;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\LightGroup;
 
