@@ -6518,12 +6518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d8dc1096ed61ad571ad74a338e4630b6ee362a07"
+                "reference": "a7df4da9cd5ab8ad109e6ce0f18327790efbe8a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d8dc1096ed61ad571ad74a338e4630b6ee362a07",
-                "reference": "d8dc1096ed61ad571ad74a338e4630b6ee362a07",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a7df4da9cd5ab8ad109e6ce0f18327790efbe8a3",
+                "reference": "a7df4da9cd5ab8ad109e6ce0f18327790efbe8a3",
                 "shasum": ""
             },
             "conflict": {
@@ -6977,7 +6977,7 @@
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
                 "pi/pi": "<=2.5",
-                "pimcore/admin-ui-classic-bundle": "<=1.4.2",
+                "pimcore/admin-ui-classic-bundle": "<=1.5.1",
                 "pimcore/customer-management-framework-bundle": "<4.0.6",
                 "pimcore/data-hub": "<1.2.4",
                 "pimcore/demo": "<10.3",
@@ -7088,7 +7088,7 @@
                 "ssddanbrown/bookstack": "<24.05.1",
                 "statamic/cms": "<4.46|>=5.3,<5.6.2",
                 "stormpath/sdk": "<9.9.99",
-                "studio-42/elfinder": "<2.1.62",
+                "studio-42/elfinder": "<=2.1.64",
                 "studiomitte/friendlycaptcha": "<0.1.4",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
@@ -7322,7 +7322,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-29T17:04:57+00:00"
+            "time": "2024-07-30T18:05:16+00:00"
         },
         {
             "name": "sebastian/cli-parser",
