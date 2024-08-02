@@ -48,13 +48,21 @@ jobs:
 
             -   name: "Run Codeception with coverage"
                 run: |
-                    vendor/bin/codecept run -c . -vvv --coverage --coverage-xml=coverage.xml
+                    vendor/bin/codecept run -c . -vvv --coverage --coverage-xml=coverage.xml --xml
                     
             -   name: "Upload Coverage coverage"
                 run: |
                     export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
                     bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/logs/coverage.xml
-            -   name: Codecov
+
+            -   name: Upload test results to Codecov
+                if: ${{ !cancelled() }}
+                uses: codecov/test-results-action@v1
+                with:
+                    files: ./build/logs/report.xml
+                    token: ${{ secrets.CODECOV_TOKEN }}
+
+            -   name: Upload coverage to Codecov
                 uses: codecov/codecov-action@v4
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
