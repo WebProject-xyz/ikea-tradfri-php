@@ -23,7 +23,7 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Group\LightGroup as Group;
+use IKEA\Tradfri\Group\DeviceGroup as Group;
 use IKEA\Tradfri\Service\GatewayApiService;
 
 /**
@@ -35,7 +35,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         // Act
         $service = new GatewayApiService($client);
         // Assert
@@ -46,7 +46,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('getDevices')->andReturn(new Devices());
         $service = new GatewayApiService($client);
 
@@ -61,7 +61,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('getDevices')->andReturn(new Devices());
 
         $service = new GatewayApiService($client);
@@ -78,7 +78,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(true);
 
         $service = new GatewayApiService($client);
@@ -97,7 +97,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(false);
 
         $service = new GatewayApiService($client);
@@ -116,7 +116,7 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -134,7 +134,7 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -157,7 +157,7 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOn')->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
         $service = new GatewayApiService($client);
 
@@ -173,7 +173,7 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -195,7 +195,7 @@ final class ApiTest extends UnitTest
         $lightBulbs->addDevice(clone $lightBulb);
         $lightBulbs->addDevice((clone $lightBulb)->setId(2));
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('lightOff')->times(2)->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -210,7 +210,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('groupOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -236,7 +236,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('groupOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -257,7 +257,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('groupOff')->andReturn(true);
         $service = new GatewayApiService($client);
         $group   = new Group(1, $service);
@@ -280,7 +280,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('dimGroup')->andReturn(true);
 
         $service = new GatewayApiService($client);
@@ -296,7 +296,7 @@ final class ApiTest extends UnitTest
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('dimLight')->andReturn(true);
 
         $service = new GatewayApiService($client);
@@ -314,7 +314,7 @@ final class ApiTest extends UnitTest
         // Arrange
         $remote = new Remote(1);
 
-        $client  = mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $service = new GatewayApiService($client);
         // Act
         $result = $service->setRollerBlindPosition($remote, 20);
@@ -325,7 +325,7 @@ final class ApiTest extends UnitTest
         // Arrange
         $rollerBlind = new RollerBlind(1, Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND);
 
-        $client  = mock(Client::class);
+        $client  = \Mockery::mock(Client::class);
         $client->expects()->setRollerBlindPosition($rollerBlind, 20)->andReturnUsing(static function () use ($rollerBlind) {
             $rollerBlind->setDarkenedState(20);
 
@@ -346,7 +346,7 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('getGroups')->andReturn(new Groups());
         $service = new GatewayApiService($client);
 

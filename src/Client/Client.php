@@ -18,7 +18,7 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Group\LightGroup as Group;
+use IKEA\Tradfri\Group\DeviceGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
@@ -60,7 +60,7 @@ final class Client implements ClientInterface
         return $wasSet;
     }
 
-    public function groupOn(Group $group): bool
+    public function groupOn(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
         if ($wasSet) {
@@ -70,7 +70,7 @@ final class Client implements ClientInterface
         return $wasSet;
     }
 
-    public function groupOff(Group $group): bool
+    public function groupOff(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
         if ($wasSet) {
@@ -96,7 +96,7 @@ final class Client implements ClientInterface
     /**
      * @phpstan-param LevelType $level
      */
-    public function dimGroup(Group $group, int $level): bool
+    public function dimGroup(DeviceGroup $group, int $level): bool
     {
         $wasSet = $this->adapter->setGroupBrightness($group->getId(), $level);
         if ($wasSet) {

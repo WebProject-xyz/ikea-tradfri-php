@@ -15,6 +15,7 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto as GroupResponseDto;
 use IKEA\Tradfri\Group\DeviceGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -40,7 +41,7 @@ final class GroupData implements LoggerAwareInterface, MapperInterface
         AbstractCollection $collection,
     ): AbstractCollection {
         foreach ($dataItems as $groupDto) {
-            if (!$groupDto instanceof \IKEA\Tradfri\Dto\CoapResponse\GroupDto) {
+            if (!$groupDto instanceof GroupResponseDto) {
                 $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($groupDto), 'type' => \get_debug_type($groupDto)]);
                 continue;
             }

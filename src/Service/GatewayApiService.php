@@ -24,7 +24,7 @@ use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
-use IKEA\Tradfri\Group\LightGroup;
+use IKEA\Tradfri\Group\DeviceGroup;
 
 final class GatewayApiService implements ServiceInterface
 {
@@ -55,12 +55,10 @@ final class GatewayApiService implements ServiceInterface
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
         $lightBulbsCollection->forAll(
-            function (int $lightBulbKey, DeviceInterface $lightBulb): bool {
-                if ($lightBulb->getId() === $lightBulbKey) {
-                    // this is ok but who cares can't make var unused
-                }
-
-                \assert($lightBulb instanceof SwitchableInterface);
+            function (int $lightBulbKey, DeviceInterface&SwitchableInterface $lightBulb): bool {
+                // if ($lightBulb->getId() === $lightBulbKey) {
+                // this is ok but who cares can't make var unused
+                // }
 
                 $this->off($lightBulb);
 
@@ -76,7 +74,7 @@ final class GatewayApiService implements ServiceInterface
      */
     public function off(DeviceInterface&SwitchableInterface $device): bool
     {
-        if ($device instanceof LightGroup) {
+        if ($device instanceof DeviceGroup) {
             return $this->client->groupOff($device);
         }
 
@@ -92,7 +90,7 @@ final class GatewayApiService implements ServiceInterface
      */
     public function on(DeviceInterface&SwitchableInterface $device): bool
     {
-        if ($device instanceof LightGroup) {
+        if ($device instanceof DeviceGroup) {
             return $this->client->groupOn($device);
         }
 
@@ -108,7 +106,7 @@ final class GatewayApiService implements ServiceInterface
      */
     public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool
     {
-        if ($device instanceof LightGroup) {
+        if ($device instanceof DeviceGroup) {
             return $this->client->dimGroup($device, $level);
         }
 

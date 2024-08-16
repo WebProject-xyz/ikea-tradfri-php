@@ -15,11 +15,10 @@ namespace IKEA\Tradfri\Service;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\LightBulbs;
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
-use IKEA\Tradfri\Group\LightGroup;
+use IKEA\Tradfri\Exception\RuntimeException;
 
 interface ServiceInterface
 {
@@ -48,9 +47,7 @@ interface ServiceInterface
     public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool;
 
     /**
-     * @param Device|LightGroup $device
-     *
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function setRollerBlindPosition(DeviceInterface $device, int $level): bool;
 }

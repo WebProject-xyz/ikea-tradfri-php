@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Mapper;
 
+use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Helper\Type;
@@ -46,8 +47,8 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
     public function map(
         ServiceInterface $service,
         iterable $dataItems,
-        \IKEA\Tradfri\Collection\AbstractCollection $collection = new Devices(),
-    ): \IKEA\Tradfri\Collection\AbstractCollection {
+        AbstractCollection $collection = new Devices(),
+    ): AbstractCollection {
         foreach ($dataItems as $device) {
             if (!$device instanceof DeviceDto) {
                 $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($device), 'type' => \get_debug_type($device)]);

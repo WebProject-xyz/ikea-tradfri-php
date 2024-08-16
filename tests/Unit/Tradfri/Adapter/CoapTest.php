@@ -33,7 +33,7 @@ final class CoapTest extends TestCase
     public function testGetDevicesDataCanHandleEmptyDeviceIdsResponse(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner->expects('execWithTimeout')
             ->andReturn(['[]']);
 
@@ -66,7 +66,7 @@ final class CoapTest extends TestCase
 }
 DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -117,7 +117,7 @@ DEVICE_JSON;
 }
 DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -188,7 +188,7 @@ SENSOR_DEVICE_JSON;
     }
 BULB_DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -265,7 +265,7 @@ BULB_DEVICE_JSON;
 }
 DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -287,7 +287,7 @@ DEVICE_JSON;
         $deviceData  = new DeviceInfoDto('manufacturer', 'unknowntype', 'version');
         $deviceDto   = new DeviceDto(12, 'name', $deviceData, null);
 
-        $service = mock(ServiceInterface::class);
+        $service = \Mockery::mock(ServiceInterface::class);
         // Act
         $deviceCollection = $adapter->getDeviceCollection($service);
         // Assert
@@ -318,7 +318,7 @@ DEVICE_JSON;
 }
 SENSOR_DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -346,7 +346,7 @@ SENSOR_DEVICE_JSON;
 [1234, 4321]
 GROUPS_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -372,7 +372,7 @@ GROUPS_JSON;
     public function testChangeLightState(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true, true)
@@ -396,7 +396,7 @@ GROUPS_JSON;
     public function testChangeGroupState(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
@@ -420,7 +420,7 @@ GROUPS_JSON;
     public function testSetLightBrightness(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 59 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
@@ -444,7 +444,7 @@ GROUPS_JSON;
     public function testSetGroupBrightness(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 59 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
@@ -468,7 +468,7 @@ GROUPS_JSON;
     public function testSetRollerBlindPosition(): void
     {
         // Arrange
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 23 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
@@ -505,7 +505,7 @@ GROUPS_JSON;
 }
 SENSOR_DEVICE_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -569,7 +569,7 @@ GROUP_JSON;
 }
 GROUP2_JSON;
 
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -657,7 +657,7 @@ GROUP2_JSON;
     }
 }
 DEVICE_JSON;
-        $runner = mock(Runner::class);
+        $runner = \Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -690,7 +690,7 @@ DEVICE_JSON;
         $logger = new LoggerSpy();
         $adapter->setLogger($logger);
 
-        $service = mock(\IKEA\Tradfri\Service\ServiceInterface::class);
+        $service = \Mockery::mock(\IKEA\Tradfri\Service\ServiceInterface::class);
         // Act
         $groupCollection = $adapter->getGroupCollection($service);
 

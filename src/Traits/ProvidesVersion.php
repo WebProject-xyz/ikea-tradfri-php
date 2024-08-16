@@ -17,9 +17,6 @@ trait ProvidesVersion
 {
     protected string $version;
 
-    /**
-     * Get Version.
-     */
     public function getVersion(): string
     {
         return $this->version;

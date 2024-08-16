@@ -193,7 +193,7 @@ final class CoapsTest extends TestCase
     public function testGetSharedKeyFromGateway(): void
     {
         // Arrange
-        $runner = mock(CommandRunnerInterface::class);
+        $runner = \Mockery::mock(CommandRunnerInterface::class);
         $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
 
         $coaps = $this->buildCoapsCommandsWrapper($runner);

@@ -43,7 +43,7 @@ final readonly class CoapGatewayAuthConfigDto
 
     public function getGatewayUrl(): string
     {
-        return 'coaps://' . $this->gatewayIp . ':5684';
+        return \sprintf('coaps://%s:5684', $this->gatewayIp);
     }
 
     public function injectToCommand(\IKEA\Tradfri\Values\CoapCommandPattern $commandPattern): string

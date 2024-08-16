@@ -32,7 +32,7 @@ final class GroupDataTest extends UnitTest
     public function testICanMapEmptyDataWithNoError(): void
     {
         // Arrange
-        $serviceMock = mock(ServiceInterface::class);
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
         $devices     = [];
 
         $mapper = new GroupData();
@@ -47,7 +47,7 @@ final class GroupDataTest extends UnitTest
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
-        $serviceMock = mock(ServiceInterface::class);
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
 
         $mapper = new GroupData();
         $groups = new Groups();
