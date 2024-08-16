@@ -10,5 +10,3 @@ declare(strict_types=1);
  *
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
-
-\define('COAP_GATEWAY_FLOOD_PROTECTION', 50);
