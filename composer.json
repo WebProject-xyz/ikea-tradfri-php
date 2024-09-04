@@ -37,7 +37,7 @@
     "phpstan/extension-installer": "^1.4.2",
     "phpstan/phpstan": "^1.12.1",
     "phpstan/phpstan-mockery": "^1.1.2",
-    "phpunit/phpunit": "^11.3.2",
+    "phpunit/phpunit": "^11.3.3",
     "rector/rector": "^1.2.4",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^7.0.10 || ^7.1.3",
