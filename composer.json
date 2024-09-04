@@ -34,7 +34,7 @@
     "friendsofphp/php-cs-fixer": "^3.64.0",
     "mockery/mockery": "^1.6.12",
     "phpro/grumphp": "^2.7.0",
-    "phpstan/extension-installer": "^1.4.2",
+    "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^1.12.1",
     "phpstan/phpstan-mockery": "^1.1.2",
     "phpunit/phpunit": "^11.3.3",
