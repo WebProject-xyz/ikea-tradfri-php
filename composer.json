@@ -17,7 +17,7 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "doctrine/collections": "^2.2.2",
-    "phpstan/phpdoc-parser": "^1.32.0",
+    "phpstan/phpdoc-parser": "^1.33.0",
     "roave/better-reflection": "^6.42.0",
     "symfony/property-access": "^7.0.8 || ^7.1.1",
     "symfony/property-info": "^7.0.10 || ^7.1.3",
