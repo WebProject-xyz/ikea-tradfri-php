@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 2.5.1 - 2024-08-23
 
-
 -----
 
 ### Release Notes for [2.5.1](https://github.com/WebProject-xyz/ikea-tradfri-php/milestone/8)

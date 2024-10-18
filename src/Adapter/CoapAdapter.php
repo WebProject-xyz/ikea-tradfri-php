@@ -175,7 +175,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
             if (\array_key_last($deviceIds) !== $index) {
-                \usleep((int) COAP_GATEWAY_FLOOD_PROTECTION);
+                \usleep(50);
             }
         }
 

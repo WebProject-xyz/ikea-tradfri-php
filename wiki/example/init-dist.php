@@ -28,9 +28,6 @@ const COAP_API_USER = 'php-api-user';
 \defined('COAP_GATEWAY_IP') ?: exit('FOLLOW FIRST RUN HELP IN README');
 \defined('COAP_GATEWAY_SECRET') ?: exit('FOLLOW FIRST RUN HELP IN README');
 
-// default: no flood protection (time in microseconds)
-\defined('COAP_GATEWAY_FLOOD_PROTECTION') ?: \define('COAP_GATEWAY_FLOOD_PROTECTION', 50);
-
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 
 $api = (new IKEA\Tradfri\Factory\GatewayServiceFactory(
