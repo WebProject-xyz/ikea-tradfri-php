@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e49e8fef0c86f66725ca867bb37c0bb",
+    "content-hash": "9aa4e5823bab3d9756827aed6d2d3063",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -4443,16 +4443,16 @@
         },
         {
             "name": "phpro/grumphp",
-            "version": "v2.8.0",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpro/grumphp.git",
-                "reference": "b150d47490fba1027445c078f81e879937d1cf00"
+                "reference": "14117189d0c1ce622eabec52b51edab56f1715fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpro/grumphp/zipball/b150d47490fba1027445c078f81e879937d1cf00",
-                "reference": "b150d47490fba1027445c078f81e879937d1cf00",
+                "url": "https://api.github.com/repos/phpro/grumphp/zipball/14117189d0c1ce622eabec52b51edab56f1715fc",
+                "reference": "14117189d0c1ce622eabec52b51edab56f1715fc",
                 "shasum": ""
             },
             "require": {
@@ -4465,7 +4465,7 @@
                 "laravel/serializable-closure": "^1.1",
                 "monolog/monolog": "^2.0 || ^3.0",
                 "ondram/ci-detector": "^4.0",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
                 "psr/container": "^1.1 || ^2.0",
                 "seld/jsonlint": "^1.8",
                 "symfony/config": "^5.4 || ^6.0 || ^7.0",
@@ -4555,9 +4555,9 @@
             "description": "A composer plugin that enables source code quality checks.",
             "support": {
                 "issues": "https://github.com/phpro/grumphp/issues",
-                "source": "https://github.com/phpro/grumphp/tree/v2.8.0"
+                "source": "https://github.com/phpro/grumphp/tree/v2.9.0"
             },
-            "time": "2024-09-16T08:25:39+00:00"
+            "time": "2024-10-25T10:11:05+00:00"
         },
         {
             "name": "phpstan/extension-installer",
