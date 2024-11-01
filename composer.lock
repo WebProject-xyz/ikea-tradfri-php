@@ -6141,12 +6141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b9d92910c727387dcb8f5dac744acab5a0190866"
+                "reference": "e3b44e38648ef5386687032582759f9c616c8d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b9d92910c727387dcb8f5dac744acab5a0190866",
-                "reference": "b9d92910c727387dcb8f5dac744acab5a0190866",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e3b44e38648ef5386687032582759f9c616c8d19",
+                "reference": "e3b44e38648ef5386687032582759f9c616c8d19",
                 "shasum": ""
             },
             "conflict": {
@@ -6466,6 +6466,7 @@
                 "laravel/fortify": "<1.11.1",
                 "laravel/framework": "<6.20.44|>=7,<7.30.6|>=8,<8.75",
                 "laravel/laravel": ">=5.4,<5.4.22",
+                "laravel/reverb": "<1.4",
                 "laravel/socialite": ">=1,<2.0.10",
                 "latte/latte": "<2.10.8",
                 "lavalite/cms": "<=9|==10.1",
@@ -6876,7 +6877,7 @@
                 "xataface/xataface": "<3",
                 "xpressengine/xpressengine": "<3.0.15",
                 "yab/quarx": "<2.4.5",
-                "yeswiki/yeswiki": "<4.1",
+                "yeswiki/yeswiki": "<=4.4.4",
                 "yetiforce/yetiforce-crm": "<=6.4",
                 "yidashi/yii2cmf": "<=2",
                 "yii2mod/yii2-cms": "<1.9.2",
@@ -6967,7 +6968,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-30T23:05:00+00:00"
+            "time": "2024-10-31T18:06:19+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7141,16 +7142,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "6.2.0",
+            "version": "6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "df95a6e827808debe3dbe190022dd0f643d5d909"
+                "reference": "43d129d6a0f81c78bee378b46688293eb7ea3739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/df95a6e827808debe3dbe190022dd0f643d5d909",
-                "reference": "df95a6e827808debe3dbe190022dd0f643d5d909",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/43d129d6a0f81c78bee378b46688293eb7ea3739",
+                "reference": "43d129d6a0f81c78bee378b46688293eb7ea3739",
                 "shasum": ""
             },
             "require": {
@@ -7206,7 +7207,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/6.2.0"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/6.2.1"
             },
             "funding": [
                 {
@@ -7214,7 +7215,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-30T13:12:44+00:00"
+            "time": "2024-10-31T05:30:08+00:00"
         },
         {
             "name": "sebastian/complexity",
