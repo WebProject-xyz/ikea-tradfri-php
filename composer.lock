@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a91fb0354b4cae004538ef1b95f07da8",
+    "content-hash": "aa8d57115f3aa98dfd1babc8563902a9",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -3208,16 +3208,16 @@
         },
         {
             "name": "ergebnis/php-cs-fixer-config",
-            "version": "6.37.0",
+            "version": "6.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/php-cs-fixer-config.git",
-                "reference": "741cf139c5889d58cae8c89fa693b73fc3d92ac1"
+                "reference": "0a3e42ee69840c9931e555e2b8512b93dc0629e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/741cf139c5889d58cae8c89fa693b73fc3d92ac1",
-                "reference": "741cf139c5889d58cae8c89fa693b73fc3d92ac1",
+                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/0a3e42ee69840c9931e555e2b8512b93dc0629e8",
+                "reference": "0a3e42ee69840c9931e555e2b8512b93dc0629e8",
                 "shasum": ""
             },
             "require": {
@@ -3228,19 +3228,21 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.43.0",
-                "ergebnis/data-provider": "^3.2.0",
-                "ergebnis/license": "^2.4.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.15.1",
-                "ergebnis/rector-rules": "~1.0.1",
-                "fakerphp/faker": "^1.23.1",
-                "infection/infection": "~0.26.6",
-                "phpunit/phpunit": "^9.6.19",
-                "psalm/plugin-phpunit": "~0.19.0",
-                "rector/rector": "^1.2.5",
+                "ergebnis/composer-normalize": "^2.44.0",
+                "ergebnis/data-provider": "^3.4.0",
+                "ergebnis/license": "^2.6.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
+                "ergebnis/rector-rules": "^1.2.0",
+                "fakerphp/faker": "^1.24.1",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^1.12.11",
+                "phpstan/phpstan-deprecation-rules": "^1.2.1",
+                "phpstan/phpstan-phpunit": "^1.4.1",
+                "phpstan/phpstan-strict-rules": "^1.6.1",
+                "phpunit/phpunit": "^9.6.21",
+                "rector/rector": "^1.2.10",
                 "symfony/filesystem": "^5.0.0 || ^6.0.0",
-                "symfony/process": "^5.0.0 || ^6.0.0",
-                "vimeo/psalm": "^5.26.1"
+                "symfony/process": "^5.0.0 || ^6.0.0"
             },
             "type": "library",
             "extra": {
@@ -3272,7 +3274,7 @@
                 "security": "https://github.com/ergebnis/php-cs-fixer-config/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/php-cs-fixer-config"
             },
-            "time": "2024-09-27T15:41:26+00:00"
+            "time": "2024-11-24T10:54:01+00:00"
         },
         {
             "name": "erickskrauch/php-cs-fixer-custom-fixers",
