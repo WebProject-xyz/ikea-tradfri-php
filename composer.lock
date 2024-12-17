@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c46abcd41c43477ed48e0e2bdcbe34a",
+    "content-hash": "7c9f8071ee1d2faa6b9b85e3911fae09",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -139,23 +139,23 @@
         },
         {
             "name": "jetbrains/phpstorm-stubs",
-            "version": "v2024.2",
+            "version": "v2024.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-stubs.git",
-                "reference": "cf7e447ddfa7f0cbab0c1dd38392f0cb05f9881c"
+                "reference": "0e82bdfe850c71857ee4ee3501ed82a9fc5d043c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/cf7e447ddfa7f0cbab0c1dd38392f0cb05f9881c",
-                "reference": "cf7e447ddfa7f0cbab0c1dd38392f0cb05f9881c",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/0e82bdfe850c71857ee4ee3501ed82a9fc5d043c",
+                "reference": "0e82bdfe850c71857ee4ee3501ed82a9fc5d043c",
                 "shasum": ""
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "v3.46.0",
-                "nikic/php-parser": "v5.0.0",
-                "phpdocumentor/reflection-docblock": "5.3.0",
-                "phpunit/phpunit": "10.5.5"
+                "friendsofphp/php-cs-fixer": "v3.64.0",
+                "nikic/php-parser": "v5.3.1",
+                "phpdocumentor/reflection-docblock": "5.6.0",
+                "phpunit/phpunit": "11.4.3"
             },
             "type": "library",
             "autoload": {
@@ -180,9 +180,9 @@
                 "type"
             ],
             "support": {
-                "source": "https://github.com/JetBrains/phpstorm-stubs/tree/v2024.2"
+                "source": "https://github.com/JetBrains/phpstorm-stubs/tree/v2024.3"
             },
-            "time": "2024-06-17T19:18:18+00:00"
+            "time": "2024-12-14T08:03:12+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -344,21 +344,21 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.46.0",
+            "version": "6.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "75447b4f722c408f780dc46c4b003389eb7939f3"
+                "reference": "ab1721c6c3276b66cb2e01dc6c7c5bb966e5c912"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/75447b4f722c408f780dc46c4b003389eb7939f3",
-                "reference": "75447b4f722c408f780dc46c4b003389eb7939f3",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/ab1721c6c3276b66cb2e01dc6c7c5bb966e5c912",
+                "reference": "ab1721c6c3276b66cb2e01dc6c7c5bb966e5c912",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "jetbrains/phpstorm-stubs": "2024.2",
+                "jetbrains/phpstorm-stubs": "2024.3",
                 "nikic/php-parser": "^5.3.1",
                 "php": "~8.2.0 || ~8.3.2 || ~8.4.1"
             },
@@ -407,9 +407,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.46.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.47.0"
             },
-            "time": "2024-12-12T10:54:13+00:00"
+            "time": "2024-12-17T13:37:45+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4614,16 +4614,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.12",
+            "version": "1.12.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0"
+                "reference": "9b469068840cfa031e1deaf2fa1886d00e20680f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0",
-                "reference": "b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b469068840cfa031e1deaf2fa1886d00e20680f",
+                "reference": "9b469068840cfa031e1deaf2fa1886d00e20680f",
                 "shasum": ""
             },
             "require": {
@@ -4668,7 +4668,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-28T22:13:23+00:00"
+            "time": "2024-12-17T17:00:20+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
