@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4182a228557e3b6a9674fabd42c0b52",
+    "content-hash": "a106790c7624fc98f88329301cc8dc9f",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -3146,22 +3146,22 @@
         },
         {
             "name": "ergebnis/php-cs-fixer-config",
-            "version": "6.42.0",
+            "version": "6.42.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/php-cs-fixer-config.git",
-                "reference": "f12abae06197016f669e380cf4d35252f1ebb8b3"
+                "reference": "9b7ec9359ddc7b702d61625a30cdb3a028f43aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/f12abae06197016f669e380cf4d35252f1ebb8b3",
-                "reference": "f12abae06197016f669e380cf4d35252f1ebb8b3",
+                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/9b7ec9359ddc7b702d61625a30cdb3a028f43aa6",
+                "reference": "9b7ec9359ddc7b702d61625a30cdb3a028f43aa6",
                 "shasum": ""
             },
             "require": {
                 "erickskrauch/php-cs-fixer-custom-fixers": "~1.3.0",
                 "ext-filter": "*",
-                "friendsofphp/php-cs-fixer": "~3.68.0",
+                "friendsofphp/php-cs-fixer": "~3.68.1",
                 "kubawerlos/php-cs-fixer-custom-fixers": "~3.22.0",
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
@@ -3169,7 +3169,7 @@
                 "ergebnis/composer-normalize": "^2.45.0",
                 "ergebnis/data-provider": "^3.4.0",
                 "ergebnis/license": "^2.6.0",
-                "ergebnis/phpstan-rules": "^2.6.0",
+                "ergebnis/phpstan-rules": "^2.6.1",
                 "ergebnis/phpunit-slow-test-detector": "^2.17.0",
                 "ergebnis/rector-rules": "^1.3.0",
                 "fakerphp/faker": "^1.24.1",
@@ -3213,7 +3213,7 @@
                 "security": "https://github.com/ergebnis/php-cs-fixer-config/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/php-cs-fixer-config"
             },
-            "time": "2025-01-15T06:47:06+00:00"
+            "time": "2025-01-18T09:52:30+00:00"
         },
         {
             "name": "erickskrauch/php-cs-fixer-custom-fixers",
