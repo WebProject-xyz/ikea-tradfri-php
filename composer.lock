@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "213b14259023d856fe060f72419d345d",
+    "content-hash": "fe1fa67fbace4830ba0178e5a2bb6d38",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -344,16 +344,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.53.0",
+            "version": "6.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "c1326ba4fb88a8507c1e05cba17c9f8e52c59e8a"
+                "reference": "18f3778192f4f38d07f2f5bac63b43c5682f20e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/c1326ba4fb88a8507c1e05cba17c9f8e52c59e8a",
-                "reference": "c1326ba4fb88a8507c1e05cba17c9f8e52c59e8a",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/18f3778192f4f38d07f2f5bac63b43c5682f20e2",
+                "reference": "18f3778192f4f38d07f2f5bac63b43c5682f20e2",
                 "shasum": ""
             },
             "require": {
@@ -407,9 +407,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.53.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.54.0"
             },
-            "time": "2025-01-24T14:09:33+00:00"
+            "time": "2025-01-25T13:13:25+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
