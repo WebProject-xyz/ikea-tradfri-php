@@ -31,7 +31,7 @@
     "codeception/module-asserts": "^3.0.0",
     "ergebnis/license": "^2.6.0",
     "ergebnis/php-cs-fixer-config": "^6.42.2",
-    "friendsofphp/php-cs-fixer": "^3.68.3",
+    "friendsofphp/php-cs-fixer": "^3.68.4",
     "mockery/mockery": "^1.6.12",
     "phpro/grumphp": "^2.10.0",
     "phpstan/extension-installer": "^1.4.3",
