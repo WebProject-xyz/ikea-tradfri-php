@@ -50,11 +50,6 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         AbstractCollection $collection = new Devices(),
     ): AbstractCollection {
         foreach ($dataItems as $device) {
-            if (!$device instanceof DeviceDto) {
-                $this->logger?->warning('invalid device detected - skipped', ['device' => \serialize($device), 'type' => \get_debug_type($device)]);
-                continue;
-            }
-
             $model = $this->getModel(
                 $device,
             );

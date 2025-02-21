@@ -20,10 +20,6 @@ use IKEA\Tradfri\Helper\CommandRunnerInterface;
 
 final readonly class GatewayHelperCommands
 {
-    /**
-     * @throws \InvalidArgumentException
-     * @throws RuntimeException
-     */
     public function __construct(
         private \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,
         private CommandRunnerInterface $runner = new CommandRunner(),
