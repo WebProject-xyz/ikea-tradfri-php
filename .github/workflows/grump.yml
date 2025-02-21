@@ -52,4 +52,4 @@ jobs:
             -   name: "Run GrumPHP"
                 run: |
                     vendor/bin/codecept build -c .
-                    vendor/bin/grumphp
+                    vendor/bin/grumphp run
