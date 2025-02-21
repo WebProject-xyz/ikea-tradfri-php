@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright (c) 2024 Benjamin Fahl
+Copyright (c) 2025 Benjamin Fahl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the _Software_), to deal in the Software without restriction, including without limitation the
