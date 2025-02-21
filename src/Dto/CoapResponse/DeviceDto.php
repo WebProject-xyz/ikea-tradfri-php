@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class DeviceDto
 {
-    public const ATTR_MAP = [
+    public const array ATTR_MAP = [
         // - root node
         '"ATTR_ID"'                      => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID . '"#',
         '"ATTR_NAME"'                    => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME . '"#',

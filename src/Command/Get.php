@@ -18,9 +18,9 @@ use IKEA\Tradfri\Values\CoapCommandPattern;
 
 final class Get extends AbstractCommand
 {
-    final public const COAP_COMMAND                  = 'coap-client -m get -u "%s" -k "%s"';
-    private const COAP_COMMAND_FORMAT                = '%s "%s/%s"';
-    private const COAP_COMMAND_FORMAT_WITH_DEVICE_ID = '%s "%s/%s/%s"';
+    final public const string COAP_COMMAND                  = 'coap-client -m get -u "%s" -k "%s"';
+    private const string COAP_COMMAND_FORMAT                = '%s "%s/%s"';
+    private const string COAP_COMMAND_FORMAT_WITH_DEVICE_ID = '%s "%s/%s/%s"';
 
     public function __construct(\IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig)
     {

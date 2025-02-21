@@ -18,17 +18,17 @@ use IKEA\Tradfri\Exception\RuntimeException;
 
 final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 {
-    public const COLOR_WARM             = 'warm';
-    public const COLOR_NORMAL           = 'normal';
-    public const COLOR_COLD             = 'cold';
-    private const COLORS                = [
+    public const string COLOR_WARM             = 'warm';
+    public const string COLOR_NORMAL           = 'normal';
+    public const string COLOR_COLD             = 'cold';
+    private const array COLORS                 = [
         self::COLOR_COLD,
         self::COLOR_NORMAL,
         self::COLOR_WARM,
     ];
-    private const FORMAT_DEVICE      = '-e \'{ "%s": [{ "%s": %s }] }\'';
-    private const FORMAT_GROUP       = '-e \'{ "%s": %s }\'';
-    private const FORMAT_LIGHT_COLOR = '-e \'{ "' . Keys::ATTR_LIGHT_CONTROL . '": [{ "' . Keys::ATTR_LIGHT_COLOR_X . '": %s, "' . Keys::ATTR_LIGHT_COLOR_Y . '": %s }] }\'';
+    private const string FORMAT_DEVICE      = '-e \'{ "%s": [{ "%s": %s }] }\'';
+    private const string FORMAT_GROUP       = '-e \'{ "%s": %s }\'';
+    private const string FORMAT_LIGHT_COLOR = '-e \'{ "' . Keys::ATTR_LIGHT_CONTROL . '": [{ "' . Keys::ATTR_LIGHT_COLOR_X . '": %s, "' . Keys::ATTR_LIGHT_COLOR_Y . '": %s }] }\'';
 
     public function __construct(
         private string $target,

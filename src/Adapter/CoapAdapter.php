@@ -41,7 +41,7 @@ use Psr\Log\LoggerAwareTrait;
 final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
-    private const COULD_NOT_SWITCH_STATE = 'Could not switch state';
+    private const string COULD_NOT_SWITCH_STATE = 'Could not switch state';
 
     public function __construct(
         private readonly CoapGatewayAuthConfigDto $authConfig,

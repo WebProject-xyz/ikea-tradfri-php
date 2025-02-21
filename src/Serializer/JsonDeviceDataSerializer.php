@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Serializer;
 
 final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\SerializerInterface
 {
-    final public const FORMAT = JsonEncoder::FORMAT;
+    final public const string FORMAT = JsonEncoder::FORMAT;
     private Serializer $serializer;
 
     public function __construct()

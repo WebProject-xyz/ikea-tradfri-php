@@ -30,6 +30,7 @@ final class LightSwitchStateCommand extends Put
         parent::__construct($authConfig);
     }
 
+    #[\Override()]
     public function __toString(): string
     {
         return $this->requestCommand(
@@ -42,6 +43,7 @@ final class LightSwitchStateCommand extends Put
         );
     }
 
+    #[\Override()]
     public function run(CommandRunnerInterface $runner): bool
     {
         $result= $runner->execWithTimeout(

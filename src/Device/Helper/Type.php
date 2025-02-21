@@ -31,26 +31,26 @@ use IKEA\Tradfri\Exception\RuntimeException;
  */
 final class Type
 {
-    final public const BLUB                    = 'TRADFRI bulb';
-    final public const BLUB_CLASS              = LightBulb::class;
-    final public const MOTION_SENSOR           = 'TRADFRI motion sensor';
-    final public const MOTION_SENSOR_CLASS     = MotionSensor::class;
-    final public const REMOTE                  = 'TRADFRI remote control';
-    final public const REMOTE_CLASS            = Remote::class;
-    final public const DIMMER                  = 'TRADFRI dimmer';
-    final public const DIMMER_CLASS            = Dimmer::class;
-    final public const DRIVER                  = 'TRADFRI Driver ';
-    final public const DRIVER_CLASS            = Driver::class;
-    final public const FLOALT                  = 'FLOALT panel ';
-    final public const FLOALT_CLASS            = Floalt::class;
-    final public const REPEATER                = 'TRADFRI Signal Repeater';
-    final public const REPEATER_CLASS          = Repeater::class;
-    final public const REMOTE_OPEN_CLOSE       = 'TRADFRI open/close remote';
-    final public const REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
-    final public const ROLLER_BLIND            = 'FYRTUR block-out roller blind';
-    final public const ROLLER_BLIND_CLASS      = RollerBlind::class;
-    final public const CONTROL_OUTLET          = 'TRADFRI control outlet';
-    final public const CONTROL_OUTLET_CLASS    = ControlOutlet::class;
+    final public const string BLUB                    = 'TRADFRI bulb';
+    final public const string BLUB_CLASS              = LightBulb::class;
+    final public const string MOTION_SENSOR           = 'TRADFRI motion sensor';
+    final public const string MOTION_SENSOR_CLASS     = MotionSensor::class;
+    final public const string REMOTE                  = 'TRADFRI remote control';
+    final public const string REMOTE_CLASS            = Remote::class;
+    final public const string DIMMER                  = 'TRADFRI dimmer';
+    final public const string DIMMER_CLASS            = Dimmer::class;
+    final public const string DRIVER                  = 'TRADFRI Driver ';
+    final public const string DRIVER_CLASS            = Driver::class;
+    final public const string FLOALT                  = 'FLOALT panel ';
+    final public const string FLOALT_CLASS            = Floalt::class;
+    final public const string REPEATER                = 'TRADFRI Signal Repeater';
+    final public const string REPEATER_CLASS          = Repeater::class;
+    final public const string REMOTE_OPEN_CLOSE       = 'TRADFRI open/close remote';
+    final public const string REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
+    final public const string ROLLER_BLIND            = 'FYRTUR block-out roller blind';
+    final public const string ROLLER_BLIND_CLASS      = RollerBlind::class;
+    final public const string CONTROL_OUTLET          = 'TRADFRI control outlet';
+    final public const string CONTROL_OUTLET_CLASS    = ControlOutlet::class;
 
     /**
      * Check if given type attribute is from a light blub.

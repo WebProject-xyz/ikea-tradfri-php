@@ -18,8 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class GroupDto
 {
-    public const KEY_ATTR_GROUP_MEMBERS ='ATTR_GROUP_MEMBERS';
-    public const KEY_ATTR_GROUP_LIGHTS  ='ATTR_GROUP_LIGHTS';
+    public const string KEY_ATTR_GROUP_MEMBERS ='ATTR_GROUP_MEMBERS';
+    public const string KEY_ATTR_GROUP_LIGHTS  ='ATTR_GROUP_LIGHTS';
 
     /**
      * {
@@ -37,7 +37,7 @@ final readonly class GroupDto
      *   }
      *  }.
      */
-    public const ATTR_MAP = [
+    public const array ATTR_MAP = [
         '"ATTR_ID"'                                                   => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID . '"#',
         '"ATTR_NAME"'                                                 => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME . '"#',
         '"ATTR_CREATED_AT"'                                           => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_CREATED_AT . '"#',

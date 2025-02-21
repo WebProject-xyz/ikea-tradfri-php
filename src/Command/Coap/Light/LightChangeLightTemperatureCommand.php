@@ -30,6 +30,7 @@ final class LightChangeLightTemperatureCommand extends Put
         parent::__construct($authConfig);
     }
 
+    #[\Override()]
     public function __toString(): string
     {
         return $this->requestCommand(

@@ -21,8 +21,8 @@ use IKEA\Tradfri\Values\CoapCommandPattern;
  */
 class Put extends AbstractCommand
 {
-    final public const COAP_COMMAND   = 'coap-client -m put -u "%s" -k "%s"';
-    private const COAP_COMMAND_FORMAT = '%s %s "%s/%s"';
+    final public const string COAP_COMMAND   = 'coap-client -m put -u "%s" -k "%s"';
+    private const string COAP_COMMAND_FORMAT = '%s %s "%s/%s"';
 
     public function __construct(\IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig)
     {

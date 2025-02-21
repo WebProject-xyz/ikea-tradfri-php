@@ -28,7 +28,7 @@ use IKEA\Tradfri\Group\DeviceGroup;
 
 final class GatewayApiService implements ServiceInterface
 {
-    final public const INVALID_DEVICE_TYPE = 'invalid device type: ';
+    final public const string INVALID_DEVICE_TYPE = 'invalid device type: ';
 
     public function __construct(protected ClientInterface $client)
     {

@@ -18,7 +18,7 @@ namespace IKEA\Tradfri\Command\Coap;
  */
 final class Receiver
 {
-    final public const COAP_COMMAND = '%s invalid %s';
+    final public const string COAP_COMMAND = '%s invalid %s';
     private string $requestType;
     private string $injectCommand;
 

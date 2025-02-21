@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 
+use Codeception\Attribute\DataProvider;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\UnknownDevice;
@@ -22,9 +23,7 @@ use IKEA\Tradfri\Device\UnknownDevice;
  */
 final class TypeTest extends \Codeception\Test\Unit
 {
-    /**
-     * @dataProvider provideIsLightBulbCases
-     */
+    #[\Codeception\Attribute\DataProvider('provideIsLightBulbCases')]
     public function testIsLightBulb(
         string $typeAttribute,
         bool $assertTrue,
@@ -62,9 +61,7 @@ final class TypeTest extends \Codeception\Test\Unit
         ];
     }
 
-    /**
-     * @dataProvider provideIsDimmerCases
-     */
+    #[\Codeception\Attribute\DataProvider('provideIsDimmerCases')]
     public function testIsDimmer(
         string $typeAttribute,
         bool $assertTrue,
@@ -102,9 +99,7 @@ final class TypeTest extends \Codeception\Test\Unit
         ];
     }
 
-    /**
-     * @dataProvider provideIsRemoteCases
-     */
+    #[\Codeception\Attribute\DataProvider('provideIsRemoteCases')]
     public function testIsRemote(
         string $typeAttribute,
         bool $assertTrue,
@@ -142,9 +137,7 @@ final class TypeTest extends \Codeception\Test\Unit
         ];
     }
 
-    /**
-     * @dataProvider provideIsMotionSensorCases
-     */
+    #[\Codeception\Attribute\DataProvider('provideIsMotionSensorCases')]
     public function testIsMotionSensor(
         string $typeAttribute,
         bool $assertTrue,
@@ -182,9 +175,7 @@ final class TypeTest extends \Codeception\Test\Unit
         ];
     }
 
-    /**
-     * @dataProvider provideKnownDeviceTypeCases
-     */
+    #[DataProvider('provideKnownDeviceTypeCases')]
     public function testKnownDeviceType(
         string $typeAttribute,
         bool $assertTrue,
