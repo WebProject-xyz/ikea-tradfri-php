@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="codeception" type="CodeceptionConfigurationType" factoryName="Codeception">
+    <CommandLine>
+      <envs>
+        <env name="XDEBUG_MODE" value="coverage" />
+      </envs>
+    </CommandLine>
+    <PhpTestRunnerSettings method="" scope="ConfigurationFile" />
+    <method v="2" />
+  </configuration>
+</component>
