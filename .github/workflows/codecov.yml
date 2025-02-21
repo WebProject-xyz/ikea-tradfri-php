@@ -2,14 +2,14 @@ on: [ push, pull_request ]
 name: Codecov
 
 jobs:
-    codeception-tests:
-        name: "Codeception tests"
+    codeception-tests-coverage:
+        name: "Codecov and Codacy coverage run"
         runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
         strategy:
             matrix:
                 include:
-                    - { php-version: 8.2, dependencies: locked, coverage: xdebug, with_coverage: true, allow-fail: false }
+                    - { php-version: 8.3, dependencies: locked, coverage: xdebug, with_coverage: true, allow-fail: false }
 
         steps:
             -   name: "Checkout"

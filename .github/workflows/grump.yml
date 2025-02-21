@@ -1,19 +1,19 @@
 on: [ push, pull_request ]
-name: "Unit Tests"
+name: "QA"
 
 jobs:
-    codeception-tests:
-        name: "Codeception tests"
+    grump:
+        name: "GrumPHP Run"
         runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
         strategy:
             matrix:
                 include:
-                    - { php-version: 8.2, dependencies: locked, coverage: none, with_coverage: true, allow-fail: false }
-                    - { php-version: 8.2, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
-
-                    - { php-version: 8.3, dependencies: locked, coverage: none, with_coverage: false, allow-fail: true }
+                    - { php-version: 8.3, dependencies: locked, coverage: none, with_coverage: false, allow-fail: false }
                     - { php-version: 8.3, dependencies: highest, coverage: none, with_coverage: false, allow-fail: false }
+
+                    - { php-version: 8.4, dependencies: locked, coverage: none, with_coverage: false, allow-fail: true }
+                    - { php-version: 8.4, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
         steps:
             -   name: "Checkout"
                 uses: "actions/checkout@v4.1.7"
@@ -49,6 +49,7 @@ jobs:
                 with:
                     dependencies: "${{ matrix.dependencies }}"
 
-            -   name: "Run Codeception"
+            -   name: "Run GrumPHP"
                 run: |
-                    vendor/bin/codecept run -c .
+                    vendor/bin/codecept build -c .
+                    vendor/bin/grumphp
