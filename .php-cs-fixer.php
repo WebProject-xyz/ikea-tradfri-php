@@ -29,7 +29,7 @@ $license = License\Type\MIT::markdown(
 
 $license->save();
 
-$ruleSet = PhpCsFixer\Config\RuleSet\Php82::create()
+$ruleSet = PhpCsFixer\Config\RuleSet\Php83::create()
     ->withHeader($license->header())
     ->withRules(PhpCsFixer\Config\Rules::fromArray(
         [
