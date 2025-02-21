@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2024 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,7 +20,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $license = License\Type\MIT::markdown(
     __DIR__ . '/LICENSE.md',
     License\Range::since(
-        License\Year::fromString('2024'),
+        License\Year::fromString('2025'),
         new DateTimeZone('Europe/Berlin'),
     ),
     License\Holder::fromString('Benjamin Fahl'),
