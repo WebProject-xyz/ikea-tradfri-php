@@ -45,7 +45,7 @@ class CommandRunner implements CommandRunnerInterface
         $output = $process->getOutput();
 
         return $asArray
-            ? \explode("\n", \trim($output))
+            ? \explode("\n", \mb_trim($output))
             : $output;
     }
 
