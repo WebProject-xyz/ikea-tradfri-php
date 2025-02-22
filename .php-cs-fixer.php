@@ -79,6 +79,7 @@ $config->getFinder()
         'build/',
         '.github/',
         'var/',
+        'tests/Support/_generated/',
     ])
     ->ignoreDotFiles(false)
     ->in(__DIR__)
