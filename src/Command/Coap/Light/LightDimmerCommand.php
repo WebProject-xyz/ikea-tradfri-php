@@ -37,7 +37,7 @@ final class LightDimmerCommand extends Put
             (string) CoapGatewayRequestPayloadDto::fromValues(
                 Keys::ATTR_LIGHT_CONTROL,
                 Keys::ATTR_LIGHT_DIMMER,
-                (int) \round($this->value * 2.55),
+                (int) \abs(\round($this->value * 2.55, 0, \PHP_ROUND_HALF_EVEN)),
             ),
         );
     }
