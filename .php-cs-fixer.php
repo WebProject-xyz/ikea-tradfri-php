@@ -79,7 +79,6 @@ $config->getFinder()
         'build/',
         '.github/',
         'var/',
-        'tests/Support/_generated/',
     ])
     ->ignoreDotFiles(false)
     ->in(__DIR__)
@@ -89,6 +88,7 @@ $config->getFinder()
     ])
     ->notName([
         '.env.local.php',
+        'UnitTesterActions.php',
     ]);
 
 $config->setCacheFile(__DIR__ . '/.php-cs-fixer.cache');
