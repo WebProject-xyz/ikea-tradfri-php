@@ -6,6 +6,8 @@ jobs:
         name: "GrumPHP Run"
         runs-on: "ubuntu-latest"
         continue-on-error: ${{ matrix.allow-fail }}
+        env:
+            PHP_CS_FIXER_IGNORE_ENV: true
         strategy:
             matrix:
                 include:
