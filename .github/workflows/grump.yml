@@ -18,10 +18,10 @@ jobs:
                     - { php-version: 8.4, dependencies: highest, coverage: none, with_coverage: false, allow-fail: true }
         steps:
             -   name: "Checkout"
-                uses: "actions/checkout@v4.1.7"
+                uses: "actions/checkout@v4.2.2"
 
             -   name: "Install PHP"
-                uses: "shivammathur/setup-php@2.31.1"
+                uses: "shivammathur/setup-php@2.32.0"
                 with:
                     coverage: "${{ matrix.coverage }}"
                     ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
@@ -40,7 +40,7 @@ jobs:
                 uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.2"
 
             -   name: "Cache dependencies installed with composer"
-                uses: "actions/cache@v4.0.2"
+                uses: "actions/cache@v4.2.1"
                 with:
                     path: "${{ env.COMPOSER_CACHE_DIR }}"
                     key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('composer.lock') }}"

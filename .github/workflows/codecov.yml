@@ -13,7 +13,7 @@ jobs:
 
         steps:
             -   name: "Checkout"
-                uses: "actions/checkout@v4.1.7"
+                uses: "actions/checkout@v4.2.2"
 
             -   name: "Install PHP"
                 uses: "shivammathur/setup-php@v2"
@@ -35,7 +35,7 @@ jobs:
                 uses: "ergebnis/.github/actions/composer/determine-cache-directory@1.9.2"
 
             -   name: "Cache dependencies installed with composer"
-                uses: "actions/cache@v4.0.2"
+                uses: "actions/cache@v4.2.1"
                 with:
                     path: "${{ env.COMPOSER_CACHE_DIR }}"
                     key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('composer.lock') }}"
