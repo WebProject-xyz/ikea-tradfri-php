@@ -35,7 +35,7 @@
     "friendsofphp/php-cs-fixer": "^3.70.0",
     "maglnet/composer-require-checker": "^4.16.1",
     "mockery/mockery": "^1.6.12",
-    "phpro/grumphp": "^2.10.0",
+    "phpro/grumphp": "^2.11.0",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpdoc-parser": "^2.1.0",
     "phpstan/phpstan": "^2.1.6",
