@@ -39,6 +39,9 @@ final class GatewayApiService implements ServiceInterface
         return $this->getDevices()->filterLightBulbs();
     }
 
+    /**
+     * @return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDevices(): Devices
     {
         return $this->client->getDevices($this);

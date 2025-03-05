@@ -18,7 +18,7 @@ use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 
 /**
- * @extends Devices<DeviceInterface&SwitchableInterface&\JsonSerializable>
+ * @extends Devices<DeviceInterface&SwitchableInterface>
  */
 final class LightBulbs extends Devices
 {
@@ -51,6 +51,9 @@ final class LightBulbs extends Devices
         return $this->createFrom($this->namesAsKeys());
     }
 
+    /**
+     * @phpstan-return array<non-empty-string|DeviceInterface>
+     */
     protected function namesAsKeys(): array
     {
         $elements = [];

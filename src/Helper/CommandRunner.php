@@ -21,14 +21,6 @@ use Symfony\Component\Process\Process;
  */
 class CommandRunner implements CommandRunnerInterface
 {
-    /**
-     * Execute a command and return it's output. Either wait
-     * until the command exits or the timeout has expired.
-     * Found at @see https://stackoverflow.com/a/20992213/3578430.
-     *
-     * @param string $cmd     command to execute
-     * @param int    $timeout timeout in seconds
-     */
     public function execWithTimeout(
         string $cmd,
         int $timeout,

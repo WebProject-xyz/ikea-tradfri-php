@@ -60,6 +60,9 @@ final readonly class GatewayHelperCommands
         );
     }
 
+    /**
+     * @phpstan-param array<string|int> $result
+     */
     public function parseResult(array $result): false|string
     {
         $parsed = false;

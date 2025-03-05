@@ -24,6 +24,9 @@ interface ServiceInterface
 {
     public function getLights(): LightBulbs;
 
+    /**
+     * @return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDevices(): Devices;
 
     /**

@@ -144,11 +144,13 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     {
         return $this
             ->deviceDataMapper
-            ->map($service, $this->getDevicesData());
+            ->map($service, $this->getDevicesData(), new Devices());
     }
 
     /**
      * @throws \JsonException|RuntimeException
+     *
+     * @return list<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
      */
     public function getDevicesData(?array $deviceIds = null): array
     {
@@ -243,6 +245,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
     /**
      * @throws \JsonException|RuntimeException
+     *
+     * @retrun array<int>
      */
     public function getGroupIds(): array
     {
@@ -252,6 +256,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @throws \JsonException
      * @throws RuntimeException
+     *
+     * @phpstan-return array<int|string|mixed>|object|string
      */
     private function requestDataFromHub(Request|string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
     {
@@ -270,6 +276,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
     /**
      * @throws \JsonException
+     *
+     * @phpstan-return array<int|string|mixed>|object|string
      */
     private function decodeData(string $dataRaw): array|object|string
     {

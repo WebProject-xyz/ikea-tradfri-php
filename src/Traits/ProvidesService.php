@@ -28,7 +28,7 @@ trait ProvidesService
         return $this->service;
     }
 
-    public function setService(ServiceInterface $service): self
+    public function setService(ServiceInterface $service): static
     {
         $this->service = $service;
 

@@ -16,6 +16,7 @@ namespace IKEA\Tradfri\Client;
 use IKEA\Tradfri\Adapter\AdapterInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\DeviceGroup;
@@ -31,6 +32,9 @@ final readonly class Client implements ClientInterface
     ) {
     }
 
+    /**
+     * @phpstan-return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDevices(ServiceInterface $service): Devices
     {
         return $this->adapter->getDeviceCollection($service);
@@ -61,6 +65,9 @@ final readonly class Client implements ClientInterface
         return $wasSet;
     }
 
+    /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
+     */
     public function groupOn(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
@@ -71,6 +78,9 @@ final readonly class Client implements ClientInterface
         return $wasSet;
     }
 
+    /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
+     */
     public function groupOff(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
@@ -95,6 +105,7 @@ final readonly class Client implements ClientInterface
     }
 
     /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
      * @phpstan-param LevelType $level
      */
     public function dimGroup(DeviceGroup $group, int $level): bool

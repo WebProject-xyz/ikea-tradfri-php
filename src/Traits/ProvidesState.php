@@ -17,7 +17,7 @@ trait ProvidesState
 {
     protected bool $state = false;
 
-    public function setState(bool $state): self
+    public function setState(bool $state): static
     {
         $this->state = $state;
 

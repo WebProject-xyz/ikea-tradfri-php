@@ -15,6 +15,7 @@ namespace IKEA\Tradfri\Client;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\DeviceGroup;
@@ -25,6 +26,9 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 interface ClientInterface
 {
+    /**
+     * @phpstan-return Devices<DeviceInterface>
+     */
     public function getDevices(ServiceInterface $service): Devices;
 
     public function getGroups(ServiceInterface $service): Groups;
@@ -33,8 +37,14 @@ interface ClientInterface
 
     public function lightOff(LightBulb $lightBulb): bool;
 
+    /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
+     */
     public function groupOn(DeviceGroup $group): bool;
 
+    /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
+     */
     public function groupOff(DeviceGroup $group): bool;
 
     /**
@@ -43,6 +53,7 @@ interface ClientInterface
     public function dimLight(LightBulb $lightBulb, int $level): bool;
 
     /**
+     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
      * @phpstan-param LevelType $level
      */
     public function dimGroup(DeviceGroup $group, int $level): bool;

@@ -21,6 +21,7 @@ use IKEA\Tradfri\Traits\ProvidesService;
 use IKEA\Tradfri\Traits\ProvidesType;
 use IKEA\Tradfri\Traits\ProvidesVersion;
 use IKEA\Tradfri\Values\DeviceType;
+use Webmozart\Assert\Assert;
 
 abstract class Device implements \JsonSerializable, DeviceInterface
 {
@@ -41,6 +42,9 @@ abstract class Device implements \JsonSerializable, DeviceInterface
         $this->setId($deviceId);
     }
 
+    /**
+     * @phpstan-return array<string, string|int|bool>
+     */
     final public function jsonSerialize(): array
     {
         $data = [];
@@ -48,6 +52,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
         foreach (\get_class_methods(static::class) as $method) {
             if ('getService' !== $method && \str_starts_with($method, 'get')) {
                 $key        = \mb_strtolower(\mb_substr($method, 3));
+                Assert::stringNotEmpty($key);
                 $data[$key] = $this->{$method}();
             }
         }

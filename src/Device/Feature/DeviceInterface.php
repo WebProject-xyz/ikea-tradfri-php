@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Device\Feature;
 
 use IKEA\Tradfri\Values\DeviceType;
 
-interface DeviceInterface
+interface DeviceInterface extends \JsonSerializable
 {
     public function getId(): int;
 

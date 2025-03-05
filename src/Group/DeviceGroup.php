@@ -28,6 +28,8 @@ use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * @final
+ *
+ * @template TDevices of Devices<DeviceInterface>
  */
 class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, DeviceInterface, SwitchableInterface
 {
@@ -35,7 +37,15 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     use ProvidesName;
     use ProvidesState;
     use ProvidesBrightness;
+
+    /**
+     * @phpstan-var TDevices
+     */
     protected Devices $devices;
+
+    /**
+     * @var list<int>
+     */
     protected array $deviceIds = [];
 
     public function __construct(
@@ -45,7 +55,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
         $this->setId($deviceId);
     }
 
-    public function setService(ServiceInterface $service): self
+    public function setService(ServiceInterface $service): static
     {
         $this->service = $service;
 
@@ -63,19 +73,25 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     /**
      * @param list<int> $ids
      */
-    public function setDeviceIds(array $ids): self
+    public function setDeviceIds(array $ids): static
     {
         $this->deviceIds = $ids;
 
         return $this;
     }
 
+    /**
+     * @phpstan-return TDevices
+     */
     public function getDevices(): Devices
     {
         return $this->devices ??= new Devices();
     }
 
-    public function setDevices(Devices $devices): self
+    /**
+     * @phpstan-param TDevices $devices
+     */
+    public function setDevices(Devices $devices): static
     {
         $this->devices = $devices;
 
@@ -134,7 +150,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
         return false;
     }
 
-    public function off(): self
+    public function off(): static
     {
         if ($this->service->off($this)) {
             $this->setState(false);

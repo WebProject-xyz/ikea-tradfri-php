@@ -27,8 +27,8 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 interface AdapterInterface
 {
-    public const STATE_ON  = false;
-    public const STATE_OFF = false;
+    public const true STATE_ON   = true;
+    public const false STATE_OFF = false;
 
     /**
      * @phpstan-param DeviceIdType $deviceId
@@ -52,6 +52,8 @@ interface AdapterInterface
 
     /**
      * @phpstan-param DeviceIdsType|null $deviceIds
+     *
+     * @return list<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
      */
     public function getDevicesData(?array $deviceIds = null): array;
 

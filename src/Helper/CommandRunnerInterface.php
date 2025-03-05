@@ -22,6 +22,8 @@ interface CommandRunnerInterface
      *
      * @param string $cmd     command to execute
      * @param int    $timeout timeout in seconds
+     *
+     * @return list<string>|string
      */
     public function execWithTimeout(string $cmd, int $timeout, ?bool $asArray = null, bool $throw = false): array|string;
 }

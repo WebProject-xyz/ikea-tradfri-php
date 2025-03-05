@@ -22,7 +22,7 @@ trait ProvidesManufacturer
         return $this->manufacturer;
     }
 
-    public function setManufacturer(string $manufacturer): self
+    public function setManufacturer(string $manufacturer): static
     {
         $this->manufacturer = $manufacturer;
 

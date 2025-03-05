@@ -30,7 +30,7 @@ trait ProvidesType
         return $this->deviceType;
     }
 
-    public function setType(DeviceType|string $type): self
+    public function setType(DeviceType|string $type): static
     {
         if (\is_string($type)) {
             $type = DeviceType::tryFromType($type, true);

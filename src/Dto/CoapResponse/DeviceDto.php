@@ -75,6 +75,9 @@ final readonly class DeviceDto
         return $this->lightControl;
     }
 
+    /**
+     * @phpstan-return list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto>|null
+     */
     public function getBlindControlDto(): ?array
     {
         return $this->blindControlDto;
