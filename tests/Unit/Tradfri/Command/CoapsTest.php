@@ -74,7 +74,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLOR_WARM);
+        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Warm);
 
         // Assert
         $this->assertSame(
@@ -87,7 +87,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLOR_COLD);
+        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Cold);
 
         // Assert
         $this->assertSame(
@@ -100,7 +100,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLOR_NORMAL);
+        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Normal);
 
         // Assert
         $this->assertSame(
