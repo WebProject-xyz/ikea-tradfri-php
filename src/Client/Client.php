@@ -24,10 +24,11 @@ use IKEA\Tradfri\Service\ServiceInterface;
 /**
  * @phpstan-type LevelType = int<0,100>
  */
-final class Client implements ClientInterface
+final readonly class Client implements ClientInterface
 {
-    public function __construct(protected AdapterInterface $adapter)
-    {
+    public function __construct(
+        private AdapterInterface $adapter,
+    ) {
     }
 
     public function getDevices(ServiceInterface $service): Devices

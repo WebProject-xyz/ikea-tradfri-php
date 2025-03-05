@@ -18,8 +18,6 @@ use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 
 /**
- * @method self createFrom(array $elements)
- *
  * @extends Devices<DeviceInterface&SwitchableInterface&\JsonSerializable>
  */
 final class LightBulbs extends Devices
