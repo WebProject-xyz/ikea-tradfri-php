@@ -13,18 +13,12 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device\Helper;
 
-use IKEA\Tradfri\Device\ControlOutlet;
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Driver;
 use IKEA\Tradfri\Device\Floalt;
-use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
-use IKEA\Tradfri\Device\OpenCloseRemote;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
-use IKEA\Tradfri\Device\RollerBlind;
-use IKEA\Tradfri\Exception\RuntimeException;
 
 /**
  * todo: enum.
@@ -32,25 +26,15 @@ use IKEA\Tradfri\Exception\RuntimeException;
 final class Type
 {
     final public const string BLUB                    = 'TRADFRI bulb';
-    final public const string BLUB_CLASS              = LightBulb::class;
     final public const string MOTION_SENSOR           = 'TRADFRI motion sensor';
-    final public const string MOTION_SENSOR_CLASS     = MotionSensor::class;
     final public const string REMOTE                  = 'TRADFRI remote control';
-    final public const string REMOTE_CLASS            = Remote::class;
     final public const string DIMMER                  = 'TRADFRI dimmer';
-    final public const string DIMMER_CLASS            = Dimmer::class;
     final public const string DRIVER                  = 'TRADFRI Driver ';
-    final public const string DRIVER_CLASS            = Driver::class;
     final public const string FLOALT                  = 'FLOALT panel ';
-    final public const string FLOALT_CLASS            = Floalt::class;
     final public const string REPEATER                = 'TRADFRI Signal Repeater';
-    final public const string REPEATER_CLASS          = Repeater::class;
     final public const string REMOTE_OPEN_CLOSE       = 'TRADFRI open/close remote';
-    final public const string REMOTE_OPEN_CLOSE_CLASS = OpenCloseRemote::class;
     final public const string ROLLER_BLIND            = 'FYRTUR block-out roller blind';
-    final public const string ROLLER_BLIND_CLASS      = RollerBlind::class;
     final public const string CONTROL_OUTLET          = 'TRADFRI control outlet';
-    final public const string CONTROL_OUTLET_CLASS    = ControlOutlet::class;
 
     /**
      * Check if given type attribute is from a light blub.
@@ -151,31 +135,5 @@ final class Type
         }
 
         return true;
-    }
-
-    public function buildFrom(string $typeAttribute, int $deviceId, bool $buildUnknownDevice = true): Device
-    {
-        foreach (\get_class_methods($this) as $method) {
-            if (!\str_starts_with($method, 'is')) {
-                continue;
-            }
-
-            if ($this->{$method}($typeAttribute)) {
-                $modelClass = \str_replace('is', '', $method);
-
-                if ('isUnknownDeviceType' === $method && $buildUnknownDevice) {
-                    $modelClass = 'UnknownDevice';
-                }
-
-                $fqdnClassName = '\\IKEA\\Tradfri\\Device\\' . $modelClass;
-                if (!\class_exists($fqdnClassName)) {
-                    continue;
-                }
-
-                return new $fqdnClassName($deviceId, $typeAttribute);
-            }
-        }
-
-        throw new RuntimeException('Unable to detect device type: ' . $typeAttribute);
     }
 }

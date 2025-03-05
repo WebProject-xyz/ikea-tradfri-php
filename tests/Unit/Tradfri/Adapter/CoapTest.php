@@ -260,7 +260,7 @@ BULB_DEVICE_JSON;
     "ATTR_DEVICE_INFO": {
         "ATTR_DEVICE_MANUFACTURER": "manufacturer",
         "ATTR_DEVICE_FIRMWARE_VERSION": "version",
-        "ATTR_DEVICE_MODEL_NUMBER": "type"
+        "ATTR_DEVICE_MODEL_NUMBER": "unknowntype"
     }
 }
 DEVICE_JSON;
@@ -714,6 +714,7 @@ DEVICE_JSON;
                     'id'           => 5000,
                     'manufacturer' => 'UnitTestFactory',
                     'name'         => 'TRADFRI motion sensor',
+                    'typeenum'     => \IKEA\Tradfri\Values\DeviceType::MOTION_SENSOR,
                     'type'         => 'TRADFRI motion sensor',
                     'version'      => 'v1.33.7',
                 ],

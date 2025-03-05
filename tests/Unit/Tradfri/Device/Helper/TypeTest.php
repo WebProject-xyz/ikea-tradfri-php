@@ -16,7 +16,7 @@ namespace IKEA\Tests\Unit\Tradfri\Device\Helper;
 use Codeception\Attribute\DataProvider;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Helper\Type;
-use IKEA\Tradfri\Device\UnknownDevice;
+use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * Class TypeTest.
@@ -29,18 +29,18 @@ final class TypeTest extends \Codeception\Test\Unit
         bool $assertTrue,
     ): void {
         // Arrange
-        $helper = new Type();
-
         // Act
-        $condition = $helper->isLightBulb($typeAttribute);
+        $condition = \IKEA\Tradfri\Values\DeviceType::tryFromType($typeAttribute);
         // Assert
         if ($assertTrue) {
-            $this->assertTrue(
+            $this->assertSame(
+                DeviceType::BLUB,
                 $condition,
                 'Type: ' . $typeAttribute,
             );
         } else {
-            $this->assertFalse(
+            $this->assertNotSame(
+                DeviceType::BLUB,
                 $condition,
                 'Type: ' . $typeAttribute,
             );
@@ -211,40 +211,5 @@ final class TypeTest extends \Codeception\Test\Unit
             [Keys::ATTR_DEVICE_INFO_TYPE_REMOTE_CONTROL, false],
             [Keys::ATTR_DEVICE_INFO_TYPE_DIMMER, false],
         ];
-    }
-
-    public function testBuildFrom(): void
-    {
-        // Arrange
-        $helper = new Type();
-
-        // Act
-        $model = $helper->buildFrom(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, 1);
-
-        // Assert
-        $this->assertNotNull($model);
-    }
-
-    public function testBuildFromUnknownClass(): void
-    {
-        // Arrange
-        $helper = new Type();
-
-        // Act
-        $model = $helper->buildFrom('blubb', 1, true);
-
-        // Assert
-        $this->assertNotNull($model);
-        $this->assertInstanceOf(UnknownDevice::class, $model);
-    }
-
-    public function testBuildFromNoUnknownClassAndSeeError(): void
-    {
-        $this->expectExceptionMessage('Unable to detect device type: blubb');
-        // Arrange
-        $helper = new Type();
-
-        // Act
-        $helper->buildFrom('blubb', 1, false);
     }
 }

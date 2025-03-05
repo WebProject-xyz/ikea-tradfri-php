@@ -13,37 +13,32 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
-use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\Dimmer;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
-use IKEA\Tradfri\Device\Floalt;
-use IKEA\Tradfri\Device\Helper\Type;
-use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Device\MotionSensor;
-use IKEA\Tradfri\Device\OpenCloseRemote;
-use IKEA\Tradfri\Device\Remote;
-use IKEA\Tradfri\Device\Repeater;
-use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
+use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * @final
  *
  * @template TDevice of DeviceInterface&\JsonSerializable
  *
- * @extends AbstractCollection<Dimmer|Floalt|LightBulb|MotionSensor|OpenCloseRemote|Remote|Repeater|RollerBlind|Device|TDevice>
+ * @extends AbstractCollection<TDevice>
  */
 class Devices extends AbstractCollection
 {
-    public function getLightBulbs(): LightBulbs
+    public function filterLightBulbs(): LightBulbs
     {
         $lightBulbs = new LightBulbs();
-        $typeHelper = new Type();
-        foreach ($this->getDevices() as $device) {
-            if ($typeHelper->isLightBulb($device->getType())) {
+        foreach ($this->toArray() as $device) {
+            if (!$device instanceof SwitchableInterface) {
+                continue;
+            }
+
+            if ($device->getTypeEnum() === DeviceType::BLUB) {
                 $lightBulbs->addDevice($device);
             }
 
-            if ($typeHelper->isFloalt($device->getType())) {
+            if ($device->getTypeEnum() === DeviceType::FLOALT) {
                 $lightBulbs->addDevice($device);
             }
         }
@@ -51,6 +46,9 @@ class Devices extends AbstractCollection
         return $lightBulbs->sortByName();
     }
 
+    /**
+     * @phpstan-return array<TDevice>
+     */
     public function getDevices(): array
     {
         return $this->toArray();

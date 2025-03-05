@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device\Feature;
 
+use IKEA\Tradfri\Values\DeviceType;
+
 interface DeviceInterface
 {
     public function getId(): int;
 
     public function getType(): string;
+
+    public function getTypeEnum(): DeviceType;
 }

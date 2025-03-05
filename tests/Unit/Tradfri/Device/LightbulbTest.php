@@ -44,15 +44,6 @@ final class LightbulbTest extends DeviceTester
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
     }
 
-    public function testIsLightBulb(): void
-    {
-        // Arrange
-        $lamp = $this->getModel();
-        // Act
-        // Assert
-        $this->assertTrue($lamp->isLightBulb());
-    }
-
     public function testGetBrightnessButNotSet(): void
     {
         // Arrange
@@ -92,8 +83,7 @@ final class LightbulbTest extends DeviceTester
     public function testSetTypeE27WS(): void
     {
         // Arrange
-        $lamp = $this->getModel();
-        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lamp = $this->getModel(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         // Act
         $result = $lamp->getType();
 
@@ -105,8 +95,7 @@ final class LightbulbTest extends DeviceTester
     public function testSetTypeGU10(): void
     {
         // Arrange
-        $lamp = $this->getModel();
-        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS);
+        $lamp = $this->getModel(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS);
         // Act
         $result = $lamp->getType();
 
@@ -312,8 +301,8 @@ final class LightbulbTest extends DeviceTester
         $this->assertSame('On', $lamp->getReadableState());
     }
 
-    protected function getModel(): LightBulb
+    protected function getModel(string $deviceType = Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W): LightBulb
     {
-        return new LightBulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        return new LightBulb($this->_id, $deviceType);
     }
 }

@@ -105,7 +105,6 @@ final class DeviceDataTest extends UnitTest
 
         $device6 = $result->get(5000);
         $this->assertInstanceOf(MotionSensor::class, $device6);
-        $this->assertFalse($device6->isLightBulb());
         $this->assertSame(5000, $device6->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device6->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $device6->getType());
@@ -116,6 +115,7 @@ final class DeviceDataTest extends UnitTest
                 'id'           => 5000,
                 'manufacturer' => 'IKEA of Sweden',
                 'name'         => 'TRADFRI motion sensor',
+                'typeenum'     => \IKEA\Tradfri\Values\DeviceType::MOTION_SENSOR,
                 'type'         => 'TRADFRI motion sensor',
                 'version'      => '24.4.5',
             ],
@@ -123,13 +123,14 @@ final class DeviceDataTest extends UnitTest
         );
 
         $this->assertCount(7, $result->getDevices());
-        $this->assertCount(2, $result->getLightBulbs());
-        $this->assertCount(2, $result->getLightBulbs()->sortByState());
+        $this->assertCount(2, $result->filterLightBulbs());
+        $this->assertCount(2, $result->filterLightBulbs()->sortByState());
         $this->assertSame([
             1000 => [
                 'id'            => 1000,
                 'manufacturer'  => 'IKEA of Sweden',
                 'name'          => 'TRADFRI bulb E27 CWS opal 600lm',
+                'typeenum'      => \IKEA\Tradfri\Values\DeviceType::BLUB,
                 'type'          => 'TRADFRI bulb E27 CWS opal 600lm',
                 'version'       => '2.3.093',
                 'brightness'    => 100.0,
@@ -140,12 +141,13 @@ final class DeviceDataTest extends UnitTest
                 'id'             => 4000,
                 'manufacturer'   => 'IKEA of Sweden',
                 'name'           => 'Wohnzimmer - Fenster 1',
+                'typeenum'       => \IKEA\Tradfri\Values\DeviceType::BLUB,
                 'type'           => 'TRADFRI bulb E27 WS opal 980lm',
                 'version'        => '2.3.095',
                 'brightness'     => 100.0,
                 'color'          => 'FF9834',
                 'readablestate'  => 'Off',
             ],
-        ], $result->getLightBulbs()->sortByState()->jsonSerialize());
+        ], $result->filterLightBulbs()->sortByState()->jsonSerialize());
     }
 }

@@ -36,7 +36,7 @@ final class GatewayApiService implements ServiceInterface
 
     public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightBulbs();
+        return $this->getDevices()->filterLightBulbs();
     }
 
     public function getDevices(): Devices

@@ -13,19 +13,29 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Traits;
 
-use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Values\DeviceType;
 
 trait ProvidesType
 {
-    protected string $type;
+    protected DeviceType $type;
+    protected string $deviceType;
 
-    public function getType(): string
+    public function getTypeEnum(): DeviceType
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function getType(): string
     {
+        return $this->deviceType;
+    }
+
+    public function setType(DeviceType|string $type): self
+    {
+        if (\is_string($type)) {
+            $type = DeviceType::tryFromType($type, true);
+        }
+
         $this->type = $type;
 
         return $this;
@@ -36,6 +46,6 @@ trait ProvidesType
      */
     public function isValidType(string $type): bool
     {
-        return false === (new Type())->isUnknownDeviceType($type);
+        return null !== DeviceType::tryFromType($type, false);
     }
 }

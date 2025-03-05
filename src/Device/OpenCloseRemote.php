@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device;
 
+use IKEA\Tradfri\Command\Coap\Keys;
+
 final class OpenCloseRemote extends Device
 {
     public function __construct(int $deviceId)
     {
-        parent::__construct($deviceId, \IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_OPEN_CLOSE_REMOTE);
+        parent::__construct($deviceId, Keys::ATTR_DEVICE_INFO_TYPE_OPEN_CLOSE_REMOTE);
     }
 }

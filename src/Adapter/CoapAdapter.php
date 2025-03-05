@@ -90,10 +90,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function changeLightState(int $deviceId, bool $toState): bool
     {
-        // run command
         $command = new LightSwitchStateCommand($this->authConfig, $deviceId, $toState);
 
-        // verify result
         return $command->run($this->runner)
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
@@ -103,10 +101,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function changeGroupState(int $groupId, bool $toState): bool
     {
-        // run command
         $command = new GroupSwitchStateCommand($this->authConfig, $groupId, $toState);
 
-        // verify result
         return $command->run($this->runner)
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
@@ -116,20 +112,16 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function setLightBrightness(int $lightId, int $level): bool
     {
-        // run command
         $command = new LightDimmerCommand($this->authConfig, $lightId, $level);
 
-        // verify result
         return $command->run($this->runner)
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
-        // run command
         $command = new BlindsGetCurrentPositionCommand($this->authConfig, $rollerBlindId, $level);
 
-        // verify result
         return $command->run($this->runner)
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
@@ -139,10 +131,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     public function setGroupBrightness(int $groupId, int $level): bool
     {
-        // run command
         $command = new GroupDimmerCommand($this->authConfig, $groupId, $level);
 
-        // verify result
         return $command->run($this->runner)
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
@@ -158,8 +148,6 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * Get devices.
-     *
      * @throws \JsonException|RuntimeException
      */
     public function getDevicesData(?array $deviceIds = null): array
@@ -290,7 +278,6 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $decoded = $dataRaw;
         }
 
-        // todo: maybe full dto normalize
         return $decoded;
     }
 }

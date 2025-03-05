@@ -24,6 +24,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesState;
+use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * @final
@@ -119,7 +120,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightBulbs();
+        return $this->getDevices()->filterLightBulbs();
     }
 
     public function switchOn(): bool
@@ -165,5 +166,10 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
         }
 
         return false;
+    }
+
+    public function getTypeEnum(): DeviceType
+    {
+        throw new \LogicException('not implemented for groups');
     }
 }

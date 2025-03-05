@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 
 /**
@@ -24,7 +23,10 @@ use IKEA\Tradfri\Device\Feature\DeviceInterface;
  */
 abstract class AbstractCollection extends ArrayCollection implements \JsonSerializable
 {
-    final public function addDevice(Device $newItem): self
+    /**
+     * @phpstan-param TDevice $newItem
+     */
+    final public function addDevice(DeviceInterface&\JsonSerializable $newItem): self
     {
         $this->set($newItem->getId(), $newItem);
 
