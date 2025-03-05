@@ -15,6 +15,10 @@ namespace IKEA\Tradfri\Device\Feature;
 
 interface BooleanStateInterface
 {
+    public function getReadableState(): string;
+
+    public function setState(bool $state): self;
+
     public function isOn(): bool;
 
     public function isOff(): bool;

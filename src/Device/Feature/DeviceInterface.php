@@ -19,6 +19,8 @@ interface DeviceInterface
 {
     public function getId(): int;
 
+    public function getName(): string;
+
     public function getType(): string;
 
     public function getTypeEnum(): DeviceType;

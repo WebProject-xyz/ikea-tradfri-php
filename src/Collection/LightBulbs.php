@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
+use IKEA\Tradfri\Device\Feature\BooleanStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
-use IKEA\Tradfri\Device\LightBulb;
 
 /**
  * @method self createFrom(array $elements)
@@ -30,8 +30,7 @@ final class LightBulbs extends Devices
 
         \usort(
             $items,
-            /** @phpstan-ignore-next-line */
-            static fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => \strcmp(
+            static fn (BooleanStateInterface $lightBulbOne, BooleanStateInterface $lightBulbTwo) => \strcmp(
                 $lightBulbOne->getReadableState(),
                 $lightBulbTwo->getReadableState(),
             ),
@@ -42,16 +41,9 @@ final class LightBulbs extends Devices
 
     public function getActive(): self
     {
-        $newItems = [];
-        foreach ($this->toArray() as $key => $light) {
-            if (!$light instanceof LightBulb) {
-                continue;
-            }
-
-            if ($light->isOn()) {
-                $newItems[$key] = $light;
-            }
-        }
+        $newItems = \array_filter($this->toArray(), static function (\IKEA\Tradfri\Device\Feature\SwitchableInterface $light) {
+            return $light->isOn();
+        });
 
         return $this->createFrom($newItems);
     }
