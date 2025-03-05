@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace IKEA\Tests\Unit\Tradfri\Mapper;
 
 use Codeception\Test\Unit as UnitTest;
+use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\ControlOutlet;
 use IKEA\Tradfri\Device\Dimmer;
@@ -41,7 +42,7 @@ final class DeviceDataTest extends UnitTest
 
         $mapper = new DeviceData();
         // Act
-        $result = $mapper->map($serviceMock, $devices);
+        $result = $mapper->map($serviceMock, $devices, new Devices());
         // Assert
         $this->assertTrue($result->isEmpty());
     }
@@ -53,7 +54,11 @@ final class DeviceDataTest extends UnitTest
 
         $mapper = new DeviceData();
         // Act
-        $result = $mapper->map($serviceMock, $this->tester->getDevicesDTOs());
+        $result = $mapper->map(
+            $serviceMock,
+            $this->tester->getDevicesDTOs(),
+            new Devices(),
+        );
         // Assert
         $this->assertFalse($result->isEmpty());
         $this->assertCount(7, $result);
