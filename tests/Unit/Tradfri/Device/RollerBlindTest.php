@@ -17,6 +17,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface as Api;
+use IKEA\Tradfri\Values\DeviceType;
 
 final class RollerBlindTest extends DeviceTester
 {
@@ -27,6 +28,7 @@ final class RollerBlindTest extends DeviceTester
         $lamp = $this->getModel();
         // Assert
         $this->assertInstanceOf(RollerBlind::class, $lamp);
+        $this->assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
     }
 
     public function testSetType(): void
@@ -39,6 +41,7 @@ final class RollerBlindTest extends DeviceTester
 
         // Assert
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $result);
+        $this->assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
     }
 
     public function testGetBrightnessButNotSet(): void
@@ -50,6 +53,7 @@ final class RollerBlindTest extends DeviceTester
         $result = $rollerBlind->getDarkenedState();
 
         // Assert
+        $this->assertSame(DeviceType::ROLLER_BLIND, $rollerBlind->getTypeEnum());
         $this->assertSame(0, $result);
     }
 
@@ -83,7 +87,7 @@ final class RollerBlindTest extends DeviceTester
         $rollerBlind = $this->getModel();
         $this->assertTrue($rollerBlind->isFullyOpened());
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->setRollerBlindPosition($rollerBlind, 0)->once()->andReturn(true);
         $rollerBlind->setService($service);
 
@@ -99,7 +103,7 @@ final class RollerBlindTest extends DeviceTester
         // Arrange
         $rollerBlind = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects('setRollerBlindPosition')->with($rollerBlind, 100)->once()->andReturnUsing(static function (): bool {
             $model = \func_get_arg(0);
             \assert($model instanceof RollerBlind);
@@ -143,7 +147,7 @@ final class RollerBlindTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects('setRollerBlindPosition')->andThrow(new RuntimeException('set postion failed'));
 
         $lamp->setService($service);

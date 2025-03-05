@@ -30,7 +30,7 @@ final class GatewayApiService implements ServiceInterface
 {
     final public const string INVALID_DEVICE_TYPE = 'invalid device type: ';
 
-    public function __construct(protected ClientInterface $client)
+    public function __construct(private readonly ClientInterface $client)
     {
     }
 

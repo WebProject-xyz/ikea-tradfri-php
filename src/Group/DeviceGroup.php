@@ -19,8 +19,8 @@ use IKEA\Tradfri\Device\Feature\BooleanStateInterface;
 use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
-use IKEA\Tradfri\Service\GatewayApiService;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Traits\ProvidesBrightness;
 use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesState;
@@ -34,20 +34,20 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     use ProvidesId;
     use ProvidesName;
     use ProvidesState;
-    use \IKEA\Tradfri\Traits\ProvidesBrightness;
-    protected GatewayApiService|ServiceInterface $_service;
-    protected Devices $_devices;
-    protected array $_deviceIds = [];
+    use ProvidesBrightness;
+    protected Devices $devices;
+    protected array $deviceIds = [];
 
-    public function __construct(int $deviceId, ServiceInterface $service)
-    {
+    public function __construct(
+        int $deviceId,
+        private ServiceInterface $service,
+    ) {
         $this->setId($deviceId);
-        $this->setService($service);
     }
 
     public function setService(ServiceInterface $service): self
     {
-        $this->_service = $service;
+        $this->service = $service;
 
         return $this;
     }
@@ -57,7 +57,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
      */
     public function getDeviceIds(): array
     {
-        return $this->_deviceIds;
+        return $this->deviceIds;
     }
 
     /**
@@ -65,19 +65,19 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
      */
     public function setDeviceIds(array $ids): self
     {
-        $this->_deviceIds = $ids;
+        $this->deviceIds = $ids;
 
         return $this;
     }
 
     public function getDevices(): Devices
     {
-        return $this->_devices ??= new Devices();
+        return $this->devices ??= new Devices();
     }
 
     public function setDevices(Devices $devices): self
     {
-        $this->_devices = $devices;
+        $this->devices = $devices;
 
         return $this;
     }
@@ -125,7 +125,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function switchOn(): bool
     {
-        if ($this->_service->on($this)) {
+        if ($this->service->on($this)) {
             $this->setState(true);
 
             return true;
@@ -136,7 +136,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function off(): self
     {
-        if ($this->_service->off($this)) {
+        if ($this->service->off($this)) {
             $this->setState(false);
         }
 
@@ -148,7 +148,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
      */
     public function dim(int $levelInPercent): bool
     {
-        if ($this->_service->dim($this, $levelInPercent)) {
+        if ($this->service->dim($this, $levelInPercent)) {
             $this->setBrightnessLevel((float) $levelInPercent);
 
             return true;
@@ -159,7 +159,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function switchOff(): bool
     {
-        if ($this->_service->off($this)) {
+        if ($this->service->off($this)) {
             $this->setState(false);
 
             return true;
