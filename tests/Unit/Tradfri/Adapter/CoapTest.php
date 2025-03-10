@@ -91,7 +91,7 @@ DEVICE_JSON;
         // Act
         $deviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertIsArray($deviceData);
+
         $this->assertCount(1, $deviceData);
         $device = \current($deviceData);
         $this->assertInstanceOf(DeviceDto::class, $device);
@@ -142,7 +142,6 @@ DEVICE_JSON;
         // Act
         $deviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertIsArray($deviceData);
         $this->assertCount(1, $deviceData);
         $device = \current($deviceData);
         $this->assertInstanceOf(DeviceDto::class, $device);
@@ -222,7 +221,6 @@ BULB_DEVICE_JSON;
         // Act
         $sensorDeviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertIsArray($sensorDeviceData);
         $this->assertCount(2, $sensorDeviceData);
         $this->assertArrayHasKey($sensorDeviceId, $sensorDeviceData);
 
@@ -596,7 +594,6 @@ GROUP2_JSON;
         // Act
         $groupData = $adapter->getGroupsData();
         // Assert
-        $this->assertIsArray($groupData);
         $this->assertCount(2, $groupData);
         $group = \current($groupData);
 

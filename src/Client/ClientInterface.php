@@ -37,14 +37,8 @@ interface ClientInterface
 
     public function lightOff(LightBulb $lightBulb): bool;
 
-    /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
-     */
     public function groupOn(DeviceGroup $group): bool;
 
-    /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
-     */
     public function groupOff(DeviceGroup $group): bool;
 
     /**
@@ -53,7 +47,6 @@ interface ClientInterface
     public function dimLight(LightBulb $lightBulb, int $level): bool;
 
     /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
      * @phpstan-param LevelType $level
      */
     public function dimGroup(DeviceGroup $group, int $level): bool;

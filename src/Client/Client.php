@@ -65,9 +65,6 @@ final readonly class Client implements ClientInterface
         return $wasSet;
     }
 
-    /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
-     */
     public function groupOn(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_ON);
@@ -78,9 +75,6 @@ final readonly class Client implements ClientInterface
         return $wasSet;
     }
 
-    /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
-     */
     public function groupOff(DeviceGroup $group): bool
     {
         $wasSet = $this->adapter->changeGroupState($group->getId(), AdapterInterface::STATE_OFF);
@@ -105,7 +99,6 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
      * @phpstan-param LevelType $level
      */
     public function dimGroup(DeviceGroup $group, int $level): bool

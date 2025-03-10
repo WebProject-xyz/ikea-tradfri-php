@@ -23,7 +23,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 /**
  * @phpstan-type DeviceIdType = positive-int
- * @phpstan-type DeviceIdsType = array<DeviceIdType>
+ * @phpstan-type DeviceIdsType = list<DeviceIdType>
  */
 interface AdapterInterface
 {

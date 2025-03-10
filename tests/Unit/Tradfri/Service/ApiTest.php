@@ -20,15 +20,11 @@ use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\DeviceGroup as Group;
 use IKEA\Tradfri\Service\GatewayApiService;
 
-/**
- * Class ApiTest.
- */
 final class ApiTest extends UnitTest
 {
     public function testIGotAnInstanceOfApiService(): void
@@ -304,20 +300,6 @@ final class ApiTest extends UnitTest
         $result = $service->dim($lightBulb, 20);
         // Assert
         $this->assertTrue($result);
-    }
-
-    public function testICanNotSetBlindPositionOfRemote(): void
-    {
-        // Assert
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('invalid device type: TRADFRI remote control');
-        // Arrange
-        $remote = new Remote(1);
-
-        $client  = \Mockery::mock(Client::class);
-        $service = new GatewayApiService($client);
-        // Act
-        $result = $service->setRollerBlindPosition($remote, 20);
     }
 
     public function testICanNotSetBlindPosition(): void

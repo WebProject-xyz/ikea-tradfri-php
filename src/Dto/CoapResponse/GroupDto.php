@@ -90,7 +90,7 @@ final readonly class GroupDto
     }
 
     /**
-     * @phpstan-return array<positive-int>
+     * @phpstan-return list<positive-int>
      */
     public function getMembers(): array
     {

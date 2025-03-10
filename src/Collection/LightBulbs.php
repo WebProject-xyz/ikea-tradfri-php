@@ -13,33 +13,29 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
-use IKEA\Tradfri\Device\Feature\BooleanStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 
 /**
- * @extends Devices<DeviceInterface&SwitchableInterface>
+ * @extends Devices<SwitchableInterface>
  */
 final class LightBulbs extends Devices
 {
     public function sortByState(): self
     {
-        $items = $this->toArray();
+        [$on, $off] = $this
+            ->partition(
+                p: static function (int|string $idOrName, SwitchableInterface $lightBulbOne): bool {
+                    return $lightBulbOne->isOn();
+                },
+            );
 
-        \usort(
-            $items,
-            static fn (BooleanStateInterface $lightBulbOne, BooleanStateInterface $lightBulbTwo) => \strcmp(
-                $lightBulbOne->getReadableState(),
-                $lightBulbTwo->getReadableState(),
-            ),
-        );
-
-        return $this->createFrom($items);
+        return new self($on->toArray() + $off->toArray());
     }
 
     public function getActive(): self
     {
-        $newItems = \array_filter($this->toArray(), static function (\IKEA\Tradfri\Device\Feature\SwitchableInterface $light) {
+        $newItems = \array_filter($this->toArray(), static function (SwitchableInterface $light): bool {
             return $light->isOn();
         });
 

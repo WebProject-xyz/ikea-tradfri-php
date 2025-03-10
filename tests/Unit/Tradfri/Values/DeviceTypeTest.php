@@ -15,12 +15,16 @@ namespace IKEA\Tests\Unit\Tradfri\Values;
 
 use Codeception\Attribute\DataProvider;
 use Codeception\Test\Unit;
+use Generator;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Values\DeviceType;
 
 final class DeviceTypeTest extends Unit
 {
+    /**
+     * @phpstan-return Generator<non-empty-string, array<non-empty-string|DeviceType|null|bool>>
+     */
     public static function provideCases(): iterable
     {
         yield 'from type "invalidStringValue" with Unknown true' => ['invalidStringValue', DeviceType::UNKNOWN, true];

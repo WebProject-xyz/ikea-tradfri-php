@@ -18,6 +18,7 @@ use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
+use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 
 interface ServiceInterface
@@ -52,5 +53,5 @@ interface ServiceInterface
     /**
      * @throws RuntimeException
      */
-    public function setRollerBlindPosition(DeviceInterface $device, int $level): bool;
+    public function setRollerBlindPosition(RollerBlind $device, int $level): bool;
 }

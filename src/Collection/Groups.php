@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Collection;
 
-use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Group\DeviceGroup;
 
 /**
@@ -22,7 +21,7 @@ use IKEA\Tradfri\Group\DeviceGroup;
 final class Groups extends AbstractCollection
 {
     /**
-     * @phpstan-param DeviceGroup<Devices<DeviceInterface>> $group
+     * @phpstan-param DeviceGroup $group
      */
     public function addGroup(DeviceGroup $group): void
     {

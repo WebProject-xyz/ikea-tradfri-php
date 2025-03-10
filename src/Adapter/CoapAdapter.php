@@ -35,9 +35,16 @@ use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
+use IKEA\Tradfri\Values\CoapHubResponseDataType;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Webmozart\Assert\Assert;
+use Webmozart\Assert\InvalidArgumentException;
 
+/**
+ * @phpstan-import-type DeviceIdsType from AdapterInterface
+ * @phpstan-import-type DeviceIdType from AdapterInterface
+ */
 final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -54,11 +61,19 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $deviceId
+     *
      * @throws \JsonException|RuntimeException
      */
     public function getType(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Request::RootDevices, $deviceId);
+        $data = $this->requestDataFromHub(
+            requestType: Request::RootDevices,
+            deviceId: $deviceId,
+            returnRawData: false,
+            returnType: CoapHubResponseDataType::Object,
+        );
+
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
             && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
@@ -72,11 +87,18 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $deviceId
+     *
      * @throws \JsonException|RuntimeException
      */
     public function getManufacturer(int $deviceId): string
     {
-        $data = $this->requestDataFromHub(Request::RootDevices, $deviceId);
+        $data = $this->requestDataFromHub(
+            requestType: Request::RootDevices,
+            deviceId: $deviceId,
+            returnRawData: false,
+            returnType: CoapHubResponseDataType::Object,
+        );
 
         if (\is_object($data) && isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
             return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
@@ -86,6 +108,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $deviceId
+     *
      * @throws RuntimeException
      */
     public function changeLightState(int $deviceId, bool $toState): bool
@@ -97,6 +121,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $groupId
+     *
      * @throws RuntimeException
      */
     public function changeGroupState(int $groupId, bool $toState): bool
@@ -108,6 +134,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $lightId
+     *
      * @throws RuntimeException
      */
     public function setLightBrightness(int $lightId, int $level): bool
@@ -118,6 +146,9 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             ?: throw new RuntimeException(self::COULD_NOT_SWITCH_STATE);
     }
 
+    /**
+     * * @phpstan-param DeviceIdType $rollerBlindId
+     */
     public function setRollerBlindPosition(int $rollerBlindId, int $level): bool
     {
         $command = new BlindsGetCurrentPositionCommand($this->authConfig, $rollerBlindId, $level);
@@ -127,6 +158,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdType $groupId
+     *
      * @throws RuntimeException
      */
     public function setGroupBrightness(int $groupId, int $level): bool
@@ -148,9 +181,11 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
+     * @phpstan-param DeviceIdsType|null $deviceIds
+     *
      * @throws \JsonException|RuntimeException
      *
-     * @return list<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
+     * @return array<int, \IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
      */
     public function getDevicesData(?array $deviceIds = null): array
     {
@@ -158,13 +193,14 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $deviceIds = $this->getDeviceIds();
         }
 
-        $deviceData = [];
+        $array_key_last = \array_key_last($deviceIds);
+        $deviceData     = [];
         foreach ($deviceIds as $index => $deviceId) {
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
-            if (\array_key_last($deviceIds) !== $index) {
+            if ($array_key_last !== $index) {
                 \usleep(50);
             }
         }
@@ -174,24 +210,46 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
     /**
      * @throws \JsonException|RuntimeException
+     *
+     * @return DeviceIdsType
      */
     public function getDeviceIds(): array
     {
-        return $this->requestDataFromHub(Request::RootDevices);
+        $dataFromHub = $this->requestDataFromHub(
+            requestType: Request::RootDevices,
+            deviceId: null,
+            returnRawData: false,
+            returnType: CoapHubResponseDataType::ListInt,
+        );
+        Assert::isList($dataFromHub);
+
+        return $dataFromHub;
     }
 
     /**
+     * @phpstan-param DeviceIdType $deviceId
+     *
      * @throws \JsonException|RuntimeException
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
-        $jsonStringRaw = $this->requestDataFromHub(Request::RootDevices, $deviceId, true);
+        $jsonStringRaw = $this->requestDataFromHub(
+            requestType: Request::RootDevices,
+            deviceId: $deviceId,
+            returnRawData: true,
+            returnType: CoapHubResponseDataType::String,
+        );
+
+        Assert::stringNotEmpty($jsonStringRaw);
         $rawJson       = (new JsonIntTypeNormalizer())(
             $jsonStringRaw,
             DeviceDto::class
         );
 
-        return $this->deviceSerializer->deserialize($rawJson, DeviceDto::class, $this->deviceSerializer::FORMAT);
+        $deviceDto = $this->deviceSerializer->deserialize($rawJson, DeviceDto::class, $this->deviceSerializer::FORMAT);
+        Assert::isInstanceOf($deviceDto, DeviceDto::class);
+
+        return $deviceDto;
     }
 
     /**
@@ -221,6 +279,8 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
     /**
      * @throws \JsonException|RuntimeException
+     *
+     * @phpstan-return array<positive-int, GroupDto>
      */
     public function getGroupsData(): array
     {
@@ -228,16 +288,23 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         foreach ($this->getGroupIds() as $groupId) {
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
-            $rawJson       = (new JsonIntTypeNormalizer())(
-                jsonString: $this->requestDataFromHub(
-                    requestType: Request::RootGroups,
-                    deviceId: (int) $groupId,
-                    returnRawData: true,
-                ),
+            $dataFromHub = $this->requestDataFromHub(
+                requestType: Request::RootGroups,
+                deviceId: (int) $groupId,
+                returnRawData: true,
+                returnType: CoapHubResponseDataType::String,
+            );
+            Assert::stringNotEmpty($dataFromHub);
+
+            $rawJson = (new JsonIntTypeNormalizer())(
+                jsonString: $dataFromHub,
                 targetClass: GroupDto::class
             );
 
-            $groupData[$groupId] = $this->deviceSerializer->deserialize($rawJson, GroupDto::class, $this->deviceSerializer::FORMAT);
+            $groupDto = $this->deviceSerializer->deserialize($rawJson, GroupDto::class, $this->deviceSerializer::FORMAT);
+            Assert::isInstanceOf($groupDto, GroupDto::class);
+            Assert::positiveInteger($groupId = $groupDto->getId());
+            $groupData[$groupId] = $groupDto;
         }
 
         return $groupData;
@@ -246,21 +313,35 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @throws \JsonException|RuntimeException
      *
-     * @retrun array<int>
+     * @phpstan-return DeviceIdsType
      */
     public function getGroupIds(): array
     {
-        return $this->requestDataFromHub(Request::RootGroups);
+        $groupIds = $this->requestDataFromHub(
+            requestType: Request::RootGroups,
+            deviceId: null,
+            returnRawData: false,
+            returnType: CoapHubResponseDataType::ListInt,
+        );
+
+        Assert::isList($groupIds);
+        Assert::allPositiveInteger($groupIds);
+
+        return $groupIds;
     }
 
     /**
      * @throws \JsonException
      * @throws RuntimeException
      *
-     * @phpstan-return array<int|string|mixed>|object|string
+     * @phpstan-return ($returnType is CoapHubResponseDataType::String ? string : no-return)|($returnType is CoapHubResponseDataType::Array ? array<int, mixed> : no-return)|($returnType is CoapHubResponseDataType::Object ? object : no-return)|($returnType is CoapHubResponseDataType::ListInt ? list<positive-int> : no-return)
      */
-    private function requestDataFromHub(Request|string $requestType, ?int $deviceId = null, bool $returnRawData = false): array|object|string
-    {
+    private function requestDataFromHub(
+        Request|string $requestType,
+        ?int $deviceId,
+        bool $returnRawData,
+        CoapHubResponseDataType $returnType,
+    ): array|object|string {
         $requestCommand = new Get($this->authConfig);
 
         $dataRaw = $this->commands->parseResult(
@@ -268,10 +349,16 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         ) ?: throw new RuntimeException('invalid hub response');
 
         if ($returnRawData) {
+            $this->validateResponseType($returnType, $dataRaw);
+
             return $dataRaw;
         }
 
-        return $this->decodeData($dataRaw);
+        $decodeData = $this->decodeData($dataRaw);
+
+        $this->validateResponseType($returnType, $decodeData);
+
+        return $decodeData;
     }
 
     /**
@@ -287,5 +374,18 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         }
 
         return $decoded;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function validateResponseType(CoapHubResponseDataType $returnType, mixed $dataRaw): void
+    {
+        match ($returnType) {
+            CoapHubResponseDataType::Array   => Assert::isArray($dataRaw),
+            CoapHubResponseDataType::ListInt => Assert::allPositiveInteger($dataRaw),
+            CoapHubResponseDataType::Object  => Assert::object($dataRaw),
+            CoapHubResponseDataType::String  => Assert::stringNotEmpty($dataRaw),
+        };
     }
 }

@@ -11,15 +11,12 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-namespace IKEA\Tradfri\Device\Feature;
+namespace IKEA\Tradfri\Values;
 
-interface BooleanStateInterface extends DeviceInterface
+enum CoapHubResponseDataType: string
 {
-    public function getReadableState(): string;
-
-    public function setState(bool $state): static;
-
-    public function isOn(): bool;
-
-    public function isOff(): bool;
+    case Array    = 'array';
+    case ListInt  = 'intList';
+    case Object   = 'object';
+    case String   = 'string';
 }

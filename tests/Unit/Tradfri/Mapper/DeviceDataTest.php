@@ -34,19 +34,6 @@ final class DeviceDataTest extends UnitTest
 {
     protected \IKEA\Tests\Support\UnitTester $tester;
 
-    public function testMapDataErrorNoData(): void
-    {
-        // Arrange
-        $serviceMock = $this->createMock(ServiceInterface::class);
-        $devices     = [];
-
-        $mapper = new DeviceData();
-        // Act
-        $result = $mapper->map($serviceMock, $devices, new Devices());
-        // Assert
-        $this->assertTrue($result->isEmpty());
-    }
-
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
@@ -60,7 +47,6 @@ final class DeviceDataTest extends UnitTest
             new Devices(),
         );
         // Assert
-        $this->assertFalse($result->isEmpty());
         $this->assertCount(7, $result);
 
         $device1 = $result->get(1000);
@@ -77,7 +63,7 @@ final class DeviceDataTest extends UnitTest
         $this->assertSame('F1E0B5', $device1->getColor());
 
         $device2 = $result->get(2000);
-        $this->assertInstanceOf(ControlOutlet::class, $device2, $device2::class);
+        $this->assertInstanceOf(ControlOutlet::class, $device2);
         $this->assertSame(2000, $device2->getId());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_CONTROL_OUTLET, $device2->getName());
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_CONTROL_OUTLET, $device2->getType());

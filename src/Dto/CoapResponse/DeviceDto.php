@@ -35,7 +35,9 @@ final readonly class DeviceDto
     ];
 
     public function __construct(
+        /** @var positive-int */
         #[Assert\NotBlank()]
+        #[Assert\Positive()]
         #[SerializedName(serializedName: 'ATTR_ID')]
         private int $id,
         #[Assert\NotBlank()]
@@ -55,6 +57,9 @@ final readonly class DeviceDto
     ) {
     }
 
+    /**
+     * @return positive-int
+     */
     public function getId(): int
     {
         return $this->id;

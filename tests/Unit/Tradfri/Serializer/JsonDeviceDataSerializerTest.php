@@ -46,6 +46,7 @@ JSON;
 
         $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
         // Assert
+        $this->assertInstanceOf(DeviceDto::class, $backToObject);
         $this->assertSame($backToObject->getName(), $deviceDto->getName());
         $this->assertSame($backToObject->getId(), $deviceDto->getId());
         $this->assertSame($backToObject->getDeviceInfo()->getVersion(), $deviceDto->getDeviceInfo()->getVersion());
@@ -86,6 +87,7 @@ JSON;
         $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
 
         // Assert
+        $this->assertInstanceOf(DeviceDto::class, $backToObject);
         $this->assertSame($backToObject->getName(), $deviceDto->getName());
         $this->assertSame($backToObject->getId(), $deviceDto->getId());
 
@@ -132,6 +134,7 @@ JSON;
         $backToObject = $serializer->deserialize($json, DeviceDto::class, $serializer::FORMAT);
 
         // Assert
+        $this->assertInstanceOf(DeviceDto::class, $backToObject);
         $this->assertSame($backToObject->getName(), $deviceDto->getName());
         $this->assertSame($backToObject->getId(), $deviceDto->getId());
 

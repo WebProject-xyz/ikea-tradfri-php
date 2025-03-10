@@ -24,8 +24,9 @@ use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
-final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\SerializerInterface
+final class JsonDeviceDataSerializer implements SerializerInterface
 {
     final public const string FORMAT = JsonEncoder::FORMAT;
     private Serializer $serializer;
@@ -35,6 +36,13 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
         $this->initSerializer();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return DeviceDto|GroupDto|list<DeviceDto|GroupDto>
+     */
     public function deserialize(mixed $data, string $type, string $format, array $context = []): array|DeviceDto|GroupDto
     {
         return $this->serializer->deserialize(

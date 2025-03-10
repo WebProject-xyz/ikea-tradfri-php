@@ -21,6 +21,9 @@ use Symfony\Component\Process\Process;
  */
 class CommandRunner implements CommandRunnerInterface
 {
+    /**
+     * @phpstan-return ($asArray is true ? list<string> : string)
+     */
     public function execWithTimeout(
         string $cmd,
         int $timeout,

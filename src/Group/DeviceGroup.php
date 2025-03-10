@@ -29,9 +29,9 @@ use IKEA\Tradfri\Values\DeviceType;
 /**
  * @final
  *
- * @template TDevices of Devices<DeviceInterface>
+ * @phpstan-type TDevices = Devices<DeviceInterface>
  */
-class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, DeviceInterface, SwitchableInterface
+class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, SwitchableInterface
 {
     use ProvidesId;
     use ProvidesName;
@@ -44,7 +44,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     protected Devices $devices;
 
     /**
-     * @var list<int>
+     * @var list<positive-int>
      */
     protected array $deviceIds = [];
 
@@ -63,7 +63,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     }
 
     /**
-     * @return list<int>
+     * @return list<positive-int>
      */
     public function getDeviceIds(): array
     {
@@ -71,7 +71,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     }
 
     /**
-     * @param list<int> $ids
+     * @param list<positive-int> $ids
      */
     public function setDeviceIds(array $ids): static
     {

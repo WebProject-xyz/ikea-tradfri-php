@@ -26,13 +26,13 @@ final class JsonIntTypeNormalizer
      * @phpstan-param non-empty-string $jsonString
      * @phpstan-param class-string<DeviceDto|GroupDto>     $targetClass
      *
-     * @phpstan-return non-empty-string
+     * @phpstan-return non-empty-string|string
      */
     public function __invoke(string $jsonString, string $targetClass): string
     {
         $patternMap = $this->extractPatterns($targetClass);
 
-        return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1);
+        return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1) ?? throw new \InvalidArgumentException('Failed to parse json string');
     }
 
     /**

@@ -46,7 +46,6 @@ final class LightTest extends UnitTest
         $deviceIds = $group->getDeviceIds();
 
         // Assert
-        $this->assertIsArray($deviceIds);
         $this->assertCount(0, $deviceIds);
     }
 

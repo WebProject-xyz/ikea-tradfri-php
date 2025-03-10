@@ -20,9 +20,9 @@ use IKEA\Tradfri\Values\DeviceType;
 /**
  * @final
  *
- * @template TDevice of DeviceInterface&\JsonSerializable
+ * @template TDeviceItem of DeviceInterface
  *
- * @extends AbstractCollection<TDevice>
+ * @extends AbstractCollection<TDeviceItem>
  */
 class Devices extends AbstractCollection
 {
@@ -47,7 +47,7 @@ class Devices extends AbstractCollection
     }
 
     /**
-     * @phpstan-return array<TDevice>
+     * @phpstan-return array<int, TDeviceItem>
      */
     public function getDevices(): array
     {
