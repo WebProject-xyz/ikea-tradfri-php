@@ -96,6 +96,7 @@ JSON;
         $this->assertSame($backToObject->getDeviceInfo()->getManufacturer(), $deviceDto->getDeviceInfo()->getManufacturer());
 
         $this->assertNotNull($backToObject->getLightControl(), 'failed to deserialize');
+        $this->assertNotNull($deviceDto->getLightControl(), 'failed to deserialize');
         $this->assertSame($backToObject->getLightControl()->getBrightness(), $deviceDto->getLightControl()->getBrightness());
         $this->assertSame($backToObject->getLightControl()->getColorHex(), $deviceDto->getLightControl()->getColorHex());
         $this->assertSame($backToObject->getLightControl()->getState(), $deviceDto->getLightControl()->getState());
@@ -143,6 +144,7 @@ JSON;
         $this->assertSame($backToObject->getDeviceInfo()->getManufacturer(), $deviceDto->getDeviceInfo()->getManufacturer());
 
         $this->assertNotNull($backToObject->getLightControl(), 'failed to deserialize');
+        $this->assertNotNull($deviceDto->getLightControl(), 'failed to deserialize');
         $this->assertSame($backToObject->getLightControl()->getBrightness(), $deviceDto->getLightControl()->getBrightness());
         $this->assertSame($backToObject->getLightControl()->getColorHex(), $deviceDto->getLightControl()->getColorHex());
         $this->assertSame($backToObject->getLightControl()->getState(), $deviceDto->getLightControl()->getState());

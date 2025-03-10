@@ -243,6 +243,7 @@ BULB_DEVICE_JSON;
         $this->assertSame($blubDeviceDto->getDeviceInfo()->getVersion(), $lightDevice->getDeviceInfo()->getVersion());
         $this->assertNotNull($lightDevice->getLightControl());
 
+        $this->assertNotNull($blubDeviceDto->getLightControl());
         $this->assertSame($blubDeviceDto->getLightControl()->getState(), $lightDevice->getLightControl()->getState());
         $this->assertSame($blubDeviceDto->getLightControl()->getBrightness(), $lightDevice->getLightControl()->getBrightness());
         $this->assertSame($blubDeviceDto->getLightControl()->getColorHex(), $lightDevice->getLightControl()->getColorHex());

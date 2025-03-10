@@ -373,6 +373,10 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $decoded = $dataRaw;
         }
 
+        if (false === $decoded || (!\is_array($decoded) && !\is_object($decoded) && !\is_string($decoded))) {
+            throw new RuntimeException('invalid decoded response');
+        }
+
         return $decoded;
     }
 

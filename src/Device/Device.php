@@ -43,7 +43,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
     }
 
     /**
-     * @phpstan-return array<string, string|int|bool>
+     * @return array<int, array<string, float|int|string>>|array<string, float|int|string>
      */
     final public function jsonSerialize(): array
     {

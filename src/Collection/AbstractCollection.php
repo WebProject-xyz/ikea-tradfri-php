@@ -36,7 +36,7 @@ abstract class AbstractCollection extends ArrayCollection implements \JsonSerial
     }
 
     /**
-     * @return array<int, list<string>>
+     * @return array<int, array<int|string, array<string, float|int|string>|float|int|string>>
      */
     final public function jsonSerialize(): array
     {

@@ -65,9 +65,9 @@ final readonly class DeviceDto
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
-        return $this->name;
+        return $this->name ?? 'none';
     }
 
     public function getDeviceInfo(): DeviceInfoDto

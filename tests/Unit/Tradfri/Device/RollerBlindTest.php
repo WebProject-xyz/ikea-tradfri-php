@@ -104,17 +104,15 @@ final class RollerBlindTest extends DeviceTester
         $rollerBlind = $this->getModel();
 
         $service = \Mockery::mock(Api::class);
-        $service->expects('setRollerBlindPosition')->with($rollerBlind, 100)->once()->andReturnUsing(static function (): bool {
-            $model = \func_get_arg(0);
+        $service->expects('setRollerBlindPosition')->with($rollerBlind, 100)->once()->andReturnUsing(static function (object $model, int $state): bool {
             \assert($model instanceof RollerBlind);
-            $model->setDarkenedState(\func_get_arg(1));
+            $model->setDarkenedState($state);
 
             return true;
         });
-        $service->expects('setRollerBlindPosition')->with($rollerBlind, 75)->once()->andReturnUsing(static function (): bool {
-            $model = \func_get_arg(0);
+        $service->expects('setRollerBlindPosition')->with($rollerBlind, 75)->once()->andReturnUsing(static function (object $model, int $state): bool {
             \assert($model instanceof RollerBlind);
-            $model->setDarkenedState(\func_get_arg(1));
+            $model->setDarkenedState($state);
 
             return true;
         });

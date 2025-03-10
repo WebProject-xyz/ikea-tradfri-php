@@ -76,12 +76,13 @@ final class DeviceTypeTest extends Unit
         }
 
         // Act
-        $actual = DeviceType::initModel(deviceTypeValue: $typeAttribute, id: 123, allowUnknown: $allowUnknown);
+        $actual = DeviceType::initModel(
+            deviceTypeValue: $typeAttribute,
+            id: 123,
+            allowUnknown: $allowUnknown,
+        );
+
         // Assert
-        if (null === $expected) {
-            $this->assertNull($actual);
-        } else {
-            $this->assertInstanceOf(Device::class, $actual);
-        }
+        $this->assertInstanceOf(Device::class, $actual);
     }
 }

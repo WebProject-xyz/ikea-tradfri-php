@@ -35,6 +35,9 @@ trait ProvidesService
         return $this;
     }
 
+    /**
+     * @phpstan-assert-if-true !null $this->service
+     */
     public function hasService(): bool
     {
         return null !== $this->service;

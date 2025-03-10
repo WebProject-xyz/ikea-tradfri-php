@@ -16,6 +16,7 @@ namespace IKEA\Tradfri\Serializer\Normalizer;
 use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use function is_array;
 
 final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAwareInterface, NormalizerInterface
 {
@@ -28,21 +29,33 @@ final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAware
     ) {
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
+    /**
+     * @phpstan-param array<string, mixed> $context
+     *
+     * @phpstan-return null|array<mixed>|\ArrayObject<array-key, mixed>|bool|float|int|string
+     */
+    public function normalize(mixed $data, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
     {
-        return $this->normalizer->normalize($object, $format, $context);
+        return $this->normalizer->normalize($data, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $this->normalizer->supportsNormalization($data, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if (\is_array($data)
             && \array_key_exists(self::ATTR_LIGHT_CONTROL, $data)
             && !empty($data[self::ATTR_LIGHT_CONTROL])
+            && \is_array($data[self::ATTR_LIGHT_CONTROL])
             && !\array_key_exists('ATTR_DEVICE_STATE', $data[self::ATTR_LIGHT_CONTROL])
         ) {
             // fix unneeded nesting in ATTR_LIGHT_CONTROL
@@ -69,6 +82,9 @@ final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAware
         return $this->normalizer->denormalize($data, $type, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         return $this->normalizer->supportsDenormalization($data, $type, $format, $context);

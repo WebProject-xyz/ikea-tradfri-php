@@ -72,19 +72,20 @@ enum DeviceType: string
     }
 
     /**
-     * @phpstan-return ($allowUnknown is true ? Device : null|Device)
+     * @phpstan-return ($allowUnknown is true ? Device : no-return|Device)
      */
-    public static function initModel(string $deviceTypeValue, int $id, bool $allowUnknown = false): ?Device
+    public static function initModel(string $deviceTypeValue, int $id, bool $allowUnknown = true): Device
     {
         $className = self::tryFromType($deviceTypeValue, $allowUnknown)
             ?->getClassName();
 
-        if ((null === $className && false === $allowUnknown) || false === \class_exists($className)) {
+        if (
+            null     === $className
+            || false === \class_exists($className)
+        ) {
             if (false === $allowUnknown) {
                 throw new \IKEA\Tradfri\Exception\InvalidTypeException(\sprintf('cannot find device class by type: "%s"', $deviceTypeValue));
             }
-
-            return null;
         }
 
         return new ($className)($id, $deviceTypeValue);

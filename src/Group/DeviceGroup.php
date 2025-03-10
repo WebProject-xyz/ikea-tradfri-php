@@ -99,7 +99,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
     }
 
     /**
-     * @return array<int, list<string>>
+     * @return array<int, array<int|string, array<string, float|int|string>|float|int|string>>
      */
     final public function jsonSerialize(): array
     {

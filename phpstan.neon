@@ -1,5 +1,5 @@
 parameters:
-    level: 7
+    level: 9
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     paths:
         - src/
@@ -11,9 +11,3 @@ parameters:
         - build/constants.php
     ignoreErrors:
         - '#.*extends @final class.*#'
-        - identifier: missingType.iterableValue
-          paths:
-            - src/Serializer/*
-        - identifier: missingType.generics
-          paths:
-            - src/Serializer/*

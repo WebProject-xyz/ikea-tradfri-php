@@ -24,4 +24,9 @@ interface DeviceInterface extends \JsonSerializable
     public function getType(): string;
 
     public function getTypeEnum(): DeviceType;
+
+    /**
+     * @return array<int, array<string, float|int|string>>|array<string, float|int|string>
+     */
+    public function jsonSerialize(): array;
 }
