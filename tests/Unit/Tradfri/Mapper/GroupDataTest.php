@@ -21,6 +21,7 @@ use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
+use Webmozart\Assert\Assert;
 
 /**
  * Class DeviceDataTest.
@@ -58,7 +59,7 @@ final class GroupDataTest extends UnitTest
             try {
                 $groupsItems[] = $jsonDeviceDataSerializer->deserialize(
                     (new JsonIntTypeNormalizer())(
-                        jsonString: \json_encode($item),
+                        jsonString: \json_encode($item, \JSON_THROW_ON_ERROR),
                         targetClass: GroupDto::class
                     ),
                     GroupDto::class,
@@ -70,6 +71,7 @@ final class GroupDataTest extends UnitTest
             }
         }
 
+        Assert::allIsInstanceOf($groupsItems, GroupDto::class);
         $result = $mapper->map($serviceMock, $groupsItems, $groups);
 
         // Assert

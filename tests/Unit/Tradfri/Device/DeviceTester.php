@@ -46,7 +46,7 @@ abstract class DeviceTester extends UnitTest
         // Arrange
         $device = $this->getModel();
 
-        $serviceMock = $this->createMock(ServiceInterface::class);
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
         // Act
         $device->setService($serviceMock);
         $service = $device->getService();

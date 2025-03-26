@@ -17,7 +17,7 @@ trait ProvidesDarkenedState
 {
     protected int $darkenedState = 0;
 
-    public function setDarkenedState(int $state): self
+    public function setDarkenedState(int $state): static
     {
         $this->darkenedState = \max(0, $state);
 

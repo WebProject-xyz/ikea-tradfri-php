@@ -14,18 +14,10 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Dto;
 
 use IKEA\Tradfri\Command\Coap\Keys;
-use IKEA\Tradfri\Exception\RuntimeException;
+use IKEA\Tradfri\Values\LightColor;
 
 final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 {
-    public const string COLOR_WARM             = 'warm';
-    public const string COLOR_NORMAL           = 'normal';
-    public const string COLOR_COLD             = 'cold';
-    private const array COLORS                 = [
-        self::COLOR_COLD,
-        self::COLOR_NORMAL,
-        self::COLOR_WARM,
-    ];
     private const string FORMAT_DEVICE      = '-e \'{ "%s": [{ "%s": %s }] }\'';
     private const string FORMAT_GROUP       = '-e \'{ "%s": %s }\'';
     private const string FORMAT_LIGHT_COLOR = '-e \'{ "' . Keys::ATTR_LIGHT_CONTROL . '": [{ "' . Keys::ATTR_LIGHT_COLOR_X . '": %s, "' . Keys::ATTR_LIGHT_COLOR_Y . '": %s }] }\'';
@@ -61,26 +53,11 @@ final readonly class CoapGatewayRequestPayloadDto implements \Stringable
         );
     }
 
-    /**
-     * @phpstan-param value-of<self::COLORS>|string $color
-     *
-     * @throws RuntimeException
-     */
-    public static function formatToLightTemperature(string $color): string
+    public static function formatToLightTemperature(LightColor $color): string
     {
-        if (!\in_array($color, self::COLORS, true)) {
-            throw new RuntimeException('unknown color');
-        }
-
-        $values = match ($color) {
-            self::COLOR_WARM   => ['33135', '27211'],
-            self::COLOR_NORMAL => ['30140', '26909'],
-            self::COLOR_COLD   => ['24930', '24684'],
-        };
-
         return \sprintf(
             self::FORMAT_LIGHT_COLOR,
-            ...$values,
+            ...$color->getTemperatureValues(),
         );
     }
 }

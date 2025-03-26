@@ -28,18 +28,19 @@ final class Receiver
     private array $output = [];
 
     public function __construct(
-        protected string $ipAddress,
-        protected string $username,
-        protected string $apiKey,
+        private readonly string $ipAddress,
+        private readonly string $username,
+        #[\SensitiveParameter()]
+        private readonly string $apiKey,
     ) {
     }
 
     public function getCommand(): string
     {
-        return $this->_getUri()
-            . $this->_getInjectCommand()
+        return $this->getUri()
+            . $this->getInjectCommand()
             . ' "'
-            . $this->_getClientUri()
+            . $this->getClientUri()
             . '"';
     }
 
@@ -61,7 +62,7 @@ final class Receiver
         $this->injectCommand = $injectCommand;
     }
 
-    private function _getUri(): string
+    private function getUri(): string
     {
         return \sprintf(
             self::COAP_COMMAND,
@@ -70,12 +71,12 @@ final class Receiver
         );
     }
 
-    private function _getInjectCommand(): string
+    private function getInjectCommand(): string
     {
         return $this->injectCommand;
     }
 
-    private function _getClientUri(): string
+    private function getClientUri(): string
     {
         return 'coaps://' . $this->_getIpAddress() . ':5684/'
             . $this->requestType;

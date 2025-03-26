@@ -28,13 +28,16 @@ trait ProvidesService
         return $this->service;
     }
 
-    public function setService(ServiceInterface $service): self
+    public function setService(ServiceInterface $service): static
     {
         $this->service = $service;
 
         return $this;
     }
 
+    /**
+     * @phpstan-assert-if-true !null $this->service
+     */
     public function hasService(): bool
     {
         return null !== $this->service;

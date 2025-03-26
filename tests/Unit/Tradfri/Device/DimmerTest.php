@@ -15,7 +15,7 @@ namespace IKEA\Tests\Unit\Tradfri\Device;
 
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Dimmer;
-use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * Class DimmerTest.
@@ -29,6 +29,7 @@ final class DimmerTest extends DeviceTester
         $model = $this->getModel();
         // Assert
         $this->assertInstanceOf(Dimmer::class, $model);
+        $this->assertSame(DeviceType::DIMMER, $model->getTypeEnum());
     }
 
     public function testIsDimmer(): void
@@ -37,7 +38,7 @@ final class DimmerTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertTrue((new Type())->isDimmer($model->getType()));
+        $this->assertSame(DeviceType::DIMMER, $model->getTypeEnum());
     }
 
     protected function getModel(): Device

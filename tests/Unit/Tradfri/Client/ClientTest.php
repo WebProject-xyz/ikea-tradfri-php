@@ -45,7 +45,7 @@ final class ClientTest extends \Codeception\Test\Unit
 
         $client = new Client($adapter);
         // Act
-        $devices = $client->getDevices(mock(ServiceInterface::class));
+        $devices = $client->getDevices(\Mockery::mock(ServiceInterface::class));
         // Assert
         $this->assertInstanceOf(Devices::class, $devices);
         $this->assertTrue($devices->isEmpty());
@@ -60,7 +60,7 @@ final class ClientTest extends \Codeception\Test\Unit
 
         $client = new Client($adapter);
         // Act
-        $groups = $client->getGroups(mock(ServiceInterface::class));
+        $groups = $client->getGroups(\Mockery::mock(ServiceInterface::class));
         // Assert
         $this->assertInstanceOf(Groups::class, $groups);
         $this->assertTrue($groups->isEmpty());

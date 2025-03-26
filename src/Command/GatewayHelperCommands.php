@@ -36,7 +36,7 @@ final readonly class GatewayHelperCommands
 
         // run command
         $result = $this->parseResult(
-            $this->runner->execWithTimeout($onCommand, 2),
+            $this->runner->execWithTimeout(cmd: $onCommand, timeout: 2, asArray: true, throw: true),
         );
 
         // verify result
@@ -60,6 +60,9 @@ final readonly class GatewayHelperCommands
         );
     }
 
+    /**
+     * @phpstan-param array<string|int> $result
+     */
     public function parseResult(array $result): false|string
     {
         $parsed = false;

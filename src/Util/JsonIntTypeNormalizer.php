@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Util;
 
-use Roave\BetterReflection\BetterReflection;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
+use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
+use Webmozart\Assert\Assert;
 
 /**
  * @internal
@@ -22,28 +24,26 @@ final class JsonIntTypeNormalizer
 {
     /**
      * @phpstan-param non-empty-string $jsonString
-     * @phpstan-param class-string     $targetClass
+     * @phpstan-param class-string<DeviceDto|GroupDto>     $targetClass
      *
-     * @phpstan-return non-empty-string
+     * @phpstan-return non-empty-string|string
      */
     public function __invoke(string $jsonString, string $targetClass): string
     {
         $patternMap = $this->extractPatterns($targetClass);
 
-        return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1);
+        return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1) ?? throw new \InvalidArgumentException('Failed to parse json string');
     }
 
     /**
-     * @phpstan-param class-string $targetClass
+     * @phpstan-param class-string<DeviceDto|GroupDto> $targetClass
      *
      * @phpstan-return array<string, string>
      */
     private function extractPatterns(string $targetClass): array
     {
-        $classInfo = (new BetterReflection())
-            ->reflector()
-            ->reflectClass($targetClass);
+        Assert::classExists($targetClass);
 
-        return $classInfo->getConstants()['ATTR_MAP']->getValue() ?? [];
+        return $targetClass::getAttributeReplacePatterns();
     }
 }

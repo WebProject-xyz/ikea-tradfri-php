@@ -15,6 +15,7 @@ namespace IKEA\Tradfri\Mapper;
 
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\GroupDto as GroupResponseDto;
 use IKEA\Tradfri\Group\DeviceGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
@@ -22,18 +23,14 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- * @template T of Groups
- *
- * @template-implements MapperInterface<T>
+ * @template-implements MapperInterface<DeviceGroup, GroupResponseDto|DeviceDto, Groups>
  */
 final class GroupData implements LoggerAwareInterface, MapperInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @phpstan-param Groups $collection
-     *
-     * @phpstan-return Groups
+     * {@inheritDoc}
      */
     public function map(
         ServiceInterface $service,

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace IKEA\Tests\Unit\Tradfri\Device;
 
-use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Device\Remote;
+use IKEA\Tradfri\Values\DeviceType;
 
 final class RemoteTest extends DeviceTester
 {
@@ -25,6 +25,7 @@ final class RemoteTest extends DeviceTester
         $model = $this->getModel();
         // Assert
         $this->assertInstanceOf(Remote::class, $model);
+        $this->assertSame(DeviceType::REMOTE, $model->getTypeEnum());
     }
 
     public function testIsRemote(): void
@@ -33,7 +34,7 @@ final class RemoteTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertTrue((new Type())->isRemote($model->getType()));
+        $this->assertSame(DeviceType::REMOTE, $model->getTypeEnum());
     }
 
     protected function getModel(): Remote

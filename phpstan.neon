@@ -1,11 +1,12 @@
 parameters:
-    level: 5
+    level: max
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     paths:
-        - src
+        - src/
+        - tests/
     excludePaths:
         - wiki/*
-        - tests/
+        - tests/Support/
     bootstrapFiles:
         - build/constants.php
     ignoreErrors:

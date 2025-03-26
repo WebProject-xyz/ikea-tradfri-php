@@ -26,25 +26,42 @@ final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInte
     ) {
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
+    /**
+     * @phpstan-param array<string, mixed> $context
+     *
+     * @phpstan-return null|array<mixed>|\ArrayObject<array-key, mixed>|bool|float|int|string
+     */
+    public function normalize(mixed $data, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
     {
-        return $this->normalizer->normalize($object, $format, $context);
+        return $this->normalizer->normalize($data, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $this->normalizer->supportsNormalization($data, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if ($data['ATTR_CREATED_AT'] ?? null) {
+        if (
+            \is_array($data)
+            && \is_int($data['ATTR_CREATED_AT'] ?? null)
+        ) {
             $data['ATTR_CREATED_AT'] = \date('c', $data['ATTR_CREATED_AT']);
         }
 
         return $this->normalizer->denormalize($data, $type, $format, $context);
     }
 
+    /**
+     * @phpstan-param array<string, mixed> $context
+     */
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         return $this->normalizer->supportsDenormalization($data, $type, $format, $context);

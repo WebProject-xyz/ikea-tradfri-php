@@ -22,10 +22,7 @@ final class LightChangeLightTemperatureCommand extends Put
     public function __construct(
         \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,
         private readonly int $deviceId,
-        /**
-         * @phpstan-param value-of<\IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto::COLORS>|string $color
-         */
-        private readonly string $color,
+        private readonly \IKEA\Tradfri\Values\LightColor $color,
     ) {
         parent::__construct($authConfig);
     }
