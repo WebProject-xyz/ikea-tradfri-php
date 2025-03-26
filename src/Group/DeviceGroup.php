@@ -50,16 +50,9 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function __construct(
         int $deviceId,
-        private ServiceInterface $service,
+        private readonly ServiceInterface $service,
     ) {
         $this->setId($deviceId);
-    }
-
-    public function setService(ServiceInterface $service): static
-    {
-        $this->service = $service;
-
-        return $this;
     }
 
     /**

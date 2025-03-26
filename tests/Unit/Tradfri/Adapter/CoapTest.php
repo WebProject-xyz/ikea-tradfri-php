@@ -21,6 +21,7 @@ use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto;
 use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
 use IKEA\Tradfri\Dto\CoapResponse\LightControlDto;
+use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
@@ -338,6 +339,36 @@ SENSOR_DEVICE_JSON;
         $this->assertSame(\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $type);
     }
 
+    public function testGetTypeError(): void
+    {
+        // Arrange
+        $sensorDeviceId   = 5000;
+        $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
+{
+    "9003": 5000
+}
+SENSOR_DEVICE_JSON;
+
+        $runner = \Mockery::mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
+            ->andReturn([$sensorDeviceJson]);
+
+        $adapter = new CoapAdapter(
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Assert
+        $this->expectException(RuntimeException::class);
+        // Act
+        $adapter->getType($sensorDeviceId);
+    }
+
     public function testGetGroupIds(): void
     {
         // Arrange
@@ -525,6 +556,97 @@ SENSOR_DEVICE_JSON;
         $this->assertSame('UnitTestFactory', $type);
     }
 
+    public function testGetManufacturerError(): void
+    {
+        // Arrange
+        $sensorDeviceId   = 5000;
+        $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
+{
+    "9003": 5000,
+    "9001": "TRADFRI motion sensor",
+    "3": {
+        "1": "TRADFRI motion sensor"
+    }
+}
+SENSOR_DEVICE_JSON;
+
+        $runner = \Mockery::mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
+            ->andReturn([$sensorDeviceJson]);
+
+        $adapter = new CoapAdapter(
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Assert
+        $this->expectException(\IKEA\Tradfri\Exception\RuntimeException::class);
+        // Act
+        $adapter->getManufacturer($sensorDeviceId);
+    }
+
+    public function testGetDataFromHubError1(): void
+    {
+        // Arrange
+        $sensorDeviceId   = 5000;
+        $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
+200.1
+SENSOR_DEVICE_JSON;
+
+        $runner = \Mockery::mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
+            ->andReturn([$sensorDeviceJson]);
+
+        $adapter = new CoapAdapter(
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Assert
+        $this->expectException(\IKEA\Tradfri\Exception\RuntimeException::class);
+        // Act
+        $adapter->getManufacturer($sensorDeviceId);
+    }
+
+    public function testGetDataFromHubError2(): void
+    {
+        // Arrange
+        $sensorDeviceId   = 5000;
+        $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
+'null'
+SENSOR_DEVICE_JSON;
+
+        $runner = \Mockery::mock(Runner::class);
+        $runner
+            ->expects('execWithTimeout')
+            ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
+            ->andReturn([$sensorDeviceJson]);
+
+        $adapter = new CoapAdapter(
+            $this->getGatewayAuthConfigDto(),
+            $this->buildCoapsCommandsWrapper(),
+            new DeviceData(),
+            new GroupData(),
+            $runner,
+        );
+
+        // Assert
+        $this->expectException(\Webmozart\Assert\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expected an object. Got: string');
+        // Act
+        $adapter->getManufacturer($sensorDeviceId);
+    }
+
     public function testGetGroupsData(): void
     {
         // Arrange
@@ -602,6 +724,10 @@ GROUP2_JSON;
         $this->assertInstanceOf(GroupDto::class, $group);
         $this->assertSame(1234, $group->getId());
         $this->assertSame('Group 1', $group->getName());
+        $this->assertSame('2017-06-24', $group->getCreatedAt()->format('Y-m-d'));
+        $this->assertNull($group->getMood());
+        $this->assertSame(0.0, $group->getDimmerLevel());
+        $this->assertSame([65544, 65546], $group->getMembers());
     }
 
     public function testGetGroupCollection(): void
@@ -702,6 +828,16 @@ DEVICE_JSON;
         $this->assertSame(1234, $group->getId());
         $this->assertSame('Group 1', $group->getName());
         $this->assertSame([5000], $group->getDeviceIds());
+        $this->assertSame([
+            5000 => [
+                'id'           => 5000,
+                'manufacturer' => 'UnitTestFactory',
+                'name'         => 'TRADFRI motion sensor',
+                'typeenum'     => \IKEA\Tradfri\Values\DeviceType::MOTION_SENSOR,
+                'type'         => 'TRADFRI motion sensor',
+                'version'      => 'v1.33.7',
+            ],
+        ], $group->jsonSerialize());
         $this->assertInstanceOf(MotionSensor::class, $group->getDevices()->first());
         $this->assertSame(5000, $group->getDevices()->first()->getId());
         $this->assertSame('TRADFRI motion sensor', $group->getDevices()->first()->getType());
@@ -718,6 +854,20 @@ DEVICE_JSON;
                 ],
             ],
             $group->jsonSerialize(),
+        );
+    }
+
+    public function testInvalidIpInConfig(): void
+    {
+        // Arrange
+        // Assert
+        $this->expectException(\InvalidArgumentException::class);
+        // Act
+        $config = new CoapGatewayAuthConfigDto(
+            username: 'user',
+            apiKey: 'key',
+            gatewaySecret: 'secret',
+            gatewayIp: 'blub',
         );
     }
 

@@ -47,7 +47,7 @@ final class DeviceDataTest extends UnitTest
             new Devices(),
         );
         // Assert
-        $this->assertCount(7, $result);
+        $this->assertCount(8, $result);
 
         $device1 = $result->get(1000);
         $this->assertInstanceOf(LightBulb::class, $device1);
@@ -113,9 +113,9 @@ final class DeviceDataTest extends UnitTest
             $device6->jsonSerialize(),
         );
 
-        $this->assertCount(7, $result->getDevices());
-        $this->assertCount(2, $result->filterLightBulbs());
-        $this->assertCount(2, $result->filterLightBulbs()->sortByState());
+        $this->assertCount(8, $result->getDevices());
+        $this->assertCount(3, $result->filterLightBulbs());
+        $this->assertCount(3, $result->filterLightBulbs()->sortByState());
         $this->assertSame([
             1000 => [
                 'id'            => 1000,
@@ -127,6 +127,17 @@ final class DeviceDataTest extends UnitTest
                 'brightness'    => 100.0,
                 'color'         => 'F1E0B5',
                 'readablestate' => 'Off',
+            ],
+            4001 => [
+                'id'             => 4001,
+                'manufacturer'   => 'IKEA of Sweden',
+                'name'           => 'Wohnzimmer - Decke 1',
+                'typeenum'       => \IKEA\Tradfri\Values\DeviceType::FLOALT,
+                'type'           => 'FLOALT panel 980lm',
+                'version'        => '2.3.095',
+                'brightness'     => 100.0,
+                'color'          => 'FF9834',
+                'readablestate'  => 'Off',
             ],
             4000 => [
                 'id'             => 4000,

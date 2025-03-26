@@ -98,6 +98,40 @@ final class RollerBlindTest extends DeviceTester
         $this->assertTrue($rollerBlind->isFullyOpened());
     }
 
+    public function testOpen(): void
+    {
+        // Arrange
+        $rollerBlind = $this->getModel();
+        $this->assertTrue($rollerBlind->isFullyOpened());
+
+        $service = \Mockery::mock(Api::class);
+        $service->expects()->setRollerBlindPosition($rollerBlind, 0)->once()->andReturn(true);
+        $rollerBlind->setService($service);
+
+        // Act
+        $rollerBlind->open();
+
+        // Assert
+        $this->assertTrue($rollerBlind->isFullyOpened());
+    }
+
+    public function testClose(): void
+    {
+        // Arrange
+        $rollerBlind = $this->getModel();
+        $this->assertTrue($rollerBlind->isFullyOpened());
+
+        $service = \Mockery::mock(Api::class);
+        $service->expects()->setRollerBlindPosition($rollerBlind, 100)->once()->andReturn(true);
+        $rollerBlind->setService($service);
+
+        // Act
+        $rollerBlind->close();
+
+        // Assert
+        $this->assertFalse($rollerBlind->isFullyOpened());
+    }
+
     public function testICanSetPositions(): void
     {
         // Arrange

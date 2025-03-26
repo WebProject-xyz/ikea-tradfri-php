@@ -368,7 +368,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      */
     private function decodeData(string $dataRaw): array|object|string
     {
-        $decoded = \json_decode($dataRaw, false, 512, \JSON_THROW_ON_ERROR);
+        $decoded = \json_decode($dataRaw, false, 512);
         if (null === $decoded) {
             $decoded = $dataRaw;
         }

@@ -30,6 +30,7 @@ final class LightTest extends UnitTest
 
         // Act
         $group = new DeviceGroup(1, $service);
+        $group->setName('$name');
 
         // Assert
         $this->assertInstanceOf(DeviceGroup::class, $group);
@@ -64,6 +65,17 @@ final class LightTest extends UnitTest
         $this->assertCount(0, $resultLights);
     }
 
+    public function testEnumTypeError(): void
+    {
+        // Arrange
+        $group = $this->testICanInitGroupOfLights();
+
+        // Act
+        $this->expectExceptionMessage('not implemented for groups');
+
+        $group->getTypeEnum();
+    }
+
     public function testICanSwitchOnGroup(): void
     {
         // Arrange
@@ -93,6 +105,7 @@ final class LightTest extends UnitTest
         // Assert
         $this->assertTrue($group->switchOff());
         $this->assertFalse($group->off()->isOn());
+        $this->assertSame('GROUP: $name', $group->getType());
     }
 
     public function testICanDimOffGroup(): void
