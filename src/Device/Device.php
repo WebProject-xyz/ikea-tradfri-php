@@ -43,7 +43,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
     }
 
     /**
-     * @return array<int, array<string, float|int|string>>|array<string, float|int|string>
+     * @return array<int, array<string, mixed>>|array<string, mixed>
      */
     final public function jsonSerialize(): array
     {
@@ -53,7 +53,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
             if ('getService' !== $method && \str_starts_with($method, 'get')) {
                 $key        = \mb_strtolower(\mb_substr($method, 3));
                 Assert::stringNotEmpty($key);
-                $data[$key] = $this->{$method}();
+                $data[(string) $key] = $this->{$method}();
             }
         }
 

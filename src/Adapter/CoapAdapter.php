@@ -76,11 +76,15 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
 
         if (\is_object($data)
             && \property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && \is_object($data->{Keys::ATTR_DEVICE_INFO})
             && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
         ) {
-            return $data
+            $type = $data
                 ->{Keys::ATTR_DEVICE_INFO}
-                ->{Keys::ATTR_DEVICE_MODEL_NUMBER};
+                ->{Keys::ATTR_DEVICE_MODEL_NUMBER} ?? throw new RuntimeException('invalid coap response');
+            Assert::stringNotEmpty($type);
+
+            return $type;
         }
 
         throw new RuntimeException('invalid coap response');
@@ -100,8 +104,15 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             returnType: CoapHubResponseDataType::Object,
         );
 
-        if (\is_object($data) && isset($data->{Keys::ATTR_DEVICE_INFO}->{'0'})) {
-            return $data->{Keys::ATTR_DEVICE_INFO}->{'0'};
+        if (\is_object($data)
+            && \property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && \is_object($data->{Keys::ATTR_DEVICE_INFO})
+            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MANUFACTURER)
+        ) {
+            $manufacturer = $data->{Keys::ATTR_DEVICE_INFO}->{Keys::ATTR_DEVICE_MANUFACTURER};
+            Assert::stringNotEmpty($manufacturer);
+
+            return $manufacturer;
         }
 
         throw new RuntimeException('invalid hub response');
@@ -222,6 +233,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             returnType: CoapHubResponseDataType::ListInt,
         );
         Assert::isList($dataFromHub);
+        Assert::allPositiveInteger($dataFromHub);
 
         return $dataFromHub;
     }
@@ -334,7 +346,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      * @throws \JsonException
      * @throws RuntimeException
      *
-     * @phpstan-return ($returnType is CoapHubResponseDataType::String ? string : no-return)|($returnType is CoapHubResponseDataType::Array ? array<int, mixed> : no-return)|($returnType is CoapHubResponseDataType::Object ? object : no-return)|($returnType is CoapHubResponseDataType::ListInt ? list<positive-int> : no-return)
+     * @phpstan-return ($returnType is CoapHubResponseDataType::String ? string : no-return)|($returnType is CoapHubResponseDataType::Array ? array<mixed> : no-return)|($returnType is CoapHubResponseDataType::Object ? object : no-return)|($returnType is CoapHubResponseDataType::ListInt ? list<positive-int> : no-return)
      */
     private function requestDataFromHub(
         Request|string $requestType,

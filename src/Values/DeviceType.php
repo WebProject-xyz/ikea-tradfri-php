@@ -25,6 +25,7 @@ use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Device\UnknownDevice;
+use Webmozart\Assert\Assert;
 
 enum DeviceType: string
 {
@@ -88,7 +89,10 @@ enum DeviceType: string
             }
         }
 
-        return new ($className)($id, $deviceTypeValue);
+        $class = new ($className)($id, $deviceTypeValue);
+        Assert::isInstanceOf($class, Device::class);
+
+        return $class;
     }
 
     /**

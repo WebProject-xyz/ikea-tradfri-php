@@ -37,7 +37,7 @@ final class DeviceDataTest extends UnitTest
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
-        $serviceMock = $this->createMock(ServiceInterface::class);
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
 
         $mapper = new DeviceData();
         // Act
