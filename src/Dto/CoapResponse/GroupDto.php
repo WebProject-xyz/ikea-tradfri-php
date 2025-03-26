@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
+use IKEA\Tradfri\Values\CoapDeviceGroupAttribute;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,17 +38,6 @@ final readonly class GroupDto
      *   }
      *  }.
      */
-    public const array ATTR_MAP = [
-        '"ATTR_ID"'                                                   => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID . '"#',
-        '"ATTR_NAME"'                                                 => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME . '"#',
-        '"ATTR_CREATED_AT"'                                           => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_CREATED_AT . '"#',
-        '"' . self::KEY_ATTR_GROUP_MEMBERS . '"'                      => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_GROUP_MEMBERS . '"#',
-        '"ATTR_DEVICE_STATE"'                                         => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_STATE . '"#',
-        '"ATTR_LIGHT_DIMMER"'                                         => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_LIGHT_DIMMER . '"#',
-        '"ATTR_MOOD"'                                                 => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_MOOD . '"#',
-        '"' . self::KEY_ATTR_GROUP_LIGHTS . '"'                       => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_HS_LINK . '"#',
-    ];
-
     public function __construct(
         #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_ID')]
@@ -110,5 +100,13 @@ final readonly class GroupDto
     public function getMood(): ?int
     {
         return $this->mood;
+    }
+
+    /**
+     * @phpstan-return array<non-empty-string, non-empty-string>
+     */
+    public static function getAttributeReplacePatterns(): array
+    {
+        return CoapDeviceGroupAttribute::getAttributeReplacePatterns();
     }
 }

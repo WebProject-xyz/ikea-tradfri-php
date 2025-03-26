@@ -44,6 +44,6 @@ final class JsonIntTypeNormalizer
     {
         Assert::classExists($targetClass);
 
-        return $targetClass::ATTR_MAP;
+        return $targetClass::getAttributeReplacePatterns();
     }
 }
