@@ -79,6 +79,6 @@ jobs:
                   cc-test-reporter before-build
                   mkdir -p coverage || true
                   cc-test-reporter format-coverage ./build/logs/coverage.xml --input-type=clover 
-                  cc-test-reporter after-build --exit-code $?
+                  cc-test-reporter after-build --coverage-input-type=clover --exit-code $?
               env:
                   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
