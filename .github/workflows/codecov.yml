@@ -77,7 +77,8 @@ jobs:
             - name: Run Test and Upload Coverage
               run: |
                   cc-test-reporter before-build
-                  cc-test-reporter format-coverage --input-type=php-clover --output=coverage/codeclimate.json build/logs/coverage.xml
+                  mkdir -p coverage || true
+                  cc-test-reporter format-coverage ./build/logs/coverage.xml --input-type=clover 
                   cc-test-reporter after-build --exit-code $?
               env:
                   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
