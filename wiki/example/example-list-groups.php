@@ -16,6 +16,7 @@ use IKEA\Tradfri\Values\DeviceType;
 require __DIR__ . '/init.php';
 
 try {
+    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getGroups();
 
     echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;

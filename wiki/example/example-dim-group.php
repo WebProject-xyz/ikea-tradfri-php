@@ -14,6 +14,7 @@ declare(strict_types=1);
 require __DIR__ . '/init.php';
 
 try {
+    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
     $groups = $api->getGroups();
 
     if ($groups->isEmpty() === false) {
