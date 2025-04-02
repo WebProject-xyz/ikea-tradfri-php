@@ -70,3 +70,14 @@ jobs:
                     flags: unittests # optional
                     fail_ci_if_error: "${{ matrix.with_coverage }}" # optional (default = false)
                     verbose: false # optional (default = false)
+
+            - name: Setup Code Climate
+              uses: remarkablemark/setup-codeclimate@v2
+
+            - name: Run Test and Upload Coverage
+              run: |
+                  cc-test-reporter before-build
+                  cc-test-reporter format-coverage --input-type=php-clover --output=coverage/codeclimate.json build/logs/coverage.xml
+                  cc-test-reporter after-build --exit-code $?
+              env:
+                  CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
