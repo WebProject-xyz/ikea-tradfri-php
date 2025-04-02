@@ -13,18 +13,11 @@ Inspired by
 ### Main
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a04395190abd4cb1aa4fa9c7c8077810)](https://www.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WebProject-xyz/ikea-tradfri-php&amp;utm_campaign=Badge_Grade)
-[![Cocdeception](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml/badge.svg?branch=master&style=flat)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml)
+[![QA](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/maintainability)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/test_coverage)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/test_coverage)
-[![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/master/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
-[![StyleCI](https://styleci.io/repos/115823629/shield?branch=master)](https://styleci.io/repos/115823629)
-
-### Develop
-
-[![Cocdeception](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml/badge.svg?branch=develop)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/cocdeception.yml)
-[![Codacy Security Scan](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/codacy-analysis.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/codacy-analysis.yml)
-[![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/develop/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
-[![StyleCI](https://styleci.io/repos/115823629/shield?branch=develop)](https://styleci.io/repos/115823629)
+[![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/main/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
+[![StyleCI](https://styleci.io/repos/115823629/shield?branch=main)](https://styleci.io/repos/115823629)
 
 ### Requirements and initial setup
 
