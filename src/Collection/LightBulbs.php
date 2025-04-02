@@ -25,9 +25,7 @@ final class LightBulbs extends Devices
     {
         [$on, $off] = $this
             ->partition(
-                p: static function (int|string $idOrName, SwitchableInterface $lightBulbOne): bool {
-                    return $lightBulbOne->isOn();
-                },
+                p: static fn (int|string $idOrName, SwitchableInterface $lightBulbOne): bool => $lightBulbOne->isOn(),
             );
 
         return new self($on->toArray() + $off->toArray());
@@ -35,9 +33,7 @@ final class LightBulbs extends Devices
 
     public function getActive(): self
     {
-        $newItems = \array_filter($this->toArray(), static function (SwitchableInterface $light): bool {
-            return $light->isOn();
-        });
+        $newItems = \array_filter($this->toArray(), static fn (SwitchableInterface $light): bool => $light->isOn());
 
         return $this->createFrom($newItems);
     }

@@ -28,11 +28,11 @@ use IKEA\Tradfri\Group\DeviceGroup;
 /**
  * @phpstan-import-type LevelType from ClientInterface
  */
-final class GatewayApiService implements ServiceInterface
+final readonly class GatewayApiService implements ServiceInterface
 {
     final public const string INVALID_DEVICE_TYPE = 'invalid device type: ';
 
-    public function __construct(private readonly ClientInterface $client)
+    public function __construct(private ClientInterface $client)
     {
     }
 
