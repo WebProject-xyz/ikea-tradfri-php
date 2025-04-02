@@ -13,29 +13,16 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
+use IKEA\Tradfri\Values\CoapDeviceAttribute;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class DeviceDto
 {
-    public const array ATTR_MAP = [
-        // - root node
-        '"ATTR_ID"'                      => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_ID . '"#',
-        '"ATTR_NAME"'                    => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_NAME . '"#',
-        // - device info = node
-        '"ATTR_DEVICE_INFO"'             => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_INFO . '"#',
-        '"ATTR_DEVICE_MODEL_NUMBER"'     => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_MODEL_NUMBER . '"#',
-        '"ATTR_DEVICE_FIRMWARE_VERSION"' => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_FIRMWARE_VERSION . '"#',
-        '"ATTR_DEVICE_MANUFACTURER"'     => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_MANUFACTURER . '"#',
-        // - light control = node
-        '"ATTR_LIGHT_CONTROL"'       => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_LIGHT_CONTROL . '"#',
-        '"ATTR_DEVICE_STATE"'        => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_DEVICE_STATE . '"#',
-        '"ATTR_LIGHT_DIMMER"'        => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_LIGHT_DIMMER . '"#',
-        '"ATTR_LIGHT_COLOR_HEX"'     => '#"' . \IKEA\Tradfri\Dto\CoapApiResponseDto::ATTR_LIGHT_COLOR_HEX . '"#',
-    ];
-
     public function __construct(
+        /** @var positive-int */
         #[Assert\NotBlank()]
+        #[Assert\Positive()]
         #[SerializedName(serializedName: 'ATTR_ID')]
         private int $id,
         #[Assert\NotBlank()]
@@ -55,14 +42,17 @@ final readonly class DeviceDto
     ) {
     }
 
+    /**
+     * @return positive-int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
-        return $this->name;
+        return $this->name ?? 'none';
     }
 
     public function getDeviceInfo(): DeviceInfoDto
@@ -75,8 +65,19 @@ final readonly class DeviceDto
         return $this->lightControl;
     }
 
+    /**
+     * @phpstan-return list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto>|null
+     */
     public function getBlindControlDto(): ?array
     {
         return $this->blindControlDto;
+    }
+
+    /**
+     * @phpstan-return array<non-empty-string, non-empty-string>
+     */
+    public static function getAttributeReplacePatterns(): array
+    {
+        return CoapDeviceAttribute::getAttributeReplacePatterns();
     }
 }

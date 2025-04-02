@@ -16,44 +16,40 @@ namespace IKEA\Tradfri\Mapper;
 use IKEA\Tradfri\Collection\AbstractCollection;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Device\Device;
-use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Device\MotionSensor;
-use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
-use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Values\DeviceType;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- * @template T of Devices|\IKEA\Tradfri\Collection\LightBulbs
- *
- * @template-implements MapperInterface<Devices>
+ * @template-implements MapperInterface<DeviceInterface, DeviceDto, Devices>
  */
 final class DeviceData implements LoggerAwareInterface, MapperInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @throws RuntimeException
+     * @template TOutput of Devices<DeviceInterface>
      *
-     * @phpstan-param T $collection
-     * @phpstan-param DeviceDto[] $dataItems
+     * @phpstan-param TOutput $collection
      *
-     * @phpstan-return T
+     * @phpstan-return TOutput $collection
      */
     public function map(
         ServiceInterface $service,
         iterable $dataItems,
-        AbstractCollection $collection = new Devices(),
+        AbstractCollection $collection,
     ): AbstractCollection {
         foreach ($dataItems as $device) {
-            $model = $this->getModel(
-                $device,
-            );
-            $model->setService($service);
+            $model = DeviceType::initModel(
+                deviceTypeValue: $device->getDeviceInfo()->getType(),
+                id: $device->getId(),
+                allowUnknown: true,
+            )->setService($service);
 
             $this->setDeviceAttributes($model, $device);
 
@@ -69,20 +65,6 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         }
 
         return $collection;
-    }
-
-    /**
-     * @throws RuntimeException
-     *
-     * @return Device|LightBulb|MotionSensor|Remote
-     */
-    private function getModel(DeviceDto $device): Device
-    {
-        return (new Type())
-            ->buildFrom(
-                $device->getDeviceInfo()->getType(),
-                $device->getId(),
-            );
     }
 
     private function setLightBlubAttributes(
@@ -103,7 +85,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
     ): void {
         if ($device->getBlindControlDto()) {
             $model->setDarkenedState(
-                (int) $device->getBlindControlDto()[0]?->getState(),
+                $device->getBlindControlDto()[0]->getState(),
             );
         }
     }

@@ -19,12 +19,12 @@
     "doctrine/collections": "^2.3.0",
     "psr/log": "^3.0.2",
     "roave/better-reflection": "^6.57.0",
-    "symfony/process": "^7.2.4",
+    "symfony/process": "^7.2.5",
     "symfony/property-access": "^7.2.3",
-    "symfony/property-info": "^7.2.3",
-    "symfony/serializer": "^7.2.4",
+    "symfony/property-info": "^7.2.5",
+    "symfony/serializer": "^7.2.5",
     "symfony/service-contracts": "^3.5.1",
-    "symfony/validator": "^7.2.4"
+    "symfony/validator": "^7.2.5"
   },
   "require-dev": {
     "codeception/codeception": "^5.2.1",
@@ -39,9 +39,10 @@
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpdoc-parser": "^2.1.0",
     "phpstan/phpstan": "^2.1.11",
+    "phpstan/phpstan-doctrine": "^2.0.2",
     "phpstan/phpstan-mockery": "^2.0.0",
     "phpunit/phpunit": "^12.0.10",
-    "rector/rector": "^2.0.10",
+    "rector/rector": "^2.0.11",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^7.2.3",
     "wmde/psr-log-test-doubles": "^3.2"
@@ -71,7 +72,7 @@
     ],
     "php-cs-fixer": "vendor/bin/php-cs-fixer fix -vv --path-mode=intersection",
     "php-cs-fixer-full": "vendor/bin/php-cs-fixer fix -v --show-progress dots",
-    "phpstan": "vendor/bin/phpstan analyse --memory-limit=-1  --error-format table --no-progress",
+    "phpstan": "vendor/bin/phpstan analyse --memory-limit=-1  --no-progress --no-ansi",
     "run-tests": [
       "./vendor/bin/codecept run --colors"
     ]

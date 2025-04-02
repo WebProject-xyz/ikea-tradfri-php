@@ -16,14 +16,15 @@ namespace IKEA\Tradfri\Collection;
 use IKEA\Tradfri\Group\DeviceGroup;
 
 /**
- * @extends AbstractCollection<\IKEA\Tradfri\Group\DeviceGroup>
+ * @extends AbstractCollection<DeviceGroup>
  */
 final class Groups extends AbstractCollection
 {
-    public function addGroup(DeviceGroup $group): self
+    /**
+     * @phpstan-param DeviceGroup $group
+     */
+    public function addGroup(DeviceGroup $group): void
     {
         $this->set($group->getId(), $group);
-
-        return $this;
     }
 }

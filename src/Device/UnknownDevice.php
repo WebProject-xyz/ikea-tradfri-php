@@ -15,14 +15,4 @@ namespace IKEA\Tradfri\Device;
 
 final class UnknownDevice extends Device
 {
-    /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
-     */
-    public function __construct(int $deviceId, string $type)
-    {
-        parent::__construct(
-            $deviceId,
-            'unknown' . $type,
-        );
-    }
 }

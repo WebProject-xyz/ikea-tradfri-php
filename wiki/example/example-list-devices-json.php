@@ -14,6 +14,7 @@ declare(strict_types=1);
 require __DIR__ . '/init.php';
 
 try {
+    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
     $devices = $api->getDevices();
     $data    = $devices->jsonSerialize();
     \header('Content-Type: application/json');

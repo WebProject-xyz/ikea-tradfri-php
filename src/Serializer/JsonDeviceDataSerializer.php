@@ -24,8 +24,10 @@ use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+use Webmozart\Assert\Assert;
 
-final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\SerializerInterface
+final class JsonDeviceDataSerializer implements SerializerInterface
 {
     final public const string FORMAT = JsonEncoder::FORMAT;
     private Serializer $serializer;
@@ -35,9 +37,16 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
         $this->initSerializer();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return DeviceDto|GroupDto|list<DeviceDto|GroupDto>
+     */
     public function deserialize(mixed $data, string $type, string $format, array $context = []): array|DeviceDto|GroupDto
     {
-        return $this->serializer->deserialize(
+        $deserialized = $this->serializer->deserialize(
             $data,
             $type,
             $format,
@@ -46,6 +55,17 @@ final class JsonDeviceDataSerializer implements \Symfony\Component\Serializer\Se
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ] + $context,
         );
+
+        if (!\is_array($deserialized) && !$deserialized instanceof DeviceDto && !$deserialized instanceof GroupDto) {
+            throw new \RuntimeException('Deserialize should be an array or an instance of DeviceDto');
+        }
+
+        if (\is_array($deserialized)) {
+            Assert::isList($deserialized);
+            Assert::allIsInstanceOf($deserialized, DeviceDto::class);
+        }
+
+        return $deserialized;
     }
 
     public function serialize(mixed $data, string $format, array $context = []): string

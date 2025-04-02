@@ -16,6 +16,7 @@ namespace IKEA\Tradfri\Client;
 use IKEA\Tradfri\Adapter\AdapterInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\DeviceGroup;
@@ -24,12 +25,16 @@ use IKEA\Tradfri\Service\ServiceInterface;
 /**
  * @phpstan-type LevelType = int<0,100>
  */
-final class Client implements ClientInterface
+final readonly class Client implements ClientInterface
 {
-    public function __construct(protected AdapterInterface $adapter)
-    {
+    public function __construct(
+        private AdapterInterface $adapter,
+    ) {
     }
 
+    /**
+     * @phpstan-return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDevices(ServiceInterface $service): Devices
     {
         return $this->adapter->getDeviceCollection($service);

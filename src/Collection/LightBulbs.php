@@ -15,43 +15,25 @@ namespace IKEA\Tradfri\Collection;
 
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
-use IKEA\Tradfri\Device\LightBulb;
 
 /**
- * @method self createFrom(array $elements)
- *
- * @extends Devices<DeviceInterface&SwitchableInterface&\JsonSerializable>
+ * @extends Devices<SwitchableInterface>
  */
 final class LightBulbs extends Devices
 {
     public function sortByState(): self
     {
-        $items = $this->toArray();
+        [$on, $off] = $this
+            ->partition(
+                p: static fn (int|string $idOrName, SwitchableInterface $lightBulbOne): bool => $lightBulbOne->isOn(),
+            );
 
-        \usort(
-            $items,
-            /** @phpstan-ignore-next-line */
-            static fn (LightBulb $lightBulbOne, LightBulb $lightBulbTwo) => \strcmp(
-                $lightBulbOne->getReadableState(),
-                $lightBulbTwo->getReadableState(),
-            ),
-        );
-
-        return $this->createFrom($items);
+        return new self($on->toArray() + $off->toArray());
     }
 
     public function getActive(): self
     {
-        $newItems = [];
-        foreach ($this->toArray() as $key => $light) {
-            if (!$light instanceof LightBulb) {
-                continue;
-            }
-
-            if ($light->isOn()) {
-                $newItems[$key] = $light;
-            }
-        }
+        $newItems = \array_filter($this->toArray(), static fn (SwitchableInterface $light): bool => $light->isOn());
 
         return $this->createFrom($newItems);
     }
@@ -61,6 +43,9 @@ final class LightBulbs extends Devices
         return $this->createFrom($this->namesAsKeys());
     }
 
+    /**
+     * @phpstan-return array<non-empty-string|DeviceInterface>
+     */
     protected function namesAsKeys(): array
     {
         $elements = [];

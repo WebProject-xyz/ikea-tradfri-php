@@ -22,7 +22,7 @@ trait ProvidesColor
         return \mb_strtoupper($this->color);
     }
 
-    public function setColor(string $color): self
+    public function setColor(string $color): static
     {
         $this->color = $color;
 

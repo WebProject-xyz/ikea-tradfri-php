@@ -22,7 +22,7 @@ trait ProvidesVersion
         return $this->version;
     }
 
-    public function setVersion(string $name): self
+    public function setVersion(string $name): static
     {
         $this->version = $name;
 

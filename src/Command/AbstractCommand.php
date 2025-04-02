@@ -33,6 +33,9 @@ abstract class AbstractCommand implements CommandInterface
         return $this->authConfig->injectToCommand($this->commandPattern);
     }
 
+    /**
+     * @phpstan-return array<string>|bool
+     */
     abstract public function run(CommandRunnerInterface $runner): array|bool;
 
     protected function verifyResult(mixed $data): bool

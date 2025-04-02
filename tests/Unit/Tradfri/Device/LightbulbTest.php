@@ -44,15 +44,6 @@ final class LightbulbTest extends DeviceTester
         $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
     }
 
-    public function testIsLightBulb(): void
-    {
-        // Arrange
-        $lamp = $this->getModel();
-        // Act
-        // Assert
-        $this->assertTrue($lamp->isLightBulb());
-    }
-
     public function testGetBrightnessButNotSet(): void
     {
         // Arrange
@@ -92,8 +83,7 @@ final class LightbulbTest extends DeviceTester
     public function testSetTypeE27WS(): void
     {
         // Arrange
-        $lamp = $this->getModel();
-        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
+        $lamp = $this->getModel(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         // Act
         $result = $lamp->getType();
 
@@ -105,8 +95,7 @@ final class LightbulbTest extends DeviceTester
     public function testSetTypeGU10(): void
     {
         // Arrange
-        $lamp = $this->getModel();
-        $lamp->setType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS);
+        $lamp = $this->getModel(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS);
         // Act
         $result = $lamp->getType();
 
@@ -134,7 +123,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->on($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
@@ -163,7 +152,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects('on')->andReturn(false);
 
         $lamp->setService($service);
@@ -183,7 +172,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->off($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
@@ -211,7 +200,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(true);
         $service->expects()->dim($lamp, 0)->andReturn(true);
         $service->expects()->off($lamp)->times(2)->andReturn(true);
@@ -243,7 +232,7 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(false);
 
         $lamp->setService($service);
@@ -263,7 +252,7 @@ final class LightbulbTest extends DeviceTester
         $lamp = $this->getModel();
         $lamp->setState(true);
 
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects()->off($lamp)->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
 
         $lamp->setService($service);
@@ -286,7 +275,7 @@ final class LightbulbTest extends DeviceTester
 
         // Arrange
         $lamp    = $this->getModel();
-        $service = \mock(Api::class);
+        $service = \Mockery::mock(Api::class);
         $service->expects('off')->andReturn(false);
 
         $lamp->setService($service);
@@ -312,8 +301,8 @@ final class LightbulbTest extends DeviceTester
         $this->assertSame('On', $lamp->getReadableState());
     }
 
-    protected function getModel(): LightBulb
+    protected function getModel(string $deviceType = Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W): LightBulb
     {
-        return new LightBulb($this->_id, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
+        return new LightBulb($this->_id, $deviceType);
     }
 }

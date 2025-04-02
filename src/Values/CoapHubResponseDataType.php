@@ -11,21 +11,12 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-namespace IKEA\Tradfri\Traits;
+namespace IKEA\Tradfri\Values;
 
-trait ProvidesId
+enum CoapHubResponseDataType: string
 {
-    protected int $id;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
-    }
+    case Array    = 'array';
+    case ListInt  = 'intList';
+    case Object   = 'object';
+    case String   = 'string';
 }

@@ -15,6 +15,7 @@ namespace IKEA\Tradfri\Client;
 
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\DeviceGroup;
@@ -25,6 +26,9 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 interface ClientInterface
 {
+    /**
+     * @phpstan-return Devices<DeviceInterface>
+     */
     public function getDevices(ServiceInterface $service): Devices;
 
     public function getGroups(ServiceInterface $service): Groups;

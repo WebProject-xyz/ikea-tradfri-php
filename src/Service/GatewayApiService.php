@@ -17,7 +17,6 @@ use IKEA\Tradfri\Client\ClientInterface;
 use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
-use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
@@ -26,19 +25,25 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\DeviceGroup;
 
-final class GatewayApiService implements ServiceInterface
+/**
+ * @phpstan-import-type LevelType from ClientInterface
+ */
+final readonly class GatewayApiService implements ServiceInterface
 {
     final public const string INVALID_DEVICE_TYPE = 'invalid device type: ';
 
-    public function __construct(protected ClientInterface $client)
+    public function __construct(private ClientInterface $client)
     {
     }
 
     public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightBulbs();
+        return $this->getDevices()->filterLightBulbs();
     }
 
+    /**
+     * @return Devices<DeviceInterface&\JsonSerializable>
+     */
     public function getDevices(): Devices
     {
         return $this->client->getDevices($this);
@@ -55,7 +60,7 @@ final class GatewayApiService implements ServiceInterface
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
         $lightBulbsCollection->forAll(
-            function (int $lightBulbKey, DeviceInterface&SwitchableInterface $lightBulb): bool {
+            function (int $lightBulbKey, SwitchableInterface $lightBulb): bool {
                 // if ($lightBulb->getId() === $lightBulbKey) {
                 // this is ok but who cares can't make var unused
                 // }
@@ -72,7 +77,7 @@ final class GatewayApiService implements ServiceInterface
     /**
      * @throws RuntimeException
      */
-    public function off(DeviceInterface&SwitchableInterface $device): bool
+    public function off(SwitchableInterface $device): bool
     {
         if ($device instanceof DeviceGroup) {
             return $this->client->groupOff($device);
@@ -88,7 +93,7 @@ final class GatewayApiService implements ServiceInterface
     /**
      * @throws RuntimeException
      */
-    public function on(DeviceInterface&SwitchableInterface $device): bool
+    public function on(SwitchableInterface $device): bool
     {
         if ($device instanceof DeviceGroup) {
             return $this->client->groupOn($device);
@@ -102,6 +107,8 @@ final class GatewayApiService implements ServiceInterface
     }
 
     /**
+     * @phpstan-param LevelType $level
+     *
      * @throws RuntimeException
      */
     public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool
@@ -118,14 +125,10 @@ final class GatewayApiService implements ServiceInterface
     }
 
     /**
-     * @param Device|RollerBlind $device
+     * @phpstan-param LevelType $level
      */
-    public function setRollerBlindPosition(DeviceInterface $device, int $level): bool
+    public function setRollerBlindPosition(RollerBlind $device, int $level): bool
     {
-        if ($device instanceof RollerBlind) {
-            return $this->client->setRollerBlindPosition($device, $level);
-        }
-
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
+        return $this->client->setRollerBlindPosition($device, $level);
     }
 }

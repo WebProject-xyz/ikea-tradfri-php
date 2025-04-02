@@ -19,70 +19,80 @@ use IKEA\Tradfri\Device\Feature\BooleanStateInterface;
 use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
-use IKEA\Tradfri\Service\GatewayApiService;
 use IKEA\Tradfri\Service\ServiceInterface;
+use IKEA\Tradfri\Traits\ProvidesBrightness;
 use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesState;
+use IKEA\Tradfri\Values\DeviceType;
 
 /**
  * @final
+ *
+ * @phpstan-type TDevices = Devices<DeviceInterface>
  */
-class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, DeviceInterface, SwitchableInterface
+class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, SwitchableInterface
 {
     use ProvidesId;
     use ProvidesName;
     use ProvidesState;
-    use \IKEA\Tradfri\Traits\ProvidesBrightness;
-    protected GatewayApiService|ServiceInterface $_service;
-    protected Devices $_devices;
-    protected array $_deviceIds = [];
+    use ProvidesBrightness;
 
-    public function __construct(int $deviceId, ServiceInterface $service)
-    {
+    /**
+     * @phpstan-var TDevices
+     */
+    protected Devices $devices;
+
+    /**
+     * @var list<positive-int>
+     */
+    protected array $deviceIds = [];
+
+    public function __construct(
+        int $deviceId,
+        private readonly ServiceInterface $service,
+    ) {
         $this->setId($deviceId);
-        $this->setService($service);
-    }
-
-    public function setService(ServiceInterface $service): self
-    {
-        $this->_service = $service;
-
-        return $this;
     }
 
     /**
-     * @return list<int>
+     * @return list<positive-int>
      */
     public function getDeviceIds(): array
     {
-        return $this->_deviceIds;
+        return $this->deviceIds;
     }
 
     /**
-     * @param list<int> $ids
+     * @param list<positive-int> $ids
      */
-    public function setDeviceIds(array $ids): self
+    public function setDeviceIds(array $ids): static
     {
-        $this->_deviceIds = $ids;
+        $this->deviceIds = $ids;
 
         return $this;
     }
 
+    /**
+     * @phpstan-return TDevices
+     */
     public function getDevices(): Devices
     {
-        return $this->_devices ??= new Devices();
+        return $this->devices ??= new Devices();
     }
 
-    public function setDevices(Devices $devices): self
+    /**
+     * @phpstan-param TDevices $devices
+     */
+    public function setDevices(Devices $devices): static
     {
-        $this->_devices = $devices;
+        $this->devices = $devices;
 
         return $this;
     }
 
     /**
-     * @return array<int, list<string>>
+     * @return array<int, array<int|string, array<string, float|int|string>|float|int|string>>
      */
     final public function jsonSerialize(): array
     {
@@ -119,12 +129,12 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function getLights(): LightBulbs
     {
-        return $this->getDevices()->getLightBulbs();
+        return $this->getDevices()->filterLightBulbs();
     }
 
     public function switchOn(): bool
     {
-        if ($this->_service->on($this)) {
+        if ($this->service->on($this)) {
             $this->setState(true);
 
             return true;
@@ -133,9 +143,9 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
         return false;
     }
 
-    public function off(): self
+    public function off(): static
     {
-        if ($this->_service->off($this)) {
+        if ($this->service->off($this)) {
             $this->setState(false);
         }
 
@@ -147,7 +157,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
      */
     public function dim(int $levelInPercent): bool
     {
-        if ($this->_service->dim($this, $levelInPercent)) {
+        if ($this->service->dim($this, $levelInPercent)) {
             $this->setBrightnessLevel((float) $levelInPercent);
 
             return true;
@@ -158,12 +168,17 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function switchOff(): bool
     {
-        if ($this->_service->off($this)) {
+        if ($this->service->off($this)) {
             $this->setState(false);
 
             return true;
         }
 
         return false;
+    }
+
+    public function getTypeEnum(): DeviceType
+    {
+        throw new \LogicException('not implemented for groups');
     }
 }

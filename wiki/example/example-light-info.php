@@ -15,6 +15,7 @@ require __DIR__ . '/init.php';
 
 echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
 try {
+    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getLights();
 
     $lights->sortByState();

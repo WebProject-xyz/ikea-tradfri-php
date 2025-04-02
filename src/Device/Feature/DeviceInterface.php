@@ -13,9 +13,20 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Device\Feature;
 
-interface DeviceInterface
+use IKEA\Tradfri\Values\DeviceType;
+
+interface DeviceInterface extends \JsonSerializable
 {
     public function getId(): int;
 
+    public function getName(): string;
+
     public function getType(): string;
+
+    public function getTypeEnum(): DeviceType;
+
+    /**
+     * @return array<int, array<string, float|int|string>>|array<string, float|int|string>
+     */
+    public function jsonSerialize(): array;
 }

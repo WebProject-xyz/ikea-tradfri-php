@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Device;
 
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
-use IKEA\Tradfri\Device\Helper\Type;
 use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesManufacturer;
 use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesService;
 use IKEA\Tradfri\Traits\ProvidesType;
 use IKEA\Tradfri\Traits\ProvidesVersion;
+use IKEA\Tradfri\Values\DeviceType;
+use Webmozart\Assert\Assert;
 
 abstract class Device implements \JsonSerializable, DeviceInterface
 {
@@ -34,20 +35,16 @@ abstract class Device implements \JsonSerializable, DeviceInterface
     /**
      * @throws \IKEA\Tradfri\Exception\RuntimeException
      */
-    public function __construct(int $deviceId, string $type)
+    public function __construct(int $deviceId, string $deviceType)
     {
-        $this->setType($type);
+        $this->type       = DeviceType::tryFromType(deviceTypeValue: $deviceType, allowUnknown: true);
+        $this->deviceType = $deviceType;
         $this->setId($deviceId);
     }
 
     /**
-     * @deprecated
+     * @return array<int, array<string, mixed>>|array<string, mixed>
      */
-    final public function isLightBulb(): bool
-    {
-        return (new Type())->isLightBulb($this->getType());
-    }
-
     final public function jsonSerialize(): array
     {
         $data = [];
@@ -55,7 +52,8 @@ abstract class Device implements \JsonSerializable, DeviceInterface
         foreach (\get_class_methods(static::class) as $method) {
             if ('getService' !== $method && \str_starts_with($method, 'get')) {
                 $key        = \mb_strtolower(\mb_substr($method, 3));
-                $data[$key] = $this->{$method}();
+                Assert::stringNotEmpty($key);
+                $data[(string) $key] = $this->{$method}();
             }
         }
 

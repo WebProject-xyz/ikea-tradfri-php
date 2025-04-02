@@ -19,16 +19,16 @@ use IKEA\Tradfri\Collection\Devices;
 use IKEA\Tradfri\Collection\Groups;
 use IKEA\Tradfri\Collection\LightBulbs;
 use IKEA\Tradfri\Command\Coap\Keys;
+use IKEA\Tradfri\Device\Feature\BrightnessStateInterface;
+use IKEA\Tradfri\Device\Feature\DeviceInterface;
+use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Device\LightBulb;
-use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\DeviceGroup as Group;
 use IKEA\Tradfri\Service\GatewayApiService;
+use IKEA\Tradfri\Values\DeviceType;
 
-/**
- * Class ApiTest.
- */
 final class ApiTest extends UnitTest
 {
     public function testIGotAnInstanceOfApiService(): void
@@ -291,6 +291,210 @@ final class ApiTest extends UnitTest
         $this->assertTrue($result);
     }
 
+    public function testICanDimError(): void
+    {
+        // Arrange
+
+        $client = \Mockery::mock(Client::class);
+
+        $service = new GatewayApiService($client);
+        $group   = new class() implements BrightnessStateInterface, DeviceInterface {
+            public function dim(int $levelInPercent): bool
+            {
+                return false;
+            }
+
+            public function setBrightnessLevel(float|int $levelInPercent): void
+            {
+            }
+
+            public function setBrightness(int $brightness): void
+            {
+            }
+
+            public function getBrightness(): float
+            {
+                return 0.0;
+            }
+
+            public function getId(): int
+            {
+                return 5;
+            }
+
+            public function getName(): string
+            {
+                return 'Implement getName() method.';
+            }
+
+            public function getType(): string
+            {
+                return 'Implement getType() method.';
+            }
+
+            public function getTypeEnum(): DeviceType
+            {
+                return DeviceType::BLUB;
+            }
+
+            public function jsonSerialize(): array
+            {
+                return [];
+            }
+        };
+        // Act
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('invalid device type: Implement getType() method.');
+
+        $result = $service->dim($group, 20);
+        // Assert
+        $this->assertTrue($result);
+    }
+
+    public function testICanOnTypeError(): void
+    {
+        // Arrange
+
+        $client = \Mockery::mock(Client::class);
+
+        $service = new GatewayApiService($client);
+        $group   = new class() implements SwitchableInterface {
+            public function getId(): int
+            {
+                return 5;
+            }
+
+            public function getName(): string
+            {
+                return 'Implement getName() method.';
+            }
+
+            public function getType(): string
+            {
+                return 'Implement getType() method.';
+            }
+
+            public function getTypeEnum(): DeviceType
+            {
+                return DeviceType::BLUB;
+            }
+
+            public function jsonSerialize(): array
+            {
+                return [];
+            }
+
+            public function getReadableState(): string
+            {
+                return 'false';
+            }
+
+            public function setState(bool $state): static
+            {
+                return $this;
+            }
+
+            public function isOn(): bool
+            {
+                return false;
+            }
+
+            public function isOff(): bool
+            {
+                return false;
+            }
+
+            public function switchOn(): bool
+            {
+                return false;
+            }
+
+            public function switchOff(): bool
+            {
+                return false;
+            }
+        };
+        // Act
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('invalid device type: Implement getType() method.');
+
+        $result = $service->on($group);
+        // Assert
+        $this->assertTrue($result);
+    }
+
+    public function testICanOffTypeError(): void
+    {
+        // Arrange
+
+        $client = \Mockery::mock(Client::class);
+
+        $service = new GatewayApiService($client);
+        $group   = new class() implements SwitchableInterface {
+            public function getId(): int
+            {
+                return 5;
+            }
+
+            public function getName(): string
+            {
+                return 'Implement getName() method.';
+            }
+
+            public function getType(): string
+            {
+                return 'Implement getType() method.';
+            }
+
+            public function getTypeEnum(): DeviceType
+            {
+                return DeviceType::BLUB;
+            }
+
+            public function jsonSerialize(): array
+            {
+                return [];
+            }
+
+            public function getReadableState(): string
+            {
+                return 'false';
+            }
+
+            public function setState(bool $state): static
+            {
+                return $this;
+            }
+
+            public function isOn(): bool
+            {
+                return false;
+            }
+
+            public function isOff(): bool
+            {
+                return false;
+            }
+
+            public function switchOn(): bool
+            {
+                return false;
+            }
+
+            public function switchOff(): bool
+            {
+                return false;
+            }
+        };
+        // Act
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('invalid device type: Implement getType() method.');
+
+        $result = $service->off($group);
+        // Assert
+        $this->assertTrue($result);
+    }
+
     public function testICanDimALight(): void
     {
         // Arrange
@@ -304,20 +508,6 @@ final class ApiTest extends UnitTest
         $result = $service->dim($lightBulb, 20);
         // Assert
         $this->assertTrue($result);
-    }
-
-    public function testICanNotSetBlindPositionOfRemote(): void
-    {
-        // Assert
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('invalid device type: TRADFRI remote control');
-        // Arrange
-        $remote = new Remote(1);
-
-        $client  = \Mockery::mock(Client::class);
-        $service = new GatewayApiService($client);
-        // Act
-        $result = $service->setRollerBlindPosition($remote, 20);
     }
 
     public function testICanNotSetBlindPosition(): void

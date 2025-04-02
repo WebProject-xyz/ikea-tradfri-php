@@ -40,6 +40,9 @@ final class Get extends AbstractCommand
         return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $this->authConfig->getGatewayUrl(), $request);
     }
 
+    /**
+     * @phpstan-return list<string>
+     */
     public function run(CommandRunnerInterface $runner, Request|string $request = '', ?int $deviceId = null, bool $throw = false): array
     {
         if ('' === $request) {

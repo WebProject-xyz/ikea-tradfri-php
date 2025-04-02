@@ -11,11 +11,12 @@ declare(strict_types=1);
  * @see https://github.com/WebProject-xyz/ikea-tradfri-php
  */
 
-use IKEA\Tradfri\Device\Helper\Type;
+use IKEA\Tradfri\Values\DeviceType;
 
 require __DIR__ . '/init.php';
 
 try {
+    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getGroups();
 
     echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
@@ -34,7 +35,7 @@ try {
             echo '- GroupName: ' . $group->getName() . \PHP_EOL;
             echo '- Manufacturer: ' . $device->getManufacturer() . \PHP_EOL;
             echo '- Version: ' . $device->getVersion() . \PHP_EOL;
-            if ((new Type())->isLightBulb($device->getType())) {
+            if ($device->getTypeEnum() === DeviceType::BLUB) {
                 echo '- State is: ' . $device->getReadableState() . \PHP_EOL;
                 echo '- Brightness ' . $device->getBrightness() . '%' . \PHP_EOL;
             }
