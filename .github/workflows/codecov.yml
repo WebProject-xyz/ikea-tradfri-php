@@ -48,12 +48,12 @@ jobs:
 
             -   name: "Run Codeception with coverage"
                 run: |
-                    vendor/bin/codecept run -c . -vvv --coverage --coverage-xml=coverage.xml --xml
+                    vendor/bin/codecept run -c . -vvv --coverage --coverage-xml=clover.xml --xml
                     
             -   name: "Upload Coverage coverage"
                 run: |
                     export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
-                    bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/logs/coverage.xml
+                    bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/logs/clover.xml
 
             -   name: Upload test results to Codecov
                 if: ${{ !cancelled() }}
@@ -66,7 +66,7 @@ jobs:
                 uses: codecov/codecov-action@v5
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-                    files: ./build/logs/coverage.xml
+                    files: ./build/logs/clover.xml
                     flags: unittests # optional
                     fail_ci_if_error: "${{ matrix.with_coverage }}" # optional (default = false)
                     verbose: false # optional (default = false)
@@ -78,7 +78,7 @@ jobs:
               run: |
                   cc-test-reporter before-build
                   mkdir -p coverage || true
-                  cc-test-reporter format-coverage ./build/logs/coverage.xml --input-type=clover 
+                  cc-test-reporter format-coverage ./build/logs/clover.xml --input-type=clover 
                   cc-test-reporter after-build --coverage-input-type=clover --exit-code $?
               env:
                   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
