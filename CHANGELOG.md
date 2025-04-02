@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/3.0.1...3.1.0) (2025-04-02)
+
+### Features
+
+* 4.0.0 [#555](https://github.com/WebProject-xyz/ikea-tradfri-php/issues/555) - rewrite response handling ([0d7fae1](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/0d7fae1c86469f0d1a9c482f869e69dad366b43f))
+
 ## [3.0.1](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/3.0.0...3.0.1) (2025-03-26)
 
 ### Bug Fixes
