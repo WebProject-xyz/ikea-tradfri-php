@@ -5023,16 +5023,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "12.1.1",
+            "version": "12.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "0ce76cf0940abbc31525420b7b8d174656c6675d"
+                "reference": "05c33d01a856f9f62488d144bafddc3d7b7a4ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0ce76cf0940abbc31525420b7b8d174656c6675d",
-                "reference": "0ce76cf0940abbc31525420b7b8d174656c6675d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/05c33d01a856f9f62488d144bafddc3d7b7a4ebb",
+                "reference": "05c33d01a856f9f62488d144bafddc3d7b7a4ebb",
                 "shasum": ""
             },
             "require": {
@@ -5088,7 +5088,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/12.1.1"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/12.1.2"
             },
             "funding": [
                 {
@@ -5096,7 +5096,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-03T03:41:27+00:00"
+            "time": "2025-04-03T14:34:39+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -6389,12 +6389,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0b51a6c830ba6dd6c63715ceded239a62bf2274f"
+                "reference": "7d7e09f5c5ae97767252450bdae6bc4ec6b8f53a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0b51a6c830ba6dd6c63715ceded239a62bf2274f",
-                "reference": "0b51a6c830ba6dd6c63715ceded239a62bf2274f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7d7e09f5c5ae97767252450bdae6bc4ec6b8f53a",
+                "reference": "7d7e09f5c5ae97767252450bdae6bc4ec6b8f53a",
                 "shasum": ""
             },
             "conflict": {
@@ -6423,7 +6423,7 @@
                 "andrewhaine/silverstripe-form-capture": ">=0.2,<=0.2.3|>=1,<1.0.2|>=2,<2.2.5",
                 "apache-solr-for-typo3/solr": "<2.8.3",
                 "apereo/phpcas": "<1.6",
-                "api-platform/core": ">=2.2,<2.2.10|>=2.3,<2.3.6|>=2.6,<2.7.10|>=3,<3.0.12|>=3.1,<3.1.3|>=3.3.8,<3.3.15",
+                "api-platform/core": ">=2.2,<2.2.10|>=2.3,<2.3.6|>=2.6,<2.7.10|>=3,<3.0.12|>=3.1,<3.1.3|>=3.2,<3.2.5|>=3.3.8,<3.3.15",
                 "appwrite/server-ce": "<=1.2.1",
                 "arc/web": "<3",
                 "area17/twill": "<1.2.5|>=2,<2.5.3",
@@ -6555,6 +6555,7 @@
                 "drupal/matomo": "<1.24",
                 "drupal/oauth2_client": "<4.1.3",
                 "drupal/oauth2_server": "<2.1",
+                "drupal/obfuscate": "<2.0.1",
                 "drupal/rapidoc_elements_field_formatter": "<1.0.1",
                 "drupal/spamspan": "<3.2.1",
                 "drupal/tfa": "<1.10",
@@ -7277,7 +7278,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-02T18:06:24+00:00"
+            "time": "2025-04-03T13:11:39+00:00"
         },
         {
             "name": "sebastian/cli-parser",
