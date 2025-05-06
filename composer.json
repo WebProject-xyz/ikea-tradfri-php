@@ -27,7 +27,7 @@
     "symfony/validator": "^7.2.6"
   },
   "require-dev": {
-    "codeception/codeception": "^5.2.1",
+    "codeception/codeception": "^5.3.0",
     "codeception/mockery-module": "^0.5.0",
     "codeception/module-asserts": "^3.1.0",
     "ergebnis/license": "^2.6.0",
