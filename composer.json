@@ -39,7 +39,7 @@
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpdoc-parser": "^2.1.0",
     "phpstan/phpstan": "^2.1.14",
-    "phpstan/phpstan-doctrine": "^2.0.2",
+    "phpstan/phpstan-doctrine": "^2.0.3",
     "phpstan/phpstan-mockery": "^2.0.0",
     "phpunit/phpunit": "^12.1.4",
     "rector/rector": "^2.0.15",
