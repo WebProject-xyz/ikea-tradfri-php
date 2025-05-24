@@ -2507,16 +2507,16 @@
         },
         {
             "name": "behat/gherkin",
-            "version": "v4.13.0",
+            "version": "v4.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Gherkin.git",
-                "reference": "9294d26bb75f1718441b89f3a10e15ecb2c67f70"
+                "reference": "34c9b59c59355a7b4c53b9f041c8dbd1c8acc3b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/9294d26bb75f1718441b89f3a10e15ecb2c67f70",
-                "reference": "9294d26bb75f1718441b89f3a10e15ecb2c67f70",
+                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/34c9b59c59355a7b4c53b9f041c8dbd1c8acc3b4",
+                "reference": "34c9b59c59355a7b4c53b9f041c8dbd1c8acc3b4",
                 "shasum": ""
             },
             "require": {
@@ -2526,6 +2526,7 @@
             "require-dev": {
                 "cucumber/gherkin-monorepo": "dev-gherkin-v32.1.1",
                 "friendsofphp/php-cs-fixer": "^3.65",
+                "mikey179/vfsstream": "^1.6",
                 "phpstan/extension-installer": "^1",
                 "phpstan/phpstan": "^2",
                 "phpstan/phpstan-phpunit": "^2",
@@ -2569,9 +2570,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Behat/Gherkin/issues",
-                "source": "https://github.com/Behat/Gherkin/tree/v4.13.0"
+                "source": "https://github.com/Behat/Gherkin/tree/v4.14.0"
             },
-            "time": "2025-05-06T15:26:21+00:00"
+            "time": "2025-05-23T15:06:40+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -5034,16 +5035,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "12.2.1",
+            "version": "12.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "448f2c504d86dbff3949dcd02c95aa85db2c7617"
+                "reference": "9075a8efc66e11bc55c319062e147bdb06777267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/448f2c504d86dbff3949dcd02c95aa85db2c7617",
-                "reference": "448f2c504d86dbff3949dcd02c95aa85db2c7617",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9075a8efc66e11bc55c319062e147bdb06777267",
+                "reference": "9075a8efc66e11bc55c319062e147bdb06777267",
                 "shasum": ""
             },
             "require": {
@@ -5070,7 +5071,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "12.2.x-dev"
+                    "dev-main": "12.3.x-dev"
                 }
             },
             "autoload": {
@@ -5099,7 +5100,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/12.2.1"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/12.3.0"
             },
             "funding": [
                 {
@@ -5119,7 +5120,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-04T05:25:05+00:00"
+            "time": "2025-05-23T15:49:03+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
