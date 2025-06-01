@@ -19,12 +19,12 @@
     "doctrine/collections": "^2.3.0",
     "psr/log": "^3.0.2",
     "roave/better-reflection": "^6.59.0",
-    "symfony/process": "^7.2.5",
-    "symfony/property-access": "^7.2.3",
-    "symfony/property-info": "^7.2.5",
-    "symfony/serializer": "^7.2.6",
+    "symfony/process": "^7.3.0",
+    "symfony/property-access": "^7.3.0",
+    "symfony/property-info": "^7.3.0",
+    "symfony/serializer": "^7.3.0",
     "symfony/service-contracts": "^3.6.0",
-    "symfony/validator": "^7.2.6"
+    "symfony/validator": "^7.3.0"
   },
   "require-dev": {
     "codeception/codeception": "^5.3.2",
@@ -44,7 +44,7 @@
     "phpunit/phpunit": "^12.1.6",
     "rector/rector": "^2.0.17",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.2.6",
+    "symfony/var-dumper": "^7.3.0",
     "wmde/psr-log-test-doubles": "^3.4.0"
   },
   "prefer-stable": true,
