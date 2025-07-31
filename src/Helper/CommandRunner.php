@@ -34,7 +34,7 @@ class CommandRunner implements CommandRunnerInterface
         $process->run();
 
         if (!$process->isSuccessful()) {
-            return $this->_parseErrors($throw, $process->getErrorOutput());
+            return self::_parseErrors($throw, $process->getErrorOutput());
         }
 
         $output = $process->getOutput();
@@ -44,7 +44,7 @@ class CommandRunner implements CommandRunnerInterface
             : $output;
     }
 
-    private function _parseErrors(bool $throw, string $errors): string
+    private static function _parseErrors(bool $throw, string $errors): string
     {
         $parts        = \explode("\n", $errors);
         $countOfLines = \count($parts);
@@ -53,10 +53,8 @@ class CommandRunner implements CommandRunnerInterface
         $errorMessage = match (true) {
             2 === $countOfLines && !$line2IsEmpty,
             3 === $countOfLines => $parts[1],
-
             2 === $countOfLines && $line2IsEmpty,
             2 === $countOfLines => $parts[0],
-
             default             => 'Unknown error',
         };
 

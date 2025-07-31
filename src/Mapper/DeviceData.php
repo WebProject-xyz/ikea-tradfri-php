@@ -51,14 +51,14 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
                 allowUnknown: true,
             )->setService($service);
 
-            $this->setDeviceAttributes($model, $device);
+            self::setDeviceAttributes($model, $device);
 
             if ($model instanceof LightBulb) {
-                $this->setLightBlubAttributes($model, $device);
+                self::setLightBlubAttributes($model, $device);
             }
 
             if ($model instanceof RollerBlind) {
-                $this->_setLightRollerBlindAttributes($model, $device);
+                self::_setLightRollerBlindAttributes($model, $device);
             }
 
             $collection->set($model->getId(), $model);
@@ -67,7 +67,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         return $collection;
     }
 
-    private function setLightBlubAttributes(
+    private static function setLightBlubAttributes(
         LightBulb $model,
         DeviceDto $device,
     ): void {
@@ -79,7 +79,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         }
     }
 
-    private function _setLightRollerBlindAttributes(
+    private static function _setLightRollerBlindAttributes(
         RollerBlind $model,
         DeviceDto $device,
     ): void {
@@ -90,7 +90,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         }
     }
 
-    private function setDeviceAttributes(Device $model, DeviceDto $device): void
+    private static function setDeviceAttributes(Device $model, DeviceDto $device): void
     {
         $model->setName($device->getName());
         $model->setManufacturer($device->getDeviceInfo()->getManufacturer());

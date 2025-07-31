@@ -24,13 +24,9 @@ return RectorConfig::configure()
     ->withPhpSets(
         php83: true,
     )
+    ->withComposerBased(doctrine: true, symfony: true)
     ->withSets([
-        Rector\Symfony\Set\SymfonySetList::SYMFONY_72,
-        Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY,
-        Rector\Symfony\Set\SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
-
         Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_CODE_QUALITY,
-        Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_COLLECTION_22,
     ])
     ->withAttributesSets(all: true)
     ->withRules([

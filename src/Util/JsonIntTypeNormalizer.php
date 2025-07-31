@@ -30,7 +30,7 @@ final class JsonIntTypeNormalizer
      */
     public function __invoke(string $jsonString, string $targetClass): string
     {
-        $patternMap = $this->extractPatterns($targetClass);
+        $patternMap = self::extractPatterns($targetClass);
 
         return \preg_replace($patternMap, \array_keys($patternMap), $jsonString, 1) ?? throw new \InvalidArgumentException('Failed to parse json string');
     }
@@ -40,7 +40,7 @@ final class JsonIntTypeNormalizer
      *
      * @phpstan-return array<string, string>
      */
-    private function extractPatterns(string $targetClass): array
+    private static function extractPatterns(string $targetClass): array
     {
         Assert::classExists($targetClass);
 

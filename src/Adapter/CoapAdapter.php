@@ -361,14 +361,14 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         ) ?: throw new RuntimeException('invalid hub response');
 
         if ($returnRawData) {
-            $this->validateResponseType($returnType, $dataRaw);
+            self::validateResponseType($returnType, $dataRaw);
 
             return $dataRaw;
         }
 
-        $decodeData = $this->decodeData($dataRaw);
+        $decodeData = self::decodeData($dataRaw);
 
-        $this->validateResponseType($returnType, $decodeData);
+        self::validateResponseType($returnType, $decodeData);
 
         return $decodeData;
     }
@@ -378,7 +378,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
      *
      * @phpstan-return array<int|string|mixed>|object|string
      */
-    private function decodeData(string $dataRaw): array|object|string
+    private static function decodeData(string $dataRaw): array|object|string
     {
         $decoded = \json_decode($dataRaw, false, 512);
         if (null === $decoded) {
@@ -395,7 +395,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @throws InvalidArgumentException
      */
-    private function validateResponseType(CoapHubResponseDataType $returnType, mixed $dataRaw): void
+    private static function validateResponseType(CoapHubResponseDataType $returnType, mixed $dataRaw): void
     {
         match ($returnType) {
             CoapHubResponseDataType::Array   => Assert::isArray($dataRaw),

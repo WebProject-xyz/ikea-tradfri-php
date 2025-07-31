@@ -23,7 +23,7 @@ final readonly class CoapGatewayAuthConfigDto
         private string $gatewaySecret,
         private string $gatewayIp,
     ) {
-        $this->checkIp($this->gatewayIp);
+        self::checkIp($this->gatewayIp);
     }
 
     public function getUsername(): string
@@ -58,7 +58,7 @@ final readonly class CoapGatewayAuthConfigDto
     /**
      * @throws \InvalidArgumentException
      */
-    private function checkIp(string $gatewayAddress): void
+    private static function checkIp(string $gatewayAddress): void
     {
         if (\filter_var($gatewayAddress, \FILTER_VALIDATE_IP)) {
             return;

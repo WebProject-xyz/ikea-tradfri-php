@@ -39,8 +39,8 @@ final class CoapTest extends TestCase
             ->andReturn(['[]']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -79,8 +79,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -130,8 +130,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -205,8 +205,8 @@ BULB_DEVICE_JSON;
             ->andReturn([$lightDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -277,8 +277,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -325,8 +325,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -356,8 +356,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -383,8 +383,8 @@ GROUPS_JSON;
             ->andReturn([$groupIdsJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -409,8 +409,8 @@ GROUPS_JSON;
             ->andReturn(['']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -433,8 +433,8 @@ GROUPS_JSON;
             ->andReturn(['']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -457,8 +457,8 @@ GROUPS_JSON;
             ->andReturn(['']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -481,8 +481,8 @@ GROUPS_JSON;
             ->andReturn(['']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -505,8 +505,8 @@ GROUPS_JSON;
             ->andReturn(['']);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -542,8 +542,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -577,8 +577,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -605,8 +605,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -633,8 +633,8 @@ SENSOR_DEVICE_JSON;
             ->andReturn([$sensorDeviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -707,8 +707,8 @@ GROUP2_JSON;
             ->andReturn([$group2Json]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -804,8 +804,8 @@ DEVICE_JSON;
             ->andReturn([$deviceJson]);
 
         $adapter = new CoapAdapter(
-            $this->getGatewayAuthConfigDto(),
-            $this->buildCoapsCommandsWrapper(),
+            self::getGatewayAuthConfigDto(),
+            self::buildCoapsCommandsWrapper(),
             new DeviceData(),
             new GroupData(),
             $runner,
@@ -871,14 +871,14 @@ DEVICE_JSON;
         );
     }
 
-    private function buildCoapsCommandsWrapper(): \IKEA\Tradfri\Command\GatewayHelperCommands
+    private static function buildCoapsCommandsWrapper(): \IKEA\Tradfri\Command\GatewayHelperCommands
     {
         return new \IKEA\Tradfri\Command\GatewayHelperCommands(
-            $this->getGatewayAuthConfigDto(),
+            self::getGatewayAuthConfigDto(),
         );
     }
 
-    private function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto
+    private static function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto
     {
         return new CoapGatewayAuthConfigDto(
             username: 'mocked-user',

@@ -34,7 +34,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new BlindsGetCurrentPositionCommand($this->getGatewayAuthConfigDto(), 1, 100);
+        $commandString = new BlindsGetCurrentPositionCommand(self::getGatewayAuthConfigDto(), 1, 100);
 
         // Assert
         $this->assertSame(
@@ -47,7 +47,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new GroupDimmerCommand($this->getGatewayAuthConfigDto(), 1, 100);
+        $commandString = new GroupDimmerCommand(self::getGatewayAuthConfigDto(), 1, 100);
 
         // Assert
         $this->assertSame(
@@ -60,7 +60,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Get($this->getGatewayAuthConfigDto()))
+        $commandString = (new Get(self::getGatewayAuthConfigDto()))
             ->requestCommand(Request::RootDevices);
 
         // Assert
@@ -74,7 +74,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Warm);
+        $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Warm);
 
         // Assert
         $this->assertSame(
@@ -87,7 +87,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Cold);
+        $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Cold);
 
         // Assert
         $this->assertSame(
@@ -100,7 +100,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightChangeLightTemperatureCommand($this->getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Normal);
+        $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Normal);
 
         // Assert
         $this->assertSame(
@@ -113,7 +113,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new GroupSwitchStateCommand($this->getGatewayAuthConfigDto(), 2, true);
+        $commandString = new GroupSwitchStateCommand(self::getGatewayAuthConfigDto(), 2, true);
 
         // Assert
         $this->assertSame(
@@ -126,7 +126,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Post($this->getGatewayAuthConfigDto()))
+        $commandString = (new Post(self::getGatewayAuthConfigDto()))
             ->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
@@ -140,7 +140,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightSwitchStateCommand($this->getGatewayAuthConfigDto(), 111, true);
+        $commandString = new LightSwitchStateCommand(self::getGatewayAuthConfigDto(), 111, true);
 
         // Assert
         $this->assertSame(
@@ -153,7 +153,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = new LightDimmerCommand($this->getGatewayAuthConfigDto(), 111, 50);
+        $commandString = new LightDimmerCommand(self::getGatewayAuthConfigDto(), 111, 50);
 
         // Assert
         $this->assertSame(
@@ -166,7 +166,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Put($this->getGatewayAuthConfigDto()))->requestCommand(Request::RootDevices, 'injected');
+        $commandString = (new Put(self::getGatewayAuthConfigDto()))->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
         $this->assertSame(
@@ -178,7 +178,7 @@ final class CoapsTest extends TestCase
     public function testGetPreSharedKeyCommand(): void
     {
         // Arrange
-        $coaps = $this->buildCoapsCommandsWrapper();
+        $coaps = self::buildCoapsCommandsWrapper();
 
         // Act
         $commandString = $coaps->getPreSharedKeyCommand();
@@ -196,7 +196,7 @@ final class CoapsTest extends TestCase
         $runner = \Mockery::mock(CommandRunnerInterface::class);
         $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
 
-        $coaps = $this->buildCoapsCommandsWrapper($runner);
+        $coaps = self::buildCoapsCommandsWrapper($runner);
 
         // Act
         $sharedKey = $coaps->getSharedKeyFromGateway();
@@ -208,15 +208,15 @@ final class CoapsTest extends TestCase
         );
     }
 
-    private function buildCoapsCommandsWrapper(?CommandRunnerInterface $runner = null): \IKEA\Tradfri\Command\GatewayHelperCommands
+    private static function buildCoapsCommandsWrapper(?CommandRunnerInterface $runner = null): \IKEA\Tradfri\Command\GatewayHelperCommands
     {
         return new \IKEA\Tradfri\Command\GatewayHelperCommands(
-            $this->getGatewayAuthConfigDto(),
+            self::getGatewayAuthConfigDto(),
             $runner ?? new CommandRunner(),
         );
     }
 
-    private function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto
+    private static function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto
     {
         return new CoapGatewayAuthConfigDto(
             username: 'mocked-user',
