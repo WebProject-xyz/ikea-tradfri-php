@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -46,7 +46,7 @@ class CommandRunner implements CommandRunnerInterface
 
     private static function _parseErrors(bool $throw, string $errors): string
     {
-        $parts        = \explode("\n", $errors);
+        $parts = \explode("\n", $errors);
         $countOfLines = \count($parts);
         $line2IsEmpty = empty($parts[1]);
 

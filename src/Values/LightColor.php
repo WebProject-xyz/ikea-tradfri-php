@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,9 +15,9 @@ namespace IKEA\Tradfri\Values;
 
 enum LightColor: string
 {
-    case Warm   = 'warm';
+    case Warm = 'warm';
     case Normal = 'normal';
-    case Cold   = 'cold';
+    case Cold = 'cold';
 
     /**
      * @var array<string, list<non-empty-string>>

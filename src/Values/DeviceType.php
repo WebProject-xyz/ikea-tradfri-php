@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -29,17 +29,17 @@ use Webmozart\Assert\Assert;
 
 enum DeviceType: string
 {
-    case BLUB                                         = 'TRADFRI bulb';
-    case MOTION_SENSOR                                = 'TRADFRI motion sensor';
-    case REMOTE                                       = 'TRADFRI remote control';
-    case DIMMER                                       = 'TRADFRI dimmer';
-    case DRIVER                                       = 'TRADFRI Driver ';
-    case FLOALT                                       = 'FLOALT panel ';
-    case REPEATER                                     = 'TRADFRI Signal Repeater';
-    case REMOTE_OPEN_CLOSE                            = 'TRADFRI open/close remote';
-    case ROLLER_BLIND                                 = 'FYRTUR block-out roller blind';
-    case CONTROL_OUTLET                               = 'TRADFRI control outlet';
-    case UNKNOWN                                      = 'XXXX';
+    case BLUB = 'TRADFRI bulb';
+    case MOTION_SENSOR = 'TRADFRI motion sensor';
+    case REMOTE = 'TRADFRI remote control';
+    case DIMMER = 'TRADFRI dimmer';
+    case DRIVER = 'TRADFRI Driver ';
+    case FLOALT = 'FLOALT panel ';
+    case REPEATER = 'TRADFRI Signal Repeater';
+    case REMOTE_OPEN_CLOSE = 'TRADFRI open/close remote';
+    case ROLLER_BLIND = 'FYRTUR block-out roller blind';
+    case CONTROL_OUTLET = 'TRADFRI control outlet';
+    case UNKNOWN = 'XXXX';
 
     /**
      * @var array<string, class-string<Device>>
@@ -81,7 +81,7 @@ enum DeviceType: string
             ?->getClassName();
 
         if (
-            null     === $className
+            null === $className
             || false === \class_exists($className)
         ) {
             if (false === $allowUnknown) {

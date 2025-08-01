@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,8 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class GroupDto
 {
-    public const string KEY_ATTR_GROUP_MEMBERS ='ATTR_GROUP_MEMBERS';
-    public const string KEY_ATTR_GROUP_LIGHTS  ='ATTR_GROUP_LIGHTS';
+    public const string KEY_ATTR_GROUP_MEMBERS = 'ATTR_GROUP_MEMBERS';
+    public const string KEY_ATTR_GROUP_LIGHTS = 'ATTR_GROUP_LIGHTS';
 
     /**
      * {

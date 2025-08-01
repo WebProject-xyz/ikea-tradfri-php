@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -46,7 +46,7 @@ final class LightSwitchStateCommand extends Put
     #[\Override()]
     public function run(CommandRunnerInterface $runner): bool
     {
-        $result= $runner->execWithTimeout(
+        $result = $runner->execWithTimeout(
             (string) $this,
             2,
             true,
