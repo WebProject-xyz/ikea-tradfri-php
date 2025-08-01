@@ -12,10 +12,8 @@ Inspired by
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a04395190abd4cb1aa4fa9c7c8077810)](https://www.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WebProject-xyz/ikea-tradfri-php&amp;utm_campaign=Badge_Grade)
 [![QA](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/maintainability)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c3a38c872794aa6a83c9/test_coverage)](https://codeclimate.com/github/WebProject-xyz/ikea-tradfri-php/test_coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/a04395190abd4cb1aa4fa9c7c8077810)](https://app.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/main/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
-[![StyleCI](https://styleci.io/repos/115823629/shield?branch=main)](https://styleci.io/repos/115823629)
 
 ### Requirements and initial setup
 

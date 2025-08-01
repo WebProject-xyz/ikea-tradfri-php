@@ -1,9 +1,0 @@
-preset: recommended
-
-risky: false
-
-finder:
-  name:
-    - "*.php"
-  path:
-    - "src"
