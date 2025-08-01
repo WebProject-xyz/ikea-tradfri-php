@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,8 +15,8 @@ namespace IKEA\Tradfri\Values;
 
 enum CoapHubResponseDataType: string
 {
-    case Array    = 'array';
-    case ListInt  = 'intList';
-    case Object   = 'object';
-    case String   = 'string';
+    case Array = 'array';
+    case ListInt = 'intList';
+    case Object = 'object';
+    case String = 'string';
 }

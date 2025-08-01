@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,21 +15,21 @@ namespace IKEA\Tradfri\Values;
 
 enum CoapDeviceAttribute: string
 {
-    case Id                           = 'ATTR_ID';
-    case Name                         = 'ATTR_NAME';
-    case DeviceInfo                   = 'ATTR_DEVICE_INFO';
-    case DeviceModelNumber            = 'ATTR_DEVICE_MODEL_NUMBER';
-    case DeviceFirmwareVersion        = 'ATTR_DEVICE_FIRMWARE_VERSION';
-    case DeviceManufacturer           = 'ATTR_DEVICE_MANUFACTURER';
-    case LightControl                 = 'ATTR_LIGHT_CONTROL';
-    case DeviceState                  = 'ATTR_DEVICE_STATE';
-    case LightDimmer                  = 'ATTR_LIGHT_DIMMER';
-    case AttrLightColorHex            = 'ATTR_LIGHT_COLOR_HEX';
+    case Id = 'ATTR_ID';
+    case Name = 'ATTR_NAME';
+    case DeviceInfo = 'ATTR_DEVICE_INFO';
+    case DeviceModelNumber = 'ATTR_DEVICE_MODEL_NUMBER';
+    case DeviceFirmwareVersion = 'ATTR_DEVICE_FIRMWARE_VERSION';
+    case DeviceManufacturer = 'ATTR_DEVICE_MANUFACTURER';
+    case LightControl = 'ATTR_LIGHT_CONTROL';
+    case DeviceState = 'ATTR_DEVICE_STATE';
+    case LightDimmer = 'ATTR_LIGHT_DIMMER';
+    case AttrLightColorHex = 'ATTR_LIGHT_COLOR_HEX';
 
     /**
      * @phpstan-var array<string, numeric-string>
      */
-    private const array VALUES        = [
+    private const array VALUES = [
         self::Id->value                    => '9003',
         self::Name->value                  => '9001',
         self::DeviceInfo->value            => '3',
@@ -57,8 +57,8 @@ enum CoapDeviceAttribute: string
     {
         $map = [];
         foreach (self::cases() as $coapAttribute) {
-            $key   = '"' . $coapAttribute->value . '"';
-            $value = '#"' . $coapAttribute->getAttribute() . '"#';
+            $key = '"'.$coapAttribute->value.'"';
+            $value = '#"'.$coapAttribute->getAttribute().'"#';
 
             $map[$key] = $value;
         }

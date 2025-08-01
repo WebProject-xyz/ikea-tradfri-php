@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -16,11 +16,11 @@ namespace IKEA\Tradfri\Command;
 enum Request: string
 {
     case RootDevices = Coap\Keys::ROOT_DEVICES;
-    case RootGroups  = Coap\Keys::ROOT_GROUPS;
+    case RootGroups = Coap\Keys::ROOT_GROUPS;
     case RootGateway = Coap\Keys::ROOT_GATEWAY;
 
     public function withTargetId(int|string $deviceId): string
     {
-        return $this->value . '/' . $deviceId;
+        return $this->value.'/'.$deviceId;
     }
 }

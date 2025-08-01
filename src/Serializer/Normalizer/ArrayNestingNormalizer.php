@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -16,13 +16,14 @@ namespace IKEA\Tradfri\Serializer\Normalizer;
 use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function is_array;
 
 final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAwareInterface, NormalizerInterface
 {
     use \Psr\Log\LoggerAwareTrait;
     final public const string ATTR_LIGHT_CONTROL = 'ATTR_LIGHT_CONTROL';
-    final public const string ATTR_DEVICE_STATE  = 'ATTR_DEVICE_STATE';
+    final public const string ATTR_DEVICE_STATE = 'ATTR_DEVICE_STATE';
 
     public function __construct(
         private readonly DenormalizerInterface&NormalizerInterface $normalizer,

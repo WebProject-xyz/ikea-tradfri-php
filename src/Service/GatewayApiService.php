@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl
+ * Copyright (c) 2025 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -87,7 +87,7 @@ final readonly class GatewayApiService implements ServiceInterface
             return $this->client->lightOff($device);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
     }
 
     /**
@@ -103,7 +103,7 @@ final readonly class GatewayApiService implements ServiceInterface
             return $this->client->lightOn($device);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
     }
 
     /**
@@ -121,7 +121,7 @@ final readonly class GatewayApiService implements ServiceInterface
             return $this->client->dimLight($device, $level);
         }
 
-        throw new RuntimeException(self::INVALID_DEVICE_TYPE . $device->getType());
+        throw new RuntimeException(self::INVALID_DEVICE_TYPE.$device->getType());
     }
 
     /**
