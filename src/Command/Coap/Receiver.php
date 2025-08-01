@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -38,10 +38,10 @@ final class Receiver
     public function getCommand(): string
     {
         return $this->getUri()
-            .$this->getInjectCommand()
-            .' "'
-            .$this->getClientUri()
-            .'"';
+            . $this->getInjectCommand()
+            . ' "'
+            . $this->getClientUri()
+            . '"';
     }
 
     public function setRequestType(string $requestType): self
@@ -78,8 +78,8 @@ final class Receiver
 
     private function getClientUri(): string
     {
-        return 'coaps://'.$this->_getIpAddress().':5684/'
-            .$this->requestType;
+        return 'coaps://' . $this->_getIpAddress() . ':5684/'
+            . $this->requestType;
     }
 
     private function _getIpAddress(): string

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -18,9 +18,9 @@ use IKEA\Tradfri\Values\LightColor;
 
 final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 {
-    private const string FORMAT_DEVICE = '-e \'{ "%s": [{ "%s": %s }] }\'';
-    private const string FORMAT_GROUP = '-e \'{ "%s": %s }\'';
-    private const string FORMAT_LIGHT_COLOR = '-e \'{ "'.Keys::ATTR_LIGHT_CONTROL.'": [{ "'.Keys::ATTR_LIGHT_COLOR_X.'": %s, "'.Keys::ATTR_LIGHT_COLOR_Y.'": %s }] }\'';
+    private const string FORMAT_DEVICE      = '-e \'{ "%s": [{ "%s": %s }] }\'';
+    private const string FORMAT_GROUP       = '-e \'{ "%s": %s }\'';
+    private const string FORMAT_LIGHT_COLOR = '-e \'{ "' . Keys::ATTR_LIGHT_CONTROL . '": [{ "' . Keys::ATTR_LIGHT_COLOR_X . '": %s, "' . Keys::ATTR_LIGHT_COLOR_Y . '": %s }] }\'';
 
     public function __construct(
         private string $target,

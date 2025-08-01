@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -18,7 +18,7 @@ use IKEA\Tradfri\Values\CoapCommandPattern;
 
 final class Post extends AbstractCommand
 {
-    final public const string COAP_COMMAND = 'coap-client -m post -u "%s" -k "%s"';
+    final public const string COAP_COMMAND   = 'coap-client -m post -u "%s" -k "%s"';
     private const string COAP_COMMAND_FORMAT = '%s %s "%s/%s"';
 
     public function __construct(\IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig)
@@ -37,7 +37,7 @@ final class Post extends AbstractCommand
 
     public function run(CommandRunnerInterface $runner): bool
     {
-        $result = $runner->execWithTimeout(
+        $result= $runner->execWithTimeout(
             (string) $this,
             2,
             true,

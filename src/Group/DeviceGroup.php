@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -106,7 +106,7 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function getType(): string
     {
-        return 'GROUP: '.$this->getName();
+        return 'GROUP: ' . $this->getName();
     }
 
     public function isOn(): bool

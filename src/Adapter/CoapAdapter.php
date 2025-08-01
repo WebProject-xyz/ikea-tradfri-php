@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -205,7 +205,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         }
 
         $array_key_last = \array_key_last($deviceIds);
-        $deviceData = [];
+        $deviceData     = [];
         foreach ($deviceIds as $index => $deviceId) {
             // sometimes the request are to fast,
             // the hub will decline the request (flood security)
@@ -253,7 +253,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
         );
 
         Assert::stringNotEmpty($jsonStringRaw);
-        $rawJson = (new JsonIntTypeNormalizer())(
+        $rawJson       = (new JsonIntTypeNormalizer())(
             $jsonStringRaw,
             DeviceDto::class
         );

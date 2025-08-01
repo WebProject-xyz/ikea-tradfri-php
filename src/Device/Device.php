@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -37,7 +37,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
      */
     public function __construct(int $deviceId, string $deviceType)
     {
-        $this->type = DeviceType::tryFromType(deviceTypeValue: $deviceType, allowUnknown: true);
+        $this->type       = DeviceType::tryFromType(deviceTypeValue: $deviceType, allowUnknown: true);
         $this->deviceType = $deviceType;
         $this->setId($deviceId);
     }
@@ -51,7 +51,7 @@ abstract class Device implements \JsonSerializable, DeviceInterface
 
         foreach (\get_class_methods(static::class) as $method) {
             if ('getService' !== $method && \str_starts_with($method, 'get')) {
-                $key = \mb_strtolower(\mb_substr($method, 3));
+                $key        = \mb_strtolower(\mb_substr($method, 3));
                 Assert::stringNotEmpty($key);
                 $data[(string) $key] = $this->{$method}();
             }

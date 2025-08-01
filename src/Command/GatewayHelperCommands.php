@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -54,8 +54,8 @@ final readonly class GatewayHelperCommands
             'Client_identity',
             $this->authConfig->getGatewaySecret(),
         )
-        .' -e \'{"'.Keys::ATTR_CLIENT_IDENTITY_PROPOSED.'":"'.$this->authConfig->getUsername().'"}\' '
-        .$this->getRequestTypeCoapsUrl(
+        . ' -e \'{"' . Keys::ATTR_CLIENT_IDENTITY_PROPOSED . '":"' . $this->authConfig->getUsername() . '"}\' '
+        . $this->getRequestTypeCoapsUrl(
             Request::RootGateway->withTargetId(Keys::ATTR_AUTH),
         );
     }
@@ -68,8 +68,8 @@ final readonly class GatewayHelperCommands
         $parsed = false;
         foreach ($result as $part) {
             if (!empty($part)
-                && !\str_contains((string) $part, 'decrypt')
-                && !\str_contains((string) $part, 'v:1')) {
+                &&   !\str_contains((string) $part, 'decrypt')
+                &&   !\str_contains((string) $part, 'v:1')) {
                 $parsed = (string) $part;
 
                 break;

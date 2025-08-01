@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,19 +15,19 @@ namespace IKEA\Tradfri\Values;
 
 enum CoapDeviceGroupAttribute: string
 {
-    case Id = 'ATTR_ID';
-    case Name = 'ATTR_NAME';
-    case CreatedAt = 'ATTR_CREATED_AT';
-    case GroupMembers = 'ATTR_GROUP_MEMBERS';
-    case DeviceState = 'ATTR_DEVICE_STATE';
-    case LightDimmer = 'ATTR_LIGHT_DIMMER';
-    case Mood = 'ATTR_MOOD';
-    case GroupLights = 'ATTR_GROUP_LIGHTS';
+    case Id                  = 'ATTR_ID';
+    case Name                = 'ATTR_NAME';
+    case CreatedAt           = 'ATTR_CREATED_AT';
+    case GroupMembers        = 'ATTR_GROUP_MEMBERS';
+    case DeviceState         = 'ATTR_DEVICE_STATE';
+    case LightDimmer         = 'ATTR_LIGHT_DIMMER';
+    case Mood                = 'ATTR_MOOD';
+    case GroupLights         = 'ATTR_GROUP_LIGHTS';
 
     /**
      * @phpstan-var array<string, numeric-string>
      */
-    private const array VALUES = [
+    private const array VALUES        = [
         self::Id->value                       => '9003',
         self::Name->value                     => '9001',
         self::CreatedAt->value                => '9002',
@@ -68,8 +68,8 @@ enum CoapDeviceGroupAttribute: string
     {
         $map = [];
         foreach (self::cases() as $coapAttribute) {
-            $key = '"'.$coapAttribute->value.'"';
-            $value = '#"'.$coapAttribute->getAttribute().'"#';
+            $key   = '"' . $coapAttribute->value . '"';
+            $value = '#"' . $coapAttribute->getAttribute() . '"#';
 
             $map[$key] = $value;
         }

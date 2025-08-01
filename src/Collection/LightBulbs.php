@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -51,7 +51,7 @@ final class LightBulbs extends Devices
         $elements = [];
         $this->forAll(
             static function ($deviceId, DeviceInterface $device) use (&$elements): bool {
-                $elements[$device->getName().'_'.$deviceId] = $device;
+                $elements[$device->getName() . '_' . $deviceId] = $device;
 
                 return true;
             },

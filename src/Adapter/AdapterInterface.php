@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025 Benjamin Fahl.
+ * Copyright (c) 2025 Benjamin Fahl
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -27,7 +27,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 interface AdapterInterface
 {
-    public const true STATE_ON = true;
+    public const true STATE_ON   = true;
     public const false STATE_OFF = false;
 
     /**
