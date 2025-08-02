@@ -34,7 +34,7 @@
     "codeception/module-asserts": "^3.2.0",
     "ergebnis/license": "^2.6.0",
     "ergebnis/php-cs-fixer-config": "^6.50.0",
-    "friendsofphp/php-cs-fixer": "^3.84.0",
+    "friendsofphp/php-cs-fixer": "^3.85.1",
     "maglnet/composer-require-checker": "^4.16.1",
     "mockery/mockery": "^1.6.12",
     "phpro/grumphp": "^2.14.0",
