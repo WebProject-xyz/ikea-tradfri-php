@@ -1,6 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 # Select image from https://hub.docker.com/_/php/
-image: epcallan/php7-testing-phpunit:7.2-phpunit6
+image: epcallan/php7-testing-phpunit:7.2-phpunit6@sha256:c67c0a51805b6e8016f0d1fc82d71cc433f84c3d93857a12326da5cd0c246c14
 
 cache:
   paths:
