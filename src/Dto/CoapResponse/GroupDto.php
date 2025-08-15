@@ -48,7 +48,9 @@ final readonly class GroupDto
         #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_CREATED_AT')]
         private \DateTimeImmutable $createdAt,
-        /** @var list<positive-int> */
+        /**
+         * @var list<positive-int>
+         */
         #[Assert\All([new Assert\NotBlank(), new Assert\Positive()])]
         #[SerializedName(serializedName: 'ATTR_GROUP_MEMBERS')]
         private array $members,

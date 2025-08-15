@@ -20,7 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class DeviceDto
 {
     public function __construct(
-        /** @var positive-int */
+        /**
+         * @var positive-int
+         */
         #[Assert\NotBlank()]
         #[Assert\Positive()]
         #[SerializedName(serializedName: 'ATTR_ID')]
@@ -35,7 +37,9 @@ final readonly class DeviceDto
         #[Assert\Valid()]
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         private ?LightControlDto $lightControl = null,
-        /** @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto> */
+        /**
+         * @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto>
+         */
         #[Assert\Valid()]
         #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
         private ?array $blindControlDto = null,
