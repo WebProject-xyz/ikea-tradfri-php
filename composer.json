@@ -33,7 +33,7 @@
     "codeception/mockery-module": "^0.5.0",
     "codeception/module-asserts": "^3.2.0",
     "ergebnis/license": "^2.6.0",
-    "ergebnis/php-cs-fixer-config": "^6.52.0",
+    "ergebnis/php-cs-fixer-config": "^6.53.0",
     "friendsofphp/php-cs-fixer": "^3.86.0",
     "maglnet/composer-require-checker": "^4.16.1",
     "mockery/mockery": "^1.6.12",
