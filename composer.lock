@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "507b6b084128a26410771aaf90517fef",
+    "content-hash": "03cdc353661f572704be293024854ff2",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -3346,28 +3346,29 @@
         },
         {
             "name": "ergebnis/license",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/license.git",
-                "reference": "245316dc3bba7d30ed2bae72e9f27b31fb834a17"
+                "reference": "97c30560b6d0c68d9a213756a2ed59903dc1223e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/license/zipball/245316dc3bba7d30ed2bae72e9f27b31fb834a17",
-                "reference": "245316dc3bba7d30ed2bae72e9f27b31fb834a17",
+                "url": "https://api.github.com/repos/ergebnis/license/zipball/97c30560b6d0c68d9a213756a2ed59903dc1223e",
+                "reference": "97c30560b6d0c68d9a213756a2ed59903dc1223e",
                 "shasum": ""
             },
             "require": {
                 "ext-filter": "*",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.44.0",
-                "ergebnis/data-provider": "^3.3.0",
-                "ergebnis/php-cs-fixer-config": "^6.37.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.16.1",
-                "fakerphp/faker": "^1.24.0",
+                "ergebnis/composer-normalize": "^2.47.0",
+                "ergebnis/data-provider": "^3.5.0",
+                "ergebnis/php-cs-fixer-config": "^6.53.0",
+                "ergebnis/phpstan-rules": "^2.5.2",
+                "ergebnis/phpunit-slow-test-detector": "^2.20.0",
+                "fakerphp/faker": "^1.24.1",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^1.12.10",
@@ -3414,7 +3415,7 @@
                 "security": "https://github.com/ergebnis/license/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/license"
             },
-            "time": "2024-11-17T20:12:16+00:00"
+            "time": "2025-08-30T16:40:37+00:00"
         },
         {
             "name": "ergebnis/php-cs-fixer-config",
@@ -4925,16 +4926,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8"
+                "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
-                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/1e0cd5370df5dd2e556a36b9c62f62e555870495",
+                "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495",
                 "shasum": ""
             },
             "require": {
@@ -4966,9 +4967,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.2.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.0"
             },
-            "time": "2025-07-13T07:04:09+00:00"
+            "time": "2025-08-30T15:50:23+00:00"
         },
         {
             "name": "phpstan/phpstan",
