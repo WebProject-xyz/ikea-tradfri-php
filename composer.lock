@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1170dd87becba3a194b3b0fe8f39e50a",
+    "content-hash": "8f402c9da9359d8bee28b346ab54998b",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -350,16 +350,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.63.0",
+            "version": "6.64.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "0df4a31468d26c3d565482dff7b223c8cab1065a"
+                "reference": "d9f0f93b6c11d6738df13d8eb8777eb713fda82b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/0df4a31468d26c3d565482dff7b223c8cab1065a",
-                "reference": "0df4a31468d26c3d565482dff7b223c8cab1065a",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/d9f0f93b6c11d6738df13d8eb8777eb713fda82b",
+                "reference": "d9f0f93b6c11d6738df13d8eb8777eb713fda82b",
                 "shasum": ""
             },
             "require": {
@@ -373,7 +373,7 @@
             },
             "require-dev": {
                 "phpbench/phpbench": "^1.4.1",
-                "phpunit/phpunit": "^11.5.36"
+                "phpunit/phpunit": "^11.5.39"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -413,9 +413,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.63.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.64.0"
             },
-            "time": "2025-09-09T11:18:57+00:00"
+            "time": "2025-09-19T05:26:42+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4972,16 +4972,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.27",
+            "version": "2.1.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "25da374959afa391992792691093550b3098ef1e"
+                "reference": "578fa296a166605d97b94091f724f1257185d278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/25da374959afa391992792691093550b3098ef1e",
-                "reference": "25da374959afa391992792691093550b3098ef1e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/578fa296a166605d97b94091f724f1257185d278",
+                "reference": "578fa296a166605d97b94091f724f1257185d278",
                 "shasum": ""
             },
             "require": {
@@ -5026,7 +5026,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-17T09:55:13+00:00"
+            "time": "2025-09-19T08:58:49+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
