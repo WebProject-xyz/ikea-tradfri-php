@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba2068ed39b67352feda6054b09f750d",
+    "content-hash": "50e34076a57d4a3c46afb8bd9a51e2d0",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -5028,16 +5028,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "2.0.7",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "8f083bfe17bb0180c22f5f70c13a1574baf4d0a4"
+                "reference": "5eaf37b87288474051469aee9f937fc9d862f330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/8f083bfe17bb0180c22f5f70c13a1574baf4d0a4",
-                "reference": "8f083bfe17bb0180c22f5f70c13a1574baf4d0a4",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/5eaf37b87288474051469aee9f937fc9d862f330",
+                "reference": "5eaf37b87288474051469aee9f937fc9d862f330",
                 "shasum": ""
             },
             "require": {
@@ -5071,7 +5071,8 @@
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^9.6.20",
                 "ramsey/uuid": "^4.2",
-                "symfony/cache": "^5.4"
+                "symfony/cache": "^5.4",
+                "symfony/uid": "^5.4 || ^6.4 || ^7.3"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -5094,9 +5095,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.7"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.10"
             },
-            "time": "2025-10-06T09:16:35+00:00"
+            "time": "2025-10-06T10:01:02+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -6399,21 +6400,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.1.7",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "c34cc07c4698f007a20dc5c99ff820089ae413ce"
+                "reference": "3c5a641c39f2def0c93d36df118fb2e75cfc2aae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/c34cc07c4698f007a20dc5c99ff820089ae413ce",
-                "reference": "c34cc07c4698f007a20dc5c99ff820089ae413ce",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/3c5a641c39f2def0c93d36df118fb2e75cfc2aae",
+                "reference": "3c5a641c39f2def0c93d36df118fb2e75cfc2aae",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.18"
+                "phpstan/phpstan": "^2.1.26"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -6447,7 +6448,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.1.7"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.0"
             },
             "funding": [
                 {
@@ -6455,7 +6456,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-10T11:13:58+00:00"
+            "time": "2025-10-06T12:18:16+00:00"
         },
         {
             "name": "revolt/event-loop",
