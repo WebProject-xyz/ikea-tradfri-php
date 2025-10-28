@@ -22,10 +22,10 @@
     "symfony/polyfill-mbstring": "^1.33.0",
     "symfony/process": "^7.3.4",
     "symfony/property-access": "^7.3.3",
-    "symfony/property-info": "^7.3.4",
-    "symfony/serializer": "^7.3.4",
+    "symfony/property-info": "^7.3.5",
+    "symfony/serializer": "^7.3.5",
     "symfony/service-contracts": "^3.6.0",
-    "symfony/validator": "^7.3.4",
+    "symfony/validator": "^7.3.5",
     "webmozart/assert": "^1.11.0"
   },
   "require-dev": {
@@ -46,7 +46,7 @@
     "phpunit/phpunit": "^12.4.1",
     "rector/rector": "^2.2.3",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.3.4",
+    "symfony/var-dumper": "^7.3.5",
     "wmde/psr-log-test-doubles": "^3.4.0"
   },
   "prefer-stable": true,
