@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80a6d5042ce9024c779e6466278958f6",
+    "content-hash": "c0f1789f62b1b5156d4b66b300afadfb",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -3504,22 +3504,22 @@
         },
         {
             "name": "ergebnis/php-cs-fixer-config",
-            "version": "6.56.0",
+            "version": "6.56.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/php-cs-fixer-config.git",
-                "reference": "517c4a0a5e36d26b56d460c351715511ba84ea18"
+                "reference": "cd1a63857912f7c92d852f88f2e76ad0fb9fa9c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/517c4a0a5e36d26b56d460c351715511ba84ea18",
-                "reference": "517c4a0a5e36d26b56d460c351715511ba84ea18",
+                "url": "https://api.github.com/repos/ergebnis/php-cs-fixer-config/zipball/cd1a63857912f7c92d852f88f2e76ad0fb9fa9c2",
+                "reference": "cd1a63857912f7c92d852f88f2e76ad0fb9fa9c2",
                 "shasum": ""
             },
             "require": {
                 "erickskrauch/php-cs-fixer-custom-fixers": "~1.3.0",
                 "ext-filter": "*",
-                "friendsofphp/php-cs-fixer": "~3.89.1",
+                "friendsofphp/php-cs-fixer": "~3.89.2",
                 "kubawerlos/php-cs-fixer-custom-fixers": "~3.35.1",
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
             },
@@ -3529,12 +3529,12 @@
                 "ergebnis/license": "^2.7.0",
                 "ergebnis/phpstan-rules": "^2.12.0",
                 "ergebnis/phpunit-slow-test-detector": "^2.20.0",
-                "ergebnis/rector-rules": "^1.6.0",
+                "ergebnis/rector-rules": "^1.7.0",
                 "fakerphp/faker": "^1.24.1",
                 "phpstan/extension-installer": "^1.4.3",
                 "phpstan/phpstan": "^2.1.31",
                 "phpstan/phpstan-deprecation-rules": "^2.0.3",
-                "phpstan/phpstan-phpunit": "^2.0.7",
+                "phpstan/phpstan-phpunit": "^2.0.8",
                 "phpstan/phpstan-strict-rules": "^2.0.7",
                 "phpunit/phpunit": "^9.6.22",
                 "rector/rector": "^2.2.3",
@@ -3571,7 +3571,7 @@
                 "security": "https://github.com/ergebnis/php-cs-fixer-config/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/php-cs-fixer-config"
             },
-            "time": "2025-11-08T09:35:27+00:00"
+            "time": "2025-11-19T12:48:17+00:00"
         },
         {
             "name": "erickskrauch/php-cs-fixer-custom-fixers",
