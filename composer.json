@@ -20,12 +20,12 @@
     "psr/log": "^3.0.2",
     "roave/better-reflection": "^6.66.0",
     "symfony/polyfill-mbstring": "^1.33.0",
-    "symfony/process": "^7.3.4",
-    "symfony/property-access": "^7.3.3",
-    "symfony/property-info": "^7.3.5",
-    "symfony/serializer": "^7.3.5",
+    "symfony/process": "^7.4.0",
+    "symfony/property-access": "^7.4.0",
+    "symfony/property-info": "^7.4.0",
+    "symfony/serializer": "^7.4.0",
     "symfony/service-contracts": "^3.6.1",
-    "symfony/validator": "^7.3.7",
+    "symfony/validator": "^7.4.0",
     "webmozart/assert": "^1.12.1"
   },
   "require-dev": {
@@ -46,7 +46,7 @@
     "phpunit/phpunit": "^12.4.3",
     "rector/rector": "^2.2.8",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.3.5",
+    "symfony/var-dumper": "^7.4.0",
     "wmde/psr-log-test-doubles": "^3.4.0"
   },
   "prefer-stable": true,
