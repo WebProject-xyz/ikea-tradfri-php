@@ -19,7 +19,7 @@ use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
 
-final class GroupDimmerCommand extends Put
+final class GroupDimmerCommand extends Put implements \Stringable
 {
     public function __construct(
         CoapGatewayAuthConfigDto $authConfig,

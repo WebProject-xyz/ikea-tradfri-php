@@ -17,7 +17,7 @@ use IKEA\Tradfri\Command\Put;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
 
-final class LightChangeLightTemperatureCommand extends Put
+final class LightChangeLightTemperatureCommand extends Put implements \Stringable
 {
     public function __construct(
         \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,

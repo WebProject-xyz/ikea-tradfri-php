@@ -20,7 +20,7 @@ use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
 
-final class LightSwitchStateCommand extends Put
+final class LightSwitchStateCommand extends Put implements \Stringable
 {
     public function __construct(
         CoapGatewayAuthConfigDto $authConfig,

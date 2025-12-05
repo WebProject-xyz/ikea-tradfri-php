@@ -17,7 +17,7 @@ use IKEA\Tradfri\Values\CoapDeviceGroupAttribute;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class GroupDto
+final readonly class GroupDto implements ProvidesAttributeReplacePatternsInterface
 {
     public const string KEY_ATTR_GROUP_MEMBERS ='ATTR_GROUP_MEMBERS';
     public const string KEY_ATTR_GROUP_LIGHTS  ='ATTR_GROUP_LIGHTS';

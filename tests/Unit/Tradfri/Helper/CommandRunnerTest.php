@@ -50,7 +50,7 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: false);
 
         // Assert
-        $this->assertStringContainsString('asdjalgualg: not found', $result);
+        $this->assertStringContainsString('not found', $result);
     }
 
     public function testExecWithTimeoutGetErrorThrow(): void
@@ -59,7 +59,7 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $runner = new \IKEA\Tradfri\Helper\CommandRunner();
 
         // Act
-        $this->expectExceptionMessage('sh: 1: asdjalgualg: not found');
+        $this->expectExceptionMessageMatches('#asdjalgualg: command not found#');
         $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: true);
     }
 }

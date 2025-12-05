@@ -17,7 +17,7 @@ use IKEA\Tradfri\Values\CoapDeviceAttribute;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class DeviceDto
+final readonly class DeviceDto implements ProvidesAttributeReplacePatternsInterface
 {
     public function __construct(
         /**

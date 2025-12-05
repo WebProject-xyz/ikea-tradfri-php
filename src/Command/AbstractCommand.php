@@ -15,7 +15,7 @@ namespace IKEA\Tradfri\Command;
 
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
 
-abstract class AbstractCommand implements CommandInterface
+abstract class AbstractCommand implements \Stringable, CommandInterface
 {
     public function __construct(
         protected readonly \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,

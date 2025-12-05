@@ -30,7 +30,7 @@ class CommandRunner implements CommandRunnerInterface
         ?bool $asArray = null,
         bool $throw = false,
     ): array|string {
-        $process = Process::fromShellCommandline(command: $cmd, timeout: $timeout);
+        $process = Process::fromShellCommandline(command: $cmd, env: ['LANG=en_EN'], timeout: $timeout);
         $process->run();
 
         if (!$process->isSuccessful()) {

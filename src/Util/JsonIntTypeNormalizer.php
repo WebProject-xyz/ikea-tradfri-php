@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Util;
 
-use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
-use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
-use Webmozart\Assert\Assert;
+use IKEA\Tradfri\Dto\CoapResponse\ProvidesAttributeReplacePatternsInterface;
 
 /**
  * @internal
@@ -24,7 +22,7 @@ final class JsonIntTypeNormalizer
 {
     /**
      * @phpstan-param non-empty-string $jsonString
-     * @phpstan-param class-string<DeviceDto|GroupDto>     $targetClass
+     * @phpstan-param class-string<ProvidesAttributeReplacePatternsInterface> $targetClass
      *
      * @phpstan-return non-empty-string|string
      */
@@ -36,14 +34,12 @@ final class JsonIntTypeNormalizer
     }
 
     /**
-     * @phpstan-param class-string<DeviceDto|GroupDto> $targetClass
+     * @phpstan-param class-string<ProvidesAttributeReplacePatternsInterface> $targetClass
      *
      * @phpstan-return array<string, string>
      */
     private static function extractPatterns(string $targetClass): array
     {
-        Assert::classExists($targetClass);
-
         return $targetClass::getAttributeReplacePatterns();
     }
 }
