@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be83379355de31c9c6b9b4d7ea7e0d4f",
+    "content-hash": "87457705bdd9225ebbddfe68c5c7f854",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -2634,6 +2634,82 @@
             "time": "2024-08-03T19:31:26+00:00"
         },
         {
+            "name": "azjezz/psl",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/azjezz/psl.git",
+                "reference": "15153a64c9824335ce11654522e7d88de762d39e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/15153a64c9824335ce11654522e7d88de762d39e",
+                "reference": "15153a64c9824335ce11654522e7d88de762d39e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-sodium": "*",
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+                "revolt/event-loop": "^1.0.7"
+            },
+            "require-dev": {
+                "carthage-software/mago": "^1.0.0-beta.32",
+                "infection/infection": "^0.31.2",
+                "php-coveralls/php-coveralls": "^2.7.0",
+                "phpbench/phpbench": "^1.4.0",
+                "phpunit/phpunit": "^9.6.22"
+            },
+            "suggest": {
+                "php-standard-library/phpstan-extension": "PHPStan integration",
+                "php-standard-library/psalm-plugin": "Psalm integration"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/hhvm/hsl",
+                    "name": "hhvm/hsl"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\": "src/Psl"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "azjezz",
+                    "email": "azjezz@protonmail.com"
+                }
+            ],
+            "description": "PHP Standard Library",
+            "support": {
+                "issues": "https://github.com/azjezz/psl/issues",
+                "source": "https://github.com/azjezz/psl/tree/4.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/azjezz",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/veewee",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-25T08:31:40+00:00"
+        },
+        {
             "name": "behat/gherkin",
             "version": "v4.15.0",
             "source": {
@@ -4258,31 +4334,36 @@
         },
         {
             "name": "maglnet/composer-require-checker",
-            "version": "4.17.0",
+            "version": "4.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maglnet/ComposerRequireChecker.git",
-                "reference": "c4aeb5882988a23b22216ecf3e934ec50c072a40"
+                "reference": "ac5c3593fac690c9a186c0d9b1b753fc18d04854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/c4aeb5882988a23b22216ecf3e934ec50c072a40",
-                "reference": "c4aeb5882988a23b22216ecf3e934ec50c072a40",
+                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/ac5c3593fac690c9a186c0d9b1b753fc18d04854",
+                "reference": "ac5c3593fac690c9a186c0d9b1b753fc18d04854",
                 "shasum": ""
             },
             "require": {
+                "azjezz/psl": "^4.2.0",
                 "composer-runtime-api": "^2.0.0",
                 "ext-phar": "*",
-                "nikic/php-parser": "^5.5.0",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-                "symfony/console": "^6.4.1 || ^7.0.1",
-                "webmozart/assert": "^1.11.0",
+                "nikic/php-parser": "^5.4.0",
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+                "symfony/console": "^7.2.1",
                 "webmozart/glob": "^4.7.0"
             },
+            "conflict": {
+                "revolt/event-loop": "< 1.0.8"
+            },
             "require-dev": {
-                "doctrine/coding-standard": "^13.0.1",
+                "doctrine/coding-standard": "^14.0.0",
                 "ext-zend-opcache": "*",
                 "phing/phing": "^3.0.1",
+                "php-standard-library/phpstan-extension": "^2.0",
+                "php-standard-library/psalm-plugin": "^2.3",
                 "phpstan/phpstan": "^2.1.19",
                 "phpunit/phpunit": "^11.5.27",
                 "psalm/plugin-phpunit": "^0.19.5",
@@ -4333,9 +4414,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maglnet/ComposerRequireChecker/issues",
-                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.17.0"
+                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.19.0"
             },
-            "time": "2025-10-30T08:46:55+00:00"
+            "time": "2025-11-29T21:18:59+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -10244,6 +10325,6 @@
         "ext-json": "*",
         "ext-mbstring": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

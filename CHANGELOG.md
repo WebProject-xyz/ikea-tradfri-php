@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.4](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.3...4.1.4) (2025-12-05)
+
+### Bug Fixes
+
+* **QA:** fix unit test ([c2f0434](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/c2f04346d00bd75c3334b256fd3908fb1f69a2cd))
+* **QA:** workflow runs must succeed before tagging.. ([6d4f186](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/6d4f186540f5d51f045fb1c5665ceb78a68e617c))
+
 ## [4.1.3](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.2...4.1.3) (2025-12-05)
 
 ### Bug Fixes
