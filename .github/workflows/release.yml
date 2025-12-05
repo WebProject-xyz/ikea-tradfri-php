@@ -1,15 +1,18 @@
 name: Release
-"on":
-  push:
+on:
+  workflow_run:
+    workflows: ["QA", "Codecov", "CodeStyle", "Codacy Security Scan"]
+    types:
+      - completed
     branches:
       - main
-      - next
-      - beta
-      - "*.x"
+
 permissions:
   contents: read # for checkout
+
 jobs:
   release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: write # to be able to publish a GitHub release
       issues: write # to be able to comment on released issues
@@ -25,7 +28,7 @@ jobs:
         with:
           tag_format: ${version}
           branches: |
-            ['main', 'next']
+            ['main']
           extra_plugins: |
             @semantic-release/commit-analyzer
             @semantic-release/release-notes-generator
