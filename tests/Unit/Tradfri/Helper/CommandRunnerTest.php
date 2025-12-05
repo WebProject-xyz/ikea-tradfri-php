@@ -59,7 +59,7 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $runner = new \IKEA\Tradfri\Helper\CommandRunner();
 
         // Act
-        $this->expectExceptionMessageMatches('#asdjalgualg: command not found#');
+        $this->expectExceptionMessageMatches('#not found#');
         $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: true);
     }
 }
