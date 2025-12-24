@@ -31,7 +31,7 @@
   "require-dev": {
     "codeception/codeception": "^5.3.3",
     "codeception/mockery-module": "^0.5.0",
-    "codeception/module-asserts": "^3.2.1",
+    "codeception/module-asserts": "^3.3.0",
     "ergebnis/license": "^2.7.0",
     "ergebnis/php-cs-fixer-config": "^6.58.0",
     "friendsofphp/php-cs-fixer": "^3.92.3",
