@@ -29,7 +29,7 @@
     "webmozart/assert": "^1.12.1"
   },
   "require-dev": {
-    "codeception/codeception": "^5.3.3",
+    "codeception/codeception": "^5.3.4",
     "codeception/mockery-module": "^0.5.0",
     "codeception/module-asserts": "^3.3.0",
     "ergebnis/license": "^2.7.0",
