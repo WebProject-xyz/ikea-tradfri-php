@@ -40,11 +40,11 @@
     "phpro/grumphp": "^2.18.0",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpdoc-parser": "^2.3.1",
-    "phpstan/phpstan": "^2.1.35",
+    "phpstan/phpstan": "^2.1.36",
     "phpstan/phpstan-doctrine": "^2.0.13",
     "phpstan/phpstan-mockery": "^2.0.0",
     "phpunit/phpunit": "^12.5.6",
-    "rector/rector": "^2.3.2",
+    "rector/rector": "^2.3.4",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^7.4.0",
     "wmde/psr-log-test-doubles": "^3.4.0"
