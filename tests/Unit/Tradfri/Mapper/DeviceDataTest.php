@@ -22,6 +22,7 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\MotionSensor;
 use IKEA\Tradfri\Device\Remote;
 use IKEA\Tradfri\Device\RollerBlind;
+use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Service\ServiceInterface;
 
@@ -129,27 +130,56 @@ final class DeviceDataTest extends UnitTest
                 'readablestate' => 'Off',
             ],
             4001 => [
-                'id'             => 4001,
-                'manufacturer'   => 'IKEA of Sweden',
-                'name'           => 'Wohnzimmer - Decke 1',
-                'typeenum'       => \IKEA\Tradfri\Values\DeviceType::FLOALT,
-                'type'           => 'FLOALT panel 980lm',
-                'version'        => '2.3.095',
-                'brightness'     => 100.0,
-                'color'          => 'FF9834',
-                'readablestate'  => 'Off',
+                'id'            => 4001,
+                'manufacturer'  => 'IKEA of Sweden',
+                'name'          => 'Wohnzimmer - Decke 1',
+                'typeenum'      => \IKEA\Tradfri\Values\DeviceType::FLOALT,
+                'type'          => 'FLOALT panel 980lm',
+                'version'       => '2.3.095',
+                'brightness'    => 100.0,
+                'color'         => 'FF9834',
+                'readablestate' => 'Off',
             ],
             4000 => [
-                'id'             => 4000,
-                'manufacturer'   => 'IKEA of Sweden',
-                'name'           => 'Wohnzimmer - Fenster 1',
-                'typeenum'       => \IKEA\Tradfri\Values\DeviceType::BLUB,
-                'type'           => 'TRADFRI bulb E27 WS opal 980lm',
-                'version'        => '2.3.095',
-                'brightness'     => 100.0,
-                'color'          => 'FF9834',
-                'readablestate'  => 'Off',
+                'id'            => 4000,
+                'manufacturer'  => 'IKEA of Sweden',
+                'name'          => 'Wohnzimmer - Fenster 1',
+                'typeenum'      => \IKEA\Tradfri\Values\DeviceType::BLUB,
+                'type'          => 'TRADFRI bulb E27 WS opal 980lm',
+                'version'       => '2.3.095',
+                'brightness'    => 100.0,
+                'color'         => 'FF9834',
+                'readablestate' => 'Off',
             ],
         ], $result->filterLightBulbs()->sortByState()->jsonSerialize());
+    }
+
+    public function testMapRollerBlindWithAttributes(): void
+    {
+        // Arrange
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $mapper      = new DeviceData();
+
+        $blindControl = new \IKEA\Tradfri\Dto\CoapResponse\BlindControlDto(12); // instance
+        $deviceInfo   = new \IKEA\Tradfri\Dto\CoapResponse\DeviceInfoDto('IKEA', Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, '1.0');
+        $deviceDto    = new DeviceDto(
+            123,
+            'Blind',
+            $deviceInfo,
+            null,
+            [$blindControl],
+        );
+
+        // Act
+        $result = $mapper->map(
+            $serviceMock,
+            [$deviceDto],
+            new Devices(),
+        );
+
+        // Assert
+        $blind = $result->get(123);
+        $this->assertInstanceOf(RollerBlind::class, $blind);
+        $this->assertSame(12, $blind->getDarkenedState()); // Check if mapped
     }
 }
