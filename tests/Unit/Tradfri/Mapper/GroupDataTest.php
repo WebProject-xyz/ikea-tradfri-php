@@ -34,7 +34,7 @@ final class GroupDataTest extends UnitTest
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $devices = [];
+        $devices     = [];
 
         $mapper = new GroupData();
         $groups = new Groups();
@@ -49,7 +49,7 @@ final class GroupDataTest extends UnitTest
     {
         // Arrange
         $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $loggerMock = \Mockery::mock(\Psr\Log\LoggerInterface::class);
+        $loggerMock  = \Mockery::mock(\Psr\Log\LoggerInterface::class);
         $loggerMock->shouldReceive('warning')->once();
 
         $mapper = new GroupData();
@@ -73,7 +73,7 @@ final class GroupDataTest extends UnitTest
         $mapper = new GroupData();
         $groups = new Groups();
         // Act
-        $groupsItems = [];
+        $groupsItems              = [];
         $jsonDeviceDataSerializer = new \IKEA\Tradfri\Serializer\JsonDeviceDataSerializer();
         foreach ($this->tester->getGroupDataCoapsResponse() as $item) {
             try {
@@ -83,7 +83,7 @@ final class GroupDataTest extends UnitTest
                         targetClass: GroupDto::class
                     ),
                     GroupDto::class,
-                        $jsonDeviceDataSerializer::FORMAT,
+                    $jsonDeviceDataSerializer::FORMAT,
                 );
             } catch (MissingConstructorArgumentsException $exception) {
                 \codecept_debug('VALID CASE: ' . $exception->getMessage());

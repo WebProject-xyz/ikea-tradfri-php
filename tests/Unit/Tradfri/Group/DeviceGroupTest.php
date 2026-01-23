@@ -58,7 +58,7 @@ final class DeviceGroupTest extends UnitTest
         // Act
         $group->setDevices(new Devices());
 
-        $result = $group->getDevices();
+        $result       = $group->getDevices();
         $resultLights = $group->getLights();
         // Assert
         $this->assertCount(0, $result);
@@ -130,8 +130,8 @@ final class DeviceGroupTest extends UnitTest
     {
         // Arrange
         $service = \Mockery::mock(ServiceInterface::class);
-        $group = $this->testICanInitGroupOfLights($service);
-        $light = \Mockery::mock(\IKEA\Tradfri\Device\Feature\DeviceInterface::class);
+        $group   = $this->testICanInitGroupOfLights($service);
+        $light   = \Mockery::mock(\IKEA\Tradfri\Device\Feature\DeviceInterface::class);
         $light->shouldReceive('getId')->andReturn(100);
         $light->shouldReceive('jsonSerialize')->andReturn(['id' => 100]);
 
@@ -150,7 +150,7 @@ final class DeviceGroupTest extends UnitTest
     {
         // Arrange
         $service = \Mockery::mock(ServiceInterface::class);
-        $group = $this->testICanInitGroupOfLights($service);
+        $group   = $this->testICanInitGroupOfLights($service);
 
         /** @var \IKEA\Tradfri\Device\LightBulb|\Mockery\MockInterface $light */
         $light = \Mockery::mock(\IKEA\Tradfri\Device\LightBulb::class);
@@ -173,7 +173,7 @@ final class DeviceGroupTest extends UnitTest
     {
         // Arrange
         $service = \Mockery::mock(ServiceInterface::class);
-        $group = $this->testICanInitGroupOfLights($service);
+        $group   = $this->testICanInitGroupOfLights($service);
 
         $service->expects('on')->with($group)->andReturnFalse();
         $service->expects('off')->with($group)->andReturnFalse();
