@@ -26,7 +26,7 @@
     "symfony/serializer": "^7.4.3",
     "symfony/service-contracts": "^3.6.1",
     "symfony/validator": "^7.4.3",
-    "webmozart/assert": "^1.12.1"
+    "webmozart/assert": "^2.1.2"
   },
   "require-dev": {
     "codeception/codeception": "^5.3.4",
