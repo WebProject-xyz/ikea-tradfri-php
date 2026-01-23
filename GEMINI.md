@@ -32,7 +32,7 @@
 ## Developer Notes
 - **Scripts** (`composer.json`):
     - `build-coverage`: Run tests with coverage output.
-    - `php-cs-fixer`: Fix coding style.
+    - `php-cs-fixer-full`: Fix coding style.
     - `phpstan`: Run static analysis.
     - `run-tests`: Run Codeception tests.
 - **Docker**:
@@ -48,7 +48,7 @@
 ## Work Standards
 - **Persona**: PHP Expert, Symfony enthusiast.
 - **Workflow**:
-    - Run `php-cs-fixer` and `run-tests` after changes.
+    - Run `vendor/bin/grumphp run` (with json output) after changes.
     - Use semantic commits.
     - Create feature branches from fresh `main`.
     - Follow PHP 8.3 & Symfony best practices.
