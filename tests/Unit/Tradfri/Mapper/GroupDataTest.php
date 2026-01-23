@@ -45,6 +45,26 @@ final class GroupDataTest extends UnitTest
         $this->assertSame($groups, $result);
     }
 
+    public function testMapLogsWarningOnInvalidItem(): void
+    {
+        // Arrange
+        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $loggerMock  = \Mockery::mock(\Psr\Log\LoggerInterface::class);
+        $loggerMock->shouldReceive('warning')->once();
+
+        $mapper = new GroupData();
+        $mapper->setLogger($loggerMock);
+        $groups = new Groups();
+
+        // Act
+        /** @phpstan-ignore-next-line */
+        $result = $mapper->map($serviceMock, [new \stdClass()], $groups);
+
+        // Assert
+        $this->assertInstanceOf(Groups::class, $result);
+        $this->assertTrue($result->isEmpty());
+    }
+
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
@@ -53,7 +73,7 @@ final class GroupDataTest extends UnitTest
         $mapper = new GroupData();
         $groups = new Groups();
         // Act
-        $groupsItems              =[];
+        $groupsItems              = [];
         $jsonDeviceDataSerializer = new \IKEA\Tradfri\Serializer\JsonDeviceDataSerializer();
         foreach ($this->tester->getGroupDataCoapsResponse() as $item) {
             try {

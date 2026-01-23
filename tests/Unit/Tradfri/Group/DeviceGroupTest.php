@@ -21,7 +21,7 @@ use IKEA\Tradfri\Service\ServiceInterface;
 /**
  * Class LightTest.
  */
-final class LightTest extends UnitTest
+final class DeviceGroupTest extends UnitTest
 {
     public function testICanInitGroupOfLights(?ServiceInterface $service = null): DeviceGroup
     {
@@ -124,5 +124,64 @@ final class LightTest extends UnitTest
 
         $group->dim(42);
         $this->assertSame(42.0, $group->getBrightness());
+    }
+
+    public function testJsonSerialize(): void
+    {
+        // Arrange
+        $service = \Mockery::mock(ServiceInterface::class);
+        $group   = $this->testICanInitGroupOfLights($service);
+        $light   = \Mockery::mock(\IKEA\Tradfri\Device\Feature\DeviceInterface::class);
+        $light->shouldReceive('getId')->andReturn(100);
+        $light->shouldReceive('jsonSerialize')->andReturn(['id' => 100]);
+
+        $devices = new Devices();
+        $devices->add($light);
+        $group->setDevices($devices);
+
+        // Act
+        $json = (string) \json_encode($group);
+
+        // Assert
+        $this->assertJsonStringEqualsJsonString('{"100":{"id":100}}', $json);
+    }
+
+    public function testIsOnWithActiveLights(): void
+    {
+        // Arrange
+        $service = \Mockery::mock(ServiceInterface::class);
+        $group   = $this->testICanInitGroupOfLights($service);
+
+        /** @var \IKEA\Tradfri\Device\LightBulb|\Mockery\MockInterface $light */
+        $light = \Mockery::mock(\IKEA\Tradfri\Device\LightBulb::class);
+        $light->shouldReceive('getId')->andReturn(100);
+        $light->shouldReceive('getTypeEnum')->andReturn(\IKEA\Tradfri\Values\DeviceType::BLUB);
+        $light->shouldReceive('isOn')->andReturnTrue();
+        $light->shouldReceive('getName')->andReturn('Light 1');
+
+        $devices = new Devices();
+        $devices->add($light);
+        $group->setDevices($devices);
+
+        // Act
+        // Assert
+        $this->assertTrue($group->isOn());
+        $this->assertFalse($group->isOff());
+    }
+
+    public function testServiceFailures(): void
+    {
+        // Arrange
+        $service = \Mockery::mock(ServiceInterface::class);
+        $group   = $this->testICanInitGroupOfLights($service);
+
+        $service->expects('on')->with($group)->andReturnFalse();
+        $service->expects('off')->with($group)->andReturnFalse();
+        $service->expects('dim')->with($group, 50)->andReturnFalse();
+
+        // Act & Assert
+        $this->assertFalse($group->switchOn());
+        $this->assertFalse($group->switchOff());
+        $this->assertFalse($group->dim(50));
     }
 }
