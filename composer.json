@@ -70,7 +70,7 @@
   "scripts": {
     "build-coverage": [
       "echo 'Build coverage'",
-      "./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
+      "XDEBUG_MODE=coverage ./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
     ],
     "php-cs-fixer": "vendor/bin/php-cs-fixer fix -vv --path-mode=intersection",
     "php-cs-fixer-full": "vendor/bin/php-cs-fixer fix -v --show-progress dots",
