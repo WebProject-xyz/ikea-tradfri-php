@@ -20,12 +20,12 @@
     "psr/log": "^3.0.2",
     "roave/better-reflection": "^6.68.0",
     "symfony/polyfill-mbstring": "^1.33.0",
-    "symfony/process": "^7.4.4",
+    "symfony/process": "^7.4.5",
     "symfony/property-access": "^7.4.4",
-    "symfony/property-info": "^7.4.4",
-    "symfony/serializer": "^7.4.4",
+    "symfony/property-info": "^7.4.5",
+    "symfony/serializer": "^7.4.5",
     "symfony/service-contracts": "^3.6.1",
-    "symfony/validator": "^7.4.4",
+    "symfony/validator": "^7.4.5",
     "webmozart/assert": "^2.1.2"
   },
   "require-dev": {
