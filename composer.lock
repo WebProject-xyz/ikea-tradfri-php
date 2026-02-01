@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa63926cae4067c840e4bd5d1d4e6203",
+    "content-hash": "1297a85d9d89c2357a1c79e9dd4626c9",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -347,16 +347,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.68.0",
+            "version": "6.69.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "065cd70630a023c8328f18691403cb8ea7f9f195"
+                "reference": "dccbd10b5b3da8718f2945ad50faf90a1cb2db55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/065cd70630a023c8328f18691403cb8ea7f9f195",
-                "reference": "065cd70630a023c8328f18691403cb8ea7f9f195",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/dccbd10b5b3da8718f2945ad50faf90a1cb2db55",
+                "reference": "dccbd10b5b3da8718f2945ad50faf90a1cb2db55",
                 "shasum": ""
             },
             "require": {
@@ -370,7 +370,7 @@
             },
             "require-dev": {
                 "phpbench/phpbench": "^1.4.3",
-                "phpunit/phpunit": "^11.5.48"
+                "phpunit/phpunit": "^12.5.8"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -410,9 +410,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.68.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.69.0"
             },
-            "time": "2026-01-19T15:38:11+00:00"
+            "time": "2026-02-01T13:20:30+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
