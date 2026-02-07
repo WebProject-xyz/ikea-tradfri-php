@@ -44,7 +44,7 @@
     "phpstan/phpstan-doctrine": "^2.0.14",
     "phpstan/phpstan-mockery": "^2.0.0",
     "phpunit/phpunit": "^12.5.9",
-    "rector/rector": "^2.3.5",
+    "rector/rector": "^2.3.6",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^7.4.4",
     "wmde/psr-log-test-doubles": "^3.4.0"
