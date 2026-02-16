@@ -35,7 +35,7 @@
     "ergebnis/license": "^2.7.0",
     "ergebnis/php-cs-fixer-config": "^6.60.0",
     "friendsofphp/php-cs-fixer": "^3.94.0",
-    "maglnet/composer-require-checker": "^4.20.0",
+    "maglnet/composer-require-checker": "^4.21.0",
     "mockery/mockery": "^1.6.12",
     "phpro/grumphp": "^2.19.0",
     "phpstan/extension-installer": "^1.4.3",
