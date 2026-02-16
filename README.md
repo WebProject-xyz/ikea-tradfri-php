@@ -1,6 +1,9 @@
 # IKEA Tradfri PHP API
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a04395190abd4cb1aa4fa9c7c8077810)](https://www.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WebProject-xyz/ikea-tradfri-php&amp;utm_campaign=Badge_Grade)
 [![QA](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/grump.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/a04395190abd4cb1aa4fa9c7c8077810)](https://app.codacy.com/gh/WebProject-xyz/ikea-tradfri-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![codecov](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php/branch/main/graph/badge.svg)](https://codecov.io/gh/WebProject-xyz/ikea-tradfri-php)
 [![Release](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/release.yml/badge.svg)](https://github.com/WebProject-xyz/ikea-tradfri-php/actions/workflows/release.yml)
 [![PHP Version](https://img.shields.io/packagist/php-v/webproject-xyz/ikea-tradfri-php-api)](https://packagist.org/packages/webproject-xyz/ikea-tradfri-php-api)
 [![Latest Stable Version](https://img.shields.io/packagist/v/webproject-xyz/ikea-tradfri-php-api)](https://packagist.org/packages/webproject-xyz/ikea-tradfri-php-api)
