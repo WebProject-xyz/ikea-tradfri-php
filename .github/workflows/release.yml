@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Generate Token
         id: generate_token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
           token: ${{ steps.generate_token.outputs.token }}
