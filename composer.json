@@ -12,7 +12,7 @@
   ],
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "~8.3.0 || ~8.4.0",
+    "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
     "ext-filter": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
@@ -65,18 +65,27 @@
       "phpro/grumphp": true,
       "phpstan/extension-installer": true
     },
-    "optimize-autoloader": true
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.3.99"
+    }
   },
   "scripts": {
     "build-coverage": [
       "echo 'Build coverage'",
-      "XDEBUG_MODE=coverage ./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --steps "
+      "XDEBUG_MODE=coverage ./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --report "
     ],
+    "cs:check": "php-cs-fixer fix --allow-risky=yes --dry-run --diff --show-progress=dots",
+    "cs:fix": "php-cs-fixer fix --allow-risky=yes",
     "php-cs-fixer": "vendor/bin/php-cs-fixer fix -vv --path-mode=intersection",
     "php-cs-fixer-full": "vendor/bin/php-cs-fixer fix -v --show-progress dots",
     "phpstan": "vendor/bin/phpstan analyse --memory-limit=-1  --no-progress --no-ansi",
     "run-tests": [
       "./vendor/bin/codecept run --colors"
-    ]
+    ],
+    "stan": "phpstan analyse --memory-limit=-1  --no-progress --debug",
+    "test": "codecept run --report",
+    "test:build": "codecept build",
+    "test:coverage": "XDEBUG_MODE=coverage codecept run --coverage --coverage-xml=coverage.xml --xml  --report"
   }
 }

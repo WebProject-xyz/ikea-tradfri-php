@@ -12,7 +12,9 @@ declare(strict_types=1);
  */
 
 use Ergebnis\License;
-use Ergebnis\PhpCsFixer;
+use Ergebnis\PhpCsFixer\Config\Factory;
+use Ergebnis\PhpCsFixer\Config\Rules;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php83;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -29,9 +31,9 @@ $license = License\Type\MIT::markdown(
 
 $license->save();
 
-$ruleSet = PhpCsFixer\Config\RuleSet\Php83::create()
+$ruleSet = Php83::create()
     ->withHeader($license->header())
-    ->withRules(PhpCsFixer\Config\Rules::fromArray(
+    ->withRules(Rules::fromArray(
         [
             'binary_operator_spaces' => [
                 'default'   => 'align',
@@ -73,26 +75,29 @@ $ruleSet = PhpCsFixer\Config\RuleSet\Php83::create()
         ],
     ));
 
-/** @var PhpCsFixer\Config $config */
-$config = PhpCsFixer\Config\Factory::fromRuleSet($ruleSet);
-$config->getFinder()
-    ->exclude([
-        'build/',
-        '.github/',
-        'var/',
-    ])
-    ->ignoreDotFiles(false)
-    ->in(__DIR__)
-    ->name([
-        '.php-cs-fixer.php',
-        'console',
-    ])
-    ->notName([
-        '.env.local.php',
-        'UnitTesterActions.php',
+$config = Factory::fromRuleSet($ruleSet);
+$finder = \PhpCsFixer\Finder::create()
+    ->in(
+        [
+            __DIR__ . '/src',
+            __DIR__ . '/tests',
+            __DIR__ . '/wiki',
+        ],
+    )
+    ->append(
+        [
+            __FILE__,
+        ],
+    )
+    ->notContains([
+        '_generated',
     ]);
 
-$config->setCacheFile(__DIR__ . '/.php-cs-fixer.cache');
+$config->setUsingCache(true);
+$config->setLineEnding("\n");
+$config->setRiskyAllowed(true);
 $config->setParallelConfig(ParallelConfigFactory::detect());
+$config->setFinder($finder);
+$config->setUnsupportedPhpVersionAllowed(true);
 
 return $config;
