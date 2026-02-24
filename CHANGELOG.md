@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.6](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.5...4.1.6) (2026-02-24)
+
+### Bug Fixes
+
+* **docs:** clean up readme badges and examples ([bbc57ac](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/bbc57aca7f1bdc5e6908037e093791475006ad88))
+* **docs:** update badges ([16ef604](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/16ef604791487a95ee31065821de5521ae382dc6))
+
 ## [4.1.5](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.4...4.1.5) (2026-02-16)
 
 ### Bug Fixes
