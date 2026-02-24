@@ -7,9 +7,79 @@ on:
     branches:
       - main
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
-  release:
+  gate:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: gate
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - name: Verify required workflows succeeded
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const required = ['CI', 'Codacy Security Scan'];
+            const sha = context.payload.workflow_run.head_sha;
+            const branch = context.payload.workflow_run.head_branch;
+            const { owner, repo } = context.repo;
+
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+              owner,
+              repo,
+              head_sha: sha,
+              per_page: 100,
+            });
+
+            const latestByName = new Map();
+            for (const run of runs) {
+              if (!required.includes(run.name)) {
+                continue;
+              }
+              if (run.head_branch !== branch) {
+                continue;
+              }
+
+              const known = latestByName.get(run.name);
+              if (!known || new Date(run.created_at) > new Date(known.created_at)) {
+                latestByName.set(run.name, run);
+              }
+            }
+
+            const missing = [];
+            const failing = [];
+
+            for (const workflowName of required) {
+              const run = latestByName.get(workflowName);
+
+              if (!run || run.status !== 'completed') {
+                missing.push(workflowName);
+                continue;
+              }
+
+              if (run.conclusion !== 'success') {
+                failing.push(`${workflowName}=${run.conclusion}`);
+              }
+            }
+
+            const ready = missing.length === 0 && failing.length === 0;
+            core.setOutput('ready', ready ? 'true' : 'false');
+
+            core.info(`head_sha=${sha}, branch=${branch}`);
+            core.info(`missing=[${missing.join(', ')}], failing=[${failing.join(', ')}]`);
+
+            if (!ready) {
+              core.notice('Skipping release: both workflows must be completed with success for this commit.');
+            }
+
+  release:
+    needs: [gate]
+    if: ${{ needs.gate.outputs.ready == 'true' }}
     name: release
     runs-on: ubuntu-latest
     steps:
