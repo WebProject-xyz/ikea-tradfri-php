@@ -7,6 +7,14 @@ extensions:
         - Codeception\Extension\RunFailed
         - Codeception\Extension\Logger:
             max_files: 5
+        - WebProject\Codeception\Module\AiReporter\Extension\AiReporter:
+              format: both
+              output: build/logs
+              max_frames: 8
+              include_steps: true
+              include_artifacts: true
+              compact_paths: true
+
 paths:
     tests: tests
     output: build/logs

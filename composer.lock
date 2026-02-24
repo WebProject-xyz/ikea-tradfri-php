@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e26c1d22f626dd8ff1da4eaa23586724",
+    "content-hash": "c5e34a13f7cfd28ec0a705fb15e5dc1a",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -10302,6 +10302,58 @@
                 "source": "https://github.com/webmozarts/glob/tree/4.7.0"
             },
             "time": "2024-03-07T20:33:40+00:00"
+        },
+        {
+            "name": "webproject-xyz/codeception-module-ai-reporter",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebProject-xyz/codeception-module-ai-reporter.git",
+                "reference": "30e2c3c0a36c104f259dc65d3c5b2669aa13597e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebProject-xyz/codeception-module-ai-reporter/zipball/30e2c3c0a36c104f259dc65d3c5b2669aa13597e",
+                "reference": "30e2c3c0a36c104f259dc65d3c5b2669aa13597e",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^5.3.5",
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^3.3",
+                "friendsofphp/php-cs-fixer": "^3.94.1",
+                "mockery/mockery": "^1.6.12",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.1.39",
+                "phpstan/phpstan-webmozart-assert": "^2.0.0",
+                "roave/security-advisories": "dev-latest",
+                "symfony/var-dumper": "7.4.0 || ^8.0",
+                "webmozart/assert": "^2.1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WebProject\\Codeception\\Module\\AiReporter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AI Assistant",
+                    "email": "ai@example.com"
+                }
+            ],
+            "description": "Codeception extension that emits deterministic AI-friendly failure reports",
+            "support": {
+                "issues": "https://github.com/WebProject-xyz/codeception-module-ai-reporter/issues",
+                "source": "https://github.com/WebProject-xyz/codeception-module-ai-reporter/tree/1.0.1"
+            },
+            "time": "2026-02-19T22:52:32+00:00"
         },
         {
             "name": "wmde/psr-log-test-doubles",
