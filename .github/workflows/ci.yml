@@ -22,6 +22,7 @@ jobs:
             php-version: "8.3"
 
       -   name: "Validate composer.json and composer.lock"
+          if: "github.actor != 'renovate[bot]' || contains(github.head_ref, 'lock-file-maintenance')"
           run: "composer validate --ansi --strict"
 
       -   name: "Determine composer cache directory"
@@ -40,7 +41,7 @@ jobs:
       -   name: "Install locked dependencies with composer"
           uses: "ergebnis/.github/actions/composer/install@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
           with:
-            dependencies: "locked"
+            dependencies: "${{ (github.actor == 'renovate[bot]' && !contains(github.head_ref, 'lock-file-maintenance')) && 'highest' || 'locked' }}"
 
       -   name: "Check coding style"
           run: "vendor/bin/codecept build"
@@ -60,8 +61,8 @@ jobs:
         include:
           - { php-version: 8.3, dependencies: locked, coverage: pcov, with_coverage: true, allow-fail: false }
 
-          - { php-version: 8.4, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: true }
-          - { php-version: 8.5, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: true }
+          - { php-version: 8.4, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: false }
+          - { php-version: 8.5, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: false }
     steps:
       -   name: "Checkout"
           uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
@@ -80,6 +81,7 @@ jobs:
           run: "echo \"::add-matcher::${{ runner.tool_cache }}/phpunit.json\""
 
       -   name: "Validate composer.json and composer.lock"
+          if: "github.actor != 'renovate[bot]' || contains(github.head_ref, 'lock-file-maintenance')"
           run: "composer validate --ansi --strict"
 
       -   name: "Determine composer cache directory"
@@ -98,7 +100,7 @@ jobs:
       -   name: "Install ${{ matrix.dependencies }} dependencies with composer"
           uses: "ergebnis/.github/actions/composer/install@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
           with:
-            dependencies: "${{ matrix.dependencies }}"
+            dependencies: "${{ (github.actor == 'renovate[bot]' && !contains(github.head_ref, 'lock-file-maintenance') && matrix.dependencies == 'locked') && 'highest' || matrix.dependencies }}"
 
       -   name: "Run Tests (coverage)"
           if: matrix.with_coverage == true
