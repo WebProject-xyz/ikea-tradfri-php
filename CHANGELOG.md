@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.7](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.6...4.1.7) (2026-03-02)
+
+### Bug Fixes
+
+* **testing:** make source output is not dependent on php version ([782ba31](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/782ba318e7311917a525dc6181534afa373b3854))
+
 ## [4.1.6](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.5...4.1.6) (2026-02-24)
 
 ### Bug Fixes
