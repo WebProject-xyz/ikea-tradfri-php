@@ -73,16 +73,12 @@ jobs:
         uses: codacy/codacy-analysis-cli-action@30783d03e758713bb5ed7b79292cfb14b9dd9a4a
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          verbose: true
+          verbose: false
           output: results.sarif
           format: sarif
+          upload: true
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
-
-      - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4
-        with:
-          sarif_file: results.sarif
 
   tests:
     name: "Run codeception tests"
