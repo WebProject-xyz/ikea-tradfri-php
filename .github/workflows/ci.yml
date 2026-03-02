@@ -119,7 +119,7 @@ jobs:
           if: matrix.with_coverage == true
           run: |
               export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
-              bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/logs/clover.xml
+              bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/logs/coverage.xml
 
       -   name: Upload test results to Codecov
           if: ${{ !cancelled() && matrix.with_coverage == true }}
@@ -133,7 +133,7 @@ jobs:
           uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
           with:
               token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-              files: ./build/logs/clover.xml
+              files: ./build/logs/coverage.xml
               flags: unittests # optional
               fail_ci_if_error: "${{ matrix.with_coverage }}" # optional (default = false)
               verbose: false # optional (default = false)
