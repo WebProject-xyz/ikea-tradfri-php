@@ -3,8 +3,13 @@ on:
     branches:
       - "main"
   pull_request:
+  schedule:
+    - cron: '24 10 * * 4'
 
 name: "CI"
+
+permissions:
+  contents: read
 
 jobs:
   qa:
@@ -51,6 +56,33 @@ jobs:
 
       -   name: "Run static analysis"
           run: "composer stan"
+
+  codacy:
+    name: "Codacy Security Scan"
+    if: "!startsWith(github.event.head_commit.message, 'chore(release)')"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@30783d03e758713bb5ed7b79292cfb14b9dd9a4a
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          verbose: true
+          output: results.sarif
+          format: sarif
+          gh-code-scanning-compat: true
+          max-allowed-issues: 2147483647
+
+      - name: Upload SARIF results file
+        uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4
+        with:
+          sarif_file: results.sarif
 
   tests:
     name: "Run codeception tests"
@@ -147,3 +179,41 @@ jobs:
               flags: unittests # optional
               fail_ci_if_error: "${{ matrix.with_coverage }}" # optional (default = false)
               verbose: false # optional (default = false)
+
+  release:
+    name: "Release"
+    needs: [ tests, codacy ]
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore(release)')"
+    runs-on: "ubuntu-latest"
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Generate Token
+        id: generate_token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token }}
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          tag_format: ${version}
+          branches: |
+            ['main']
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/github
+            @semantic-release/changelog
+            @semantic-release/git
+            conventional-changelog-conventionalcommits
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
