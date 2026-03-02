@@ -50,7 +50,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: false);
 
         // Assert
-        $this->assertStringContainsString('not found', $result);
+        $this->assertStringContainsString('error: ', $result);
+        $this->assertStringContainsString('asdjalgualg:', $result);
     }
 
     public function testExecWithTimeoutGetErrorThrow(): void
@@ -59,7 +60,7 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $runner = new \IKEA\Tradfri\Helper\CommandRunner();
 
         // Act
-        $this->expectExceptionMessageMatches('#not found#');
+        $this->expectExceptionMessageMatches('#error: .*asdjalgualg:#');
         $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: true);
     }
 }

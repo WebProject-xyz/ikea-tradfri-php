@@ -52,8 +52,8 @@ class CommandRunner implements CommandRunnerInterface
 
         $errorMessage = match (true) {
             2 === $countOfLines && !$line2IsEmpty,
-            3 === $countOfLines => $parts[1],
-            2 === $countOfLines => $parts[0],
+            3 === $countOfLines => 'error: ' . $parts[1],
+            2 === $countOfLines => 'error: ' . $parts[0],
             default             => 'Unknown error',
         };
 

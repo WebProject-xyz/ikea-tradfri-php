@@ -57,6 +57,8 @@ abstract class Device implements \JsonSerializable, DeviceInterface
             }
         }
 
+        \ksort($data, \SORT_STRING);
+
         return $data;
     }
 }
