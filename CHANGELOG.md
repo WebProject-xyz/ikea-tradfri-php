@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.7...4.2.0) (2026-03-02)
+
+### Features
+
+* **php:** drop php 8.3 because security only mode ([#900](https://github.com/WebProject-xyz/ikea-tradfri-php/issues/900)) ([315ddc6](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/315ddc6ef91ba6eed4d1df0a6e76be51e99c1b88))
+
 ## [4.1.7](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.6...4.1.7) (2026-03-02)
 
 ### Bug Fixes
