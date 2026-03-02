@@ -17,7 +17,7 @@ A powerful PHP library to control IKEA Tradfri smart lights via the Gateway.
 ## 🚀 Quick Start
 
 ### 1. Requirements
-- PHP 8.3+
+- PHP 8.4+
 - `coap-client` (available via Docker)
 
 ### 2. Generate Security Key

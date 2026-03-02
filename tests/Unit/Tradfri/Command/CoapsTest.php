@@ -60,7 +60,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Get(self::getGatewayAuthConfigDto()))
+        $commandString = new Get(self::getGatewayAuthConfigDto())
             ->requestCommand(Request::RootDevices);
 
         // Assert
@@ -126,7 +126,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Post(self::getGatewayAuthConfigDto()))
+        $commandString = new Post(self::getGatewayAuthConfigDto())
             ->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
@@ -166,7 +166,7 @@ final class CoapsTest extends TestCase
     {
         // Arrange
         // Act
-        $commandString = (new Put(self::getGatewayAuthConfigDto()))->requestCommand(Request::RootDevices, 'injected');
+        $commandString = new Put(self::getGatewayAuthConfigDto())->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
         $this->assertSame(

@@ -24,7 +24,7 @@ jobs:
           uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # 2.36.0
           with:
             coverage: "none"
-            php-version: "8.3"
+            php-version: "8.4"
 
       -   name: "Validate composer.json and composer.lock"
           if: "github.actor != 'renovate[bot]' || contains(github.head_ref, 'lock-file-maintenance')"
@@ -37,11 +37,11 @@ jobs:
           uses: "actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306" # v5.0.3
           with:
             path: "${{ env.COMPOSER_CACHE_DIR }}"
-            key: "php-8.3-composer-locked-${{ hashFiles('composer.lock') }}"
+            key: "php-8.4-composer-locked-${{ hashFiles('composer.lock') }}"
             restore-keys: |
-              php-8.3-composer-locked-${{ github.ref_name }}
-              php-8.3-composer-locked-
-              php-8.3-composer-main
+              php-8.4-composer-locked-${{ github.ref_name }}
+              php-8.4-composer-locked-
+              php-8.4-composer-main
 
       -   name: "Install locked dependencies with composer"
           uses: "ergebnis/.github/actions/composer/install@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
@@ -91,9 +91,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - { php-version: 8.3, dependencies: locked, coverage: pcov, with_coverage: true, allow-fail: false }
-
-          - { php-version: 8.4, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: false }
+          - { php-version: 8.4, dependencies: locked, coverage: pcov, with_coverage: true, allow-fail: false }
           - { php-version: 8.5, dependencies: highest, coverage: pcov, with_coverage: false, allow-fail: false }
     steps:
       -   name: "Checkout"
