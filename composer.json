@@ -12,7 +12,7 @@
   ],
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+    "php": "~8.4.0 || ~8.5.0",
     "ext-filter": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
@@ -22,11 +22,11 @@
     "symfony/polyfill-mbstring": "^1.33.0",
     "symfony/process": "^7.4.5",
     "symfony/property-access": "^7.4.4",
-    "symfony/property-info": "^7.4.5",
-    "symfony/serializer": "^7.4.5",
+    "symfony/property-info": "^7.4.6",
+    "symfony/serializer": "^7.4.6",
     "symfony/service-contracts": "^3.6.1",
-    "symfony/validator": "^7.4.5",
-    "webmozart/assert": "^2.1.5"
+    "symfony/validator": "^7.4.6",
+    "webmozart/assert": "^2.1.6"
   },
   "require-dev": {
     "codeception/codeception": "^5.3.5",
@@ -35,7 +35,7 @@
     "ergebnis/license": "^2.7.0",
     "ergebnis/php-cs-fixer-config": "^6.60.1",
     "friendsofphp/php-cs-fixer": "^3.94.2",
-    "maglnet/composer-require-checker": "^4.20.0",
+    "maglnet/composer-require-checker": "^4.21.0",
     "mockery/mockery": "^1.6.12",
     "phpro/grumphp": "^2.19.0",
     "phpstan/extension-installer": "^1.4.3",
@@ -46,7 +46,7 @@
     "phpunit/phpunit": "^12.5.14",
     "rector/rector": "^2.3.8",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.4.4",
+    "symfony/var-dumper": "^7.4.6",
     "wmde/psr-log-test-doubles": "^3.4.0",
     "webproject-xyz/codeception-module-ai-reporter": "^1.0.1"
   },
@@ -68,7 +68,7 @@
     },
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.3.99"
+      "php": "8.4.99"
     }
   },
   "scripts": {

@@ -22,7 +22,7 @@ return RectorConfig::configure()
         __DIR__ . '/wiki',
     ])
     ->withPhpSets(
-        php83: true,
+        php84: true,
     )
     ->withComposerBased(doctrine: true, symfony: true)
     ->withSets([

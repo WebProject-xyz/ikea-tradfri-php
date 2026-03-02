@@ -41,7 +41,7 @@ final class Unit extends \Codeception\Module
     {
         $jsonDeviceDataSerializer = new JsonDeviceDataSerializer();
         $normalizer               = (new JsonIntTypeNormalizer());
-        $finder                   = (new Finder())
+        $finder                   = new Finder()
             ->in(\codecept_data_dir('hubResponses/devices/'))
             ->name('/.*_raw\.json/');
 

@@ -218,10 +218,9 @@ final class ApiTest extends UnitTest
         $group->setState(true);
         $group->getDevices()
             ->addDevice(
-                (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
-            )
-                ->setState(true)
-                ->setName('test'),
+                new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
+                    ->setState(true)
+                    ->setName('test'),
             );
 
         $this->assertTrue($group->isOn());
@@ -241,7 +240,7 @@ final class ApiTest extends UnitTest
         $service = new GatewayApiService($client);
 
         $group = new Group(1, $service);
-        $group->getDevices()->addDevice((new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
+        $group->getDevices()->addDevice(new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
             ->setState(false)
             ->setName('test'));
 
@@ -263,7 +262,7 @@ final class ApiTest extends UnitTest
         $group   = new Group(1, $service);
 
         $group->getDevices()->addDevice(
-            (new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W))
+            new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)
                 ->setState(true)
                 ->setName('test'),
         );

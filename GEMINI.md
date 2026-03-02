@@ -5,7 +5,7 @@
 **Author**: Benjamin Fahl
 
 ## Key Technologies
-- **Language**: PHP (~8.3.0 || ~8.4.0)
+- **Language**: PHP (~8.4.0 || ~8.5.0)
 - **Core Components**: 
     - Symfony (Process, Serializer, Validator, etc.)
     - Doctrine Collections
@@ -51,7 +51,7 @@
     - Run `vendor/bin/grumphp run` (with json output) after changes.
     - Use semantic commits.
     - Create feature branches from fresh `main`.
-    - Follow PHP 8.3 & Symfony best practices.
+    - Follow PHP 8.4 & Symfony best practices.
 
 ## App Architecture & Understanding
 - **Core Abstraction**: `GatewayApiService` serves as the high-level entry point, orchestrating interactions between the application and the Ikea Tradfri gateway.
