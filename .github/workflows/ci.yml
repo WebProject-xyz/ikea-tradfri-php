@@ -21,7 +21,7 @@ jobs:
           uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
 
       -   name: "Install PHP"
-          uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # 2.36.0
+          uses: "shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f" # 2.37.0
           with:
             coverage: "none"
             php-version: "8.4"
@@ -31,7 +31,7 @@ jobs:
           run: "composer validate --ansi --strict"
 
       -   name: "Determine composer cache directory"
-          uses: "ergebnis/.github/actions/composer/determine-cache-directory@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
+          uses: "ergebnis/.github/actions/composer/determine-cache-directory@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
 
       -   name: "Cache dependencies installed with composer"
           uses: "actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306" # v5.0.3
@@ -44,7 +44,7 @@ jobs:
               php-8.4-composer-main
 
       -   name: "Install locked dependencies with composer"
-          uses: "ergebnis/.github/actions/composer/install@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
+          uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
           with:
             dependencies: "${{ (github.actor == 'renovate[bot]' && !contains(github.head_ref, 'lock-file-maintenance')) && 'highest' || 'locked' }}"
 
@@ -95,7 +95,7 @@ jobs:
           uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
 
       -   name: "Install PHP"
-          uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # 2.36.0
+          uses: "shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f" # 2.37.0
           with:
             coverage: "${{ matrix.coverage }}"
             ini-values: display_errors=On, display_startup_errors=On, error_reporting=32767
@@ -112,7 +112,7 @@ jobs:
           run: "composer validate --ansi --strict"
 
       -   name: "Determine composer cache directory"
-          uses: "ergebnis/.github/actions/composer/determine-cache-directory@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
+          uses: "ergebnis/.github/actions/composer/determine-cache-directory@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
 
       -   name: "Cache dependencies installed with composer"
           uses: "actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306" # v5.0.3
@@ -125,7 +125,7 @@ jobs:
               php-${{ matrix.php-version }}-composer-main
 
       -   name: "Install ${{ matrix.dependencies }} dependencies with composer"
-          uses: "ergebnis/.github/actions/composer/install@4103ff7c010d2c18dc84f72d6704227868412482" # 1.10.0
+          uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
           with:
             dependencies: "${{ (github.actor == 'renovate[bot]' && !contains(github.head_ref, 'lock-file-maintenance') && matrix.dependencies == 'locked') && 'highest' || matrix.dependencies }}"
 
@@ -157,7 +157,7 @@ jobs:
 
       -   name: Upload test results to Codecov
           if: ${{ !cancelled() && matrix.with_coverage == true }}
-          uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
+          uses: codecov/codecov-action@1af58845a975a7985b0beb0cbe6fbbb71a41dbad # v5
           with:
               token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
               files: ./build/logs/report.xml
@@ -167,7 +167,7 @@ jobs:
               verbose: false # optional (default = false)
       -   name: Upload coverage to Codecov
           if: ${{ !cancelled() && matrix.with_coverage == true }}
-          uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
+          uses: codecov/codecov-action@1af58845a975a7985b0beb0cbe6fbbb71a41dbad # v5
           with:
               token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
               files: ./build/logs/coverage.xml
@@ -186,7 +186,7 @@ jobs:
     steps:
       - name: Generate Token
         id: generate_token
-        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
@@ -198,7 +198,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@16ca923e6ccbb50770c415a0ccd43709a8c5f7a4 # v4.2.2
         with:
           tag_format: ${version}
           branches: |
