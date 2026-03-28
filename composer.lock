@@ -6508,12 +6508,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "00c5ced635131da46de6b6e4d76c6e82f9c9bf6a"
+                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/00c5ced635131da46de6b6e4d76c6e82f9c9bf6a",
-                "reference": "00c5ced635131da46de6b6e4d76c6e82f9c9bf6a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
+                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
                 "shasum": ""
             },
             "conflict": {
@@ -6833,7 +6833,7 @@
                 "geshi/geshi": "<=1.0.9.1",
                 "getformwork/formwork": "<=2.3.3",
                 "getgrav/grav": "<1.11.0.0-beta1",
-                "getkirby/cms": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1|>=5,<=5.2.1",
+                "getkirby/cms": "<=5.2.1",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
                 "getkirby/panel": "<2.5.14",
                 "getkirby/starterkit": "<=3.7.0.2",
@@ -7549,7 +7549,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-27T20:12:30+00:00"
+            "time": "2026-03-27T23:11:54+00:00"
         },
         {
             "name": "sebastian/cli-parser",
