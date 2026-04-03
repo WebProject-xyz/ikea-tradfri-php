@@ -8,6 +8,11 @@ on:
 
 name: "CI"
 
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
 jobs:
   ci:
     uses: "WebProject-xyz/.github/.github/workflows/ci.yml@main"
