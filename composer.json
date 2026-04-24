@@ -18,7 +18,6 @@
     "ext-mbstring": "*",
     "doctrine/collections": "^2.6.0",
     "psr/log": "^3.0.2",
-    "roave/better-reflection": "^6.70.0",
     "symfony/polyfill-mbstring": "^1.36.0",
     "symfony/process": "^7.4.8",
     "symfony/property-access": "^7.4.8",
