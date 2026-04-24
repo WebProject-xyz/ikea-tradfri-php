@@ -19,9 +19,11 @@ jobs:
     secrets: inherit
     with:
       php-version: "8.4"
-      php-version-next: "8.5"
-      php-version-future: "8.6"
-      with-coverage: true
       coverage-path: "build/logs/"
       with-codacy: true
       with-codecov: true
+      test-matrix: |
+        [
+          {"php-version": "8.4", "dependencies": "locked",  "with_coverage": true},
+          {"php-version": "8.5", "dependencies": "highest", "with_coverage": false}
+        ]
