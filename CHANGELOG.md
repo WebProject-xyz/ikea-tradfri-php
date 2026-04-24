@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.2.0...4.3.0) (2026-04-24)
+
+### Features
+
+* **deps:** drop phpunit dev req, update deps and fix code style after update ([4c00491](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/4c00491b3df49b5c2dbe6b350529b94e16cc6858))
+
 ## [4.2.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.1.7...4.2.0) (2026-03-02)
 
 ### Features
