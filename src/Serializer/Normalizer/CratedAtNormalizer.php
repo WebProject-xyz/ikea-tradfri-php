@@ -21,9 +21,8 @@ final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInte
 {
     use \Psr\Log\LoggerAwareTrait;
 
-    public function __construct(
-        private readonly DenormalizerInterface&NormalizerInterface $normalizer,
-    ) {
+    public function __construct(private readonly DenormalizerInterface&NormalizerInterface $normalizer)
+    {
     }
 
     /**

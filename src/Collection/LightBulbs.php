@@ -24,9 +24,7 @@ final class LightBulbs extends Devices
     public function sortByState(): self
     {
         [$on, $off] = $this
-            ->partition(
-                p: static fn (int|string $idOrName, SwitchableInterface $lightBulbOne): bool => $lightBulbOne->isOn(),
-            );
+            ->partition(p: static fn (int|string $idOrName, SwitchableInterface $lightBulbOne): bool => $lightBulbOne->isOn());
 
         return new self($on->toArray() + $off->toArray());
     }
@@ -49,13 +47,11 @@ final class LightBulbs extends Devices
     protected function namesAsKeys(): array
     {
         $elements = [];
-        $this->forAll(
-            static function ($deviceId, DeviceInterface $device) use (&$elements): bool {
-                $elements[$device->getName() . '_' . $deviceId] = $device;
+        $this->forAll(static function ($deviceId, DeviceInterface $device) use (&$elements): bool {
+            $elements[$device->getName() . '_' . $deviceId] = $device;
 
-                return true;
-            },
-        );
+            return true;
+        }, );
         \ksort($elements, \SORT_NATURAL);
 
         return $elements;

@@ -24,9 +24,8 @@ final class ArrayNestingNormalizer implements DenormalizerInterface, LoggerAware
     final public const string ATTR_LIGHT_CONTROL = 'ATTR_LIGHT_CONTROL';
     final public const string ATTR_DEVICE_STATE  = 'ATTR_DEVICE_STATE';
 
-    public function __construct(
-        private readonly DenormalizerInterface&NormalizerInterface $normalizer,
-    ) {
+    public function __construct(private readonly DenormalizerInterface&NormalizerInterface $normalizer)
+    {
     }
 
     /**

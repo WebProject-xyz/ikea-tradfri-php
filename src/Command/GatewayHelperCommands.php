@@ -35,9 +35,7 @@ final readonly class GatewayHelperCommands
         $onCommand = $this->getPreSharedKeyCommand();
 
         // run command
-        $result = $this->parseResult(
-            $this->runner->execWithTimeout(cmd: $onCommand, timeout: 2, asArray: true, throw: true),
-        );
+        $result = $this->parseResult($this->runner->execWithTimeout(cmd: $onCommand, timeout: 2, asArray: true, throw: true));
 
         // verify result
         if (\is_string($result)) {
@@ -55,9 +53,7 @@ final readonly class GatewayHelperCommands
             $this->authConfig->getGatewaySecret(),
         )
         . ' -e \'{"' . Keys::ATTR_CLIENT_IDENTITY_PROPOSED . '":"' . $this->authConfig->getUsername() . '"}\' '
-        . $this->getRequestTypeCoapsUrl(
-            Request::RootGateway->withTargetId(Keys::ATTR_AUTH),
-        );
+        . $this->getRequestTypeCoapsUrl(Request::RootGateway->withTargetId(Keys::ATTR_AUTH));
     }
 
     /**

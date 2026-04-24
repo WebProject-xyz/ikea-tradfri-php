@@ -356,9 +356,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     ): array|object|string {
         $requestCommand = new Get($this->authConfig);
 
-        $dataRaw = $this->commands->parseResult(
-            $requestCommand->run(runner: $this->runner, request: $requestType, deviceId: $deviceId, throw: true),
-        ) ?: throw new RuntimeException('invalid hub response');
+        $dataRaw = $this->commands->parseResult($requestCommand->run(runner: $this->runner, request: $requestType, deviceId: $deviceId, throw: true)) ?: throw new RuntimeException('invalid hub response');
 
         if ($returnRawData) {
             self::validateResponseType($returnType, $dataRaw);

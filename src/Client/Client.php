@@ -27,9 +27,8 @@ use IKEA\Tradfri\Service\ServiceInterface;
  */
 final readonly class Client implements ClientInterface
 {
-    public function __construct(
-        private AdapterInterface $adapter,
-    ) {
+    public function __construct(private AdapterInterface $adapter)
+    {
     }
 
     /**

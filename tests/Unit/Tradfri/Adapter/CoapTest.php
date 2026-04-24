@@ -873,9 +873,7 @@ DEVICE_JSON;
 
     private static function buildCoapsCommandsWrapper(): \IKEA\Tradfri\Command\GatewayHelperCommands
     {
-        return new \IKEA\Tradfri\Command\GatewayHelperCommands(
-            self::getGatewayAuthConfigDto(),
-        );
+        return new \IKEA\Tradfri\Command\GatewayHelperCommands(self::getGatewayAuthConfigDto());
     }
 
     private static function getGatewayAuthConfigDto(): CoapGatewayAuthConfigDto

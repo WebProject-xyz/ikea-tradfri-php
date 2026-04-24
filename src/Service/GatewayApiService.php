@@ -59,17 +59,15 @@ final readonly class GatewayApiService implements ServiceInterface
      */
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool
     {
-        $lightBulbsCollection->forAll(
-            function (int $lightBulbKey, SwitchableInterface $lightBulb): bool {
-                // if ($lightBulb->getId() === $lightBulbKey) {
-                // this is ok but who cares can't make var unused
-                // }
+        $lightBulbsCollection->forAll(function (int $lightBulbKey, SwitchableInterface $lightBulb): bool {
+            // if ($lightBulb->getId() === $lightBulbKey) {
+            // this is ok but who cares can't make var unused
+            // }
 
-                $this->off($lightBulb);
+            $this->off($lightBulb);
 
-                return true;
-            },
-        );
+            return true;
+        }, );
 
         return true;
     }

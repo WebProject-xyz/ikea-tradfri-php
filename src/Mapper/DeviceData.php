@@ -84,9 +84,7 @@ final class DeviceData implements LoggerAwareInterface, MapperInterface
         DeviceDto $device,
     ): void {
         if ($device->getBlindControlDto()) {
-            $model->setDarkenedState(
-                $device->getBlindControlDto()[0]->getState(),
-            );
+            $model->setDarkenedState($device->getBlindControlDto()[0]->getState());
         }
     }
 

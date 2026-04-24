@@ -22,9 +22,8 @@ final class GroupMembersNormalizer implements DenormalizerInterface, LoggerAware
 {
     use \Psr\Log\LoggerAwareTrait;
 
-    public function __construct(
-        private readonly DenormalizerInterface&NormalizerInterface $normalizer,
-    ) {
+    public function __construct(private readonly DenormalizerInterface&NormalizerInterface $normalizer)
+    {
     }
 
     /**

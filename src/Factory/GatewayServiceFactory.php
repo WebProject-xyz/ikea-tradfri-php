@@ -20,24 +20,17 @@ use IKEA\Tradfri\Service\ServiceInterface;
 
 final readonly class GatewayServiceFactory
 {
-    public function __construct(
-        private CoapGatewayAuthConfigDto $authConfig,
-    ) {
+    public function __construct(private CoapGatewayAuthConfigDto $authConfig)
+    {
     }
 
     public function __invoke(): ServiceInterface
     {
-        return new \IKEA\Tradfri\Service\GatewayApiService(
-            client: new \IKEA\Tradfri\Client\Client(
-                adapter: new Adapter(
-                    authConfig: $this->authConfig,
-                    commands: new GatewayHelperCommands(
-                        authConfig: $this->authConfig,
-                    ),
-                    deviceDataMapper: new \IKEA\Tradfri\Mapper\DeviceData(),
-                    groupDataMapper: new \IKEA\Tradfri\Mapper\GroupData(),
-                ),
-            ),
-        );
+        return new \IKEA\Tradfri\Service\GatewayApiService(client: new \IKEA\Tradfri\Client\Client(adapter: new Adapter(
+            authConfig: $this->authConfig,
+            commands: new GatewayHelperCommands(authConfig: $this->authConfig),
+            deviceDataMapper: new \IKEA\Tradfri\Mapper\DeviceData(),
+            groupDataMapper: new \IKEA\Tradfri\Mapper\GroupData(),
+        ), ), );
     }
 }

@@ -91,24 +91,16 @@ final class JsonDeviceDataSerializer implements SerializerInterface
             $classMetadataFactory,
             new MetadataAwareNameConverter($classMetadataFactory),
         );
-        $serializer = new Serializer(
-            [
-                $denormalizer,
-                new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(),
-                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => 'c']),
-            ],
-        );
+        $serializer = new Serializer([
+            $denormalizer,
+            new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(),
+            new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => 'c']),
+        ], );
         $denormalizer->setSerializer($serializer);
 
         $this->serializer = new Serializer(
             [
-                new Normalizer\ArrayNestingNormalizer(
-                    new \IKEA\Tradfri\Serializer\Normalizer\CratedAtNormalizer(
-                        new \IKEA\Tradfri\Serializer\Normalizer\GroupMembersNormalizer(
-                            $denormalizer,
-                        ),
-                    ),
-                ),
+                new Normalizer\ArrayNestingNormalizer(new \IKEA\Tradfri\Serializer\Normalizer\CratedAtNormalizer(new \IKEA\Tradfri\Serializer\Normalizer\GroupMembersNormalizer($denormalizer))),
             ],
             ['json' => new JsonEncoder()],
         );

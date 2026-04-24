@@ -30,11 +30,9 @@ const COAP_API_USER = 'php-api-user';
 
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 
-$api = (new IKEA\Tradfri\Factory\GatewayServiceFactory(
-    new CoapGatewayAuthConfigDto(
-        COAP_API_USER,
-        COAP_API_KEY,
-        COAP_GATEWAY_IP,
-        COAP_GATEWAY_SECRET,
-    ),
-))();
+$api = (new IKEA\Tradfri\Factory\GatewayServiceFactory(new CoapGatewayAuthConfigDto(
+    COAP_API_USER,
+    COAP_API_KEY,
+    COAP_GATEWAY_IP,
+    COAP_GATEWAY_SECRET,
+), ))();
