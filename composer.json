@@ -18,7 +18,7 @@
     "ext-mbstring": "*",
     "doctrine/collections": "^2.6.0",
     "psr/log": "^3.0.2",
-    "symfony/polyfill-mbstring": "^1.36.0",
+    "symfony/polyfill-mbstring": "^1.37.0",
     "symfony/process": "^7.4.8",
     "symfony/property-access": "^7.4.8",
     "symfony/property-info": "^7.4.8",
@@ -45,7 +45,7 @@
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^7.4.8",
     "wmde/psr-log-test-doubles": "^3.4.0",
-    "webproject-xyz/codeception-module-ai-reporter": "^1.1.0"
+    "webproject-xyz/codeception-module-ai-reporter": "^1.1.1"
   },
   "prefer-stable": true,
   "autoload": {
@@ -69,21 +69,17 @@
     }
   },
   "scripts": {
-    "build-coverage": [
-      "echo 'Build coverage'",
-      "XDEBUG_MODE=coverage ./vendor/bin/codecept run --coverage-xml=clover.xml --coverage --xml --colors --report "
-    ],
-    "cs:check": "php-cs-fixer fix --allow-risky=yes --dry-run --diff --show-progress=dots",
-    "cs:fix": "php-cs-fixer fix --allow-risky=yes",
-    "php-cs-fixer": "vendor/bin/php-cs-fixer fix -vv --path-mode=intersection",
-    "php-cs-fixer-full": "vendor/bin/php-cs-fixer fix -v --show-progress dots",
-    "phpstan": "vendor/bin/phpstan analyse --memory-limit=-1  --no-progress --no-ansi",
-    "run-tests": [
-      "./vendor/bin/codecept run --colors"
-    ],
-    "stan": "phpstan analyse --memory-limit=-1  --no-progress --debug",
-    "test": "codecept run --report",
-    "test:build": "codecept build",
-    "test:coverage": "XDEBUG_MODE=coverage codecept run --coverage --coverage-xml=coverage.xml --xml  --report"
+    "cs:check": "XDEBUG_MODE=off php-cs-fixer fix --allow-risky=yes --dry-run --diff --show-progress=dots",
+    "cs:fix": "XDEBUG_MODE=off php-cs-fixer fix --show-progress=none --allow-risky=yes",
+    "stan": "XDEBUG_MODE=off phpstan analyse --no-progress --no-ansi --memory-limit=-1",
+    "test": "XDEBUG_MODE=off codecept run --report",
+    "test:coverage": "XDEBUG_MODE=coverage codecept run --coverage --coverage-xml=coverage.xml --xml  --report",
+    "test:build": "XDEBUG_MODE=off codecept build",
+    "qa": [
+      "@test:build",
+      "@cs:fix",
+      "@test",
+      "@stan"
+    ]
   }
 }
