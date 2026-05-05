@@ -16,7 +16,7 @@
     "ext-filter": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "doctrine/collections": "^2.6.0",
+    "doctrine/collections": "^3.0.0",
     "psr/log": "^3.0.2",
     "symfony/polyfill-mbstring": "^1.37.0",
     "symfony/process": "^7.4.8",
