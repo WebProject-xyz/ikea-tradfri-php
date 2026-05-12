@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   ci:
-    uses: "WebProject-xyz/.github/.github/workflows/ci.yml@e5d84c6e0598bc59713103679e01422d9ae0bd43" # main
+    uses: "WebProject-xyz/.github/.github/workflows/ci.yml@dd521592ebc0c81a37ff1b3ca74973c85c2d0b2a" # main
     secrets: inherit
     with:
       php-version: "8.4"
