@@ -3890,16 +3890,16 @@
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",
-            "version": "v3.37.1",
+            "version": "v3.37.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers.git",
-                "reference": "e0ec1f602a1d0836909e9079262dbaf58eaf3804"
+                "reference": "678df979ce743466b42ddb6eea46b3f4c9a7bade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/e0ec1f602a1d0836909e9079262dbaf58eaf3804",
-                "reference": "e0ec1f602a1d0836909e9079262dbaf58eaf3804",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/678df979ce743466b42ddb6eea46b3f4c9a7bade",
+                "reference": "678df979ce743466b42ddb6eea46b3f4c9a7bade",
                 "shasum": ""
             },
             "require": {
@@ -3930,7 +3930,7 @@
             "description": "A set of custom fixers for PHP CS Fixer",
             "support": {
                 "issues": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/issues",
-                "source": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/tree/v3.37.1"
+                "source": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/tree/v3.37.2"
             },
             "funding": [
                 {
@@ -3938,7 +3938,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-28T16:41:56+00:00"
+            "time": "2026-05-12T16:22:19+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -6362,16 +6362,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.4.2",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "e645b6463c6a88ea5b44b17d3387d35a912c7946"
+                "reference": "891824c6c59f02a56a5dd58ea8edc44e6c0ece29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/e645b6463c6a88ea5b44b17d3387d35a912c7946",
-                "reference": "e645b6463c6a88ea5b44b17d3387d35a912c7946",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/891824c6c59f02a56a5dd58ea8edc44e6c0ece29",
+                "reference": "891824c6c59f02a56a5dd58ea8edc44e6c0ece29",
                 "shasum": ""
             },
             "require": {
@@ -6410,7 +6410,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.4.2"
+                "source": "https://github.com/rectorphp/rector/tree/2.4.3"
             },
             "funding": [
                 {
@@ -6418,7 +6418,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-16T13:07:34+00:00"
+            "time": "2026-05-12T11:17:24+00:00"
         },
         {
             "name": "revolt/event-loop",
@@ -10179,16 +10179,16 @@
         },
         {
             "name": "webproject-xyz/codeception-module-ai-reporter",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WebProject-xyz/codeception-module-ai-reporter.git",
-                "reference": "b69f397b66a0904ea306c50890b2e9d3df9a3dce"
+                "reference": "7c19f0e8360295895427ecb1188530f5bfc48e33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WebProject-xyz/codeception-module-ai-reporter/zipball/b69f397b66a0904ea306c50890b2e9d3df9a3dce",
-                "reference": "b69f397b66a0904ea306c50890b2e9d3df9a3dce",
+                "url": "https://api.github.com/repos/WebProject-xyz/codeception-module-ai-reporter/zipball/7c19f0e8360295895427ecb1188530f5bfc48e33",
+                "reference": "7c19f0e8360295895427ecb1188530f5bfc48e33",
                 "shasum": ""
             },
             "require": {
@@ -10227,9 +10227,9 @@
             "homepage": "https://www.webproject.xyz",
             "support": {
                 "issues": "https://github.com/WebProject-xyz/codeception-module-ai-reporter/issues",
-                "source": "https://github.com/WebProject-xyz/codeception-module-ai-reporter/tree/1.1.1"
+                "source": "https://github.com/WebProject-xyz/codeception-module-ai-reporter/tree/1.2.0"
             },
-            "time": "2026-04-24T21:07:10+00:00"
+            "time": "2026-05-12T20:57:15+00:00"
         },
         {
             "name": "wmde/psr-log-test-doubles",
