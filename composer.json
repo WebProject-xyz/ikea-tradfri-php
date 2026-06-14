@@ -19,12 +19,12 @@
     "doctrine/collections": "^2.6.0",
     "psr/log": "^3.0.2",
     "symfony/polyfill-mbstring": "^1.37.0",
-    "symfony/process": "^7.4.8",
-    "symfony/property-access": "^7.4.8",
-    "symfony/property-info": "^7.4.8",
-    "symfony/serializer": "^7.4.8",
+    "symfony/process": "^8.0.0",
+    "symfony/property-access": "^8.0.0",
+    "symfony/property-info": "^8.0.0",
+    "symfony/serializer": "^8.0.0",
     "symfony/service-contracts": "^3.6.1",
-    "symfony/validator": "^7.4.8",
+    "symfony/validator": "^8.0.0",
     "webmozart/assert": "^2.3.0"
   },
   "require-dev": {
@@ -43,7 +43,7 @@
     "phpstan/phpstan-mockery": "^2.0.0",
     "rector/rector": "^2.4.2",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.4.8",
+    "symfony/var-dumper": "^8.0.0",
     "wmde/psr-log-test-doubles": "^3.4.0",
     "webproject-xyz/codeception-module-ai-reporter": "^1.1.1"
   },
