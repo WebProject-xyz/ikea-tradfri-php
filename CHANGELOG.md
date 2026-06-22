@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.4.0...4.5.0) (2026-06-22)
+
+### Features
+
+* **php:** drop PHP 8.4, update symfony to 8.1 ([9519005](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/9519005db19482ca250703fd59173a6868309acb))
+
 ## [4.4.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.3.1...4.4.0) (2026-06-22)
 
 ### Features
