@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
 use IKEA\Tradfri\Values\CoapDeviceGroupAttribute;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class GroupDto implements ProvidesAttributeReplacePatternsInterface

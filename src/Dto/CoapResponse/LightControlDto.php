@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 final readonly class LightControlDto
 {
