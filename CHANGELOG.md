@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.3.1...4.4.0) (2026-06-22)
+
+### Features
+
+* **deps:** bump doctrine/collections to v3.1 ([3cfcf71](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/3cfcf718f4907ee8c2889cd88d075b2f9113acc2))
+* **php:** drop PHP 8.4 ([a7ea5f5](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/a7ea5f5fb303a6a3b7eb1d44e99776ad346b3a48))
+
+### Bug Fixes
+
+* **deps:** update deps ([51377f5](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/51377f54233fec1d5c2bd05f5e25f3b7b77ecf8a))
+
 ## [4.3.1](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.3.0...4.3.1) (2026-04-24)
 
 ### Bug Fixes
