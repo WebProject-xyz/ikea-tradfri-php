@@ -18,12 +18,12 @@ jobs:
     uses: "WebProject-xyz/.github/.github/workflows/ci.yml@73c813930f57c9e07b0a33b936334329c5569a96" # main
     secrets: inherit
     with:
-      php-version: "8.4"
+      php-version: "8.5"
       coverage-path: "build/logs/"
       with-codacy: true
       with-codecov: true
       test-matrix: |
         [
-          {"php-version": "8.4", "dependencies": "locked",  "with_coverage": true},
+          {"php-version": "8.5", "dependencies": "locked",  "with_coverage": true},
           {"php-version": "8.5", "dependencies": "highest", "with_coverage": false}
         ]

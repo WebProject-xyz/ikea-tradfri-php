@@ -12,7 +12,7 @@
   ],
   "homepage": "https://www.webproject.xyz",
   "require": {
-    "php": "~8.4.0 || ~8.5.0",
+    "php": "~8.5.0",
     "ext-filter": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
@@ -65,7 +65,7 @@
     },
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.4.99"
+      "php": "8.5.99"
     }
   },
   "scripts": {
