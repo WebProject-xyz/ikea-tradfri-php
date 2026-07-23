@@ -4592,16 +4592,16 @@
         },
         {
             "name": "phpro/grumphp",
-            "version": "v2.22.0",
+            "version": "v2.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpro/grumphp.git",
-                "reference": "738616a80f4b6c72917c23eeb9fe052916a646a5"
+                "reference": "c8a173464e319c81d530290c7642bfce482e05bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpro/grumphp/zipball/738616a80f4b6c72917c23eeb9fe052916a646a5",
-                "reference": "738616a80f4b6c72917c23eeb9fe052916a646a5",
+                "url": "https://api.github.com/repos/phpro/grumphp/zipball/c8a173464e319c81d530290c7642bfce482e05bf",
+                "reference": "c8a173464e319c81d530290c7642bfce482e05bf",
                 "shasum": ""
             },
             "require": {
@@ -4707,9 +4707,9 @@
             "description": "A composer plugin that enables source code quality checks.",
             "support": {
                 "issues": "https://github.com/phpro/grumphp/issues",
-                "source": "https://github.com/phpro/grumphp/tree/v2.22.0"
+                "source": "https://github.com/phpro/grumphp/tree/v2.23.0"
             },
-            "time": "2026-06-25T10:22:02+00:00"
+            "time": "2026-07-22T11:36:59+00:00"
         },
         {
             "name": "phpstan/extension-installer",
@@ -6417,12 +6417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4991713e587e8b1f2fb7ce80475b4df68fe71be1"
+                "reference": "a149dec0fd68dfc62ce9c67b4db2542d80b4f605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4991713e587e8b1f2fb7ce80475b4df68fe71be1",
-                "reference": "4991713e587e8b1f2fb7ce80475b4df68fe71be1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a149dec0fd68dfc62ce9c67b4db2542d80b4f605",
+                "reference": "a149dec0fd68dfc62ce9c67b4db2542d80b4f605",
                 "shasum": ""
             },
             "conflict": {
@@ -6619,7 +6619,7 @@
                 "doctrine/mongodb-odm-bundle": "<3.0.1",
                 "doctrine/orm": ">=1,<1.2.4|>=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
                 "dolibarr/dolibarr": "<=23.0.2",
-                "dompdf/dompdf": "<2.0.4",
+                "dompdf/dompdf": "<3.1.6",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "dreamfactory/df-core": "<1.0.4",
                 "drupal-pattern-lab/unified-twig-extensions": "<=0.1",
@@ -7531,7 +7531,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-21T19:20:48+00:00"
+            "time": "2026-07-22T23:02:35+00:00"
         },
         {
             "name": "sebastian/cli-parser",
