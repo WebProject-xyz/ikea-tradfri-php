@@ -3513,16 +3513,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.95.22",
+            "version": "v3.95.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99"
+                "reference": "b2932a5af3157a0c28324b1efe5e3b556dee09c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/482722e0783c16325a07a998a0d9eda560f9be99",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/b2932a5af3157a0c28324b1efe5e3b556dee09c4",
+                "reference": "b2932a5af3157a0c28324b1efe5e3b556dee09c4",
                 "shasum": ""
             },
             "require": {
@@ -3605,7 +3605,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.22"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.23"
             },
             "funding": [
                 {
@@ -3613,7 +3613,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-24T10:37:43+00:00"
+            "time": "2026-08-26T19:54:54+00:00"
         },
         {
             "name": "gitonomy/gitlib",
@@ -6419,12 +6419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "449e878a868d1ba9d256feff1419c03d5cc46d21"
+                "reference": "d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/449e878a868d1ba9d256feff1419c03d5cc46d21",
-                "reference": "449e878a868d1ba9d256feff1419c03d5cc46d21",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1",
+                "reference": "d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1",
                 "shasum": ""
             },
             "conflict": {
@@ -6532,6 +6532,7 @@
                 "cakephp/authentication": "<2.11.1|>=3,<3.3.6|>=4,<4.1.1",
                 "cakephp/cakephp": "<4.5.11|>=4.6,<4.6.4|>=5,<5.1.7|>=5.2,<5.2.13|>=5.3,<5.3.6",
                 "cakephp/database": ">=4.2,<4.2.12|>=4.3,<4.3.11|>=4.4,<4.4.10",
+                "cakephp/debug_kit": "<4.10.3|>=5,<5.2.4",
                 "cardgate/magento2": "<2.0.33",
                 "cardgate/woocommerce": "<=3.1.15",
                 "cart2quote/module-quotation": ">=4.1.6,<4.4.6|>=5,<5.4.4",
@@ -6858,7 +6859,7 @@
                 "jweiland/clubdirectory": "<8.1.3",
                 "jweiland/events2": "<10.2.12",
                 "jweiland/kk-downloader": "<1.2.2",
-                "jweiland/pforum": "<6.2.4",
+                "jweiland/pforum": "<4.0.4|>=5,<5.0.1|>=6,<6.2.4",
                 "jweiland/telephonedirectory": "<6.2",
                 "jweiland/yellowpages2": "<8.1.2",
                 "kantorge/yaffa": "<=2",
@@ -7550,7 +7551,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-25T18:38:15+00:00"
+            "time": "2026-08-26T16:17:54+00:00"
         },
         {
             "name": "sebastian/cli-parser",
