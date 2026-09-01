@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.5.0...4.5.1) (2026-09-01)
+
+### Bug Fixes
+
+* **deps:** composer up und bump ([40c0203](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/40c02037112996e97a48baf3c4b82f292ad5b538))
+
 ## [4.5.0](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.4.0...4.5.0) (2026-06-22)
 
 ### Features
