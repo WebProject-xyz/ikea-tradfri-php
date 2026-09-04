@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.2](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.5.1...4.5.2) (2026-09-04)
+
+### Bug Fixes
+
+* **deps:** update ci workflow ([4c520a1](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/4c520a13cf1ad96467c6ec320f6f95ea8e18b769))
+
 ## [4.5.1](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.5.0...4.5.1) (2026-09-01)
 
 ### Bug Fixes
