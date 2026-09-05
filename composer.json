@@ -44,7 +44,7 @@
     "rector/rector": "^2.6.5",
     "roave/security-advisories": "dev-latest",
     "symfony/var-dumper": "^8.1.6",
-    "webproject-xyz/codeception-module-ai-reporter": "^1.2.2",
+    "webproject-xyz/codeception-module-ai-reporter": "^2.0.0",
     "wmde/psr-log-test-doubles": "^3.4.0"
   },
   "prefer-stable": true,
