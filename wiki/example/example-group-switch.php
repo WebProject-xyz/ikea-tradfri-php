@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -14,11 +14,11 @@ declare(strict_types=1);
 require __DIR__ . '/init.php';
 
 try {
-    echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
-    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
+    echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
+    /** @var IKEA\Tradfri\Service\ServiceInterface $api */
     $groups = $api->getGroups();
 
-    if ($groups->isEmpty() === false) {
+    if (false === $groups->isEmpty()) {
         $group= $groups->first();
         echo '---------- Group Information' . \PHP_EOL;
         echo '- ID: ' . $group->getId() . \PHP_EOL;

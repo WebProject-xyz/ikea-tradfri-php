@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,8 +15,11 @@ namespace IKEA\Tradfri\Dto;
 
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Values\LightColor;
+use Stringable;
 
-final readonly class CoapGatewayRequestPayloadDto implements \Stringable
+use function sprintf;
+
+final readonly class CoapGatewayRequestPayloadDto implements Stringable
 {
     private const string FORMAT_DEVICE      = '-e \'{ "%s": [{ "%s": %s }] }\'';
     private const string FORMAT_GROUP       = '-e \'{ "%s": %s }\'';
@@ -31,7 +34,7 @@ final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 
     public function __toString(): string
     {
-        return \sprintf(
+        return sprintf(
             self::FORMAT_DEVICE,
             $this->target,
             $this->endpoint,
@@ -46,7 +49,7 @@ final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 
     public function toGroupFormat(): string
     {
-        return \sprintf(
+        return sprintf(
             self::FORMAT_GROUP,
             $this->target,
             $this->value,
@@ -55,7 +58,7 @@ final readonly class CoapGatewayRequestPayloadDto implements \Stringable
 
     public static function formatToLightTemperature(LightColor $color): string
     {
-        return \sprintf(
+        return sprintf(
             self::FORMAT_LIGHT_COLOR,
             ...$color->getTemperatureValues(),
         );

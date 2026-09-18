@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,6 +20,8 @@ use IKEA\Tradfri\Group\DeviceGroup as Group;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
+use Mockery;
+use stdClass;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 use Webmozart\Assert\Assert;
 
@@ -33,7 +35,7 @@ final class GroupDataTest extends UnitTest
     public function testICanMapEmptyDataWithNoError(): void
     {
         // Arrange
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $serviceMock = Mockery::mock(ServiceInterface::class);
         $devices     = [];
 
         $mapper = new GroupData();
@@ -41,15 +43,15 @@ final class GroupDataTest extends UnitTest
         // Act
         $result = $mapper->map($serviceMock, $devices, $groups);
         // Assert
-        $this->assertInstanceOf(Groups::class, $result);
-        $this->assertSame($groups, $result);
+        self::assertInstanceOf(Groups::class, $result);
+        self::assertSame($groups, $result);
     }
 
     public function testMapLogsWarningOnInvalidItem(): void
     {
         // Arrange
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
-        $loggerMock  = \Mockery::mock(\Psr\Log\LoggerInterface::class);
+        $serviceMock = Mockery::mock(ServiceInterface::class);
+        $loggerMock  = Mockery::mock(\Psr\Log\LoggerInterface::class);
         $loggerMock->shouldReceive('warning')->once();
 
         $mapper = new GroupData();
@@ -58,17 +60,17 @@ final class GroupDataTest extends UnitTest
 
         // Act
         /** @phpstan-ignore-next-line */
-        $result = $mapper->map($serviceMock, [new \stdClass()], $groups);
+        $result = $mapper->map($serviceMock, [new stdClass()], $groups);
 
         // Assert
-        $this->assertInstanceOf(Groups::class, $result);
-        $this->assertTrue($result->isEmpty());
+        self::assertInstanceOf(Groups::class, $result);
+        self::assertTrue($result->isEmpty());
     }
 
     public function testICanMapDataToCollectionWithNoError(): void
     {
         // Arrange
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $serviceMock = Mockery::mock(ServiceInterface::class);
 
         $mapper = new GroupData();
         $groups = new Groups();
@@ -79,14 +81,14 @@ final class GroupDataTest extends UnitTest
             try {
                 $groupsItems[] = $jsonDeviceDataSerializer->deserialize(
                     (new JsonIntTypeNormalizer())(
-                        jsonString: \json_encode($item, \JSON_THROW_ON_ERROR),
+                        jsonString: json_encode($item, JSON_THROW_ON_ERROR),
                         targetClass: GroupDto::class
                     ),
                     GroupDto::class,
                     $jsonDeviceDataSerializer::FORMAT,
                 );
             } catch (MissingConstructorArgumentsException $exception) {
-                \codecept_debug('VALID CASE: ' . $exception->getMessage());
+                codecept_debug('VALID CASE: ' . $exception->getMessage());
                 continue;
             }
         }
@@ -95,31 +97,31 @@ final class GroupDataTest extends UnitTest
         $result = $mapper->map($serviceMock, $groupsItems, $groups);
 
         // Assert
-        \Mockery::close();
-        $this->assertInstanceOf(Groups::class, $result);
-        $this->assertFalse($result->isEmpty());
-        $this->assertCount(3, $result);
+        Mockery::close();
+        self::assertInstanceOf(Groups::class, $result);
+        self::assertFalse($result->isEmpty());
+        self::assertCount(3, $result);
 
         $group1 = $result->get(1000);
-        $this->assertInstanceOf(Group::class, $group1);
-        $this->assertSame(1000, $group1->getId());
-        $this->assertFalse($group1->isOn());
-        $this->assertFalse($group1->isOff());
-        $this->assertSame('Group 1', $group1->getName());
-        $this->assertSame(38.0, $group1->getBrightness());
+        self::assertInstanceOf(Group::class, $group1);
+        self::assertSame(1000, $group1->getId());
+        self::assertFalse($group1->isOn());
+        self::assertFalse($group1->isOff());
+        self::assertSame('Group 1', $group1->getName());
+        self::assertSame(38.0, $group1->getBrightness());
 
         $group2 = $result->get(2000);
-        $this->assertInstanceOf(Group::class, $group2);
-        $this->assertSame(2000, $group2->getId());
-        $this->assertFalse($group2->isOn());
-        $this->assertSame('Group 2', $group2->getName());
-        $this->assertSame(0.0, $group2->getBrightness());
+        self::assertInstanceOf(Group::class, $group2);
+        self::assertSame(2000, $group2->getId());
+        self::assertFalse($group2->isOn());
+        self::assertSame('Group 2', $group2->getName());
+        self::assertSame(0.0, $group2->getBrightness());
 
         $group3 = $result->get(3000);
-        $this->assertInstanceOf(Group::class, $group3);
-        $this->assertSame(3000, $group3->getId());
-        $this->assertFalse($group3->isOn());
-        $this->assertSame('Group 3', $group3->getName());
-        $this->assertSame(0.0, $group3->getBrightness());
+        self::assertInstanceOf(Group::class, $group3);
+        self::assertSame(3000, $group3->getId());
+        self::assertFalse($group3->isOn());
+        self::assertSame('Group 3', $group3->getName());
+        self::assertSame(0.0, $group3->getBrightness());
     }
 }

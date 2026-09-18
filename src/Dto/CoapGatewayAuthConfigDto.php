@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -13,13 +13,18 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto;
 
+use InvalidArgumentException;
+use SensitiveParameter;
+
+use function sprintf;
+
 final readonly class CoapGatewayAuthConfigDto
 {
     public function __construct(
         private string $username,
-        #[\SensitiveParameter()]
+        #[SensitiveParameter()]
         private string $apiKey,
-        #[\SensitiveParameter()]
+        #[SensitiveParameter()]
         private string $gatewaySecret,
         private string $gatewayIp,
     ) {
@@ -43,12 +48,12 @@ final readonly class CoapGatewayAuthConfigDto
 
     public function getGatewayUrl(): string
     {
-        return \sprintf('coaps://%s:5684', $this->gatewayIp);
+        return sprintf('coaps://%s:5684', $this->gatewayIp);
     }
 
     public function injectToCommand(\IKEA\Tradfri\Values\CoapCommandPattern $commandPattern): string
     {
-        return \sprintf(
+        return sprintf(
             $commandPattern->value,
             $this->getUsername(),
             $this->getApiKey(),
@@ -56,14 +61,14 @@ final readonly class CoapGatewayAuthConfigDto
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private static function checkIp(string $gatewayAddress): void
     {
-        if (\filter_var($gatewayAddress, \FILTER_VALIDATE_IP)) {
+        if (filter_var($gatewayAddress, FILTER_VALIDATE_IP)) {
             return;
         }
 
-        throw new \InvalidArgumentException('Invalid ip');
+        throw new InvalidArgumentException('Invalid ip');
     }
 }

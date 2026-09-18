@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -13,10 +13,13 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Serializer\Normalizer;
 
+use ArrayObject;
 use IKEA\Tradfri\Values\CoapDeviceGroupAttribute;
 use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+use function is_array;
 
 final class GroupMembersNormalizer implements DenormalizerInterface, LoggerAwareInterface, NormalizerInterface
 {
@@ -31,7 +34,7 @@ final class GroupMembersNormalizer implements DenormalizerInterface, LoggerAware
      *
      * @phpstan-return null|array<mixed>|\ArrayObject<array-key, mixed>|bool|float|int|string
      */
-    public function normalize(mixed $data, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|ArrayObject|bool|float|int|string|null
     {
         return $this->normalizer->normalize($data, $format, $context);
     }
@@ -49,12 +52,12 @@ final class GroupMembersNormalizer implements DenormalizerInterface, LoggerAware
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (\is_array($data)
-            && \is_array($data[CoapDeviceGroupAttribute::GroupMembers->value] ?? false)
-            && \is_array($data[CoapDeviceGroupAttribute::GroupMembers->value][CoapDeviceGroupAttribute::GroupLights->value] ?? false)
+        if (is_array($data)
+            && is_array($data[CoapDeviceGroupAttribute::GroupMembers->value] ?? false)
+            && is_array($data[CoapDeviceGroupAttribute::GroupMembers->value][CoapDeviceGroupAttribute::GroupLights->value] ?? false)
         ) {
             $groupMemberIds = $data[CoapDeviceGroupAttribute::GroupMembers->value][CoapDeviceGroupAttribute::GroupLights->value][9003/* ATTR_GROUP_LIGHTS */] ?? null;
-            if (!\is_array($groupMemberIds)) {
+            if (!is_array($groupMemberIds)) {
                 $groupMemberIds = [];
             }
 

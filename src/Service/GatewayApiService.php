@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -24,6 +24,7 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\DeviceGroup;
+use JsonSerializable;
 
 /**
  * @phpstan-import-type LevelType from ClientInterface
@@ -42,7 +43,7 @@ final readonly class GatewayApiService implements ServiceInterface
     }
 
     /**
-     * @return Devices<DeviceInterface&\JsonSerializable>
+     * @return Devices<DeviceInterface&JsonSerializable>
      */
     public function getDevices(): Devices
     {

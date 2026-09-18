@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Traits;
 
 use IKEA\Tradfri\Service\ServiceInterface;
+use RuntimeException;
 
 trait ProvidesService
 {
@@ -22,7 +23,7 @@ trait ProvidesService
     public function getService(): ServiceInterface
     {
         if (!$this->hasService()) {
-            throw new \RuntimeException('Service missing');
+            throw new RuntimeException('Service missing');
         }
 
         return $this->service;

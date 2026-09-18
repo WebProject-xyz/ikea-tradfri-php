@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -25,18 +25,20 @@ use IKEA\Tradfri\Traits\ProvidesId;
 use IKEA\Tradfri\Traits\ProvidesName;
 use IKEA\Tradfri\Traits\ProvidesState;
 use IKEA\Tradfri\Values\DeviceType;
+use JsonSerializable;
+use LogicException;
 
 /**
  * @final
  *
  * @phpstan-type TDevices = Devices<DeviceInterface>
  */
-class DeviceGroup implements \JsonSerializable, BooleanStateInterface, BrightnessStateInterface, SwitchableInterface
+class DeviceGroup implements JsonSerializable, BooleanStateInterface, BrightnessStateInterface, SwitchableInterface
 {
+    use ProvidesBrightness;
     use ProvidesId;
     use ProvidesName;
     use ProvidesState;
-    use ProvidesBrightness;
 
     /**
      * @phpstan-var TDevices
@@ -179,6 +181,6 @@ class DeviceGroup implements \JsonSerializable, BooleanStateInterface, Brightnes
 
     public function getTypeEnum(): DeviceType
     {
-        throw new \LogicException('not implemented for groups');
+        throw new LogicException('not implemented for groups');
     }
 }

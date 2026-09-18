@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -37,7 +37,7 @@ final class DeviceJsonSerializeTest extends UnitTest
         $device->setName('Dynamic Test Device');
         $device->setVersion('1.2.3');
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'alpha'        => 42,
                 'id'           => 123,

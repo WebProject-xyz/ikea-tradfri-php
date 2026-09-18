@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -16,8 +16,10 @@ namespace IKEA\Tradfri\Command\Coap\Light;
 use IKEA\Tradfri\Command\Put;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
+use Override;
+use Stringable;
 
-final class LightChangeLightTemperatureCommand extends Put implements \Stringable
+final class LightChangeLightTemperatureCommand extends Put implements Stringable
 {
     public function __construct(
         \IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto $authConfig,
@@ -27,7 +29,7 @@ final class LightChangeLightTemperatureCommand extends Put implements \Stringabl
         parent::__construct($authConfig);
     }
 
-    #[\Override()]
+    #[Override()]
     public function __toString(): string
     {
         return $this->requestCommand(

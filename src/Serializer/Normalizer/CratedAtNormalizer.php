@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Serializer\Normalizer;
 
+use ArrayObject;
 use Psr\Log\LoggerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+use function is_array;
+use function is_int;
 
 final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInterface, NormalizerInterface
 {
@@ -30,7 +34,7 @@ final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInte
      *
      * @phpstan-return null|array<mixed>|\ArrayObject<array-key, mixed>|bool|float|int|string
      */
-    public function normalize(mixed $data, ?string $format = null, array $context = []): null|array|\ArrayObject|bool|float|int|string
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|ArrayObject|bool|float|int|string|null
     {
         return $this->normalizer->normalize($data, $format, $context);
     }
@@ -49,10 +53,10 @@ final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInte
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if (
-            \is_array($data)
-            && \is_int($data['ATTR_CREATED_AT'] ?? null)
+            is_array($data)
+            && is_int($data['ATTR_CREATED_AT'] ?? null)
         ) {
-            $data['ATTR_CREATED_AT'] = \date('c', $data['ATTR_CREATED_AT']);
+            $data['ATTR_CREATED_AT'] = date('c', $data['ATTR_CREATED_AT']);
         }
 
         return $this->normalizer->denormalize($data, $type, $format, $context);

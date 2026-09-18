@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -21,9 +21,10 @@ use IKEA\Tradfri\Traits\ProvidesService;
 use IKEA\Tradfri\Traits\ProvidesType;
 use IKEA\Tradfri\Traits\ProvidesVersion;
 use IKEA\Tradfri\Values\DeviceType;
+use JsonSerializable;
 use Webmozart\Assert\Assert;
 
-abstract class Device implements \JsonSerializable, DeviceInterface
+abstract class Device implements JsonSerializable, DeviceInterface
 {
     use ProvidesId;
     use ProvidesManufacturer;
@@ -49,15 +50,15 @@ abstract class Device implements \JsonSerializable, DeviceInterface
     {
         $data = [];
 
-        foreach (\get_class_methods(static::class) as $method) {
-            if ('getService' !== $method && \str_starts_with($method, 'get')) {
-                $key        = \mb_strtolower(\mb_substr($method, 3));
+        foreach (get_class_methods(static::class) as $method) {
+            if ('getService' !== $method && str_starts_with($method, 'get')) {
+                $key        = mb_strtolower(mb_substr($method, 3));
                 Assert::stringNotEmpty($key);
                 $data[(string) $key] = $this->{$method}();
             }
         }
 
-        \ksort($data, \SORT_STRING);
+        ksort($data, SORT_STRING);
 
         return $data;
     }

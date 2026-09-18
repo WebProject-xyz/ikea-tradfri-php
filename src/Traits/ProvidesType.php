@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Traits;
 
 use IKEA\Tradfri\Values\DeviceType;
+
+use function is_string;
 
 trait ProvidesType
 {
@@ -32,7 +34,7 @@ trait ProvidesType
 
     public function setType(DeviceType|string $type): static
     {
-        if (\is_string($type)) {
+        if (is_string($type)) {
             $type = DeviceType::tryFromType($type, true);
         }
 

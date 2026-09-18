@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -14,10 +14,10 @@ declare(strict_types=1);
 require __DIR__ . '/init.php';
 
 try {
-    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
+    /** @var IKEA\Tradfri\Service\ServiceInterface $api */
     $devices = $api->getDevices();
 
-    echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
+    echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
     $devices->forAll(static function ($key, $device) {
         /** @var IKEA\Tradfri\Device\Device $device */
         echo '---------- Device Information' . \PHP_EOL;
@@ -37,7 +37,7 @@ try {
         return true;
     });
 
-    echo \var_export(\json_encode($devices->jsonSerialize(), \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT), true);
+    echo var_export(json_encode($devices->jsonSerialize(), \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT), true);
 } catch (Exception $e) {
     echo $e->getMessage() . \PHP_EOL . \PHP_EOL;
     echo $e->getTraceAsString();

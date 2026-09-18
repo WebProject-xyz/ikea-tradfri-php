@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -36,10 +36,15 @@ use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Service\ServiceInterface;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use IKEA\Tradfri\Values\CoapHubResponseDataType;
+use JsonException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
+
+use function is_array;
+use function is_object;
+use function is_string;
 
 /**
  * @phpstan-import-type DeviceIdsType from AdapterInterface
@@ -63,7 +68,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @phpstan-param DeviceIdType $deviceId
      *
-     * @throws \JsonException|RuntimeException
+     * @throws JsonException|RuntimeException
      */
     public function getType(int $deviceId): string
     {
@@ -74,10 +79,10 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             returnType: CoapHubResponseDataType::Object,
         );
 
-        if (\is_object($data)
-            && \property_exists($data, Keys::ATTR_DEVICE_INFO)
-            && \is_object($data->{Keys::ATTR_DEVICE_INFO})
-            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
+        if (is_object($data)
+            && property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && is_object($data->{Keys::ATTR_DEVICE_INFO})
+            && property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MODEL_NUMBER)
         ) {
             $type = $data
                 ->{Keys::ATTR_DEVICE_INFO}
@@ -93,7 +98,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @phpstan-param DeviceIdType $deviceId
      *
-     * @throws \JsonException|RuntimeException
+     * @throws JsonException|RuntimeException
      */
     public function getManufacturer(int $deviceId): string
     {
@@ -104,10 +109,10 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             returnType: CoapHubResponseDataType::Object,
         );
 
-        if (\is_object($data)
-            && \property_exists($data, Keys::ATTR_DEVICE_INFO)
-            && \is_object($data->{Keys::ATTR_DEVICE_INFO})
-            && \property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MANUFACTURER)
+        if (is_object($data)
+            && property_exists($data, Keys::ATTR_DEVICE_INFO)
+            && is_object($data->{Keys::ATTR_DEVICE_INFO})
+            && property_exists($data->{Keys::ATTR_DEVICE_INFO}, Keys::ATTR_DEVICE_MANUFACTURER)
         ) {
             $manufacturer = $data->{Keys::ATTR_DEVICE_INFO}->{Keys::ATTR_DEVICE_MANUFACTURER};
             Assert::stringNotEmpty($manufacturer);
@@ -182,7 +187,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException|RuntimeException
+     * @throws JsonException|RuntimeException
      */
     public function getDeviceCollection(ServiceInterface $service): Devices
     {
@@ -194,9 +199,9 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @phpstan-param DeviceIdsType|null $deviceIds
      *
-     * @throws \JsonException|RuntimeException
+     * @return array<int, DeviceDto>
      *
-     * @return array<int, \IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
+     * @throws JsonException|RuntimeException
      */
     public function getDevicesData(?array $deviceIds = null): array
     {
@@ -204,7 +209,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $deviceIds = $this->getDeviceIds();
         }
 
-        $array_key_last = \array_key_last($deviceIds);
+        $array_key_last = array_key_last($deviceIds);
         $deviceData     = [];
         foreach ($deviceIds as $index => $deviceId) {
             // sometimes the request are to fast,
@@ -212,7 +217,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
             $deviceData[$deviceId] = $this->getDeviceData((int) $deviceId);
 
             if ($array_key_last !== $index) {
-                \usleep(50);
+                usleep(50);
             }
         }
 
@@ -220,9 +225,9 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException|RuntimeException
-     *
      * @return DeviceIdsType
+     *
+     * @throws JsonException|RuntimeException
      */
     public function getDeviceIds(): array
     {
@@ -241,7 +246,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     /**
      * @phpstan-param DeviceIdType $deviceId
      *
-     * @throws \JsonException|RuntimeException
+     * @throws JsonException|RuntimeException
      */
     public function getDeviceData(int $deviceId): DeviceDto
     {
@@ -265,7 +270,7 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException|RuntimeException
+     * @throws JsonException|RuntimeException
      */
     public function getGroupCollection(ServiceInterface $service): Groups
     {
@@ -290,9 +295,9 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException|RuntimeException
-     *
      * @phpstan-return array<positive-int, GroupDto>
+     *
+     * @throws JsonException|RuntimeException
      */
     public function getGroupsData(): array
     {
@@ -323,9 +328,9 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException|RuntimeException
-     *
      * @phpstan-return DeviceIdsType
+     *
+     * @throws JsonException|RuntimeException
      */
     public function getGroupIds(): array
     {
@@ -343,10 +348,10 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException
-     * @throws RuntimeException
-     *
      * @phpstan-return ($returnType is CoapHubResponseDataType::String ? string : no-return)|($returnType is CoapHubResponseDataType::Array ? array<mixed> : no-return)|($returnType is CoapHubResponseDataType::Object ? object : no-return)|($returnType is CoapHubResponseDataType::ListInt ? list<positive-int> : no-return)
+     *
+     * @throws JsonException
+     * @throws RuntimeException
      */
     private function requestDataFromHub(
         Request|string $requestType,
@@ -372,18 +377,18 @@ final class CoapAdapter implements AdapterInterface, LoggerAwareInterface
     }
 
     /**
-     * @throws \JsonException
-     *
      * @phpstan-return array<int|string|mixed>|object|string
+     *
+     * @throws JsonException
      */
     private static function decodeData(string $dataRaw): array|object|string
     {
-        $decoded = \json_decode($dataRaw, false, 512);
+        $decoded = json_decode($dataRaw, false, 512);
         if (null === $decoded) {
             $decoded = $dataRaw;
         }
 
-        if (false === $decoded || (!\is_array($decoded) && !\is_object($decoded) && !\is_string($decoded))) {
+        if (false === $decoded || (!is_array($decoded) && !is_object($decoded) && !is_string($decoded))) {
             throw new RuntimeException('invalid decoded response');
         }
 

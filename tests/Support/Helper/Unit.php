@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -31,18 +31,18 @@ final class Unit extends \Codeception\Module
      */
     public function getDevicesRawJson(): string
     {
-        return \file_get_contents(\codecept_data_dir('hubResponses/getDevices.json')) ?: '';
+        return file_get_contents(codecept_data_dir('hubResponses/getDevices.json')) ?: '';
     }
 
     /**
-     * @phpstan-return iterable<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
+     * @phpstan-return iterable<DeviceDto>
      */
     public function getDevicesDTOs(): iterable
     {
         $jsonDeviceDataSerializer = new JsonDeviceDataSerializer();
         $normalizer               = (new JsonIntTypeNormalizer());
         $finder                   = new Finder()
-            ->in(\codecept_data_dir('hubResponses/devices/'))
+            ->in(codecept_data_dir('hubResponses/devices/'))
             ->name('/.*_raw\.json/');
 
         foreach ($finder->files() as $file) {
@@ -56,11 +56,11 @@ final class Unit extends \Codeception\Module
 
     public function getDevices(): array
     {
-        return (array) \json_decode(
+        return (array) json_decode(
             $this->getDevicesRawJson(),
             false,
             512,
-            \JSON_THROW_ON_ERROR,
+            JSON_THROW_ON_ERROR,
         );
         /*
         return [
@@ -154,11 +154,11 @@ final class Unit extends \Codeception\Module
 
     public function getGroupDataCoapsResponse(): array
     {
-        return (array) \json_decode(
-            \file_get_contents(\codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
+        return (array) json_decode(
+            file_get_contents(codecept_data_dir('/hubResponses/getGroupDataCoapsResponse.json')),
             false,
             512,
-            \JSON_THROW_ON_ERROR,
+            JSON_THROW_ON_ERROR,
         );
 
         /*

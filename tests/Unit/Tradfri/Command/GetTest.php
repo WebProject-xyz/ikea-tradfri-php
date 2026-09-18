@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,6 +19,8 @@ use IKEA\Tradfri\Command\Get;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
+use InvalidArgumentException;
+use Mockery;
 
 final class GetTest extends Unit
 {
@@ -33,18 +35,18 @@ final class GetTest extends Unit
         $command = new Get($authConfig);
 
         // Assert
-        $this->assertInstanceOf(Get::class, $command);
+        self::assertInstanceOf(Get::class, $command);
     }
 
     public function testRunThrowsOnMissingTarget(): void
     {
         // Arrange
         $authConfig = new CoapGatewayAuthConfigDto('user', 'key', 'secret', '127.0.0.1');
-        $runner     = \Mockery::mock(CommandRunnerInterface::class);
+        $runner     = Mockery::mock(CommandRunnerInterface::class);
         $command    = new Get($authConfig);
 
         // Assert
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('missing target');
 
         // Act
@@ -55,7 +57,7 @@ final class GetTest extends Unit
     {
         // Arrange
         $authConfig = new CoapGatewayAuthConfigDto('user', 'key', 'secret', '127.0.0.1');
-        $runner     = \Mockery::mock(CommandRunnerInterface::class);
+        $runner     = Mockery::mock(CommandRunnerInterface::class);
         $runner->shouldReceive('execWithTimeout')->andReturn(['result']);
 
         $command = new Get($authConfig);
@@ -64,6 +66,6 @@ final class GetTest extends Unit
         $result = $command->run($runner, Request::RootDevices);
 
         // Assert
-        $this->assertSame(['result'], $result);
+        self::assertSame(['result'], $result);
     }
 }

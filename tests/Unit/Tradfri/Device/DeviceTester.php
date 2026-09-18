@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -17,6 +17,7 @@ use Codeception\Test\Unit as UnitTest;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
 
 /**
  * Class DeviceTest.
@@ -46,13 +47,13 @@ abstract class DeviceTester extends UnitTest
         // Arrange
         $device = $this->getModel();
 
-        $serviceMock = \Mockery::mock(ServiceInterface::class);
+        $serviceMock = Mockery::mock(ServiceInterface::class);
         // Act
         $device->setService($serviceMock);
         $service = $device->getService();
 
         // Assert
-        $this->assertInstanceOf(ServiceInterface::class, $service);
+        self::assertInstanceOf(ServiceInterface::class, $service);
     }
 
     final public function testGetSetName(): void
@@ -64,7 +65,7 @@ abstract class DeviceTester extends UnitTest
         $result = $lamp->getName();
 
         // Assert
-        $this->assertSame('UnitTest', $result);
+        self::assertSame('UnitTest', $result);
     }
 
     final public function testGetSetManufacturer(): void
@@ -76,7 +77,7 @@ abstract class DeviceTester extends UnitTest
         $result = $lamp->getManufacturer();
 
         // Assert
-        $this->assertSame('UnitTest', $result);
+        self::assertSame('UnitTest', $result);
     }
 
     final public function testGetSetId(): void
@@ -88,7 +89,7 @@ abstract class DeviceTester extends UnitTest
         $result = $lamp->getId();
 
         // Assert
-        $this->assertSame(2, $result);
+        self::assertSame(2, $result);
     }
 
     final public function testGetSetVersion(): void
@@ -100,7 +101,7 @@ abstract class DeviceTester extends UnitTest
         $result = $lamp->getVersion();
 
         // Assert
-        $this->assertSame('V123', $result);
+        self::assertSame('V123', $result);
     }
 
     /**

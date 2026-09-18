@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -22,6 +22,7 @@ use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Group\DeviceGroup;
 use IKEA\Tradfri\Service\ServiceInterface;
+use Mockery;
 
 final class ClientTest extends \Codeception\Test\Unit
 {
@@ -30,47 +31,47 @@ final class ClientTest extends \Codeception\Test\Unit
     public function testICanGetAnInstanceOfClient(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         // Act
         $client = new Client($adapter);
         // Assert
-        $this->assertInstanceOf(Client::class, $client);
+        self::assertInstanceOf(Client::class, $client);
     }
 
     public function testICanGetDevicesFromClient(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('getDeviceCollection')->andReturn(new Devices());
 
         $client = new Client($adapter);
         // Act
-        $devices = $client->getDevices(\Mockery::mock(ServiceInterface::class));
+        $devices = $client->getDevices(Mockery::mock(ServiceInterface::class));
         // Assert
-        $this->assertInstanceOf(Devices::class, $devices);
-        $this->assertTrue($devices->isEmpty());
-        $this->assertCount(0, $devices->toArray());
+        self::assertInstanceOf(Devices::class, $devices);
+        self::assertTrue($devices->isEmpty());
+        self::assertCount(0, $devices->toArray());
     }
 
     public function testICanGetGroupFromClient(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('getGroupCollection')->andReturn(new Groups());
 
         $client = new Client($adapter);
         // Act
-        $groups = $client->getGroups(\Mockery::mock(ServiceInterface::class));
+        $groups = $client->getGroups(Mockery::mock(ServiceInterface::class));
         // Assert
-        $this->assertInstanceOf(Groups::class, $groups);
-        $this->assertTrue($groups->isEmpty());
-        $this->assertCount(0, $groups->toArray());
+        self::assertInstanceOf(Groups::class, $groups);
+        self::assertTrue($groups->isEmpty());
+        self::assertCount(0, $groups->toArray());
     }
 
     public function testICanTurnLightOn(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
@@ -78,13 +79,13 @@ final class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->lightOn($light);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanTurnLightOff(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('changeLightState')->andReturn(true);
 
         $client = new Client($adapter);
@@ -92,42 +93,42 @@ final class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->lightOff($light);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanTurnGroupOn(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new DeviceGroup(1, \Mockery::mock(ServiceInterface::class));
-        $group  = new DeviceGroup(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new DeviceGroup(1, Mockery::mock(ServiceInterface::class));
+        $group  = new DeviceGroup(1, Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->groupOn($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanTurnGroupOff(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('changeGroupState')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new DeviceGroup(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new DeviceGroup(1, Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->groupOff($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanDimLight(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('setLightBrightness')->andReturn(true);
 
         $client = new Client($adapter);
@@ -135,27 +136,27 @@ final class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->dimLight($light, 50);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanDimGroup(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('setGroupBrightness')->andReturn(true);
 
         $client = new Client($adapter);
-        $group  = new DeviceGroup(1, \Mockery::mock(ServiceInterface::class));
+        $group  = new DeviceGroup(1, Mockery::mock(ServiceInterface::class));
         // Act
         $result = $client->dimGroup($group, 50);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanSetRollerBlindPosition(): void
     {
         // Arrange
-        $adapter = \Mockery::mock(AdapterInterface::class);
+        $adapter = Mockery::mock(AdapterInterface::class);
         $adapter->expects('setRollerBlindPosition')->andReturn(true);
 
         $client       = new Client($adapter);
@@ -163,6 +164,6 @@ final class ClientTest extends \Codeception\Test\Unit
         // Act
         $result = $client->setRollerBlindPosition($rollerBlind, 50);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 }

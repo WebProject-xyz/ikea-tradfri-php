@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace IKEA\Tradfri\Dto\CoapResponse;
 
+use DateTimeImmutable;
 use IKEA\Tradfri\Values\CoapDeviceGroupAttribute;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,7 +48,7 @@ final readonly class GroupDto implements ProvidesAttributeReplacePatternsInterfa
         private string $name,
         #[Assert\NotBlank()]
         #[SerializedName(serializedName: 'ATTR_CREATED_AT')]
-        private \DateTimeImmutable $createdAt,
+        private DateTimeImmutable $createdAt,
         /**
          * @var list<positive-int>
          */
@@ -76,7 +77,7 @@ final readonly class GroupDto implements ProvidesAttributeReplacePatternsInterfa
         return $this->name;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }

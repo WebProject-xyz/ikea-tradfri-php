@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -34,11 +34,11 @@ class Devices extends AbstractCollection
                 continue;
             }
 
-            if ($device->getTypeEnum() === DeviceType::BLUB) {
+            if (DeviceType::BLUB === $device->getTypeEnum()) {
                 $lightBulbs->addDevice($device);
             }
 
-            if ($device->getTypeEnum() === DeviceType::FLOALT) {
+            if (DeviceType::FLOALT === $device->getTypeEnum()) {
                 $lightBulbs->addDevice($device);
             }
         }

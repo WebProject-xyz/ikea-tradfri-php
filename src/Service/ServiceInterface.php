@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -20,33 +20,34 @@ use IKEA\Tradfri\Device\Feature\DeviceInterface;
 use IKEA\Tradfri\Device\Feature\SwitchableInterface;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
+use JsonSerializable;
 
 interface ServiceInterface
 {
     public function getLights(): LightBulbs;
 
     /**
-     * @return Devices<DeviceInterface&\JsonSerializable>
+     * @return Devices<DeviceInterface&JsonSerializable>
      */
     public function getDevices(): Devices;
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function allLightsOff(LightBulbs $lightBulbsCollection): bool;
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function on(DeviceInterface&SwitchableInterface $device): bool;
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function off(DeviceInterface&SwitchableInterface $device): bool;
 
     /**
-     * @throws \IKEA\Tradfri\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function dim(BrightnessStateInterface&DeviceInterface $device, int $level): bool;
 

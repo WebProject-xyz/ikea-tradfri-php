@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -28,8 +28,8 @@ final class DimmerTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertInstanceOf(Dimmer::class, $model);
-        $this->assertSame(DeviceType::DIMMER, $model->getTypeEnum());
+        self::assertInstanceOf(Dimmer::class, $model);
+        self::assertSame(DeviceType::DIMMER, $model->getTypeEnum());
     }
 
     public function testIsDimmer(): void
@@ -38,7 +38,7 @@ final class DimmerTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertSame(DeviceType::DIMMER, $model->getTypeEnum());
+        self::assertSame(DeviceType::DIMMER, $model->getTypeEnum());
     }
 
     protected function getModel(): Device

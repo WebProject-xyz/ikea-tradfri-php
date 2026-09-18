@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,8 +19,10 @@ use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Dto\CoapGatewayRequestPayloadDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
+use Override;
+use Stringable;
 
-final class GroupSwitchStateCommand extends Put implements \Stringable
+final class GroupSwitchStateCommand extends Put implements Stringable
 {
     public function __construct(
         CoapGatewayAuthConfigDto $authConfig,
@@ -30,7 +32,7 @@ final class GroupSwitchStateCommand extends Put implements \Stringable
         parent::__construct($authConfig);
     }
 
-    #[\Override()]
+    #[Override()]
     public function __toString(): string
     {
         return $this->requestCommand(
@@ -43,7 +45,7 @@ final class GroupSwitchStateCommand extends Put implements \Stringable
         );
     }
 
-    #[\Override()]
+    #[Override()]
     public function run(CommandRunnerInterface $runner): bool
     {
         $result = $runner->execWithTimeout(

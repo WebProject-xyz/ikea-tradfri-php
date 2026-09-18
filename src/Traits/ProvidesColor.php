@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,7 +19,7 @@ trait ProvidesColor
 
     public function getColor(): string
     {
-        return \mb_strtoupper($this->color);
+        return mb_strtoupper($this->color);
     }
 
     public function setColor(string $color): static

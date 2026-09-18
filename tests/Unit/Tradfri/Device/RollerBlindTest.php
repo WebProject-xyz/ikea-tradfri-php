@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -18,6 +18,9 @@ use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface as Api;
 use IKEA\Tradfri\Values\DeviceType;
+use Mockery;
+
+use function assert;
 
 final class RollerBlindTest extends DeviceTester
 {
@@ -27,8 +30,8 @@ final class RollerBlindTest extends DeviceTester
         // Act
         $lamp = $this->getModel();
         // Assert
-        $this->assertInstanceOf(RollerBlind::class, $lamp);
-        $this->assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
+        self::assertInstanceOf(RollerBlind::class, $lamp);
+        self::assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
     }
 
     public function testSetType(): void
@@ -40,8 +43,8 @@ final class RollerBlindTest extends DeviceTester
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $result);
-        $this->assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
+        self::assertSame(Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND, $result);
+        self::assertSame(DeviceType::ROLLER_BLIND, $lamp->getTypeEnum());
     }
 
     public function testGetBrightnessButNotSet(): void
@@ -53,8 +56,8 @@ final class RollerBlindTest extends DeviceTester
         $result = $rollerBlind->getDarkenedState();
 
         // Assert
-        $this->assertSame(DeviceType::ROLLER_BLIND, $rollerBlind->getTypeEnum());
-        $this->assertSame(0, $result);
+        self::assertSame(DeviceType::ROLLER_BLIND, $rollerBlind->getTypeEnum());
+        self::assertSame(0, $result);
     }
 
     public function testGetBrightness(): void
@@ -66,7 +69,7 @@ final class RollerBlindTest extends DeviceTester
         $result = $rollerBlind->getDarkenedState();
 
         // Assert
-        $this->assertSame(30, $result);
+        self::assertSame(30, $result);
     }
 
     public function testSetBrightnessToLow(): void
@@ -78,16 +81,16 @@ final class RollerBlindTest extends DeviceTester
         $result = $rollerBlind->getDarkenedState();
 
         // Assert
-        $this->assertSame(0, $result);
+        self::assertSame(0, $result);
     }
 
     public function testStates(): void
     {
         // Arrange
         $rollerBlind = $this->getModel();
-        $this->assertTrue($rollerBlind->isFullyOpened());
+        self::assertTrue($rollerBlind->isFullyOpened());
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->setRollerBlindPosition($rollerBlind, 0)->once()->andReturn(true);
         $rollerBlind->setService($service);
 
@@ -95,16 +98,16 @@ final class RollerBlindTest extends DeviceTester
         $rollerBlind->setToPosition(0);
 
         // Assert
-        $this->assertTrue($rollerBlind->isFullyOpened());
+        self::assertTrue($rollerBlind->isFullyOpened());
     }
 
     public function testOpen(): void
     {
         // Arrange
         $rollerBlind = $this->getModel();
-        $this->assertTrue($rollerBlind->isFullyOpened());
+        self::assertTrue($rollerBlind->isFullyOpened());
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->setRollerBlindPosition($rollerBlind, 0)->once()->andReturn(true);
         $rollerBlind->setService($service);
 
@@ -112,16 +115,16 @@ final class RollerBlindTest extends DeviceTester
         $rollerBlind->open();
 
         // Assert
-        $this->assertTrue($rollerBlind->isFullyOpened());
+        self::assertTrue($rollerBlind->isFullyOpened());
     }
 
     public function testClose(): void
     {
         // Arrange
         $rollerBlind = $this->getModel();
-        $this->assertTrue($rollerBlind->isFullyOpened());
+        self::assertTrue($rollerBlind->isFullyOpened());
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->setRollerBlindPosition($rollerBlind, 100)->once()->andReturn(true);
         $rollerBlind->setService($service);
 
@@ -129,7 +132,7 @@ final class RollerBlindTest extends DeviceTester
         $rollerBlind->close();
 
         // Assert
-        $this->assertFalse($rollerBlind->isFullyOpened());
+        self::assertFalse($rollerBlind->isFullyOpened());
     }
 
     public function testICanSetPositions(): void
@@ -137,39 +140,39 @@ final class RollerBlindTest extends DeviceTester
         // Arrange
         $rollerBlind = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects('setRollerBlindPosition')->with($rollerBlind, 100)->once()->andReturnUsing(static function (object $model, int $state): bool {
-            \assert($model instanceof RollerBlind);
+            assert($model instanceof RollerBlind);
             $model->setDarkenedState($state);
 
             return true;
         });
         $service->expects('setRollerBlindPosition')->with($rollerBlind, 75)->once()->andReturnUsing(static function (object $model, int $state): bool {
-            \assert($model instanceof RollerBlind);
+            assert($model instanceof RollerBlind);
             $model->setDarkenedState($state);
 
             return true;
         });
 
         $rollerBlind->setService($service);
-        $this->assertFalse($rollerBlind->isFullyClosed());
+        self::assertFalse($rollerBlind->isFullyClosed());
 
         // Act
         $result = $rollerBlind->setToPosition(100);
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertTrue($rollerBlind->isFullyClosed());
-        $this->assertFalse($rollerBlind->isFullyOpened());
+        self::assertTrue($result);
+        self::assertTrue($rollerBlind->isFullyClosed());
+        self::assertFalse($rollerBlind->isFullyOpened());
 
         // Act
         $result = $rollerBlind->setToPosition(75);
         // Assert
-        $this->assertTrue($result);
-        $this->assertFalse($rollerBlind->isFullyOpened());
-        $this->assertFalse($rollerBlind->isFullyClosed());
+        self::assertTrue($result);
+        self::assertFalse($rollerBlind->isFullyOpened());
+        self::assertFalse($rollerBlind->isFullyClosed());
 
-        $this->assertSame(75, $rollerBlind->getDarkenedState());
+        self::assertSame(75, $rollerBlind->getDarkenedState());
     }
 
     public function testICanSetPositionFails(): void
@@ -179,11 +182,11 @@ final class RollerBlindTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects('setRollerBlindPosition')->andThrow(new RuntimeException('set postion failed'));
 
         $lamp->setService($service);
-        $this->assertTrue($lamp->isFullyOpened());
+        self::assertTrue($lamp->isFullyOpened());
 
         // Act
         $result = $lamp->setToPosition(100);

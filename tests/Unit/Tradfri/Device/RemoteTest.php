@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -24,8 +24,8 @@ final class RemoteTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertInstanceOf(Remote::class, $model);
-        $this->assertSame(DeviceType::REMOTE, $model->getTypeEnum());
+        self::assertInstanceOf(Remote::class, $model);
+        self::assertSame(DeviceType::REMOTE, $model->getTypeEnum());
     }
 
     public function testIsRemote(): void
@@ -34,7 +34,7 @@ final class RemoteTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertSame(DeviceType::REMOTE, $model->getTypeEnum());
+        self::assertSame(DeviceType::REMOTE, $model->getTypeEnum());
     }
 
     protected function getModel(): Remote

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -24,8 +24,8 @@ final class MotionSensorTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertInstanceOf(MotionSensor::class, $model);
-        $this->assertSame(DeviceType::MOTION_SENSOR, $model->getTypeEnum());
+        self::assertInstanceOf(MotionSensor::class, $model);
+        self::assertSame(DeviceType::MOTION_SENSOR, $model->getTypeEnum());
     }
 
     public function testIsMotionSensor(): void
@@ -34,7 +34,7 @@ final class MotionSensorTest extends DeviceTester
         // Act
         $model = $this->getModel();
         // Assert
-        $this->assertSame(DeviceType::MOTION_SENSOR, $model->getTypeEnum());
+        self::assertSame(DeviceType::MOTION_SENSOR, $model->getTypeEnum());
     }
 
     protected function getModel(): MotionSensor

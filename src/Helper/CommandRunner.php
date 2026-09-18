@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,6 +15,8 @@ namespace IKEA\Tradfri\Helper;
 
 use IKEA\Tradfri\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
+
+use function count;
 
 /**
  * @final
@@ -40,14 +42,14 @@ class CommandRunner implements CommandRunnerInterface
         $output = $process->getOutput();
 
         return $asArray
-            ? \explode("\n", \mb_trim($output))
+            ? explode("\n", mb_trim($output))
             : $output;
     }
 
     private static function _parseErrors(bool $throw, string $errors): string
     {
-        $parts        = \explode("\n", $errors);
-        $countOfLines = \count($parts);
+        $parts        = explode("\n", $errors);
+        $countOfLines = count($parts);
         $line2IsEmpty = empty($parts[1]);
 
         $errorMessage = match (true) {
@@ -58,7 +60,6 @@ class CommandRunner implements CommandRunnerInterface
         };
 
         return $throw
-            ? throw new RuntimeException($errorMessage)
-            : $errorMessage;
+            ? throw new RuntimeException($errorMessage) : $errorMessage;
     }
 }

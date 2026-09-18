@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -26,6 +26,8 @@ use IKEA\Tradfri\Helper\CommandRunnerInterface as Runner;
 use IKEA\Tradfri\Mapper\DeviceData;
 use IKEA\Tradfri\Mapper\GroupData;
 use IKEA\Tradfri\Service\ServiceInterface;
+use InvalidArgumentException;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 use WMDE\PsrLogTestDoubles\LoggerSpy;
 
@@ -34,7 +36,7 @@ final class CoapTest extends TestCase
     public function testGetDevicesDataCanHandleEmptyDeviceIdsResponse(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner->expects('execWithTimeout')
             ->andReturn(['[]']);
 
@@ -49,25 +51,25 @@ final class CoapTest extends TestCase
         // Act
         $deviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertSame([], $deviceData);
+        self::assertSame([], $deviceData);
     }
 
     public function testGetDevicesDataWithRawJson(): void
     {
         // Arrange
         $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "0": "UnitTestFactory",
-        "3": "v1.33.7",
-        "1": "TRADFRI motion sensor"
-    }
-}
-DEVICE_JSON;
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "0": "UnitTestFactory",
+                    "3": "v1.33.7",
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -93,32 +95,32 @@ DEVICE_JSON;
         $deviceData = $adapter->getDevicesData();
         // Assert
 
-        $this->assertCount(1, $deviceData);
-        $device = \current($deviceData);
-        $this->assertInstanceOf(DeviceDto::class, $device);
-        $this->assertSame($deviceDto->getId(), $device->getId());
-        $this->assertSame($deviceDto->getName(), $device->getName());
-        $this->assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
-        $this->assertSame($deviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
-        $this->assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
+        self::assertCount(1, $deviceData);
+        $device = current($deviceData);
+        self::assertInstanceOf(DeviceDto::class, $device);
+        self::assertSame($deviceDto->getId(), $device->getId());
+        self::assertSame($deviceDto->getName(), $device->getName());
+        self::assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
+        self::assertSame($deviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
+        self::assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
     }
 
     public function testGetDevicesDataWithValidJson(): void
     {
         // Arrange
         $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
-{
-    "ATTR_ID": 12,
-    "ATTR_NAME": "name",
-    "ATTR_DEVICE_INFO": {
-        "ATTR_DEVICE_MANUFACTURER": "manufacturer",
-        "ATTR_DEVICE_FIRMWARE_VERSION": "version",
-        "ATTR_DEVICE_MODEL_NUMBER": "type"
-    }
-}
-DEVICE_JSON;
+            {
+                "ATTR_ID": 12,
+                "ATTR_NAME": "name",
+                "ATTR_DEVICE_INFO": {
+                    "ATTR_DEVICE_MANUFACTURER": "manufacturer",
+                    "ATTR_DEVICE_FIRMWARE_VERSION": "version",
+                    "ATTR_DEVICE_MODEL_NUMBER": "type"
+                }
+            }
+            DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -143,14 +145,14 @@ DEVICE_JSON;
         // Act
         $deviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertCount(1, $deviceData);
-        $device = \current($deviceData);
-        $this->assertInstanceOf(DeviceDto::class, $device);
-        $this->assertSame($deviceDto->getId(), $device->getId());
-        $this->assertSame($deviceDto->getName(), $device->getName());
-        $this->assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
-        $this->assertSame($deviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
-        $this->assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
+        self::assertCount(1, $deviceData);
+        $device = current($deviceData);
+        self::assertInstanceOf(DeviceDto::class, $device);
+        self::assertSame($deviceDto->getId(), $device->getId());
+        self::assertSame($deviceDto->getName(), $device->getName());
+        self::assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
+        self::assertSame($deviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
+        self::assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
     }
 
     public function testGetDevicesDataWithRawJsonMixedResponse(): void
@@ -158,37 +160,37 @@ DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "0": "UnitTestFactory",
-        "3": "v1.33.7",
-        "1": "TRADFRI motion sensor"
-    }
-}
-SENSOR_DEVICE_JSON;
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "0": "UnitTestFactory",
+                    "3": "v1.33.7",
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            SENSOR_DEVICE_JSON;
 
         $lightDeviceId   = 1000;
         $lightDeviceJson = /** @lang JSON */ <<<'BULB_DEVICE_JSON'
-{
-        "9003": 1000,
-        "9001": "TRADFRI bulb E27 W opal 1000lm",
-        "3": {
-            "0": "UnitTestFactory",
-            "3": "v1.33.7",
-            "1": "TRADFRI bulb E27 W opal 1000lm"
-        },
-        "3311": [
             {
-                "5850": 1,
-                "5851": 22
-            }
-        ]
-    }
-BULB_DEVICE_JSON;
+                    "9003": 1000,
+                    "9001": "TRADFRI bulb E27 W opal 1000lm",
+                    "3": {
+                        "0": "UnitTestFactory",
+                        "3": "v1.33.7",
+                        "1": "TRADFRI bulb E27 W opal 1000lm"
+                    },
+                    "3311": [
+                        {
+                            "5850": 1,
+                            "5851": 22
+                        }
+                    ]
+                }
+            BULB_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -222,50 +224,50 @@ BULB_DEVICE_JSON;
         // Act
         $sensorDeviceData = $adapter->getDevicesData();
         // Assert
-        $this->assertCount(2, $sensorDeviceData);
-        $this->assertArrayHasKey($sensorDeviceId, $sensorDeviceData);
+        self::assertCount(2, $sensorDeviceData);
+        self::assertArrayHasKey($sensorDeviceId, $sensorDeviceData);
 
         $device = $sensorDeviceData[$sensorDeviceId];
-        $this->assertInstanceOf(DeviceDto::class, $device);
-        $this->assertSame($sensorDeviceDto->getId(), $device->getId());
-        $this->assertSame($sensorDeviceDto->getName(), $device->getName());
-        $this->assertSame($sensorDeviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
-        $this->assertSame($sensorDeviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
-        $this->assertSame($sensorDeviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
-        $this->assertNull($device->getLightControl());
+        self::assertInstanceOf(DeviceDto::class, $device);
+        self::assertSame($sensorDeviceDto->getId(), $device->getId());
+        self::assertSame($sensorDeviceDto->getName(), $device->getName());
+        self::assertSame($sensorDeviceDto->getDeviceInfo()->getManufacturer(), $device->getDeviceInfo()->getManufacturer());
+        self::assertSame($sensorDeviceDto->getDeviceInfo()->getType(), $device->getDeviceInfo()->getType());
+        self::assertSame($sensorDeviceDto->getDeviceInfo()->getVersion(), $device->getDeviceInfo()->getVersion());
+        self::assertNull($device->getLightControl());
 
-        $this->assertArrayHasKey($lightDeviceId, $sensorDeviceData);
+        self::assertArrayHasKey($lightDeviceId, $sensorDeviceData);
         $lightDevice = $sensorDeviceData[$lightDeviceId];
-        $this->assertInstanceOf(DeviceDto::class, $lightDevice);
-        $this->assertSame($blubDeviceDto->getId(), $lightDevice->getId());
-        $this->assertSame($blubDeviceDto->getName(), $lightDevice->getName());
-        $this->assertSame($blubDeviceDto->getDeviceInfo()->getManufacturer(), $lightDevice->getDeviceInfo()->getManufacturer());
-        $this->assertSame($blubDeviceDto->getDeviceInfo()->getType(), $lightDevice->getDeviceInfo()->getType());
-        $this->assertSame($blubDeviceDto->getDeviceInfo()->getVersion(), $lightDevice->getDeviceInfo()->getVersion());
-        $this->assertNotNull($lightDevice->getLightControl());
+        self::assertInstanceOf(DeviceDto::class, $lightDevice);
+        self::assertSame($blubDeviceDto->getId(), $lightDevice->getId());
+        self::assertSame($blubDeviceDto->getName(), $lightDevice->getName());
+        self::assertSame($blubDeviceDto->getDeviceInfo()->getManufacturer(), $lightDevice->getDeviceInfo()->getManufacturer());
+        self::assertSame($blubDeviceDto->getDeviceInfo()->getType(), $lightDevice->getDeviceInfo()->getType());
+        self::assertSame($blubDeviceDto->getDeviceInfo()->getVersion(), $lightDevice->getDeviceInfo()->getVersion());
+        self::assertNotNull($lightDevice->getLightControl());
 
-        $this->assertNotNull($blubDeviceDto->getLightControl());
-        $this->assertSame($blubDeviceDto->getLightControl()->getState(), $lightDevice->getLightControl()->getState());
-        $this->assertSame($blubDeviceDto->getLightControl()->getBrightness(), $lightDevice->getLightControl()->getBrightness());
-        $this->assertSame($blubDeviceDto->getLightControl()->getColorHex(), $lightDevice->getLightControl()->getColorHex());
+        self::assertNotNull($blubDeviceDto->getLightControl());
+        self::assertSame($blubDeviceDto->getLightControl()->getState(), $lightDevice->getLightControl()->getState());
+        self::assertSame($blubDeviceDto->getLightControl()->getBrightness(), $lightDevice->getLightControl()->getBrightness());
+        self::assertSame($blubDeviceDto->getLightControl()->getColorHex(), $lightDevice->getLightControl()->getColorHex());
     }
 
     public function testGetDevicesCollectionWithValidJson(): void
     {
         // Arrange
         $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
-{
-    "ATTR_ID": 12,
-    "ATTR_NAME": "name",
-    "ATTR_DEVICE_INFO": {
-        "ATTR_DEVICE_MANUFACTURER": "manufacturer",
-        "ATTR_DEVICE_FIRMWARE_VERSION": "version",
-        "ATTR_DEVICE_MODEL_NUMBER": "unknowntype"
-    }
-}
-DEVICE_JSON;
+            {
+                "ATTR_ID": 12,
+                "ATTR_NAME": "name",
+                "ATTR_DEVICE_INFO": {
+                    "ATTR_DEVICE_MANUFACTURER": "manufacturer",
+                    "ATTR_DEVICE_FIRMWARE_VERSION": "version",
+                    "ATTR_DEVICE_MODEL_NUMBER": "unknowntype"
+                }
+            }
+            DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"', 1, true, true)
@@ -287,19 +289,19 @@ DEVICE_JSON;
         $deviceData  = new DeviceInfoDto('manufacturer', 'unknowntype', 'version');
         $deviceDto   = new DeviceDto(12, 'name', $deviceData, null);
 
-        $service = \Mockery::mock(ServiceInterface::class);
+        $service = Mockery::mock(ServiceInterface::class);
         // Act
         $deviceCollection = $adapter->getDeviceCollection($service);
         // Assert
-        $this->assertCount(1, $deviceCollection);
+        self::assertCount(1, $deviceCollection);
         $device = $deviceCollection->first();
 
-        $this->assertInstanceOf(UnknownDevice::class, $device);
-        $this->assertSame($deviceDto->getId(), $device->getId());
-        $this->assertSame($deviceDto->getName(), $device->getName());
-        $this->assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getManufacturer());
-        $this->assertSame($deviceDto->getDeviceInfo()->getType(), $device->getType());
-        $this->assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getVersion());
+        self::assertInstanceOf(UnknownDevice::class, $device);
+        self::assertSame($deviceDto->getId(), $device->getId());
+        self::assertSame($deviceDto->getName(), $device->getName());
+        self::assertSame($deviceDto->getDeviceInfo()->getManufacturer(), $device->getManufacturer());
+        self::assertSame($deviceDto->getDeviceInfo()->getType(), $device->getType());
+        self::assertSame($deviceDto->getDeviceInfo()->getVersion(), $device->getVersion());
     }
 
     public function testGetType(): void
@@ -307,18 +309,18 @@ DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "0": "UnitTestFactory",
-        "3": "v1.33.7",
-        "1": "TRADFRI motion sensor"
-    }
-}
-SENSOR_DEVICE_JSON;
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "0": "UnitTestFactory",
+                    "3": "v1.33.7",
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -336,7 +338,7 @@ SENSOR_DEVICE_JSON;
         $type = $adapter->getType($sensorDeviceId);
 
         // Assert
-        $this->assertSame(\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $type);
+        self::assertSame(\IKEA\Tradfri\Command\Coap\Keys::ATTR_DEVICE_INFO_TYPE_MOTION_SENSOR, $type);
     }
 
     public function testGetTypeError(): void
@@ -344,12 +346,12 @@ SENSOR_DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-{
-    "9003": 5000
-}
-SENSOR_DEVICE_JSON;
+            {
+                "9003": 5000
+            }
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -373,10 +375,10 @@ SENSOR_DEVICE_JSON;
     {
         // Arrange
         $groupIdsJson = /** @lang JSON */ <<<'GROUPS_JSON'
-[1234, 4321]
-GROUPS_JSON;
+            [1234, 4321]
+            GROUPS_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -394,15 +396,15 @@ GROUPS_JSON;
         $groupIds = $adapter->getGroupIds();
 
         // Assert
-        $this->assertCount(2, $groupIds);
-        $this->assertContains(1234, $groupIds);
-        $this->assertContains(4321, $groupIds);
+        self::assertCount(2, $groupIds);
+        self::assertContains(1234, $groupIds);
+        self::assertContains(4321, $groupIds);
     }
 
     public function testChangeLightState(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true, true)
@@ -420,13 +422,13 @@ GROUPS_JSON;
         $changeLightState = $adapter->changeLightState(123, true);
 
         // Assert
-        $this->assertTrue($changeLightState);
+        self::assertTrue($changeLightState);
     }
 
     public function testChangeGroupState(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
@@ -444,13 +446,13 @@ GROUPS_JSON;
         $changeLightState = $adapter->changeGroupState(123, true);
 
         // Assert
-        $this->assertTrue($changeLightState);
+        self::assertTrue($changeLightState);
     }
 
     public function testSetLightBrightness(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 59 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
@@ -468,13 +470,13 @@ GROUPS_JSON;
         $changeLightState = $adapter->setLightBrightness(123, 23);
 
         // Assert
-        $this->assertTrue($changeLightState);
+        self::assertTrue($changeLightState);
     }
 
     public function testSetGroupBrightness(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 59 }\' "coaps://127.0.0.1:5684/15004/123"', 2, true)
@@ -492,13 +494,13 @@ GROUPS_JSON;
         $changeLightState = $adapter->setGroupBrightness(123, 23);
 
         // Assert
-        $this->assertTrue($changeLightState);
+        self::assertTrue($changeLightState);
     }
 
     public function testSetRollerBlindPosition(): void
     {
         // Arrange
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 23 }] }\' "coaps://127.0.0.1:5684/15001/123"', 2, true)
@@ -516,7 +518,7 @@ GROUPS_JSON;
         $changeLightState = $adapter->setRollerBlindPosition(123, 23);
 
         // Assert
-        $this->assertTrue($changeLightState);
+        self::assertTrue($changeLightState);
     }
 
     public function testGetManufacturer(): void
@@ -524,18 +526,18 @@ GROUPS_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "0": "UnitTestFactory",
-        "3": "v1.33.7",
-        "1": "TRADFRI motion sensor"
-    }
-}
-SENSOR_DEVICE_JSON;
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "0": "UnitTestFactory",
+                    "3": "v1.33.7",
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -553,7 +555,7 @@ SENSOR_DEVICE_JSON;
         $type = $adapter->getManufacturer($sensorDeviceId);
 
         // Assert
-        $this->assertSame('UnitTestFactory', $type);
+        self::assertSame('UnitTestFactory', $type);
     }
 
     public function testGetManufacturerError(): void
@@ -561,16 +563,16 @@ SENSOR_DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "1": "TRADFRI motion sensor"
-    }
-}
-SENSOR_DEVICE_JSON;
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -585,7 +587,7 @@ SENSOR_DEVICE_JSON;
         );
 
         // Assert
-        $this->expectException(\IKEA\Tradfri\Exception\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         // Act
         $adapter->getManufacturer($sensorDeviceId);
     }
@@ -595,10 +597,10 @@ SENSOR_DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-200.1
-SENSOR_DEVICE_JSON;
+            200.1
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -613,7 +615,7 @@ SENSOR_DEVICE_JSON;
         );
 
         // Assert
-        $this->expectException(\IKEA\Tradfri\Exception\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         // Act
         $adapter->getManufacturer($sensorDeviceId);
     }
@@ -623,10 +625,10 @@ SENSOR_DEVICE_JSON;
         // Arrange
         $sensorDeviceId   = 5000;
         $sensorDeviceJson = /** @lang JSON */ <<<'SENSOR_DEVICE_JSON'
-'null'
-SENSOR_DEVICE_JSON;
+            'null'
+            SENSOR_DEVICE_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001/' . $sensorDeviceId . '"', 1, true, true)
@@ -651,46 +653,46 @@ SENSOR_DEVICE_JSON;
     {
         // Arrange
         $groupIdsJson = /** @lang JSON */ <<<'GROUPS_JSON'
-[1234, 4321]
-GROUPS_JSON;
+            [1234, 4321]
+            GROUPS_JSON;
         $group1Json = /** @lang JSON */ <<<'GROUP_JSON'
-{
-    "9001": "Group 1",
-    "9002": 1498340478,
-    "9003": 1234,
-    "5850": 1,
-    "5851": 0,
-    "9093": 222180,
-    "9018": {
-        "15002": {
-            "9003": [
-                65544,
-                65546
-            ]
-        }
-    }
-}
-GROUP_JSON;
+            {
+                "9001": "Group 1",
+                "9002": 1498340478,
+                "9003": 1234,
+                "5850": 1,
+                "5851": 0,
+                "9093": 222180,
+                "9018": {
+                    "15002": {
+                        "9003": [
+                            65544,
+                            65546
+                        ]
+                    }
+                }
+            }
+            GROUP_JSON;
         $group2Json = /** @lang JSON */ <<<'GROUP2_JSON'
-{
-    "9001": "Group 2",
-    "9002": 1498340478,
-    "9003": 4321,
-    "5850": 1,
-    "5851": 0,
-    "9093": 222180,
-    "9018": {
-        "15002": {
-            "9003": [
-                65544,
-                65546
-            ]
-        }
-    }
-}
-GROUP2_JSON;
+            {
+                "9001": "Group 2",
+                "9002": 1498340478,
+                "9003": 4321,
+                "5850": 1,
+                "5851": 0,
+                "9093": 222180,
+                "9018": {
+                    "15002": {
+                        "9003": [
+                            65544,
+                            65546
+                        ]
+                    }
+                }
+            }
+            GROUP2_JSON;
 
-        $runner = \Mockery::mock(Runner::class);
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -717,71 +719,71 @@ GROUP2_JSON;
         // Act
         $groupData = $adapter->getGroupsData();
         // Assert
-        $this->assertCount(2, $groupData);
-        $group = \current($groupData);
+        self::assertCount(2, $groupData);
+        $group = current($groupData);
 
-        $this->assertIsObject($group);
-        $this->assertInstanceOf(GroupDto::class, $group);
-        $this->assertSame(1234, $group->getId());
-        $this->assertSame('Group 1', $group->getName());
-        $this->assertSame('2017-06-24', $group->getCreatedAt()->format('Y-m-d'));
-        $this->assertNull($group->getMood());
-        $this->assertSame(0.0, $group->getDimmerLevel());
-        $this->assertSame([65544, 65546], $group->getMembers());
+        self::assertIsObject($group);
+        self::assertInstanceOf(GroupDto::class, $group);
+        self::assertSame(1234, $group->getId());
+        self::assertSame('Group 1', $group->getName());
+        self::assertSame('2017-06-24', $group->getCreatedAt()->format('Y-m-d'));
+        self::assertNull($group->getMood());
+        self::assertSame(0.0, $group->getDimmerLevel());
+        self::assertSame([65544, 65546], $group->getMembers());
     }
 
     public function testGetGroupCollection(): void
     {
         // Arrange
         $groupIdsJson = /** @lang JSON */ <<<'GROUPS_JSON'
-[1234, 4321]
-GROUPS_JSON;
+            [1234, 4321]
+            GROUPS_JSON;
         $group1Json = /** @lang JSON */ <<<'GROUP_JSON'
-{
-    "9001": "Group 1",
-    "9002": 1498340478,
-    "9003": 1234,
-    "5850": 1,
-    "5851": 0,
-    "9093": 222180,
-    "9018": {
-        "15002": {
-            "9003": [
-                5000
-            ]
-        }
-    }
-}
-GROUP_JSON;
+            {
+                "9001": "Group 1",
+                "9002": 1498340478,
+                "9003": 1234,
+                "5850": 1,
+                "5851": 0,
+                "9093": 222180,
+                "9018": {
+                    "15002": {
+                        "9003": [
+                            5000
+                        ]
+                    }
+                }
+            }
+            GROUP_JSON;
         $group2Json = /** @lang JSON */ <<<'GROUP2_JSON'
-{
-    "9001": "Group 2",
-    "9002": 1498340478,
-    "9003": 4321,
-    "5850": 1,
-    "5851": 0,
-    "9093": 222180,
-    "9018": {
-        "15002": {
-            "9003": [
-                5000
-            ]
-        }
-    }
-}
-GROUP2_JSON;
+            {
+                "9001": "Group 2",
+                "9002": 1498340478,
+                "9003": 4321,
+                "5850": 1,
+                "5851": 0,
+                "9093": 222180,
+                "9018": {
+                    "15002": {
+                        "9003": [
+                            5000
+                        ]
+                    }
+                }
+            }
+            GROUP2_JSON;
         $deviceJson = /** @lang JSON */ <<<'DEVICE_JSON'
-{
-    "9003": 5000,
-    "9001": "TRADFRI motion sensor",
-    "3": {
-        "0": "UnitTestFactory",
-        "3": "v1.33.7",
-        "1": "TRADFRI motion sensor"
-    }
-}
-DEVICE_JSON;
-        $runner = \Mockery::mock(Runner::class);
+            {
+                "9003": 5000,
+                "9001": "TRADFRI motion sensor",
+                "3": {
+                    "0": "UnitTestFactory",
+                    "3": "v1.33.7",
+                    "1": "TRADFRI motion sensor"
+                }
+            }
+            DEVICE_JSON;
+        $runner = Mockery::mock(Runner::class);
         $runner
             ->expects('execWithTimeout')
             ->with('coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15004"', 1, true, true)
@@ -814,21 +816,21 @@ DEVICE_JSON;
         $logger = new LoggerSpy();
         $adapter->setLogger($logger);
 
-        $service = \Mockery::mock(\IKEA\Tradfri\Service\ServiceInterface::class);
+        $service = Mockery::mock(ServiceInterface::class);
         // Act
         $groupCollection = $adapter->getGroupCollection($service);
 
         // Assert
-        \Mockery::close();
-        $this->assertCount(0, $logger->getLogCalls());
-        $this->assertCount(2, $groupCollection);
+        Mockery::close();
+        self::assertCount(0, $logger->getLogCalls());
+        self::assertCount(2, $groupCollection);
         $group = $groupCollection->first();
 
-        $this->assertInstanceOf(\IKEA\Tradfri\Group\DeviceGroup::class, $group);
-        $this->assertSame(1234, $group->getId());
-        $this->assertSame('Group 1', $group->getName());
-        $this->assertSame([5000], $group->getDeviceIds());
-        $this->assertSame([
+        self::assertInstanceOf(\IKEA\Tradfri\Group\DeviceGroup::class, $group);
+        self::assertSame(1234, $group->getId());
+        self::assertSame('Group 1', $group->getName());
+        self::assertSame([5000], $group->getDeviceIds());
+        self::assertSame([
             5000 => [
                 'id'           => 5000,
                 'manufacturer' => 'UnitTestFactory',
@@ -838,11 +840,11 @@ DEVICE_JSON;
                 'version'      => 'v1.33.7',
             ],
         ], $group->jsonSerialize());
-        $this->assertInstanceOf(MotionSensor::class, $group->getDevices()->first());
-        $this->assertSame(5000, $group->getDevices()->first()->getId());
-        $this->assertSame('TRADFRI motion sensor', $group->getDevices()->first()->getType());
-        $this->assertSame('GROUP: Group 1', $group->getType());
-        $this->assertSame(
+        self::assertInstanceOf(MotionSensor::class, $group->getDevices()->first());
+        self::assertSame(5000, $group->getDevices()->first()->getId());
+        self::assertSame('TRADFRI motion sensor', $group->getDevices()->first()->getType());
+        self::assertSame('GROUP: Group 1', $group->getType());
+        self::assertSame(
             [
                 5000 => [
                     'id'           => 5000,
@@ -861,7 +863,7 @@ DEVICE_JSON;
     {
         // Arrange
         // Assert
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         // Act
         $config = new CoapGatewayAuthConfigDto(
             username: 'user',

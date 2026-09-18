@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -38,7 +38,7 @@ final readonly class DeviceDto implements ProvidesAttributeReplacePatternsInterf
         #[SerializedName(serializedName: 'ATTR_LIGHT_CONTROL')]
         private ?LightControlDto $lightControl = null,
         /**
-         * @var list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto>
+         * @var list<BlindControlDto>
          */
         #[Assert\Valid()]
         #[SerializedName(serializedName: 'ATTR_START_BLINDS')]
@@ -70,7 +70,7 @@ final readonly class DeviceDto implements ProvidesAttributeReplacePatternsInterf
     }
 
     /**
-     * @phpstan-return list<\IKEA\Tradfri\Dto\CoapResponse\BlindControlDto>|null
+     * @phpstan-return list<BlindControlDto>|null
      */
     public function getBlindControlDto(): ?array
     {

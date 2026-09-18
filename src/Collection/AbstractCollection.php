@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,13 +15,14 @@ namespace IKEA\Tradfri\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use IKEA\Tradfri\Device\Feature\DeviceInterface;
+use JsonSerializable;
 
 /**
  * @template TDevice of DeviceInterface
  *
  * @extends ArrayCollection<int, TDevice>
  */
-abstract class AbstractCollection extends ArrayCollection implements \JsonSerializable
+abstract class AbstractCollection extends ArrayCollection implements JsonSerializable
 {
     /**
      * @phpstan-param TDevice $newItem

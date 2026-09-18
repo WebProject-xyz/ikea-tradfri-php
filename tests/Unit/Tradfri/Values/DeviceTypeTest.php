@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,6 +19,8 @@ use Generator;
 use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\Device;
 use IKEA\Tradfri\Values\DeviceType;
+
+use function sprintf;
 
 final class DeviceTypeTest extends Unit
 {
@@ -56,7 +58,7 @@ final class DeviceTypeTest extends Unit
         // Act
         $actual = DeviceType::tryFromType(deviceTypeValue: $typeAttribute, allowUnknown: $allowUnknown);
         // Assert
-        $this->assertSame(
+        self::assertSame(
             $expected,
             $actual,
             'Type failed: ' . $typeAttribute,
@@ -72,7 +74,7 @@ final class DeviceTypeTest extends Unit
         // Arrange
         if (false === $allowUnknown && null === $expected) {
             $this->expectException(\IKEA\Tradfri\Exception\InvalidTypeException::class);
-            $this->expectExceptionMessage(\sprintf('cannot find device class by type: "%s"', $typeAttribute));
+            $this->expectExceptionMessage(sprintf('cannot find device class by type: "%s"', $typeAttribute));
         }
 
         // Act
@@ -83,6 +85,6 @@ final class DeviceTypeTest extends Unit
         );
 
         // Assert
-        $this->assertInstanceOf(Device::class, $actual);
+        self::assertInstanceOf(Device::class, $actual);
     }
 }

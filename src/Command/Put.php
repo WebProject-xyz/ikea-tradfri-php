@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,6 +15,8 @@ namespace IKEA\Tradfri\Command;
 
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use IKEA\Tradfri\Values\CoapCommandPattern;
+
+use function sprintf;
 
 /**
  * @final
@@ -35,7 +37,7 @@ class Put extends AbstractCommand
             $request = $request->value;
         }
 
-        return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $payload, $this->authConfig->getGatewayUrl(), $request);
+        return sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $payload, $this->authConfig->getGatewayUrl(), $request);
     }
 
     public function run(CommandRunnerInterface $runner): bool

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -16,10 +16,10 @@ use IKEA\Tradfri\Values\DeviceType;
 require __DIR__ . '/init.php';
 
 try {
-    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
+    /** @var IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getGroups();
 
-    echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
+    echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
     $lights->forAll(static function ($key, $group) {
         /** @var IKEA\Tradfri\Group\LightGroup $group */
         echo '---------- Group Information' . \PHP_EOL;
@@ -27,7 +27,7 @@ try {
         echo '- Name: ' . $group->getName() . \PHP_EOL;
         echo ' ' . \PHP_EOL;
         $group->getDevices()->forAll(static function ($key, $device) use ($group) {
-            /** @var \IKEA\Tradfri\Device\Device|\IKEA\Tradfri\Device\LightBulb $device */
+            /** @var IKEA\Tradfri\Device\Device|IKEA\Tradfri\Device\LightBulb $device */
             echo '---------- Device Information in Group: ' . $group->getName() . \PHP_EOL;
             echo '- ID: ' . $device->getId() . \PHP_EOL;
             echo '- Type: ' . $device->getType() . \PHP_EOL;
@@ -35,7 +35,7 @@ try {
             echo '- GroupName: ' . $group->getName() . \PHP_EOL;
             echo '- Manufacturer: ' . $device->getManufacturer() . \PHP_EOL;
             echo '- Version: ' . $device->getVersion() . \PHP_EOL;
-            if ($device->getTypeEnum() === DeviceType::BLUB) {
+            if (DeviceType::BLUB === $device->getTypeEnum()) {
                 echo '- State is: ' . $device->getReadableState() . \PHP_EOL;
                 echo '- Brightness ' . $device->getBrightness() . '%' . \PHP_EOL;
             }

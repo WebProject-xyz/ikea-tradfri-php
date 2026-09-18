@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -16,15 +16,15 @@ use IKEA\Tradfri\Device\LightBulb;
 require __DIR__ . '/init.php';
 
 try {
-    echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
-    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
+    echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
+    /** @var IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getLights();
 
     $lights->sortByState();
     if (false ===$lights->isEmpty()) {
         $light = $lights->first();
-        \assert($light instanceof LightBulb);
-        echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
+        assert($light instanceof LightBulb);
+        echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
         echo '---------- Light Information' . \PHP_EOL;
         echo ' ' . \PHP_EOL;
         echo '- ID: ' . $light->getId() . \PHP_EOL;
@@ -49,12 +49,12 @@ try {
             echo 'was set to 75%' . \PHP_EOL;
         }
 
-        \sleep(2);
+        sleep(2);
         if ($light->dim(15)) {
             echo 'was set to 15%' . \PHP_EOL;
         }
 
-        \sleep(2);
+        sleep(2);
         if ($light->switchOff()) {
             echo 'was set to off' . \PHP_EOL;
         }

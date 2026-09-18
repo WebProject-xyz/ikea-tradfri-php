@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -26,6 +26,8 @@ use IKEA\Tradfri\Device\Repeater;
 use IKEA\Tradfri\Device\RollerBlind;
 use IKEA\Tradfri\Device\UnknownDevice;
 use Webmozart\Assert\Assert;
+
+use function sprintf;
 
 enum DeviceType: string
 {
@@ -64,7 +66,7 @@ enum DeviceType: string
     public static function tryFromType(string $deviceTypeValue, bool $allowUnknown = false): ?DeviceType
     {
         foreach (self::cases() as $case) {
-            if (\str_starts_with(haystack: $deviceTypeValue, needle: $case->value)) {
+            if (str_starts_with(haystack: $deviceTypeValue, needle: $case->value)) {
                 return $case;
             }
         }
@@ -82,10 +84,10 @@ enum DeviceType: string
 
         if (
             null     === $className
-            || false === \class_exists($className)
+            || false === class_exists($className)
         ) {
             if (false === $allowUnknown) {
-                throw new \IKEA\Tradfri\Exception\InvalidTypeException(\sprintf('cannot find device class by type: "%s"', $deviceTypeValue));
+                throw new \IKEA\Tradfri\Exception\InvalidTypeException(sprintf('cannot find device class by type: "%s"', $deviceTypeValue));
             }
         }
 

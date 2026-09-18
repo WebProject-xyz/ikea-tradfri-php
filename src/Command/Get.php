@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,6 +15,9 @@ namespace IKEA\Tradfri\Command;
 
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
 use IKEA\Tradfri\Values\CoapCommandPattern;
+use InvalidArgumentException;
+
+use function sprintf;
 
 final class Get extends AbstractCommand
 {
@@ -34,10 +37,10 @@ final class Get extends AbstractCommand
         }
 
         if (null !== $deviceId) {
-            return \sprintf(self::COAP_COMMAND_FORMAT_WITH_DEVICE_ID, $this->command(), $this->authConfig->getGatewayUrl(), $request, $deviceId);
+            return sprintf(self::COAP_COMMAND_FORMAT_WITH_DEVICE_ID, $this->command(), $this->authConfig->getGatewayUrl(), $request, $deviceId);
         }
 
-        return \sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $this->authConfig->getGatewayUrl(), $request);
+        return sprintf(self::COAP_COMMAND_FORMAT, $this->command(), $this->authConfig->getGatewayUrl(), $request);
     }
 
     /**
@@ -46,7 +49,7 @@ final class Get extends AbstractCommand
     public function run(CommandRunnerInterface $runner, Request|string $request = '', ?int $deviceId = null, bool $throw = false): array
     {
         if ('' === $request) {
-            throw new \InvalidArgumentException(message: 'missing target');
+            throw new InvalidArgumentException(message: 'missing target');
         }
 
         return $runner->execWithTimeout(

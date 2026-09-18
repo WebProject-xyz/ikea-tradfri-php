@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -26,6 +26,7 @@ use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Helper\CommandRunner;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 final class CoapsTest extends TestCase
@@ -37,7 +38,7 @@ final class CoapsTest extends TestCase
         $commandString = new BlindsGetCurrentPositionCommand(self::getGatewayAuthConfigDto(), 1, 100);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "15015": [{ "5536": 100 }] }\' "coaps://127.0.0.1:5684/15001/1"',
             (string) $commandString,
         );
@@ -50,7 +51,7 @@ final class CoapsTest extends TestCase
         $commandString = new GroupDimmerCommand(self::getGatewayAuthConfigDto(), 1, 100);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5851": 255 }\' "coaps://127.0.0.1:5684/15004/1"',
             (string) $commandString,
         );
@@ -64,7 +65,7 @@ final class CoapsTest extends TestCase
             ->requestCommand(Request::RootDevices);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m get -u "mocked-user" -k "mocked-api-key" "coaps://127.0.0.1:5684/15001"',
             $commandString,
         );
@@ -77,7 +78,7 @@ final class CoapsTest extends TestCase
         $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Warm);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5709": 33135, "5710": 27211 }] }\' "coaps://127.0.0.1:5684/15001/1"',
             (string) $commandString,
         );
@@ -90,7 +91,7 @@ final class CoapsTest extends TestCase
         $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Cold);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5709": 24930, "5710": 24684 }] }\' "coaps://127.0.0.1:5684/15001/1"',
             (string) $commandString,
         );
@@ -103,7 +104,7 @@ final class CoapsTest extends TestCase
         $commandString = new LightChangeLightTemperatureCommand(self::getGatewayAuthConfigDto(), 1, \IKEA\Tradfri\Values\LightColor::Normal);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5709": 30140, "5710": 26909 }] }\' "coaps://127.0.0.1:5684/15001/1"',
             (string) $commandString,
         );
@@ -116,7 +117,7 @@ final class CoapsTest extends TestCase
         $commandString = new GroupSwitchStateCommand(self::getGatewayAuthConfigDto(), 2, true);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "5850": 1 }\' "coaps://127.0.0.1:5684/15004/2"',
             (string) $commandString,
         );
@@ -130,7 +131,7 @@ final class CoapsTest extends TestCase
             ->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m post -u "mocked-user" -k "mocked-api-key" injected "coaps://127.0.0.1:5684/15001"',
             $commandString,
         );
@@ -143,7 +144,7 @@ final class CoapsTest extends TestCase
         $commandString = new LightSwitchStateCommand(self::getGatewayAuthConfigDto(), 111, true);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5850": 1 }] }\' "coaps://127.0.0.1:5684/15001/111"',
             (string) $commandString,
         );
@@ -156,7 +157,7 @@ final class CoapsTest extends TestCase
         $commandString = new LightDimmerCommand(self::getGatewayAuthConfigDto(), 111, 50);
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" -e \'{ "3311": [{ "5851": 128 }] }\' "coaps://127.0.0.1:5684/15001/111"',
             (string) $commandString,
         );
@@ -169,7 +170,7 @@ final class CoapsTest extends TestCase
         $commandString = new Put(self::getGatewayAuthConfigDto())->requestCommand(Request::RootDevices, 'injected');
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m put -u "mocked-user" -k "mocked-api-key" injected "coaps://127.0.0.1:5684/15001"',
             $commandString,
         );
@@ -184,7 +185,7 @@ final class CoapsTest extends TestCase
         $commandString = $coaps->getPreSharedKeyCommand();
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'coap-client -m post -u "Client_identity" -k "mocked-secret" -e \'{"9090":"mocked-user"}\' "coaps://127.0.0.1:5684/15011/9063"',
             $commandString,
         );
@@ -193,7 +194,7 @@ final class CoapsTest extends TestCase
     public function testGetSharedKeyFromGateway(): void
     {
         // Arrange
-        $runner = \Mockery::mock(CommandRunnerInterface::class);
+        $runner = Mockery::mock(CommandRunnerInterface::class);
         $runner->expects('execWithTimeout')->andReturn(['mocked-shared-key']);
 
         $coaps = self::buildCoapsCommandsWrapper($runner);
@@ -202,7 +203,7 @@ final class CoapsTest extends TestCase
         $sharedKey = $coaps->getSharedKeyFromGateway();
 
         // Assert
-        $this->assertSame(
+        self::assertSame(
             'mocked-shared-key',
             $sharedKey,
         );

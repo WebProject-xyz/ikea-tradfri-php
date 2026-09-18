@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -19,6 +19,7 @@ use IKEA\Tradfri\Command\Post;
 use IKEA\Tradfri\Command\Request;
 use IKEA\Tradfri\Dto\CoapGatewayAuthConfigDto;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
+use Mockery;
 
 final class PostTest extends Unit
 {
@@ -33,7 +34,7 @@ final class PostTest extends Unit
         $command = new Post($authConfig);
 
         // Assert
-        $this->assertInstanceOf(Post::class, $command);
+        self::assertInstanceOf(Post::class, $command);
     }
 
     public function testICanGetRequestCommand(): void
@@ -48,10 +49,10 @@ final class PostTest extends Unit
         $result = $command->requestCommand($request, 'payload');
 
         // Assert
-        $this->assertStringContainsString('coap-client -m post', $result);
-        $this->assertStringContainsString('payload', $result);
-        $this->assertStringContainsString('127.0.0.1', $result);
-        $this->assertStringContainsString((string) $request->value, $result);
+        self::assertStringContainsString('coap-client -m post', $result);
+        self::assertStringContainsString('payload', $result);
+        self::assertStringContainsString('127.0.0.1', $result);
+        self::assertStringContainsString((string) $request->value, $result);
     }
 
     public function testICanRunCommand(): void
@@ -59,7 +60,7 @@ final class PostTest extends Unit
         // Arrange
         $authConfig = new CoapGatewayAuthConfigDto('user', 'key', 'secret', '127.0.0.1');
 
-        $runner = \Mockery::mock(CommandRunnerInterface::class);
+        $runner = Mockery::mock(CommandRunnerInterface::class);
         $runner->shouldReceive('execWithTimeout')->andReturn(['']);
 
         $command = new Post($authConfig);
@@ -68,7 +69,7 @@ final class PostTest extends Unit
         $result = $command->run($runner);
 
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testToString(): void
@@ -82,8 +83,8 @@ final class PostTest extends Unit
         $string = (string) $command;
 
         // Assert
-        $this->assertStringContainsString('coap-client -m post', $string);
-        $this->assertStringContainsString('user', $string);
-        $this->assertStringContainsString('key', $string);
+        self::assertStringContainsString('coap-client -m post', $string);
+        self::assertStringContainsString('user', $string);
+        self::assertStringContainsString('key', $string);
     }
 }

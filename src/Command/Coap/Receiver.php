@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -12,6 +12,10 @@ declare(strict_types=1);
  */
 
 namespace IKEA\Tradfri\Command\Coap;
+
+use SensitiveParameter;
+
+use function sprintf;
 
 /**
  * Receiver is specific service with its own contract and can be only concrete.
@@ -30,7 +34,7 @@ final class Receiver
     public function __construct(
         private readonly string $ipAddress,
         private readonly string $username,
-        #[\SensitiveParameter()]
+        #[SensitiveParameter()]
         private readonly string $apiKey,
     ) {
     }
@@ -54,7 +58,7 @@ final class Receiver
     public function sendRequest(): string
     {
         // send command to gateway
-        return \implode("\n", $this->output);
+        return implode("\n", $this->output);
     }
 
     public function setInjectCommand(string $injectCommand): void
@@ -64,7 +68,7 @@ final class Receiver
 
     private function getUri(): string
     {
-        return \sprintf(
+        return sprintf(
             self::COAP_COMMAND,
             $this->username,
             $this->apiKey,

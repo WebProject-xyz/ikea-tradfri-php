@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -17,6 +17,9 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Helper\CommandRunner;
 use IKEA\Tradfri\Helper\CommandRunnerInterface;
+
+use function is_string;
+use function sprintf;
 
 final readonly class GatewayHelperCommands
 {
@@ -38,7 +41,7 @@ final readonly class GatewayHelperCommands
         $result = $this->parseResult($this->runner->execWithTimeout(cmd: $onCommand, timeout: 2, asArray: true, throw: true));
 
         // verify result
-        if (\is_string($result)) {
+        if (is_string($result)) {
             return $result;
         }
 
@@ -47,7 +50,7 @@ final readonly class GatewayHelperCommands
 
     public function getPreSharedKeyCommand(): string
     {
-        return \sprintf(
+        return sprintf(
             Post::COAP_COMMAND,
             'Client_identity',
             $this->authConfig->getGatewaySecret(),
@@ -64,8 +67,8 @@ final readonly class GatewayHelperCommands
         $parsed = false;
         foreach ($result as $part) {
             if (!empty($part)
-                &&   !\str_contains((string) $part, 'decrypt')
-                &&   !\str_contains((string) $part, 'v:1')) {
+                &&   !str_contains((string) $part, 'decrypt')
+                &&   !str_contains((string) $part, 'v:1')) {
                 $parsed = (string) $part;
 
                 break;
@@ -77,6 +80,6 @@ final readonly class GatewayHelperCommands
 
     private function getRequestTypeCoapsUrl(int|string $requestType): string
     {
-        return \sprintf('"%s/%s"', $this->authConfig->getGatewayUrl(), $requestType);
+        return sprintf('"%s/%s"', $this->authConfig->getGatewayUrl(), $requestType);
     }
 }

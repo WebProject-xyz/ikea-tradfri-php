@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 require __DIR__ . '/init.php';
 
-echo '---------- IKEA Tradfri PHP API Example: ' . \basename(__FILE__) . \PHP_EOL;
+echo '---------- IKEA Tradfri PHP API Example: ' . basename(__FILE__) . \PHP_EOL;
 try {
-    /** @var \IKEA\Tradfri\Service\ServiceInterface $api */
+    /** @var IKEA\Tradfri\Service\ServiceInterface $api */
     $lights = $api->getLights();
 
     $lights->sortByState();

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -31,7 +31,7 @@ final class LightBulbs extends Devices
 
     public function getActive(): self
     {
-        $newItems = \array_filter($this->toArray(), static fn (SwitchableInterface $light): bool => $light->isOn());
+        $newItems = array_filter($this->toArray(), static fn (SwitchableInterface $light): bool => $light->isOn());
 
         return $this->createFrom($newItems);
     }
@@ -52,7 +52,7 @@ final class LightBulbs extends Devices
 
             return true;
         }, );
-        \ksort($elements, \SORT_NATURAL);
+        ksort($elements, SORT_NATURAL);
 
         return $elements;
     }

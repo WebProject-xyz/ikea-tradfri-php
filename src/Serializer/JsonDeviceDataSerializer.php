@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -15,6 +15,7 @@ namespace IKEA\Tradfri\Serializer;
 
 use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Dto\CoapResponse\GroupDto;
+use RuntimeException;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
@@ -27,6 +28,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmozart\Assert\Assert;
 
+use function is_array;
+
 final class JsonDeviceDataSerializer implements SerializerInterface
 {
     final public const string FORMAT = JsonEncoder::FORMAT;
@@ -38,8 +41,6 @@ final class JsonDeviceDataSerializer implements SerializerInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param array<string, mixed> $context
      *
      * @return DeviceDto|GroupDto|list<DeviceDto|GroupDto>
@@ -51,16 +52,16 @@ final class JsonDeviceDataSerializer implements SerializerInterface
             $type,
             $format,
             [
-                JsonEncode::OPTIONS                        => \JSON_PRETTY_PRINT,
+                JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ] + $context,
         );
 
-        if (!\is_array($deserialized) && !$deserialized instanceof DeviceDto && !$deserialized instanceof GroupDto) {
-            throw new \RuntimeException('Deserialize should be an array or an instance of DeviceDto');
+        if (!is_array($deserialized) && !$deserialized instanceof DeviceDto && !$deserialized instanceof GroupDto) {
+            throw new RuntimeException('Deserialize should be an array or an instance of DeviceDto');
         }
 
-        if (\is_array($deserialized)) {
+        if (is_array($deserialized)) {
             Assert::isList($deserialized);
             Assert::allIsInstanceOf($deserialized, DeviceDto::class);
         }
@@ -74,7 +75,7 @@ final class JsonDeviceDataSerializer implements SerializerInterface
             $data,
             $format,
             [
-                JsonEncode::OPTIONS                        => \JSON_PRETTY_PRINT,
+                JsonEncode::OPTIONS                        => JSON_PRETTY_PRINT,
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ] + $context,
         );
@@ -100,7 +101,7 @@ final class JsonDeviceDataSerializer implements SerializerInterface
 
         $this->serializer = new Serializer(
             [
-                new Normalizer\ArrayNestingNormalizer(new \IKEA\Tradfri\Serializer\Normalizer\CratedAtNormalizer(new \IKEA\Tradfri\Serializer\Normalizer\GroupMembersNormalizer($denormalizer))),
+                new Normalizer\ArrayNestingNormalizer(new Normalizer\CratedAtNormalizer(new Normalizer\GroupMembersNormalizer($denormalizer))),
             ],
             ['json' => new JsonEncoder()],
         );

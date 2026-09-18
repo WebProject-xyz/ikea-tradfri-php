@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -24,8 +24,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1);
 
         // Assert
-        $this->assertStringContainsStringIgnoringLineEndings('bootstrap.php', $result);
-        $this->assertStringContainsStringIgnoringLineEndings('Tradfri', $result);
+        self::assertStringContainsStringIgnoringLineEndings('bootstrap.php', $result);
+        self::assertStringContainsStringIgnoringLineEndings('Tradfri', $result);
     }
 
     public function testExecWithTimeoutAsArray(): void
@@ -37,8 +37,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'ls tests/Unit', timeout: 1, asArray: true);
 
         // Assert
-        $this->assertContains('bootstrap.php', $result);
-        $this->assertContains('Tradfri', $result);
+        self::assertContains('bootstrap.php', $result);
+        self::assertContains('Tradfri', $result);
     }
 
     public function testExecWithTimeoutGetError(): void
@@ -50,8 +50,8 @@ final class CommandRunnerTest extends \Codeception\Test\Unit
         $result = $runner->execWithTimeout(cmd: 'asdjalgualg', timeout: 1, asArray: false, throw: false);
 
         // Assert
-        $this->assertStringContainsString('error: ', $result);
-        $this->assertStringContainsString('asdjalgualg:', $result);
+        self::assertStringContainsString('error: ', $result);
+        self::assertStringContainsString('asdjalgualg:', $result);
     }
 
     public function testExecWithTimeoutGetErrorThrow(): void

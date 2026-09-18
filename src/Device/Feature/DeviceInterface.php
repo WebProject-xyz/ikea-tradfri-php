@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -14,8 +14,9 @@ declare(strict_types=1);
 namespace IKEA\Tradfri\Device\Feature;
 
 use IKEA\Tradfri\Values\DeviceType;
+use JsonSerializable;
 
-interface DeviceInterface extends \JsonSerializable
+interface DeviceInterface extends JsonSerializable
 {
     public function getId(): int;
 

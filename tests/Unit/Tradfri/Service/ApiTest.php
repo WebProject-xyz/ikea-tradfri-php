@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -28,6 +28,7 @@ use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Group\DeviceGroup as Group;
 use IKEA\Tradfri\Service\GatewayApiService;
 use IKEA\Tradfri\Values\DeviceType;
+use Mockery;
 
 final class ApiTest extends UnitTest
 {
@@ -35,18 +36,18 @@ final class ApiTest extends UnitTest
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         // Act
         $service = new GatewayApiService($client);
         // Assert
-        $this->assertInstanceOf(GatewayApiService::class, $service);
+        self::assertInstanceOf(GatewayApiService::class, $service);
     }
 
     public function testICanGetDevicesCollectionFromService(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('getDevices')->andReturn(new Devices());
         $service = new GatewayApiService($client);
 
@@ -54,14 +55,14 @@ final class ApiTest extends UnitTest
         $result = $service->getDevices();
 
         // Assert
-        $this->assertInstanceOf(Devices::class, $result);
+        self::assertInstanceOf(Devices::class, $result);
     }
 
     public function testICanGetLightblubsCollectionFromService(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('getDevices')->andReturn(new Devices());
 
         $service = new GatewayApiService($client);
@@ -70,15 +71,15 @@ final class ApiTest extends UnitTest
         $result = $service->getLights();
 
         // Assert
-        $this->assertInstanceOf(Devices::class, $result);
-        $this->assertInstanceOf(LightBulbs::class, $result);
+        self::assertInstanceOf(Devices::class, $result);
+        self::assertInstanceOf(LightBulbs::class, $result);
     }
 
     public function testICanSwitchLightOff(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(true);
 
         $service = new GatewayApiService($client);
@@ -86,18 +87,18 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
-        $this->assertTrue($lightBulb->isOn());
+        self::assertTrue($lightBulb->isOn());
         // Act
         $result = $service->off($lightBulb);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanNotSwitchLightOff(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(false);
 
         $service = new GatewayApiService($client);
@@ -105,7 +106,7 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
-        $this->assertTrue($lightBulb->isOn());
+        self::assertTrue($lightBulb->isOn());
         // Act
         $result = $service->off($lightBulb);
     }
@@ -116,16 +117,16 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOff')->andReturn(true);
         $service = new GatewayApiService($client);
 
-        $this->assertFalse($lightBulb->isOn());
+        self::assertFalse($lightBulb->isOn());
 
         // Act
         $result = $service->off($lightBulb);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanSwitchLightOn(): void
@@ -134,17 +135,17 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
-        $this->assertFalse($lightBulb->isOn());
+        self::assertFalse($lightBulb->isOn());
 
         // Act
         $result = $service->on($lightBulb);
 
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanNotSwitchLightOn(): void
@@ -157,11 +158,11 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(false);
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOn')->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
         $service = new GatewayApiService($client);
 
-        $this->assertFalse($lightBulb->isOn());
+        self::assertFalse($lightBulb->isOn());
 
         // Act
         $result = $service->on($lightBulb);
@@ -173,16 +174,16 @@ final class ApiTest extends UnitTest
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS);
         $lightBulb->setState(true);
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
-        $this->assertTrue($lightBulb->isOn());
+        self::assertTrue($lightBulb->isOn());
 
         // Act
         $result = $service->on($lightBulb);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanSwitchAllLightsOff(): void
@@ -195,7 +196,7 @@ final class ApiTest extends UnitTest
         $lightBulbs->addDevice(clone $lightBulb);
         $lightBulbs->addDevice((clone $lightBulb)->setId(2));
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('lightOff')->times(2)->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -203,14 +204,14 @@ final class ApiTest extends UnitTest
         $result = $service->allLightsOff($lightBulbs);
 
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanNotSwitchGroupOnBecauseItIsOn(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('groupOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -219,19 +220,19 @@ final class ApiTest extends UnitTest
         $group->getDevices()
             ->addDevice(new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)->setState(true)->setName('test'));
 
-        $this->assertTrue($group->isOn());
+        self::assertTrue($group->isOn());
 
         // Act
         $result = $service->on($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanSwitchGroupOn(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('groupOn')->andReturn(true);
         $service = new GatewayApiService($client);
 
@@ -240,38 +241,38 @@ final class ApiTest extends UnitTest
             ->setState(false)
             ->setName('test'));
 
-        $this->assertFalse($group->isOn());
+        self::assertFalse($group->isOn());
 
         // Act
         $result = $service->on($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanSwitchGroupOff(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('groupOff')->andReturn(true);
         $service = new GatewayApiService($client);
         $group   = new Group(1, $service);
 
         $group->getDevices()->addDevice(new LightBulb(2, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W)->setState(true)->setName('test'));
 
-        $this->assertTrue($group->isOn());
+        self::assertTrue($group->isOn());
 
         // Act
         $result = $service->off($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanDimAGroup(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('dimGroup')->andReturn(true);
 
         $service = new GatewayApiService($client);
@@ -279,17 +280,17 @@ final class ApiTest extends UnitTest
         // Act
         $result = $service->dim($group, 20);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanDimError(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
 
         $service = new GatewayApiService($client);
-        $group   = new class() implements BrightnessStateInterface, DeviceInterface {
+        $group   = new class implements BrightnessStateInterface, DeviceInterface {
             public function dim(int $levelInPercent): bool
             {
                 return false;
@@ -339,17 +340,17 @@ final class ApiTest extends UnitTest
 
         $result = $service->dim($group, 20);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanOnTypeError(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
 
         $service = new GatewayApiService($client);
-        $group   = new class() implements SwitchableInterface {
+        $group   = new class implements SwitchableInterface {
             public function getId(): int
             {
                 return 5;
@@ -411,17 +412,17 @@ final class ApiTest extends UnitTest
 
         $result = $service->on($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanOffTypeError(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
 
         $service = new GatewayApiService($client);
-        $group   = new class() implements SwitchableInterface {
+        $group   = new class implements SwitchableInterface {
             public function getId(): int
             {
                 return 5;
@@ -483,7 +484,7 @@ final class ApiTest extends UnitTest
 
         $result = $service->off($group);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanDimALight(): void
@@ -491,14 +492,14 @@ final class ApiTest extends UnitTest
         // Arrange
         $lightBulb = new LightBulb(1, Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W);
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('dimLight')->andReturn(true);
 
         $service = new GatewayApiService($client);
         // Act
         $result = $service->dim($lightBulb, 20);
         // Assert
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testICanNotSetBlindPosition(): void
@@ -506,7 +507,7 @@ final class ApiTest extends UnitTest
         // Arrange
         $rollerBlind = new RollerBlind(1, Keys::ATTR_DEVICE_INFO_TYPE_ROLLER_BLIND);
 
-        $client  = \Mockery::mock(Client::class);
+        $client  = Mockery::mock(Client::class);
         $client->expects()->setRollerBlindPosition($rollerBlind, 20)->andReturnUsing(static function () use ($rollerBlind) {
             $rollerBlind->setDarkenedState(20);
 
@@ -517,17 +518,17 @@ final class ApiTest extends UnitTest
         $result = $service->setRollerBlindPosition($rollerBlind, 20);
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertFalse($rollerBlind->isFullyClosed());
-        $this->assertFalse($rollerBlind->isFullyOpened());
-        $this->assertSame(20, $rollerBlind->getDarkenedState());
+        self::assertTrue($result);
+        self::assertFalse($rollerBlind->isFullyClosed());
+        self::assertFalse($rollerBlind->isFullyOpened());
+        self::assertSame(20, $rollerBlind->getDarkenedState());
     }
 
     public function testICanGetGroupsFromService(): void
     {
         // Arrange
 
-        $client = \Mockery::mock(Client::class);
+        $client = Mockery::mock(Client::class);
         $client->expects('getGroups')->andReturn(new Groups());
         $service = new GatewayApiService($client);
 
@@ -535,8 +536,8 @@ final class ApiTest extends UnitTest
         $groups = $service->getGroups();
 
         // Assert
-        $this->assertInstanceOf(Groups::class, $groups);
-        $this->assertTrue($groups->isEmpty());
-        $this->assertCount(0, $groups);
+        self::assertInstanceOf(Groups::class, $groups);
+        self::assertTrue($groups->isEmpty());
+        self::assertCount(0, $groups);
     }
 }

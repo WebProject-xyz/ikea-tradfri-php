@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) 2025-2026 Benjamin Fahl
+ * Copyright (c) 2025-2026 Benjamin Fahl.
  *
  * For the full copyright and license information, please view
  * the LICENSE.md file that was distributed with this source code.
@@ -17,6 +17,7 @@ use IKEA\Tradfri\Command\Coap\Keys;
 use IKEA\Tradfri\Device\LightBulb;
 use IKEA\Tradfri\Exception\RuntimeException;
 use IKEA\Tradfri\Service\ServiceInterface as Api;
+use Mockery;
 
 /**
  * Class LightBulbTest.
@@ -29,7 +30,7 @@ final class LightbulbTest extends DeviceTester
         // Act
         $lamp = $this->getModel();
         // Assert
-        $this->assertInstanceOf(LightBulb::class, $lamp);
+        self::assertInstanceOf(LightBulb::class, $lamp);
     }
 
     public function testSetType(): void
@@ -41,7 +42,7 @@ final class LightbulbTest extends DeviceTester
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
+        self::assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W, $result);
     }
 
     public function testGetBrightnessButNotSet(): void
@@ -53,19 +54,19 @@ final class LightbulbTest extends DeviceTester
         $result = $lamp->getBrightness();
 
         // Assert
-        $this->assertSame(0.0, $result);
+        self::assertSame(0.0, $result);
     }
 
     public function testGetBrightness(): void
     {
         // Arrange
         $lamp = $this->getModel();
-        $lamp->setBrightness((int) \round(30 * 2.54));
+        $lamp->setBrightness((int) round(30 * 2.54));
         // Act
         $result = $lamp->getBrightness();
 
         // Assert
-        $this->assertSame(30.0, $result);
+        self::assertSame(30.0, $result);
     }
 
     public function testSetBrightnessToLow(): void
@@ -77,7 +78,7 @@ final class LightbulbTest extends DeviceTester
         $result = $lamp->getBrightness();
 
         // Assert
-        $this->assertSame(0.0, $result);
+        self::assertSame(0.0, $result);
     }
 
     public function testSetTypeE27WS(): void
@@ -88,8 +89,8 @@ final class LightbulbTest extends DeviceTester
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $result);
-        $this->assertTrue($lamp->isValidType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS));
+        self::assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS, $result);
+        self::assertTrue($lamp->isValidType(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_WS));
     }
 
     public function testSetTypeGU10(): void
@@ -100,22 +101,22 @@ final class LightbulbTest extends DeviceTester
         $result = $lamp->getType();
 
         // Assert
-        $this->assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS, $result);
+        self::assertSame(Keys::ATTR_DEVICE_INFO_TYPE_BLUB_GU10_WS, $result);
     }
 
     public function testStates(): void
     {
         // Arrange
         $lamp = $this->getModel();
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         $lamp->setState(true);
 
         // Assert
-        $this->assertTrue($lamp->isOn());
-        $this->assertFalse($lamp->isOff());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertTrue($lamp->isOn());
+        self::assertFalse($lamp->isOff());
+        self::assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOn(): void
@@ -123,26 +124,26 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->on($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         $result = $lamp->switchOn();
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertTrue($result);
+        self::assertTrue($lamp->isOn());
+        self::assertSame('On', $lamp->getReadableState());
 
         // Act
         $result = $lamp->switchOn();
         // Assert
-        $this->assertTrue($result);
-        $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertTrue($result);
+        self::assertTrue($lamp->isOn());
+        self::assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOnFails(): void
@@ -152,19 +153,19 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects('on')->andReturn(false);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         $result = $lamp->switchOn();
 
         // Assert
-        $this->assertFalse($result);
-        $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getReadableState());
+        self::assertFalse($result);
+        self::assertFalse($lamp->isOn());
+        self::assertSame('Off', $lamp->getReadableState());
     }
 
     public function testICanSwitchOff(): void
@@ -172,27 +173,27 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->off($lamp)->twice()->andReturn(true);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getReadableState());
+        self::assertTrue($result);
+        self::assertFalse($lamp->isOn());
+        self::assertSame('Off', $lamp->getReadableState());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertFalse($lamp->isOn());
-        $this->assertSame('Off', $lamp->getReadableState());
+        self::assertTrue($result);
+        self::assertFalse($lamp->isOn());
+        self::assertSame('Off', $lamp->getReadableState());
     }
 
     public function testICanSwitchDim(): void
@@ -200,31 +201,31 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(true);
         $service->expects()->dim($lamp, 0)->andReturn(true);
         $service->expects()->off($lamp)->times(2)->andReturn(true);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertTrue($lamp->dim(10));
-        $this->assertSame('On', $lamp->getReadableState());
-        $this->assertSame(10.0, $lamp->getBrightness());
+        self::assertTrue($result);
+        self::assertTrue($lamp->dim(10));
+        self::assertSame('On', $lamp->getReadableState());
+        self::assertSame(10.0, $lamp->getBrightness());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertTrue($result);
-        $this->assertTrue($lamp->dim(0));
-        $this->assertSame('Off', $lamp->getReadableState());
-        $this->assertSame(0.0, $lamp->getBrightness());
+        self::assertTrue($result);
+        self::assertTrue($lamp->dim(0));
+        self::assertSame('Off', $lamp->getReadableState());
+        self::assertSame(0.0, $lamp->getBrightness());
     }
 
     public function testICanSwitchDimFails(): void
@@ -232,15 +233,15 @@ final class LightbulbTest extends DeviceTester
         // Arrange
         $lamp = $this->getModel();
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->dim($lamp, 10)->andReturn(false);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         // Act
         // Assert
-        $this->assertFalse($lamp->dim(10));
+        self::assertFalse($lamp->dim(10));
     }
 
     public function testICanSwitchOffFails(): void
@@ -252,19 +253,19 @@ final class LightbulbTest extends DeviceTester
         $lamp = $this->getModel();
         $lamp->setState(true);
 
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects()->off($lamp)->andThrow(new RuntimeException('unable to change state of lightBulb: 1'));
 
         $lamp->setService($service);
-        $this->assertTrue($lamp->isOn());
+        self::assertTrue($lamp->isOn());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertFalse($result);
-        $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertFalse($result);
+        self::assertTrue($lamp->isOn());
+        self::assertSame('On', $lamp->getReadableState());
     }
 
     public function testICanSwitchOffReturnedFalse(): void
@@ -275,30 +276,30 @@ final class LightbulbTest extends DeviceTester
 
         // Arrange
         $lamp    = $this->getModel();
-        $service = \Mockery::mock(Api::class);
+        $service = Mockery::mock(Api::class);
         $service->expects('off')->andReturn(false);
 
         $lamp->setService($service);
-        $this->assertFalse($lamp->isOn());
+        self::assertFalse($lamp->isOn());
 
         $lamp->setState(true);
-        $this->assertTrue($lamp->isOn());
+        self::assertTrue($lamp->isOn());
 
         // Act
         $result = $lamp->switchOff();
 
         // Assert
-        $this->assertFalse($result);
-        $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertFalse($result);
+        self::assertTrue($lamp->isOn());
+        self::assertSame('On', $lamp->getReadableState());
 
         // Act 2
         $result = $lamp->switchOff();
 
         // Assert 2
-        $this->assertFalse($result);
-        $this->assertTrue($lamp->isOn());
-        $this->assertSame('On', $lamp->getReadableState());
+        self::assertFalse($result);
+        self::assertTrue($lamp->isOn());
+        self::assertSame('On', $lamp->getReadableState());
     }
 
     protected function getModel(string $deviceType = Keys::ATTR_DEVICE_INFO_TYPE_BLUB_E27_W): LightBulb
