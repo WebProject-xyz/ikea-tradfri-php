@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.3](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.5.2...4.5.3) (2026-09-18)
+
+### Bug Fixes
+
+* **ci:** disable scan ([b3f2615](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/b3f2615e34db10bfa29edcc9a7bbe7cb0896e401))
+* **deps:** update and bump deps ([cba48ae](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/cba48ae6b8e46ccb47be5fb2ec9165add8695e12))
+* **tests:** resolve phpstan type for generated getDevicesDTOs ([3546446](https://github.com/WebProject-xyz/ikea-tradfri-php/commit/35464463835efcaac8265cffcd1b33f663fecfba))
+
 ## [4.5.2](https://github.com/WebProject-xyz/ikea-tradfri-php/compare/4.5.1...4.5.2) (2026-09-04)
 
 ### Bug Fixes
