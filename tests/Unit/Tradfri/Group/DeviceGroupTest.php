@@ -153,7 +153,7 @@ final class DeviceGroupTest extends UnitTest
         $service = Mockery::mock(ServiceInterface::class);
         $group   = $this->testICanInitGroupOfLights($service);
 
-        /** @var \IKEA\Tradfri\Device\LightBulb|\Mockery\MockInterface $light */
+        /** @var \IKEA\Tradfri\Device\LightBulb|Mockery\MockInterface $light */
         $light = Mockery::mock(\IKEA\Tradfri\Device\LightBulb::class);
         $light->shouldReceive('getId')->andReturn(100);
         $light->shouldReceive('getTypeEnum')->andReturn(\IKEA\Tradfri\Values\DeviceType::BLUB);

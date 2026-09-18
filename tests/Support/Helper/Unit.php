@@ -16,7 +16,6 @@ namespace IKEA\Tests\Support\Helper;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-use IKEA\Tradfri\Dto\CoapResponse\DeviceDto;
 use IKEA\Tradfri\Serializer\JsonDeviceDataSerializer;
 use IKEA\Tradfri\Util\JsonIntTypeNormalizer;
 use Symfony\Component\Finder\Finder;
@@ -35,7 +34,7 @@ final class Unit extends \Codeception\Module
     }
 
     /**
-     * @phpstan-return iterable<DeviceDto>
+     * @phpstan-return iterable<\IKEA\Tradfri\Dto\CoapResponse\DeviceDto>
      */
     public function getDevicesDTOs(): iterable
     {
@@ -47,8 +46,8 @@ final class Unit extends \Codeception\Module
 
         foreach ($finder->files() as $file) {
             yield $jsonDeviceDataSerializer->deserialize(
-                $normalizer($file->getContents(), DeviceDto::class),
-                DeviceDto::class,
+                $normalizer($file->getContents(), \IKEA\Tradfri\Dto\CoapResponse\DeviceDto::class),
+                \IKEA\Tradfri\Dto\CoapResponse\DeviceDto::class,
                 $jsonDeviceDataSerializer::FORMAT,
             );
         }

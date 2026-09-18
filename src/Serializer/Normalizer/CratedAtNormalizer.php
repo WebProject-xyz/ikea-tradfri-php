@@ -32,7 +32,7 @@ final class CratedAtNormalizer implements DenormalizerInterface, LoggerAwareInte
     /**
      * @phpstan-param array<string, mixed> $context
      *
-     * @phpstan-return null|array<mixed>|\ArrayObject<array-key, mixed>|bool|float|int|string
+     * @phpstan-return null|array<mixed>|ArrayObject<array-key, mixed>|bool|float|int|string
      */
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|ArrayObject|bool|float|int|string|null
     {
