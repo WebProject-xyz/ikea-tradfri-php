@@ -20,7 +20,7 @@ jobs:
     with:
       php-version: "8.5"
       coverage-path: "build/logs/"
-      with-codacy: true
+      with-codacy: false
       with-codecov: true
       test-matrix: |
         [
